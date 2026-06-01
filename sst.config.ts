@@ -11,6 +11,25 @@ export default $config({
     };
   },
   async run() {
+    const dbPassword = new sst.Secret("DBPassword");
+
+    const api = new sst.aws.ApiGatewayV2("Api", {
+      cors: {
+        allowOrigins: ["*"],
+        allowMethods: ["GET"],
+      },
+    });
+
+    api.route("GET /battle", "src/functions/battle.handler", {
+      environment: {
+        DB_HOST: "aws-1-ap-northeast-1.pooler.supabase.com",
+        DB_PORT: "6543",
+        DB_NAME: "postgres",
+        DB_USER: "postgres.ceyqewaixcijbmdtbdlr",
+        DB_PASSWORD: dbPassword.value,
+      },
+    });
+
     new sst.aws.StaticSite("WebApp", {
       path: "web/",
       build: {
@@ -19,7 +38,8 @@ export default $config({
       },
       environment: {
         VITE_SUPABASE_URL: "https://ceyqewaixcijbmdtbdlr.supabase.co",
-        VITE_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNleXFld2FpeGNpamJtZHRiZGxyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMTM4MDcsImV4cCI6MjA5NTg4OTgwN30.gW5MKzdMMUrzGq--NekVSsJT07KlQ_O0skrRjSHKcbg",
+        VITE_SUPABASE_ANON_KEY: "eyJhbG...Kcbg",
+        VITE_API_URL: api.url,
       },
     });
   },

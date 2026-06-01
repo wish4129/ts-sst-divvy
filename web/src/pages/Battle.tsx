@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { Trophy, TrendingUp, TrendingDown, Shield, Zap, Scale, RefreshCw } from 'lucide-react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
 
+const API_URL = import.meta.env.VITE_API_URL || ''
+
 interface StockHolding {
   shares: number
   cost: number
@@ -18,9 +20,9 @@ interface PersonaSnapshot {
   invested: number
   cash: number
   pnl: number
-  pnl_pct: number
+  pnlPct: number
   holdings: Record<string, StockHolding>
-  trades_this_run: number
+  tradesThisRun: number
 }
 
 interface RunRecord {
@@ -28,8 +30,10 @@ interface RunRecord {
   personas: Record<string, PersonaSnapshot>
 }
 
-interface HistoryData {
+interface BattleData {
   runs: RunRecord[]
+  personas: Record<string, { cash: number; holdings: Record<string, { shares: number; cost: number }> }>
+  trades: any[]
 }
 
 interface PersonaDef {
@@ -52,17 +56,34 @@ function formatRM(n: number) { return `RM ${n.toLocaleString('en-MY', { minimumF
 function pctStr(n: number) { return `${n >= 0 ? '+' : ''}${n.toFixed(2)}%` }
 
 export default function Battle() {
-  const [data, setData] = useState<HistoryData | null>(null)
+  const [data, setData] = useState<BattleData | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch('/portfolio_history.json')
-      .then(r => r.json())
-      .then(d => { setData(d); setLoading(false) })
-      .catch(() => setLoading(false))
+    const fetchBattle = async () => {
+      try {
+        const url = API_URL ? `${API_URL}/battle` : '/portfolio_history.json'
+        const res = await fetch(url)
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const d = await res.json()
+        setData(d)
+      } catch (e: any) {
+        setError(e.message)
+        // Fallback: try static file
+        try {
+          const res = await fetch('/portfolio_history.json')
+          if (res.ok) setData(await res.json())
+        } catch {}
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchBattle()
   }, [])
 
   if (loading) return <Loading />
+  if (error && !data) return <Error msg={error} />
   if (!data || !data.runs.length) return <Empty />
 
   const latest = data.runs[data.runs.length - 1]
@@ -72,22 +93,24 @@ export default function Battle() {
   }))
 
   const ranked = Object.entries(latest.personas)
-    .sort((a, b) => b[1].pnl_pct - a[1].pnl_pct)
+    .sort((a, b) => b[1].pnlPct - a[1].pnlPct)
 
   const medals = ['🥇', '🥈', '🥉']
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-950 to-gray-900 text-gray-100">
       <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Header */}
         <div className="text-center mb-10">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-amber-400 to-yellow-300 bg-clip-text text-transparent">
             ⚔️ Portfolio Battle
           </h1>
           <p className="text-gray-400 mt-2">RM10,000 each · Hourly rebalance · Mon-Fri 9am-5pm</p>
+          <div className="flex items-center justify-center gap-1 mt-1 text-xs text-gray-600">
+            <RefreshCw className="w-3 h-3" />
+            Data from {API_URL ? 'live API' : 'static file'}
+          </div>
         </div>
 
-        {/* Leaderboard */}
         <div className="grid grid-cols-3 gap-4 mb-10">
           {ranked.map(([pid, snap], i) => {
             const p = PERSONAS[pid]
@@ -112,9 +135,9 @@ export default function Battle() {
                   <Icon className={`w-6 h-6 ${isWinner ? 'text-yellow-400' : 'text-gray-500'}`} />
                 </div>
                 <div className="text-3xl font-mono font-bold">{formatRM(snap.total)}</div>
-                <div className={`flex items-center gap-1 mt-1 text-lg font-mono ${snap.pnl_pct >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-                  {snap.pnl_pct >= 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
-                  {pctStr(snap.pnl_pct)}
+                <div className={`flex items-center gap-1 mt-1 text-lg font-mono ${snap.pnlPct >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                  {snap.pnlPct >= 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
+                  {pctStr(snap.pnlPct)}
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
                   Cash: {formatRM(snap.cash)} · {Object.keys(snap.holdings).length} holdings
@@ -125,7 +148,6 @@ export default function Battle() {
           })}
         </div>
 
-        {/* Chart */}
         <div className="bg-gray-800/30 rounded-xl p-6 border border-gray-700 mb-10">
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-emerald-400" />
@@ -149,7 +171,6 @@ export default function Battle() {
           </ResponsiveContainer>
         </div>
 
-        {/* Holdings Detail */}
         {ranked.map(([pid, snap]) => (
           <div key={pid} className="mb-8">
             <h3 className="text-lg font-semibold mb-3 flex items-center gap-2" style={{ color: COLORS[pid] }}>
@@ -188,7 +209,6 @@ export default function Battle() {
           </div>
         ))}
 
-        {/* Refresh info */}
         <div className="text-center text-xs text-gray-600 mt-8 flex items-center justify-center gap-1">
           <RefreshCw className="w-3 h-3" />
           Last update: {new Date(latest.timestamp).toLocaleString('en-MY')}
@@ -216,6 +236,16 @@ function Empty() {
         <Trophy className="w-12 h-12 text-gray-600 mx-auto mb-4" />
         <p className="text-gray-400">No battle data yet</p>
         <p className="text-gray-600 text-sm mt-1">First run starts at next market hour</p>
+      </div>
+    </div>
+  )
+}
+
+function Error({ msg }: { msg: string }) {
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gray-950">
+      <div className="text-center">
+        <p className="text-red-400">Error loading data: {msg}</p>
       </div>
     </div>
   )
