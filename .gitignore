@@ -8,3 +8,4 @@ data/divvy.db-shm
 data/divvy.db-wal
 .env
 __pycache__/
+web/dist/

@@ -3,37 +3,150 @@
   "initial_capital": 10000,
   "last_rebalance": "2026-06-01T18:30:00+08:00",
   "stocks": {
-    "MAYBANK":  {"code": "1155.KL", "name": "Malayan Banking",    "industry": "Banking",      "initial": 9.85},
-    "YTLPOWR": {"code": "6742.KL", "name": "YTL Power",          "industry": "Utilities",    "initial": 3.95},
-    "AXREIT":  {"code": "5106.KL", "name": "Axis REIT",          "industry": "REIT",         "initial": 1.82},
-    "INSAS":   {"code": "3379.KL", "name": "INSAS Berhad",       "industry": "Investment",   "initial": 0.89},
-    "LIIHEN":  {"code": "7089.KL", "name": "Lii Hen Industries", "industry": "Furniture",    "initial": 0.95},
-    "SCIENTEX":{"code": "4731.KL", "name": "Scientex Berhad",    "industry": "Packaging",    "initial": 4.15},
-    "GENETEC": {"code": "0104.KL", "name": "Genetec Technology", "industry": "Industrial",   "initial": 1.52, "kronos_warning": "BEARISH -18.9% — removed from active, review Jun 15"},
-    "KLK":     {"code": "2445.KL", "name": "KL Kepong",          "industry": "Plantation",   "initial": 20.50},
-    "INARI":   {"code": "0166.KL", "name": "Inari Amertron",     "industry": "Semiconductor","initial": 3.05, "kronos_warning": "BEARISH -40.2% — removed from active, review Jun 15"},
-    "SIME":    {"code": "4197.KL", "name": "Sime Darby",         "industry": "Conglomerate", "initial": 2.38},
-    "MAGNI":   {"code": "7087.KL", "name": "Magni-Tech Industries", "industry": "Consumer Products & Services", "initial": 1.86, "added": "2026-06-01", "kronos": "+10.3%"},
-    "MBMR":    {"code": "5983.KL", "name": "MBM Resources",         "industry": "Automotive", "initial": 5.07, "added": "2026-06-01", "kronos": "+1.0%"},
-    "AME":     {"code": "5293.KL", "name": "AME Elite Consortium",   "industry": "Construction", "initial": 1.50, "added": "2026-06-01", "kronos": "+2.0%"},
-    "DELEUM":  {"code": "5132.KL", "name": "Deleum Berhad",          "industry": "Energy",    "initial": 1.22, "added": "2026-06-01", "kronos": "+8.0%"},
-    "WASCO":   {"code": "5142.KL", "name": "Wasco Berhad",           "industry": "Energy",    "initial": 0.80, "added": "2026-06-01", "kronos": "+27.4%"},
-    "KIPREIT": {"code": "5280.KL", "name": "KIP Real Estate Investment Trust", "industry": "REIT", "initial": 0.85, "added": "2026-06-01", "kronos": "+0.1%"},
-    "INTA":    {"code": "INTA.KL", "name": "INTA Berhad",            "industry": "Construction", "initial": 0.38, "added": "2026-06-01", "kronos": "+0.3%"}
+    "MAYBANK": {
+      "code": "1155.KL",
+      "name": "Malayan Banking",
+      "industry": "Banking",
+      "initial": 9.85
+    },
+    "YTLPOWR": {
+      "code": "6742.KL",
+      "name": "YTL Power",
+      "industry": "Utilities",
+      "initial": 3.95
+    },
+    "AXREIT": {
+      "code": "5106.KL",
+      "name": "Axis REIT",
+      "industry": "REIT",
+      "initial": 1.82
+    },
+    "INSAS": {
+      "code": "3379.KL",
+      "name": "INSAS Berhad",
+      "industry": "Investment",
+      "initial": 0.89
+    },
+    "LIIHEN": {
+      "code": "7089.KL",
+      "name": "Lii Hen Industries",
+      "industry": "Furniture",
+      "initial": 0.95
+    },
+    "SCIENTEX": {
+      "code": "4731.KL",
+      "name": "Scientex Berhad",
+      "industry": "Packaging",
+      "initial": 4.15
+    },
+    "GENETEC": {
+      "code": "0104.KL",
+      "name": "Genetec Technology",
+      "industry": "Industrial",
+      "initial": 1.52,
+      "kronos_warning": "BEARISH -18.9% \u2014 removed from active, review Jun 15"
+    },
+    "KLK": {
+      "code": "2445.KL",
+      "name": "KL Kepong",
+      "industry": "Plantation",
+      "initial": 20.5
+    },
+    "SIME": {
+      "code": "4197.KL",
+      "name": "Sime Darby",
+      "industry": "Conglomerate",
+      "initial": 2.38
+    },
+    "MAGNI": {
+      "code": "7087.KL",
+      "name": "Magni-Tech Industries",
+      "industry": "Consumer Products & Services",
+      "initial": 1.86,
+      "added": "2026-06-01",
+      "kronos": "+10.3%"
+    },
+    "MBMR": {
+      "code": "5983.KL",
+      "name": "MBM Resources",
+      "industry": "Automotive",
+      "initial": 5.07,
+      "added": "2026-06-01",
+      "kronos": "+1.0%"
+    },
+    "AME": {
+      "code": "5293.KL",
+      "name": "AME Elite Consortium",
+      "industry": "Construction",
+      "initial": 1.5,
+      "added": "2026-06-01",
+      "kronos": "+2.0%"
+    },
+    "DELEUM": {
+      "code": "5132.KL",
+      "name": "Deleum Berhad",
+      "industry": "Energy",
+      "initial": 1.22,
+      "added": "2026-06-01",
+      "kronos": "+8.0%"
+    },
+    "WASCO": {
+      "code": "5142.KL",
+      "name": "Wasco Berhad",
+      "industry": "Energy",
+      "initial": 0.8,
+      "added": "2026-06-01",
+      "kronos": "+27.4%"
+    },
+    "KIPREIT": {
+      "code": "5280.KL",
+      "name": "KIP Real Estate Investment Trust",
+      "industry": "REIT",
+      "initial": 0.85,
+      "added": "2026-06-01",
+      "kronos": "+0.1%"
+    },
+    "INTA": {
+      "code": "INTA.KL",
+      "name": "INTA Berhad",
+      "industry": "Construction",
+      "initial": 0.38,
+      "added": "2026-06-01",
+      "kronos": "+0.3%"
+    }
   },
   "personas": {
     "ares": {
       "name": "Ares",
       "god": "God of War",
       "style": "Aggressive",
-      "strategy": "Strike fast. Momentum + deep value. Max 25% single bet. Cut losers at -12%, momentum-cool: -5% intraday → trim 25%. No take-profit — let compounders run. High conviction, high turnover.",
+      "strategy": "Strike fast. Momentum + deep value. Max 25% single bet. Cut losers at -12%, momentum-cool: -5% intraday \u2192 trim 25%. No take-profit \u2014 let compounders run. High conviction, high turnover.",
       "holdings": {
-        "WASCO":   {"shares": 3125, "cost": 0.80, "target_pct": 25},
-        "YTLPOWR": {"shares": 760,  "cost": 3.95, "target_pct": 25},
-        "INSAS":   {"shares": 2250, "cost": 0.89, "target_pct": 20},
-        "DELEUM":  {"shares": 1229, "cost": 1.22, "target_pct": 15},
-        "LIIHEN":  {"shares": 1050, "cost": 0.95, "target_pct": 10},
-        "MAYBANK": {"shares": 50,   "cost": 9.85, "target_pct": 5}
+        "WASCO": {
+          "shares": 3100,
+          "cost": 0.8,
+          "target_pct": 25
+        },
+        "YTLPOWR": {
+          "shares": 700,
+          "cost": 3.95,
+          "target_pct": 25
+        },
+        "INSAS": {
+          "shares": 2200,
+          "cost": 0.89,
+          "target_pct": 20
+        },
+        "DELEUM": {
+          "shares": 1200,
+          "cost": 1.22,
+          "target_pct": 15
+        },
+        "LIIHEN": {
+          "shares": 1000,
+          "cost": 0.95,
+          "target_pct": 10
+        }
       },
       "rules": {
         "stop_loss": -0.12,
@@ -55,21 +168,44 @@
       "style": "Conservative",
       "strategy": "Steady harvest. Dividend compounding. Trim if DY drops <3% (price ran too far). 10% cash buffer (FD 3% p.a.). Only sell on dividend cut >20%. Tight 10% rebalance.",
       "holdings": {
-        "MAYBANK":  {"shares": 253,  "cost": 9.85, "target_pct": 25},
-        "AXREIT":   {"shares": 1098, "cost": 1.82, "target_pct": 20},
-        "KLK":      {"shares": 73,   "cost": 20.50,"target_pct": 15},
-        "KIPREIT":  {"shares": 1176, "cost": 0.85, "target_pct": 10},
-        "SCIENTEX": {"shares": 240,  "cost": 4.15, "target_pct": 10},
-        "MAGNI":    {"shares": 537,  "cost": 1.86, "target_pct": 10},
-        "SIME":     {"shares": 420,  "cost": 2.38, "target_pct": 10}
+        "MAYBANK": {
+          "shares": 200,
+          "cost": 9.85,
+          "target_pct": 25
+        },
+        "AXREIT": {
+          "shares": 1000,
+          "cost": 1.82,
+          "target_pct": 20
+        },
+        "KIPREIT": {
+          "shares": 1100,
+          "cost": 0.85,
+          "target_pct": 10
+        },
+        "SCIENTEX": {
+          "shares": 200,
+          "cost": 4.15,
+          "target_pct": 10
+        },
+        "MAGNI": {
+          "shares": 500,
+          "cost": 1.86,
+          "target_pct": 10
+        },
+        "SIME": {
+          "shares": 400,
+          "cost": 2.38,
+          "target_pct": 10
+        }
       },
       "rules": {
         "stop_loss": null,
         "take_profit": null,
         "max_single_position": 0.35,
         "min_stocks": 4,
-        "rebalance_drift": 0.10,
-        "cash_buffer": 0.10,
+        "rebalance_drift": 0.1,
+        "cash_buffer": 0.1,
         "dividend_reinvest": true,
         "sell_trigger": "dividend_cut_20pct",
         "fd_rate": 0.03,
@@ -82,26 +218,45 @@
       "style": "Hybrid",
       "strategy": "Tactical GARP. Sell 50% @ +25%, full exit @ +40%. Buy 50% dip @ -10% (once/month max). Rotate defensive/cyclical. Max 30% single bet.",
       "holdings": {
-        "MAYBANK":  {"shares": 203,  "cost": 9.85, "target_pct": 20},
-        "YTLPOWR": {"shares": 506,  "cost": 3.95, "target_pct": 20},
-        "AXREIT":   {"shares": 825,  "cost": 1.82, "target_pct": 15},
-        "AME":      {"shares": 1000, "cost": 1.50, "target_pct": 15},
-        "SCIENTEX": {"shares": 361,  "cost": 4.15, "target_pct": 15},
-        "KLK":      {"shares": 73,   "cost": 20.50,"target_pct": 15}
+        "MAYBANK": {
+          "shares": 200,
+          "cost": 9.85,
+          "target_pct": 20
+        },
+        "YTLPOWR": {
+          "shares": 500,
+          "cost": 3.95,
+          "target_pct": 20
+        },
+        "AXREIT": {
+          "shares": 800,
+          "cost": 1.82,
+          "target_pct": 15
+        },
+        "AME": {
+          "shares": 1000,
+          "cost": 1.5,
+          "target_pct": 15
+        },
+        "SCIENTEX": {
+          "shares": 300,
+          "cost": 4.15,
+          "target_pct": 15
+        }
       },
       "rules": {
-        "stop_loss": -0.10,
+        "stop_loss": -0.1,
         "take_profit": 0.25,
-        "take_profit_sell_pct": 0.50,
-        "max_single_position": 0.30,
+        "take_profit_sell_pct": 0.5,
+        "max_single_position": 0.3,
         "min_stocks": 5,
-        "rebalance_drift": 0.10,
-        "dip_buy_threshold": -0.10,
-        "dip_buy_pct": 0.50,
+        "rebalance_drift": 0.1,
+        "dip_buy_threshold": -0.1,
+        "dip_buy_pct": 0.5,
         "cash_buffer": 0.0,
         "dividend_reinvest": true,
         "defensive_cyclical_rotation": true,
-        "full_exit_threshold": 0.40,
+        "full_exit_threshold": 0.4,
         "dip_buy_cooldown_days": 30
       }
     }
