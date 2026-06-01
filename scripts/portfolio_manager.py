@@ -315,12 +315,12 @@ def fetch_prices(tickers):
 
 # ── Portfolio math ─────────────────────────────────────────────────
 
-def calc_portfolio_value(holdings, prices, cash):
+def calc_portfolio_value(holdings, prices, cash, initial_capital=10000):
     total_invested = sum(h["shares"] * h["cost"] for h in holdings.values())
     total_current = sum(h["shares"] * prices.get(name, h["cost"]) for name, h in holdings.items())
     total = total_current + cash
-    pnl = total - 10000
-    pnl_pct = (pnl / 10000) * 100
+    pnl = total - initial_capital
+    pnl_pct = (pnl / initial_capital) * 100 if initial_capital > 0 else 0
 
     stocks_pnl = {}
     for name, h in holdings.items():
@@ -546,7 +546,7 @@ def main():
                      "holdings": {k: v.copy() for k, v in persona["holdings"].items()},
                      "trade_log": []}
 
-            snapshot = calc_portfolio_value(state["holdings"], prices, state["cash"])
+            snapshot = calc_portfolio_value(state["holdings"], prices, state["cash"], persona["initial_capital"])
             engine = TRADE_ENGINES.get(pid)
             trades = engine(persona, prices, snapshot, stock_map, prev_prices, forecasts) if engine else []
 

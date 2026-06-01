@@ -123,31 +123,31 @@
       "strategy": "Momentum + deep value. 6 stocks. Cut -12%. Kronos-driven momentum cooling. SIME added for conglomerate value, MAYBANK restored as anchor.",
       "holdings": {
         "WASCO": {
-          "shares": 3100,
+          "shares": 2800,
           "cost": 0.795,
           "target_pct": 25,
           "note": "Kronos +14.4% \u2014 strongest momentum"
         },
         "YTLPOWR": {
-          "shares": 700,
+          "shares": 600,
           "cost": 4.16,
           "target_pct": 22,
           "note": "Revenue growth 22%, Kronos -10.5%"
         },
         "INSAS": {
-          "shares": 2200,
+          "shares": 2000,
           "cost": 0.895,
           "target_pct": 18,
           "note": "Investment holding, NAV discount play"
         },
         "DELEUM": {
-          "shares": 1200,
+          "shares": 1000,
           "cost": 1.22,
           "target_pct": 13,
           "note": "Kronos +7.3%, DY 8.7% \u2014 energy momentum"
         },
         "SIME": {
-          "shares": 500,
+          "shares": 400,
           "cost": 2.08,
           "target_pct": 12,
           "note": "NEW: Conglomerate value, #4 score, DY 6.25%"
@@ -171,7 +171,9 @@
         "value_weight": 0.4,
         "momentum_cooling_threshold": -0.05,
         "momentum_cooling_trim": 0.25
-      }
+      },
+      "initial_capital": 10000,
+      "cash": 10000
     },
     "demeter": {
       "name": "Demeter",
@@ -233,7 +235,9 @@
         "sell_trigger": "dividend_cut_20pct",
         "fd_rate": 0.03,
         "min_dividend_yield": 0.03
-      }
+      },
+      "initial_capital": 10000,
+      "cash": 10000
     },
     "athena": {
       "name": "Athena",
@@ -292,7 +296,9 @@
         "defensive_cyclical_rotation": true,
         "full_exit_threshold": 0.4,
         "dip_buy_cooldown_days": 30
-      }
+      },
+      "initial_capital": 10000,
+      "cash": 10000
     }
   }
 }
