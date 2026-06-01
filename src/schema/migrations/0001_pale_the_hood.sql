@@ -1,0 +1,1 @@
+ALTER TABLE "portfolio_holdings" ADD CONSTRAINT "uq_holding" UNIQUE("portfolio_id","stock_id");

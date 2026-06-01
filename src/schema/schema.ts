@@ -75,6 +75,7 @@ export const portfolioHoldings = pgTable('portfolio_holdings', {
   avgCost: numeric('avg_cost').notNull(),
   targetPct: numeric('target_pct').notNull(),
 }, (table) => [
+  unique('uq_holding').on(table.portfolioId, table.stockId),
 ]);
 
 // ── Trades — full decision trail 🔑 ──

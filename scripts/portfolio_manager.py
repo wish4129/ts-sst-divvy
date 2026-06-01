@@ -64,6 +64,13 @@ KEVIN_USER_ID = _get_kevin_user_id()
 
 def load_portfolios_from_db(db, cur):
     """Load all 3 persona portfolios with holdings from Postgres."""
+    # Build stock_id → short_name map from portfolios.json
+    try:
+        pf = json.loads(PORTFOLIOS_PATH.read_text())
+        code_to_name = {info['code']: sn for sn, info in pf.get('stocks', {}).items()}
+    except Exception:
+        code_to_name = {}
+
     portfolios = {}
     cur.execute("SELECT * FROM user_portfolios WHERE user_id=%s ORDER BY persona", (KEVIN_USER_ID,))
     for row in cur.fetchall():
@@ -75,7 +82,8 @@ def load_portfolios_from_db(db, cur):
             (row['id'],)
         )
         for h in cur.fetchall():
-            holdings[h['stock_name']] = {
+            short = code_to_name.get(h['stock_id'], h['stock_name'])
+            holdings[short] = {
                 'shares': h['shares'], 'cost': float(h['avg_cost']),
                 'target_pct': float(h['target_pct']),
             }
@@ -102,19 +110,26 @@ def load_stock_map(db, cur):
         pf_stocks = {}
 
     stock_map = {}
+    # Pre-build from portfolios.json first (source of truth for short names)
+    for sn, info in pf_stocks.items():
+        stock_map[sn] = {
+            'code': info['code'],
+            'name': info['name'],
+            'industry': info.get('industry', ''),
+            'initial': info['initial'],
+        }
+    
+    # Enrich with DB data where available
     cur.execute("SELECT * FROM stocks WHERE status != 'removed'")
     for row in cur.fetchall():
-        short_name = row['name']
+        # Find the short name for this code
         for sn, info in pf_stocks.items():
             if info.get('code') == row['id']:
-                short_name = sn
+                if sn in stock_map:
+                    stock_map[sn]['industry'] = row['industry'] or stock_map[sn]['industry']
+                    stock_map[sn]['initial'] = float(row['initial_price'])
                 break
-        stock_map[short_name] = {
-            'code': row['id'],
-            'name': row['name'],
-            'industry': row['industry'] or '',
-            'initial': float(row['initial_price']),
-        }
+    
     return stock_map
 
 
