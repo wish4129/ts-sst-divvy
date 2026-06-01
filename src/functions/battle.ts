@@ -1,17 +1,33 @@
 import { APIGatewayProxyHandlerV2 } from "aws-lambda";
-import { db } from "../db";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
+import * as schema from "../schema/schema";
 import { userPortfolios, portfolioHoldings, stocks, portfolioSnapshots, trades } from "../schema/schema";
 import { eq, desc } from "drizzle-orm";
 
+// Connection pooler — explicit options (postgres-js URL parser splits username on '.')
+const client = postgres({
+    host: "aws-1-ap-northeast-1.pooler.supabase.com",
+    port: 6543,
+    database: "postgres",
+    username: "postgres.ceyqewaixcijbmdtbdlr",
+    password: process.env.DB_PASSWORD!,
+    ssl: "require",
+    max: 1,
+    idle_timeout: 10,
+    connect_timeout: 30,
+    prepare: false,
+    transform: { undefined: null },
+});
+const db = drizzle(client, { schema });
+
 export const handler: APIGatewayProxyHandlerV2 = async () => {
   try {
-    // Get all portfolios for user
     const portfolios = await db
       .select()
       .from(userPortfolios)
       .orderBy(userPortfolios.persona);
 
-    // Get all holdings with stock names
     const holdings = await db
       .select({
         portfolioId: portfolioHoldings.portfolioId,
@@ -24,32 +40,12 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
       .from(portfolioHoldings)
       .leftJoin(stocks, eq(portfolioHoldings.stockId, stocks.id));
 
-    // Get latest snapshot per portfolio
     const latestSnapshots = await db
       .select()
       .from(portfolioSnapshots)
       .orderBy(desc(portfolioSnapshots.snapshotAt))
       .limit(50);
 
-    // Get recent trades
-    const recentTrades = await db
-      .select({
-        id: trades.id,
-        portfolioId: trades.portfolioId,
-        stockId: trades.stockId,
-        action: trades.action,
-        shares: trades.shares,
-        price: trades.price,
-        totalAmount: trades.totalAmount,
-        reason: trades.reason,
-        decisionSource: trades.decisionSource,
-        executedAt: trades.executedAt,
-      })
-      .from(trades)
-      .orderBy(desc(trades.executedAt))
-      .limit(30);
-
-    // Build response
     const personaMap: Record<string, typeof portfolios[0]> = {};
     for (const pf of portfolios) {
       personaMap[pf.id] = pf;
@@ -66,7 +62,6 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
       };
     }
 
-    // Snapshots grouped by timestamp
     const snapByTime: Record<string, any> = {};
     for (const s of latestSnapshots) {
       const ts = s.snapshotAt?.toISOString() || "";
@@ -85,12 +80,10 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
       };
     }
 
-    // Convert to array sorted by time
     const runs = Object.values(snapByTime).sort(
       (a: any, b: any) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
     );
 
-    // Persona definitions
     const personaDefs: Record<string, any> = {};
     for (const pf of portfolios) {
       personaDefs[pf.persona] = {
@@ -103,22 +96,7 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-      body: JSON.stringify({
-        runs,
-        personas: personaDefs,
-        trades: recentTrades.map(t => ({
-          id: t.id,
-          portfolioId: t.portfolioId,
-          stockId: t.stockId,
-          action: t.action,
-          shares: t.shares,
-          price: Number(t.price),
-          total: Number(t.totalAmount),
-          reason: t.reason,
-          source: t.decisionSource,
-          time: t.executedAt?.toISOString(),
-        })),
-      }),
+      body: JSON.stringify({ runs, personas: personaDefs }),
     };
   } catch (error: any) {
     return {
