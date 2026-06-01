@@ -58,6 +58,12 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
       personaHoldings[pid][h.stockName || h.stockId] = {
         shares: h.shares,
         cost: Number(h.avgCost),
+        price: Number(h.avgCost),  // default to cost (no live prices in API)
+        invested: Math.round(h.shares * Number(h.avgCost) * 100) / 100,
+        current: Math.round(h.shares * Number(h.avgCost) * 100) / 100,
+        pnl: 0,
+        pnl_pct: 0,
+        weight: 0,
         targetPct: Number(h.targetPct),
       };
     }
