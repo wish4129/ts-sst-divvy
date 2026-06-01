@@ -35,14 +35,57 @@ def get_financial(stock_code, factor_name):
     f = FINANCIALS.get(stock_code, {})
 
     mapping = {
+        # Core financials
         "dividend_yield": f.get("dividend_yield_pct"),
         "pe_ratio": f.get("pe_ratio"),
         "pb_ratio": f.get("pb_ratio"),
-        "roe": f.get("roe_pct"),  # quarterly ROE — annualize in scoring
+        "roe": f.get("roe_pct"),
         "de_ratio": f.get("de_ratio"),
         "revenue_growth_yoy": f.get("revenue_growth_yoy_pct"),
-        "gross_margin": f.get("gross_margin_pct"),
+        "gross_margin": f.get("gross_margin") or f.get("gross_margin_pct"),
         "market_cap": f.get("market_cap_m"),
+        # Banking
+        "nim": f.get("nim"),
+        "casa_ratio": f.get("casa_ratio"),
+        "car": f.get("car"),
+        "npl_ratio": f.get("npl_ratio"),
+        "cost_income": f.get("cost_income"),
+        "loan_growth_yoy": f.get("loan_growth_yoy"),
+        # REIT
+        "occupancy": f.get("occupancy"),
+        "npi_yield": f.get("npi_yield"),
+        "gearing": f.get("gearing"),
+        "wale": f.get("wale"),
+        "property_diversity": f.get("property_diversity"),
+        # Plantation
+        "ffb_yield": f.get("ffb_yield"),
+        "production_cost": f.get("production_cost"),
+        "replanting_pct": f.get("replanting_pct"),
+        "landbank_age": f.get("landbank_age"),
+        "downstream_pct": f.get("downstream_pct"),
+        # Energy
+        "order_book": f.get("order_book"),
+        "utilization": f.get("utilization"),
+        "dcr": f.get("dcr"),
+        "revenue_visibility": f.get("revenue_visibility"),
+        # Construction
+        "tender_win_rate": f.get("tender_win_rate"),
+        # Automotive
+        "model_cycle": f.get("model_cycle"),
+        # Furniture
+        "export_pct": f.get("export_pct"),
+        # Conglomerate
+        "sop_discount": f.get("sop_discount"),
+        "capital_allocation": f.get("capital_allocation"),
+        # Investment
+        "nav_discount": f.get("nav_discount"),
+        "portfolio_quality": f.get("portfolio_quality"),
+        "cash_per_share": f.get("cash_per_share"),
+        # Utilities
+        "regulated_return": f.get("regulated_return"),
+        "capacity_growth": f.get("capacity_growth"),
+        # Semiconductor/Industrial
+        "customer_conc": f.get("customer_conc"),
     }
     return mapping.get(factor_name)
 

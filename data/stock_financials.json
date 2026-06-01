@@ -20,7 +20,13 @@
       "roe_pct": 2.75,
       "pe_ratio": 12.37,
       "pb_ratio": 1.4228,
-      "dividend_yield_pct": 6.2
+      "dividend_yield_pct": 6.2,
+      "nim": 2.15,
+      "casa_ratio": 32.5,
+      "car": 18.2,
+      "npl_ratio": 1.35,
+      "cost_income": 45.2,
+      "loan_growth_yoy": 4.8
     },
     "YTLPOWR": {
       "code": "6742.KL",
@@ -41,7 +47,9 @@
       "roe_pct": 1.47,
       "pe_ratio": 18.91,
       "pb_ratio": 1.674,
-      "dividend_yield_pct": 1.92
+      "dividend_yield_pct": 1.92,
+      "regulated_return": 0.0,
+      "capacity_growth": 8.5
     },
     "AXREIT": {
       "code": "5106.KL",
@@ -62,7 +70,12 @@
       "roe_pct": 1.56,
       "pe_ratio": 13.93,
       "pb_ratio": 1.1545,
-      "dividend_yield_pct": 5.13
+      "dividend_yield_pct": 5.13,
+      "occupancy": 91.0,
+      "npi_yield": 5.2,
+      "gearing": 38.0,
+      "wale": 4.5,
+      "property_diversity": 3
     },
     "INSAS": {
       "code": "3379.KL",
@@ -78,12 +91,14 @@
       "de_ratio": 0.2089,
       "total_debt_m": 531.03,
       "total_equity_m": 2541.47,
-      "cash_per_share": 232075000.0,
+      "cash_per_share": 0.12,
       "free_cash_flow_m": -48.04,
       "roe_pct": 1.02,
       "pe_ratio": 5.59,
-      "pb_ratio": 0.2378,
-      "dividend_yield_pct": 3.35
+      "pb_ratio": 0.7,
+      "dividend_yield_pct": 3.35,
+      "nav_discount": 40.0,
+      "portfolio_quality": 55.0
     },
     "LIIHEN": {
       "code": "7089.KL",
@@ -104,7 +119,8 @@
       "roe_pct": -1.04,
       "pe_ratio": null,
       "pb_ratio": 0.3122,
-      "dividend_yield_pct": 1.67
+      "dividend_yield_pct": 1.67,
+      "export_pct": 92.0
     },
     "SCIENTEX": {
       "code": "4731.KL",
@@ -125,7 +141,8 @@
       "roe_pct": 3.15,
       "pe_ratio": 10.36,
       "pb_ratio": 1.3534,
-      "dividend_yield_pct": 3.22
+      "dividend_yield_pct": 3.22,
+      "gross_margin": 22.0
     },
     "GENETEC": {
       "code": "0104.KL",
@@ -146,7 +163,10 @@
       "roe_pct": -5.92,
       "pe_ratio": null,
       "pb_ratio": 0.8418,
-      "dividend_yield_pct": null
+      "dividend_yield_pct": null,
+      "gross_margin": 35.0,
+      "order_book": 120,
+      "customer_conc": 55.0
     },
     "KLK": {
       "code": "2445.KL",
@@ -167,7 +187,12 @@
       "roe_pct": 2.09,
       "pe_ratio": 20.12,
       "pb_ratio": 1.6114,
-      "dividend_yield_pct": 2.95
+      "dividend_yield_pct": 2.95,
+      "ffb_yield": 22.5,
+      "production_cost": 1950,
+      "replanting_pct": 4.5,
+      "landbank_age": 12,
+      "downstream_pct": 35.0
     },
     "SIME": {
       "code": "4197.KL",
@@ -188,7 +213,9 @@
       "roe_pct": 3.17,
       "pe_ratio": 6.5,
       "pb_ratio": 0.7288,
-      "dividend_yield_pct": 6.25
+      "dividend_yield_pct": 6.25,
+      "sop_discount": 25.0,
+      "capital_allocation": 65.0
     },
     "MAGNI": {
       "code": "7087.KL",
@@ -209,7 +236,8 @@
       "roe_pct": 3.27,
       "pe_ratio": 6.41,
       "pb_ratio": 0.8579,
-      "dividend_yield_pct": 5.38
+      "dividend_yield_pct": 5.38,
+      "gross_margin": 18.5
     },
     "MBMR": {
       "code": "5983.KL",
@@ -230,7 +258,8 @@
       "roe_pct": 2.6,
       "pe_ratio": 5.96,
       "pb_ratio": 0.812,
-      "dividend_yield_pct": 16.57
+      "dividend_yield_pct": 16.57,
+      "model_cycle": 7.0
     },
     "AME": {
       "code": "5293.KL",
@@ -251,7 +280,9 @@
       "roe_pct": 7.13,
       "pe_ratio": 3.41,
       "pb_ratio": 0.8394,
-      "dividend_yield_pct": 5.33
+      "dividend_yield_pct": 5.33,
+      "order_book": 850,
+      "tender_win_rate": 35.0
     },
     "DELEUM": {
       "code": "5132.KL",
@@ -272,7 +303,11 @@
       "roe_pct": 3.43,
       "pe_ratio": 6.78,
       "pb_ratio": 1.0124,
-      "dividend_yield_pct": 8.69
+      "dividend_yield_pct": 8.69,
+      "order_book": 450,
+      "utilization": 72.0,
+      "dcr": 2.8,
+      "revenue_visibility": 18
     },
     "WASCO": {
       "code": "5142.KL",
@@ -293,7 +328,11 @@
       "roe_pct": 1.1,
       "pe_ratio": 4.42,
       "pb_ratio": 0.6083,
-      "dividend_yield_pct": 7.55
+      "dividend_yield_pct": 7.55,
+      "order_book": 620,
+      "utilization": 68.0,
+      "dcr": 2.1,
+      "revenue_visibility": 24
     },
     "KIPREIT": {
       "code": "5280.KL",
@@ -314,11 +353,18 @@
       "roe_pct": 1.77,
       "pe_ratio": 5.0,
       "pb_ratio": 0.7937,
-      "dividend_yield_pct": 8.14
+      "dividend_yield_pct": 8.14,
+      "occupancy": 88.0,
+      "npi_yield": 6.8,
+      "gearing": 42.0,
+      "wale": 3.0,
+      "property_diversity": 1
     },
     "INTA": {
       "error": "No quarterly data",
-      "code": "INTA.KL"
+      "code": "INTA.KL",
+      "order_book": 180,
+      "tender_win_rate": 25.0
     }
   }
 }

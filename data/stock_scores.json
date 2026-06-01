@@ -3,10 +3,249 @@
   "macro_date": null,
   "scores": [
     {
+      "code": "5293.KL",
+      "name": "AME Elite Consortium",
+      "industry": "Construction",
+      "composite": 73.7,
+      "macro_adjustment": 3.2,
+      "breakdown": {
+        "order_book": {
+          "value": 850,
+          "raw": 54.0,
+          "weighted": 15.1
+        },
+        "roe": {
+          "value": 7.13,
+          "raw": 100,
+          "weighted": 18.0
+        },
+        "de_ratio": {
+          "value": 0.52,
+          "raw": 84.3,
+          "weighted": 13.5
+        },
+        "tender_win_rate": {
+          "value": 35.0,
+          "raw": 35.0,
+          "weighted": 4.9
+        },
+        "revenue_growth_yoy": {
+          "value": 61.58,
+          "raw": 100,
+          "weighted": 14.0
+        },
+        "dividend_yield": {
+          "value": 5.33,
+          "raw": 50.0,
+          "weighted": 5.0
+        }
+      }
+    },
+    {
+      "code": "1155.KL",
+      "name": "Malayan Banking",
+      "industry": "Banking",
+      "composite": 70.8,
+      "macro_adjustment": 2.0,
+      "breakdown": {
+        "nim": {
+          "value": 2.15,
+          "raw": 51.2,
+          "weighted": 10.2
+        },
+        "loan_growth_yoy": {
+          "value": 4.8,
+          "raw": 48.0,
+          "weighted": 8.6
+        },
+        "casa_ratio": {
+          "value": 32.5,
+          "raw": 82.5,
+          "weighted": 12.4
+        },
+        "npl_ratio": {
+          "value": 1.35,
+          "raw": 89.8,
+          "weighted": 13.5
+        },
+        "car": {
+          "value": 18.2,
+          "raw": 95.5,
+          "weighted": 11.5
+        },
+        "dividend_yield": {
+          "value": 6.2,
+          "raw": 62.0,
+          "weighted": 7.4
+        },
+        "cost_income": {
+          "value": 45.2,
+          "raw": 64.4,
+          "weighted": 5.2
+        }
+      }
+    },
+    {
+      "code": "4197.KL",
+      "name": "Sime Darby",
+      "industry": "Conglomerate",
+      "composite": 69.2,
+      "macro_adjustment": 4.8,
+      "breakdown": {
+        "dividend_yield": {
+          "value": 6.25,
+          "raw": 62.5,
+          "weighted": 13.8
+        },
+        "roe": {
+          "value": 3.17,
+          "raw": 73.4,
+          "weighted": 14.7
+        },
+        "sop_discount": {
+          "value": 25.0,
+          "raw": 71.5,
+          "weighted": 12.9
+        },
+        "capital_allocation": {
+          "value": 65.0,
+          "raw": 63.8,
+          "weighted": 10.2
+        },
+        "de_ratio": {
+          "value": 0.43,
+          "raw": 88.7,
+          "weighted": 12.4
+        },
+        "revenue_growth_yoy": {
+          "value": -3.44,
+          "raw": 4.7,
+          "weighted": 0.5
+        }
+      }
+    },
+    {
+      "code": "5106.KL",
+      "name": "Axis REIT",
+      "industry": "REIT",
+      "composite": 66.1,
+      "macro_adjustment": 1.6,
+      "breakdown": {
+        "dividend_yield": {
+          "value": 5.13,
+          "raw": 47.0,
+          "weighted": 11.7
+        },
+        "occupancy": {
+          "value": 91.0,
+          "raw": 80.4,
+          "weighted": 16.1
+        },
+        "npi_yield": {
+          "value": 5.2,
+          "raw": 63.0,
+          "weighted": 11.3
+        },
+        "gearing": {
+          "value": 38.0,
+          "raw": 53.0,
+          "weighted": 8.0
+        },
+        "wale": {
+          "value": 4.5,
+          "raw": 82.5,
+          "weighted": 9.9
+        },
+        "property_diversity": {
+          "value": 3,
+          "raw": 75.0,
+          "weighted": 7.5
+        }
+      }
+    },
+    {
+      "code": "7087.KL",
+      "name": "Magni-Tech Industries",
+      "industry": "Consumer Products & Services",
+      "composite": 66.1,
+      "macro_adjustment": 3.4,
+      "breakdown": {
+        "dividend_yield": {
+          "value": 5.38,
+          "raw": 50.7,
+          "weighted": 11.2
+        },
+        "gross_margin": {
+          "value": 18.5,
+          "raw": 50.5,
+          "weighted": 10.1
+        },
+        "roe": {
+          "value": 3.27,
+          "raw": 75.4,
+          "weighted": 13.6
+        },
+        "de_ratio": {
+          "value": 0.0,
+          "raw": 100.0,
+          "weighted": 16.0
+        },
+        "revenue_growth_yoy": {
+          "value": 1.52,
+          "raw": 22.6,
+          "weighted": 3.2
+        },
+        "pe_ratio": {
+          "value": 6.41,
+          "raw": 87.5,
+          "weighted": 8.8
+        }
+      }
+    },
+    {
+      "code": "5280.KL",
+      "name": "KIP Real Estate Investment Trust",
+      "industry": "REIT",
+      "composite": 66.1,
+      "macro_adjustment": 1.6,
+      "breakdown": {
+        "dividend_yield": {
+          "value": 8.14,
+          "raw": 80.5,
+          "weighted": 20.1
+        },
+        "occupancy": {
+          "value": 88.0,
+          "raw": 72.8,
+          "weighted": 14.6
+        },
+        "npi_yield": {
+          "value": 6.8,
+          "raw": 87.0,
+          "weighted": 15.7
+        },
+        "gearing": {
+          "value": 42.0,
+          "raw": 37.0,
+          "weighted": 5.5
+        },
+        "wale": {
+          "value": 3.0,
+          "raw": 55.0,
+          "weighted": 6.6
+        },
+        "property_diversity": {
+          "value": 1,
+          "raw": 20.0,
+          "weighted": 2.0
+        }
+      }
+    },
+    {
       "code": "5983.KL",
       "name": "MBM Resources",
       "industry": "Automotive",
-      "composite": 63.1,
+      "composite": 63.9,
       "macro_adjustment": 3.0,
       "breakdown": {
         "dividend_yield": {
@@ -35,126 +274,9 @@
           "weighted": 13.0
         },
         "model_cycle": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        }
-      }
-    },
-    {
-      "code": "7087.KL",
-      "name": "Magni-Tech Industries",
-      "industry": "Consumer Products & Services",
-      "composite": 56.0,
-      "macro_adjustment": 3.4,
-      "breakdown": {
-        "dividend_yield": {
-          "value": 5.38,
-          "raw": 50.7,
-          "weighted": 11.2
-        },
-        "gross_margin": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "roe": {
-          "value": 3.27,
-          "raw": 75.4,
-          "weighted": 13.6
-        },
-        "de_ratio": {
-          "value": 0.0,
-          "raw": 100.0,
-          "weighted": 16.0
-        },
-        "revenue_growth_yoy": {
-          "value": 1.52,
-          "raw": 22.6,
-          "weighted": 3.2
-        },
-        "pe_ratio": {
-          "value": 6.41,
-          "raw": 87.5,
-          "weighted": 8.8
-        }
-      }
-    },
-    {
-      "code": "5293.KL",
-      "name": "AME Elite Consortium",
-      "industry": "Construction",
-      "composite": 53.7,
-      "macro_adjustment": 3.2,
-      "breakdown": {
-        "order_book": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "roe": {
-          "value": 7.13,
-          "raw": 100,
-          "weighted": 18.0
-        },
-        "de_ratio": {
-          "value": 0.52,
-          "raw": 84.3,
-          "weighted": 13.5
-        },
-        "tender_win_rate": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "revenue_growth_yoy": {
-          "value": 61.58,
-          "raw": 100,
-          "weighted": 14.0
-        },
-        "dividend_yield": {
-          "value": 5.33,
-          "raw": 50.0,
-          "weighted": 5.0
-        }
-      }
-    },
-    {
-      "code": "4197.KL",
-      "name": "Sime Darby",
-      "industry": "Conglomerate",
-      "composite": 46.1,
-      "macro_adjustment": 4.8,
-      "breakdown": {
-        "dividend_yield": {
-          "value": 6.25,
-          "raw": 62.5,
-          "weighted": 13.8
-        },
-        "roe": {
-          "value": 3.17,
-          "raw": 73.4,
-          "weighted": 14.7
-        },
-        "sop_discount": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "capital_allocation": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "de_ratio": {
-          "value": 0.43,
-          "raw": 88.7,
-          "weighted": 12.4
-        },
-        "revenue_growth_yoy": {
-          "value": -3.44,
-          "raw": 4.7,
-          "weighted": 0.5
+          "value": 7.0,
+          "raw": 7.0,
+          "weighted": 0.8
         }
       }
     },
@@ -162,7 +284,7 @@
       "code": "4731.KL",
       "name": "Scientex Berhad",
       "industry": "Packaging",
-      "composite": 45.7,
+      "composite": 56.7,
       "macro_adjustment": 3.0,
       "breakdown": {
         "dividend_yield": {
@@ -176,9 +298,9 @@
           "weighted": 14.6
         },
         "gross_margin": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
+          "value": 22.0,
+          "raw": 61.0,
+          "weighted": 11.0
         },
         "revenue_growth_yoy": {
           "value": 2.78,
@@ -198,65 +320,26 @@
       }
     },
     {
-      "code": "3379.KL",
-      "name": "INSAS Berhad",
-      "industry": "Investment",
-      "composite": 34.6,
-      "macro_adjustment": 2.6,
-      "breakdown": {
-        "dividend_yield": {
-          "value": 3.35,
-          "raw": 23.5,
-          "weighted": 5.2
-        },
-        "nav_discount": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "cash_per_share": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "pb_ratio": {
-          "value": 0.24,
-          "raw": 95.2,
-          "weighted": 14.3
-        },
-        "de_ratio": {
-          "value": 0.21,
-          "raw": 96.5,
-          "weighted": 12.5
-        },
-        "portfolio_quality": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        }
-      }
-    },
-    {
       "code": "5132.KL",
       "name": "Deleum Berhad",
       "industry": "Energy",
-      "composite": 27.6,
+      "composite": 53.7,
       "macro_adjustment": 3.4,
       "breakdown": {
         "order_book": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
+          "value": 450,
+          "raw": 37.5,
+          "weighted": 9.4
         },
         "utilization": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
+          "value": 72.0,
+          "raw": 72.0,
+          "weighted": 14.4
         },
         "dcr": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
+          "value": 2.8,
+          "raw": 2.8,
+          "weighted": 0.5
         },
         "dividend_yield": {
           "value": 8.69,
@@ -269,9 +352,9 @@
           "weighted": 11.8
         },
         "revenue_visibility": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
+          "value": 18,
+          "raw": 18.0,
+          "weighted": 1.8
         }
       }
     },
@@ -279,23 +362,23 @@
       "code": "5142.KL",
       "name": "Wasco Berhad",
       "industry": "Energy",
-      "composite": 24.8,
+      "composite": 52.4,
       "macro_adjustment": 3.4,
       "breakdown": {
         "order_book": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
+          "value": 620,
+          "raw": 44.8,
+          "weighted": 11.2
         },
         "utilization": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
+          "value": 68.0,
+          "raw": 68.0,
+          "weighted": 13.6
         },
         "dcr": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
+          "value": 2.1,
+          "raw": 2.1,
+          "weighted": 0.4
         },
         "dividend_yield": {
           "value": 7.55,
@@ -308,48 +391,87 @@
           "weighted": 10.1
         },
         "revenue_visibility": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
+          "value": 24,
+          "raw": 24.0,
+          "weighted": 2.4
         }
       }
     },
     {
-      "code": "5280.KL",
-      "name": "KIP Real Estate Investment Trust",
-      "industry": "REIT",
-      "composite": 21.7,
-      "macro_adjustment": 1.6,
+      "code": "3379.KL",
+      "name": "INSAS Berhad",
+      "industry": "Investment",
+      "composite": 49.3,
+      "macro_adjustment": 2.6,
       "breakdown": {
         "dividend_yield": {
-          "value": 8.14,
-          "raw": 80.5,
-          "weighted": 20.1
+          "value": 3.35,
+          "raw": 23.5,
+          "weighted": 5.2
         },
-        "occupancy": {
-          "value": null,
-          "raw": 0,
+        "nav_discount": {
+          "value": 40.0,
+          "raw": 50.0,
+          "weighted": 11.0
+        },
+        "cash_per_share": {
+          "value": 0.12,
+          "raw": 0.1,
           "weighted": 0.0
         },
-        "npi_yield": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
+        "pb_ratio": {
+          "value": 0.7,
+          "raw": 82.0,
+          "weighted": 12.3
         },
-        "gearing": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
+        "de_ratio": {
+          "value": 0.21,
+          "raw": 96.5,
+          "weighted": 12.5
         },
-        "wale": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
+        "portfolio_quality": {
+          "value": 55.0,
+          "raw": 56.2,
+          "weighted": 5.6
+        }
+      }
+    },
+    {
+      "code": "2445.KL",
+      "name": "KL Kepong",
+      "industry": "Plantation",
+      "composite": 42.5,
+      "macro_adjustment": 4.8,
+      "breakdown": {
+        "dividend_yield": {
+          "value": 2.95,
+          "raw": 19.5,
+          "weighted": 3.5
         },
-        "property_diversity": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
+        "ffb_yield": {
+          "value": 22.5,
+          "raw": 70.0,
+          "weighted": 15.4
+        },
+        "production_cost": {
+          "value": 1950,
+          "raw": 67.5,
+          "weighted": 12.2
+        },
+        "replanting_pct": {
+          "value": 4.5,
+          "raw": 4.5,
+          "weighted": 0.7
+        },
+        "landbank_age": {
+          "value": 12,
+          "raw": 12.0,
+          "weighted": 1.8
+        },
+        "downstream_pct": {
+          "value": 35.0,
+          "raw": 35.0,
+          "weighted": 4.2
         }
       }
     },
@@ -357,7 +479,7 @@
       "code": "7089.KL",
       "name": "Lii Hen Industries",
       "industry": "Furniture",
-      "composite": 20.8,
+      "composite": 39.6,
       "macro_adjustment": 3.0,
       "breakdown": {
         "dividend_yield": {
@@ -366,9 +488,9 @@
           "weighted": 1.7
         },
         "export_pct": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
+          "value": 92.0,
+          "raw": 94.0,
+          "weighted": 18.8
         },
         "gross_margin": {
           "value": 3.63,
@@ -396,7 +518,7 @@
       "code": "6742.KL",
       "name": "YTL Power",
       "industry": "Utilities",
-      "composite": 20.4,
+      "composite": 34.6,
       "macro_adjustment": 2.4,
       "breakdown": {
         "dividend_yield": {
@@ -405,14 +527,14 @@
           "weighted": 2.3
         },
         "regulated_return": {
-          "value": null,
-          "raw": 0,
+          "value": 0.0,
+          "raw": 0.0,
           "weighted": 0.0
         },
         "capacity_growth": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
+          "value": 8.5,
+          "raw": 78.8,
+          "weighted": 14.2
         },
         "de_ratio": {
           "value": 1.74,
@@ -428,128 +550,6 @@
           "value": 18.91,
           "raw": 33.3,
           "weighted": 2.7
-        }
-      }
-    },
-    {
-      "code": "5106.KL",
-      "name": "Axis REIT",
-      "industry": "REIT",
-      "composite": 13.3,
-      "macro_adjustment": 1.6,
-      "breakdown": {
-        "dividend_yield": {
-          "value": 5.13,
-          "raw": 47.0,
-          "weighted": 11.7
-        },
-        "occupancy": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "npi_yield": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "gearing": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "wale": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "property_diversity": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        }
-      }
-    },
-    {
-      "code": "1155.KL",
-      "name": "Malayan Banking",
-      "industry": "Banking",
-      "composite": 9.4,
-      "macro_adjustment": 2.0,
-      "breakdown": {
-        "nim": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "loan_growth_yoy": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "casa_ratio": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "npl_ratio": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "car": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "dividend_yield": {
-          "value": 6.2,
-          "raw": 62.0,
-          "weighted": 7.4
-        },
-        "cost_income": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        }
-      }
-    },
-    {
-      "code": "2445.KL",
-      "name": "KL Kepong",
-      "industry": "Plantation",
-      "composite": 8.3,
-      "macro_adjustment": 4.8,
-      "breakdown": {
-        "dividend_yield": {
-          "value": 2.95,
-          "raw": 19.5,
-          "weighted": 3.5
-        },
-        "ffb_yield": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "production_cost": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "replanting_pct": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "landbank_age": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
-        },
-        "downstream_pct": {
-          "value": null,
-          "raw": 0,
-          "weighted": 0.0
         }
       }
     },
