@@ -1,0 +1,56 @@
+time=2026-06-01T14:20:04.000+08:00 level=INFO msg="checking for pulumi" path="/Users/munkevin/Library/Application Support/sst/bin/pulumi"
+time=2026-06-01T14:20:04.977+08:00 level=INFO msg="checking for bun" path="/Users/munkevin/Library/Application Support/sst/bin/bun"
+time=2026-06-01T14:20:04.987+08:00 level=INFO msg="initializing project" version=3.19.3
+time=2026-06-01T14:20:04.987+08:00 level=INFO msg="esbuild building" out=/Users/munkevin/xiongit/divvy/.sst/platform/sst.config.1780294804987.mjs
+time=2026-06-01T14:20:04.990+08:00 level=INFO msg="esbuild built" outfile=/Users/munkevin/xiongit/divvy/.sst/platform/sst.config.1780294804987.mjs
+time=2026-06-01T14:20:04.991+08:00 level=INFO msg="evaluating config"
+time=2026-06-01T14:20:05.030+08:00 level=INFO msg="config evaluated"
+time=2026-06-01T14:20:05.031+08:00 level=INFO msg="checking platform"
+time=2026-06-01T14:20:05.031+08:00 level=INFO msg="loading home"
+time=2026-06-01T14:20:05.031+08:00 level=INFO msg="aws credentials found" region=ap-southeast-1 profile=""
+time=2026-06-01T14:20:05.031+08:00 level=INFO msg="fetching bootstrap"
+time=2026-06-01T14:20:05.179+08:00 level=INFO msg="found existing bootstrap" data="{\"version\":5,\"asset\":\"sst-asset-wcxteavuowkb\",\"assetEcrRegistryId\":\"581259440273\",\"assetEcrUrl\":\"581259440273.dkr.ecr.ap-southeast-1.amazonaws.com/sst-asset\",\"state\":\"sst-state-wcxteavuowkb\",\"appsyncHttp\":\"\",\"appsyncRealtime\":\"\"}"
+time=2026-06-01T14:20:05.179+08:00 level=INFO msg="loaded config" app=divvy stage=live
+time=2026-06-01T14:20:05.180+08:00 level=INFO msg="initializing ui" isTTY=false
+time=2026-06-01T14:20:05.180+08:00 level=INFO msg="server port assigned" port=13557
+time=2026-06-01T14:20:05.180+08:00 level=INFO msg=starting service=server
+time=2026-06-01T14:20:05.180+08:00 level=INFO msg="running stack command" service=project.run cmd=deploy
+time=2026-06-01T14:20:05.180+08:00 level=INFO msg="INFO locking app=divvy stage=live"
+time=2026-06-01T14:20:05.180+08:00 level=INFO msg="INFO getting data key=lock app=divvy stage=live"
+time=2026-06-01T14:20:05.181+08:00 level=INFO msg=server service=server addr=0.0.0.0:13557
+time=2026-06-01T14:20:05.182+08:00 level=INFO msg="server ready to accept connections" service=server
+time=2026-06-01T14:20:05.322+08:00 level=INFO msg="INFO putting update app=divvy stage=live"
+time=2026-06-01T14:20:05.390+08:00 level=INFO msg="INFO getting passphrase app=divvy stage=live"
+time=2026-06-01T14:20:05.512+08:00 level=INFO msg="INFO pulling state app=divvy stage=live out=/Users/munkevin/xiongit/divvy/.sst/pulumi/fe617e2919436d71ebc10f4b/.pulumi/stacks/divvy/live.json"
+time=2026-06-01T14:20:05.762+08:00 level=INFO msg="got previous deployment" service=project.run updateID=fe617e2919436d71ebc10f4b
+time=2026-06-01T14:20:05.762+08:00 level=INFO msg="esbuild building" out=/Users/munkevin/xiongit/divvy/.sst/platform/sst.config.1780294805509.mjs
+time=2026-06-01T14:20:05.789+08:00 level=INFO msg="esbuild built" outfile=/Users/munkevin/xiongit/divvy/.sst/platform/sst.config.1780294805509.mjs
+time=2026-06-01T14:20:05.794+08:00 level=INFO msg="built sst.config.ts" service=project.run updateID=fe617e2919436d71ebc10f4b to=/Users/munkevin/xiongit/divvy/.sst/platform/sst.config.1780294805509.mjs
+time=2026-06-01T14:20:05.796+08:00 level=INFO msg="tracked files" service=project.run updateID=fe617e2919436d71ebc10f4b
+time=2026-06-01T14:20:05.796+08:00 level=INFO msg="INFO getting data key=secret app=divvy stage=_fallback"
+time=2026-06-01T14:20:05.796+08:00 level=INFO msg="INFO getting data key=secret app=divvy stage=live"
+time=2026-06-01T14:20:05.868+08:00 level=INFO msg="starting pulumi" service=project.run updateID=fe617e2919436d71ebc10f4b args="[/Users/munkevin/Library/Application Support/sst/bin/pulumi up --yes -f --stack organization/divvy/live --non-interactive --event-log /Users/munkevin/xiongit/divvy/.sst/pulumi/fe617e2919436d71ebc10f4b/eventlog.json --config aws:defaultTags={\"tags\":{\"sst:app\":\"divvy\",\"sst:stage\":\"live\"}} --config aws:region=ap-southeast-1]"
+time=2026-06-01T14:20:08.521+08:00 level=INFO msg="INFO pushing partial state updateID=fe617e2919436d71ebc10f4b"
+time=2026-06-01T14:20:08.647+08:00 level=INFO msg="INFO pushing partial state updateID=fe617e2919436d71ebc10f4b"
+time=2026-06-01T14:20:09.005+08:00 level=INFO msg="rpc request" method=POST url=/rpc
+time=2026-06-01T14:20:09.031+08:00 level=INFO msg="INFO pushing partial state updateID=fe617e2919436d71ebc10f4b"
+time=2026-06-01T14:20:11.345+08:00 level=INFO msg="rpc request" method=POST url=/rpc
+time=2026-06-01T14:20:11.368+08:00 level=INFO msg="rpc request" method=POST url=/rpc
+time=2026-06-01T14:20:11.373+08:00 level=INFO msg="rpc request" method=POST url=/rpc
+time=2026-06-01T14:20:11.373+08:00 level=INFO msg="INFO pushing partial state updateID=fe617e2919436d71ebc10f4b"
+time=2026-06-01T14:21:52.237+08:00 level=INFO msg="pulumi exited" service=project.run updateID=fe617e2919436d71ebc10f4b err=<nil>
+time=2026-06-01T14:21:52.237+08:00 level=INFO msg="eof and exited" service=project.run updateID=fe617e2919436d71ebc10f4b eofs=0
+time=2026-06-01T14:21:52.237+08:00 level=INFO msg="INFO pushing partial state updateID=fe617e2919436d71ebc10f4b"
+time=2026-06-01T14:21:52.237+08:00 level=INFO msg="eof and exited" service=project.run updateID=fe617e2919436d71ebc10f4b eofs=1
+time=2026-06-01T14:21:52.237+08:00 level=INFO msg="breaking out of tail loop" service=project.run updateID=fe617e2919436d71ebc10f4b
+time=2026-06-01T14:21:52.237+08:00 level=INFO msg="parsing state" service=project.run updateID=fe617e2919436d71ebc10f4b
+time=2026-06-01T14:21:52.346+08:00 level=INFO msg="generating types" root=/Users/munkevin/xiongit/divvy
+time=2026-06-01T14:21:52.347+08:00 level=INFO msg="canceling partial" service=project.run updateID=fe617e2919436d71ebc10f4b
+time=2026-06-01T14:21:52.347+08:00 level=INFO msg="waiting for partial to exit" service=project.run updateID=fe617e2919436d71ebc10f4b
+time=2026-06-01T14:21:52.443+08:00 level=INFO msg="INFO pushing snapshot updateID=fe617e2919436d71ebc10f4b"
+time=2026-06-01T14:21:52.443+08:00 level=INFO msg="INFO pushing eventlog updateID=fe617e2919436d71ebc10f4b"
+time=2026-06-01T14:21:52.621+08:00 level=INFO msg="INFO putting update app=divvy stage=live"
+time=2026-06-01T14:21:52.702+08:00 level=INFO msg="done running stack command" service=project.run updateID=fe617e2919436d71ebc10f4b resources=20
+time=2026-06-01T14:21:52.712+08:00 level=INFO msg="INFO unlocking app=divvy stage=live"
+time=2026-06-01T14:21:52.796+08:00 level=INFO msg="shutting down server" service=server
+time=2026-06-01T14:21:52.797+08:00 level=INFO msg="server done" service=server

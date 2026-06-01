@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/sst-env.d.ts","./src/vite-env.d.ts","./src/components/header.tsx","./src/components/industryfilter.tsx","./src/components/scorebadge.tsx","./src/components/sparklinechart.tsx","./src/components/stockcard.tsx","./src/data/stocks.ts","./src/pages/home.tsx","./src/pages/stockdetail.tsx","./src/pages/watchlist.tsx"],"version":"5.9.3"}
