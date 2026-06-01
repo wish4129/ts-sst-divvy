@@ -120,32 +120,43 @@
       "name": "Ares",
       "god": "God of War",
       "style": "Aggressive",
-      "strategy": "Strike fast. Momentum + deep value. Max 25% single bet. Cut losers at -12%, momentum-cool: -5% intraday \u2192 trim 25%. No take-profit \u2014 let compounders run. High conviction, high turnover.",
+      "strategy": "Momentum + deep value. 6 stocks. Cut -12%. Kronos-driven momentum cooling. SIME added for conglomerate value, MAYBANK restored as anchor.",
       "holdings": {
         "WASCO": {
           "shares": 3100,
-          "cost": 0.8,
-          "target_pct": 25
+          "cost": 0.795,
+          "target_pct": 25,
+          "note": "Kronos +14.4% \u2014 strongest momentum"
         },
         "YTLPOWR": {
           "shares": 700,
-          "cost": 3.95,
-          "target_pct": 25
+          "cost": 4.16,
+          "target_pct": 22,
+          "note": "Revenue growth 22%, Kronos -10.5%"
         },
         "INSAS": {
           "shares": 2200,
-          "cost": 0.89,
-          "target_pct": 20
+          "cost": 0.895,
+          "target_pct": 18,
+          "note": "Investment holding, NAV discount play"
         },
         "DELEUM": {
           "shares": 1200,
           "cost": 1.22,
-          "target_pct": 15
+          "target_pct": 13,
+          "note": "Kronos +7.3%, DY 8.7% \u2014 energy momentum"
         },
-        "LIIHEN": {
-          "shares": 1000,
-          "cost": 0.95,
-          "target_pct": 10
+        "SIME": {
+          "shares": 500,
+          "cost": 2.08,
+          "target_pct": 12,
+          "note": "NEW: Conglomerate value, #4 score, DY 6.25%"
+        },
+        "MAYBANK": {
+          "shares": 100,
+          "cost": 10.64,
+          "target_pct": 10,
+          "note": "RESTORED: Blue chip anchor, DY 6.2%"
         }
       },
       "rules": {
@@ -166,37 +177,49 @@
       "name": "Demeter",
       "god": "Harvest Goddess",
       "style": "Conservative",
-      "strategy": "Steady harvest. Dividend compounding. Trim if DY drops <3% (price ran too far). 10% cash buffer (FD 3% p.a.). Only sell on dividend cut >20%. Tight 10% rebalance.",
+      "strategy": "Dividend compound. 7 stocks. MBMR (#1 score, 16.6% DY) added. KLK restored for CPO. 10% cash FD buffer.",
       "holdings": {
         "MAYBANK": {
           "shares": 200,
           "cost": 9.85,
-          "target_pct": 25
+          "target_pct": 25,
+          "note": "Blue chip, DY 6.2%, PE 12.4x"
         },
         "AXREIT": {
           "shares": 1000,
           "cost": 1.82,
-          "target_pct": 20
+          "target_pct": 20,
+          "note": "Retail REIT, occupancy recovery"
         },
-        "KIPREIT": {
-          "shares": 1100,
-          "cost": 0.85,
-          "target_pct": 10
-        },
-        "SCIENTEX": {
+        "MBMR": {
           "shares": 200,
-          "cost": 4.15,
-          "target_pct": 10
+          "cost": 5.07,
+          "target_pct": 15,
+          "note": "NEW: #1 score, DY 16.6%, PE 5.96x, D/E 0.01"
         },
         "MAGNI": {
           "shares": 500,
           "cost": 1.86,
-          "target_pct": 10
+          "target_pct": 14,
+          "note": "#2 score, zero debt, PE 6.41x"
+        },
+        "SCIENTEX": {
+          "shares": 200,
+          "cost": 4.15,
+          "target_pct": 8,
+          "note": "Packaging + property, steady dividend"
         },
         "SIME": {
           "shares": 400,
           "cost": 2.38,
-          "target_pct": 10
+          "target_pct": 10,
+          "note": "Conglomerate, DY 6.25%, D/E 0.43"
+        },
+        "KLK": {
+          "shares": 100,
+          "cost": 20.32,
+          "target_pct": 8,
+          "note": "RESTORED: CPO exposure, PE 20.1x, DY 2.95%"
         }
       },
       "rules": {
@@ -216,32 +239,43 @@
       "name": "Athena",
       "god": "Goddess of Wisdom",
       "style": "Hybrid",
-      "strategy": "Tactical GARP. Sell 50% @ +25%, full exit @ +40%. Buy 50% dip @ -10% (once/month max). Rotate defensive/cyclical. Max 30% single bet.",
+      "strategy": "GARP tactical. 6 stocks. MAGNI (#2 score) added for consumer. SIME for conglomerate. Sell 50% @ +25%, dip buy @ -10%.",
       "holdings": {
         "MAYBANK": {
           "shares": 200,
           "cost": 9.85,
-          "target_pct": 20
+          "target_pct": 20,
+          "note": "Blue chip anchor, DY 6.2%"
         },
-        "YTLPOWR": {
-          "shares": 500,
-          "cost": 3.95,
-          "target_pct": 20
-        },
-        "AXREIT": {
+        "MAGNI": {
           "shares": 800,
-          "cost": 1.82,
-          "target_pct": 15
+          "cost": 1.86,
+          "target_pct": 18,
+          "note": "NEW: #2 score, zero debt, GARP fit"
         },
         "AME": {
           "shares": 1000,
           "cost": 1.5,
-          "target_pct": 15
+          "target_pct": 17,
+          "note": "#3 score, rev growth 61.6%, ROE 28.5% ann"
+        },
+        "AXREIT": {
+          "shares": 800,
+          "cost": 1.82,
+          "target_pct": 15,
+          "note": "REIT income stability"
         },
         "SCIENTEX": {
           "shares": 300,
           "cost": 4.15,
-          "target_pct": 15
+          "target_pct": 15,
+          "note": "Packaging, PE 10.36x, ROE 12.6% ann"
+        },
+        "SIME": {
+          "shares": 700,
+          "cost": 2.08,
+          "target_pct": 15,
+          "note": "NEW: Conglomerate diversification"
         }
       },
       "rules": {
