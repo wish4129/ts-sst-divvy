@@ -3,3 +3,4 @@ node_modules/
 Kronos/
 *.csv
 data/*.csv
+data/divvy.db
