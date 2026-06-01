@@ -79,9 +79,9 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
         invested: Number(s.invested),
         cash: Number(s.cash),
         pnl: Number(s.pnl),
-        pnlPct: Number(s.pnlPct),
+        pnl_pct: Number(s.pnlPct),
         holdings: personaHoldings[s.portfolioId] || {},
-        tradesThisRun: 0,
+        trades_this_run: 0,
       };
     }
 

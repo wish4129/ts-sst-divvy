@@ -6,6 +6,14 @@
 
 declare module "sst" {
   export interface Resource {
+    "Api": {
+      "type": "sst.aws.ApiGatewayV2"
+      "url": string
+    }
+    "DBPassword": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
     "WebApp": {
       "type": "sst.aws.StaticSite"
       "url": string

@@ -20,9 +20,9 @@ interface PersonaSnapshot {
   invested: number
   cash: number
   pnl: number
-  pnlPct: number
+  pnl_pct: number
   holdings: Record<string, StockHolding>
-  tradesThisRun: number
+  trades_this_run: number
 }
 
 interface RunRecord {
@@ -69,7 +69,7 @@ export default function Battle() {
         const d = await res.json()
         setData(d)
       } catch (e: any) {
-        setError(e.message)
+        setError(e?.message || 'Unknown error')
         // Fallback: try static file
         try {
           const res = await fetch('/portfolio_history.json')
@@ -83,7 +83,7 @@ export default function Battle() {
   }, [])
 
   if (loading) return <Loading />
-  if (error && !data) return <Error msg={error} />
+  if (error && !data) return <ErrorMsg msg={error} />
   if (!data || !data.runs.length) return <Empty />
 
   const latest = data.runs[data.runs.length - 1]
@@ -93,7 +93,7 @@ export default function Battle() {
   }))
 
   const ranked = Object.entries(latest.personas)
-    .sort((a, b) => b[1].pnlPct - a[1].pnlPct)
+    .sort((a, b) => b[1].pnl_pct - a[1].pnl_pct)
 
   const medals = ['🥇', '🥈', '🥉']
 
@@ -135,9 +135,9 @@ export default function Battle() {
                   <Icon className={`w-6 h-6 ${isWinner ? 'text-yellow-400' : 'text-gray-500'}`} />
                 </div>
                 <div className="text-3xl font-mono font-bold">{formatRM(snap.total)}</div>
-                <div className={`flex items-center gap-1 mt-1 text-lg font-mono ${snap.pnlPct >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-                  {snap.pnlPct >= 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
-                  {pctStr(snap.pnlPct)}
+                <div className={`flex items-center gap-1 mt-1 text-lg font-mono ${snap.pnl_pct >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                  {snap.pnl_pct >= 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
+                  {pctStr(snap.pnl_pct)}
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
                   Cash: {formatRM(snap.cash)} · {Object.keys(snap.holdings).length} holdings
@@ -241,7 +241,7 @@ function Empty() {
   )
 }
 
-function Error({ msg }: { msg: string }) {
+function ErrorMsg({ msg }: { msg: string }) {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-950">
       <div className="text-center">
