@@ -27,7 +27,7 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIOS_PATH = ROOT / "scripts" / "portfolios.json"
-HISTORY_PATH = ROOT / "data" / "portfolio_history.json"
+HISTORY_PATH = ROOT / "web" / "public" / "portfolio_history.json"
 LIVE_PRICES_PATH = ROOT / "data" / "live_prices.json"
 KRONOS_PATH = ROOT / "data" / "kronos_forecast.json"
 MALAYSIA_TZ = timezone(timedelta(hours=8))
