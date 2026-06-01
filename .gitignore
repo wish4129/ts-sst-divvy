@@ -4,3 +4,4 @@ Kronos/
 *.csv
 data/*.csv
 data/divvy.db
+.env
