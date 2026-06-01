@@ -32,8 +32,26 @@ LIVE_PRICES_PATH = ROOT / "data" / "live_prices.json"
 KRONOS_PATH = ROOT / "data" / "kronos_forecast.json"
 MALAYSIA_TZ = timezone(timedelta(hours=8))
 
-# Kevin's user UUID in Supabase
-KEVIN_USER_ID = "385a7e30-3d63-4b6a-a1af-175a774acd40"
+# Kevin's email for user lookup (UUID comes from Supabase Auth)
+KEVIN_EMAIL = "munkevin@gmail.com"
+
+# Resolve user ID at module load
+def _get_kevin_user_id():
+    """Look up Kevin's UUID from Supabase (auth.uid() may change)."""
+    try:
+        import sys; sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from db import get_db, dict_cursor
+        db = get_db()
+        cur = dict_cursor(db)
+        cur.execute("SELECT id FROM users WHERE email=%s", (KEVIN_EMAIL,))
+        row = cur.fetchone()
+        cur.close()
+        db.close()
+        return row['id'] if row else None
+    except Exception:
+        return None
+
+KEVIN_USER_ID = _get_kevin_user_id()
 
 
 # ── DB helpers ─────────────────────────────────────────────────────

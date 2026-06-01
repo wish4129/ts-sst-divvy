@@ -1,9 +1,11 @@
 import { Link, useLocation } from 'react-router-dom'
-import { LayoutDashboard, List, Swords, Sun, Moon } from 'lucide-react'
+import { LayoutDashboard, List, Swords, Sun, Moon, LogIn, LogOut, User } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { useAuth } from '../lib/AuthContext'
 
 export default function Header() {
   const location = useLocation()
+  const { user, loading, signInWithGoogle, signOut } = useAuth()
   const [dark, setDark] = useState(() => {
     if (typeof window === 'undefined') return false
     return localStorage.getItem('theme') === 'dark' ||
@@ -44,12 +46,50 @@ export default function Header() {
             </Link>
           </nav>
         </div>
-        <button
-          onClick={() => setDark(!dark)}
-          className="p-2 rounded-lg text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
-        >
-          {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-        </button>
+
+        <div className="flex items-center gap-2">
+          {loading ? (
+            <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
+          ) : user ? (
+            <div className="flex items-center gap-2">
+              {user.user_metadata?.avatar_url ? (
+                <img
+                  src={user.user_metadata.avatar_url}
+                  alt=""
+                  className="w-7 h-7 rounded-full"
+                />
+              ) : (
+                <div className="w-7 h-7 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center">
+                  <User className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                </div>
+              )}
+              <span className="hidden sm:inline text-sm text-gray-600 dark:text-gray-400 max-w-[120px] truncate">
+                {user.user_metadata?.full_name || user.email}
+              </span>
+              <button
+                onClick={signOut}
+                className="p-2 rounded-lg text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+                title="Sign out"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={signInWithGoogle}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium bg-emerald-600 text-white hover:bg-emerald-700 transition-colors"
+            >
+              <LogIn className="w-4 h-4" />
+              <span className="hidden sm:inline">Sign in</span>
+            </button>
+          )}
+          <button
+            onClick={() => setDark(!dark)}
+            className="p-2 rounded-lg text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
+            {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
+        </div>
       </div>
     </header>
   )
