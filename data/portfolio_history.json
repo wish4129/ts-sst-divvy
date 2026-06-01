@@ -1400,95 +1400,95 @@
   ],
   "personas": {
     "ares": {
-      "cash": -493.8799999999992,
+      "cash": 10000.0,
       "holdings": {
-        "Malayan Banking": {
-          "shares": 50,
-          "cost": 9.85
-        },
-        "INSAS Berhad": {
-          "shares": 2250,
-          "cost": 0.89
-        },
-        "Deleum Berhad": {
-          "shares": 1229,
-          "cost": 1.22
-        },
         "Wasco Berhad": {
-          "shares": 3125,
-          "cost": 0.8
+          "shares": 3100,
+          "cost": 0.795
         },
         "YTL Power": {
-          "shares": 760,
-          "cost": 3.95
+          "shares": 700,
+          "cost": 4.16
         },
-        "Lii Hen Industries": {
-          "shares": 1050,
-          "cost": 0.95
+        "INSAS Berhad": {
+          "shares": 2200,
+          "cost": 0.895
+        },
+        "Deleum Berhad": {
+          "shares": 1200,
+          "cost": 1.22
+        },
+        "Sime Darby": {
+          "shares": 500,
+          "cost": 2.08
+        },
+        "Malayan Banking": {
+          "shares": 100,
+          "cost": 10.64
         }
       },
       "trade_log": []
     },
     "demeter": {
-      "cash": 19.06999999999971,
+      "cash": 10000.0,
       "holdings": {
         "Malayan Banking": {
-          "shares": 253,
+          "shares": 200,
           "cost": 9.85
         },
-        "KL Kepong": {
-          "shares": 73,
-          "cost": 20.5
-        },
-        "Sime Darby": {
-          "shares": 420,
-          "cost": 2.38
-        },
-        "Scientex Berhad": {
-          "shares": 240,
-          "cost": 4.15
-        },
         "Axis REIT": {
-          "shares": 1098,
+          "shares": 1000,
           "cost": 1.82
         },
-        "KIP Real Estate Investment Trust": {
-          "shares": 1176,
-          "cost": 0.85
+        "MBM Resources": {
+          "shares": 200,
+          "cost": 5.07
         },
         "Magni-Tech Industries": {
-          "shares": 537,
+          "shares": 500,
           "cost": 1.86
+        },
+        "Scientex Berhad": {
+          "shares": 200,
+          "cost": 4.15
+        },
+        "Sime Darby": {
+          "shares": 400,
+          "cost": 2.38
+        },
+        "KL Kepong": {
+          "shares": 100,
+          "cost": 20.32
         }
       },
       "trade_log": []
     },
     "athena": {
-      "cash": 5.600000000000364,
+      "cash": 10000.0,
       "holdings": {
         "Malayan Banking": {
-          "shares": 203,
+          "shares": 200,
           "cost": 9.85
         },
-        "KL Kepong": {
-          "shares": 73,
-          "cost": 20.5
-        },
-        "Scientex Berhad": {
-          "shares": 361,
-          "cost": 4.15
-        },
-        "Axis REIT": {
-          "shares": 825,
-          "cost": 1.82
+        "Magni-Tech Industries": {
+          "shares": 800,
+          "cost": 1.86
         },
         "AME Elite Consortium": {
           "shares": 1000,
           "cost": 1.5
         },
-        "YTL Power": {
-          "shares": 506,
-          "cost": 3.95
+        "Axis REIT": {
+          "shares": 800,
+          "cost": 1.82
+        },
+        "Scientex Berhad": {
+          "shares": 300,
+          "cost": 4.15
+        },
+        "Sime Darby": {
+          "shares": 700,
+          "cost": 2.08
         }
       },
       "trade_log": []
