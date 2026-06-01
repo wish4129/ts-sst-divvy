@@ -1,0 +1,309 @@
+{
+  "runs": [
+    {
+      "timestamp": "2026-06-01T14:38:25+08:00",
+      "personas": {
+        "ares": {
+          "total": 10000.0,
+          "invested": 9995.4,
+          "cash": 4.6,
+          "pnl": 0.0,
+          "pnl_pct": 0.0,
+          "holdings": {
+            "YTLPOWR": {
+              "shares": 760,
+              "cost": 3.95,
+              "price": 3.95,
+              "invested": 3002.0,
+              "current": 3002.0,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 30.0
+            },
+            "INSAS": {
+              "shares": 2250,
+              "cost": 0.89,
+              "price": 0.89,
+              "invested": 2002.5,
+              "current": 2002.5,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 20.0
+            },
+            "GENETEC": {
+              "shares": 1320,
+              "cost": 1.52,
+              "price": 1.52,
+              "invested": 2006.4,
+              "current": 2006.4,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 20.1
+            },
+            "INARI": {
+              "shares": 490,
+              "cost": 3.05,
+              "price": 3.05,
+              "invested": 1494.5,
+              "current": 1494.5,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 14.9
+            },
+            "LIIHEN": {
+              "shares": 1050,
+              "cost": 0.95,
+              "price": 0.95,
+              "invested": 997.5,
+              "current": 997.5,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 10.0
+            },
+            "MAYBANK": {
+              "shares": 50,
+              "cost": 9.85,
+              "price": 9.85,
+              "invested": 492.5,
+              "current": 492.5,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 4.9
+            }
+          },
+          "trades_this_run": 0
+        },
+        "demeter": {
+          "total": 10000.0,
+          "invested": 10000.25,
+          "cash": -0.25,
+          "pnl": 0.0,
+          "pnl_pct": 0.0,
+          "holdings": {
+            "MAYBANK": {
+              "shares": 305,
+              "cost": 9.85,
+              "price": 9.85,
+              "invested": 3004.25,
+              "current": 3004.25,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 30.0
+            },
+            "AXREIT": {
+              "shares": 1370,
+              "cost": 1.82,
+              "price": 1.82,
+              "invested": 2493.4,
+              "current": 2493.4,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 24.9
+            },
+            "KLK": {
+              "shares": 98,
+              "cost": 20.5,
+              "price": 20.5,
+              "invested": 2009.0,
+              "current": 2009.0,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 20.1
+            },
+            "SCIENTEX": {
+              "shares": 360,
+              "cost": 4.15,
+              "price": 4.15,
+              "invested": 1494.0,
+              "current": 1494.0,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 14.9
+            },
+            "SIME": {
+              "shares": 420,
+              "cost": 2.38,
+              "price": 2.38,
+              "invested": 999.6,
+              "current": 999.6,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 10.0
+            }
+          },
+          "trades_this_run": 0
+        },
+        "athena": {
+          "total": 10000.0,
+          "invested": 9995.0,
+          "cash": 5.0,
+          "pnl": 0.0,
+          "pnl_pct": 0.0,
+          "holdings": {
+            "MAYBANK": {
+              "shares": 203,
+              "cost": 9.85,
+              "price": 9.85,
+              "invested": 1999.55,
+              "current": 1999.55,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 20.0
+            },
+            "YTLPOWR": {
+              "shares": 506,
+              "cost": 3.95,
+              "price": 3.95,
+              "invested": 1998.7,
+              "current": 1998.7,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 20.0
+            },
+            "AXREIT": {
+              "shares": 825,
+              "cost": 1.82,
+              "price": 1.82,
+              "invested": 1501.5,
+              "current": 1501.5,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 15.0
+            },
+            "INARI": {
+              "shares": 492,
+              "cost": 3.05,
+              "price": 3.05,
+              "invested": 1500.6,
+              "current": 1500.6,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 15.0
+            },
+            "SCIENTEX": {
+              "shares": 361,
+              "cost": 4.15,
+              "price": 4.15,
+              "invested": 1498.15,
+              "current": 1498.15,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 15.0
+            },
+            "KLK": {
+              "shares": 73,
+              "cost": 20.5,
+              "price": 20.5,
+              "invested": 1496.5,
+              "current": 1496.5,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 15.0
+            }
+          },
+          "trades_this_run": 0
+        }
+      },
+      "prices": {
+        "MAYBANK": 9.85,
+        "YTLPOWR": 3.95,
+        "AXREIT": 1.82,
+        "INSAS": 0.89,
+        "LIIHEN": 0.95,
+        "SCIENTEX": 4.15,
+        "GENETEC": 1.52,
+        "KLK": 20.5,
+        "INARI": 3.05,
+        "SIME": 2.38
+      }
+    }
+  ],
+  "personas": {
+    "ares": {
+      "cash": 4.600000000000364,
+      "holdings": {
+        "YTLPOWR": {
+          "shares": 760,
+          "cost": 3.95
+        },
+        "INSAS": {
+          "shares": 2250,
+          "cost": 0.89
+        },
+        "GENETEC": {
+          "shares": 1320,
+          "cost": 1.52
+        },
+        "INARI": {
+          "shares": 490,
+          "cost": 3.05
+        },
+        "LIIHEN": {
+          "shares": 1050,
+          "cost": 0.95
+        },
+        "MAYBANK": {
+          "shares": 50,
+          "cost": 9.85
+        }
+      },
+      "trade_log": []
+    },
+    "demeter": {
+      "cash": -0.25,
+      "holdings": {
+        "MAYBANK": {
+          "shares": 305,
+          "cost": 9.85
+        },
+        "AXREIT": {
+          "shares": 1370,
+          "cost": 1.82
+        },
+        "KLK": {
+          "shares": 98,
+          "cost": 20.5
+        },
+        "SCIENTEX": {
+          "shares": 360,
+          "cost": 4.15
+        },
+        "SIME": {
+          "shares": 420,
+          "cost": 2.38
+        }
+      },
+      "trade_log": []
+    },
+    "athena": {
+      "cash": 5.0,
+      "holdings": {
+        "MAYBANK": {
+          "shares": 203,
+          "cost": 9.85
+        },
+        "YTLPOWR": {
+          "shares": 506,
+          "cost": 3.95
+        },
+        "AXREIT": {
+          "shares": 825,
+          "cost": 1.82
+        },
+        "INARI": {
+          "shares": 492,
+          "cost": 3.05
+        },
+        "SCIENTEX": {
+          "shares": 361,
+          "cost": 4.15
+        },
+        "KLK": {
+          "shares": 73,
+          "cost": 20.5
+        }
+      },
+      "trade_log": []
+    }
+  }
+}

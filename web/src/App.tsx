@@ -4,6 +4,7 @@ import { lazy, Suspense } from 'react'
 const Home = lazy(() => import('./pages/Home'))
 const StockDetail = lazy(() => import('./pages/StockDetail'))
 const Watchlist = lazy(() => import('./pages/Watchlist'))
+const Battle = lazy(() => import('./pages/Battle'))
 
 function Loading() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/stock/:code" element={<StockDetail />} />
         <Route path="/watchlist" element={<Watchlist />} />
+        <Route path="/battle" element={<Battle />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>

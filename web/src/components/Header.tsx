@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { LayoutDashboard, List, Sun, Moon } from 'lucide-react'
+import { LayoutDashboard, List, Swords, Sun, Moon } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 export default function Header() {
@@ -37,6 +37,10 @@ export default function Header() {
             <Link to="/watchlist" className={linkClass('/watchlist')}>
               <List className="w-4 h-4" />
               <span className="hidden sm:inline">Watchlist</span>
+            </Link>
+            <Link to="/battle" className={linkClass('/battle')}>
+              <Swords className="w-4 h-4" />
+              <span className="hidden sm:inline">Battle</span>
             </Link>
           </nav>
         </div>
