@@ -1,0 +1,405 @@
+{
+  "date": "2026-06-01",
+  "new_candidates": [
+    {
+      "code": "MAGNI",
+      "name": "MAGNI Berhad",
+      "industry": "Consumer Products & Services",
+      "lastPrice": 1.86,
+      "pe": 6.36,
+      "pb": 0.86,
+      "dividendYield": 18.71,
+      "roe": 13.47,
+      "debtToEquity": 0.0,
+      "marketCap": 806.22,
+      "score": {
+        "composite": 93,
+        "dividend": 40,
+        "growth": 20,
+        "quality": 23,
+        "risk": 10
+      },
+      "notes": "High dividend yield (18.7%). Low debt. Low P/E (6.4x)"
+    },
+    {
+      "code": "MBMR",
+      "name": "MBMR Berhad",
+      "industry": "Automotive",
+      "lastPrice": 5.07,
+      "pe": 5.98,
+      "pb": 0.81,
+      "dividendYield": 11.83,
+      "roe": 13.58,
+      "debtToEquity": 1.23,
+      "marketCap": 1981.8,
+      "score": {
+        "composite": 92,
+        "dividend": 40,
+        "growth": 20,
+        "quality": 21,
+        "risk": 10
+      },
+      "notes": "High dividend yield (11.8%). Low P/E (6.0x)"
+    },
+    {
+      "code": "MHC",
+      "name": "MHC Berhad",
+      "industry": "Plantation",
+      "lastPrice": 1.58,
+      "pe": 6.15,
+      "pb": 0.94,
+      "dividendYield": 15.82,
+      "roe": 15.29,
+      "debtToEquity": 4.89,
+      "marketCap": 310.54,
+      "score": {
+        "composite": 88,
+        "dividend": 40,
+        "growth": 23,
+        "quality": 15,
+        "risk": 10
+      },
+      "notes": "High dividend yield (15.8%). Strong ROE (15.3%). Low P/E (6.2x)"
+    },
+    {
+      "code": "AJI",
+      "name": "AJI Berhad",
+      "industry": "Food & Beverages",
+      "lastPrice": 13.86,
+      "pe": 11.79,
+      "pb": 0.97,
+      "dividendYield": 18.24,
+      "roe": 8.24,
+      "debtToEquity": 0.59,
+      "marketCap": 842.67,
+      "score": {
+        "composite": 83,
+        "dividend": 40,
+        "growth": 12,
+        "quality": 21,
+        "risk": 10
+      },
+      "notes": "High dividend yield (18.2%). Low debt"
+    },
+    {
+      "code": "CVIEW",
+      "name": "CVIEW Berhad",
+      "industry": "Property",
+      "lastPrice": 3.18,
+      "pe": 4.39,
+      "pb": 0.68,
+      "dividendYield": 16.67,
+      "roe": 15.46,
+      "debtToEquity": 12.56,
+      "marketCap": 318.0,
+      "score": {
+        "composite": 79,
+        "dividend": 40,
+        "growth": 23,
+        "quality": 9,
+        "risk": 7
+      },
+      "notes": "High dividend yield (16.7%). Strong ROE (15.5%). Undervalued P/B (0.68). Low P/E (4.4x)"
+    },
+    {
+      "code": "AME",
+      "name": "AME Berhad",
+      "industry": "Construction",
+      "lastPrice": 1.5,
+      "pe": 3.38,
+      "pb": 0.84,
+      "dividendYield": 8.67,
+      "roe": 24.76,
+      "debtToEquity": 40.06,
+      "marketCap": 954.49,
+      "score": {
+        "composite": 77,
+        "dividend": 35,
+        "growth": 30,
+        "quality": 5,
+        "risk": 7
+      },
+      "notes": "High dividend yield (8.7%). Strong ROE (24.8%). High leverage (D/E: 40.1). Low P/E (3.4x)"
+    },
+    {
+      "code": "DELEUM",
+      "name": "DELEUM Berhad",
+      "industry": "Energy",
+      "lastPrice": 1.22,
+      "pe": 7.24,
+      "pb": 1.01,
+      "dividendYield": 7.62,
+      "roe": 13.92,
+      "debtToEquity": 8.36,
+      "marketCap": 489.9,
+      "score": {
+        "composite": 72,
+        "dividend": 30,
+        "growth": 21,
+        "quality": 10,
+        "risk": 10
+      },
+      "notes": "Low P/E (7.2x)"
+    },
+    {
+      "code": "WASCO",
+      "name": "WASCO Berhad",
+      "industry": "Energy",
+      "lastPrice": 0.8,
+      "pe": 4.52,
+      "pb": 0.61,
+      "dividendYield": 8.81,
+      "roe": 13.42,
+      "debtToEquity": 47.51,
+      "marketCap": 615.58,
+      "score": {
+        "composite": 69,
+        "dividend": 35,
+        "growth": 20,
+        "quality": 6,
+        "risk": 7
+      },
+      "notes": "High dividend yield (8.8%). Undervalued P/B (0.61). High leverage (D/E: 47.5). Low P/E (4.5x)"
+    },
+    {
+      "code": "SKBSHUT",
+      "name": "SKBSHUT Berhad",
+      "industry": "Industrial Products & Services",
+      "lastPrice": 0.95,
+      "pe": 5.2,
+      "pb": 0.93,
+      "dividendYield": 6.84,
+      "roe": 17.92,
+      "debtToEquity": 55.36,
+      "marketCap": 184.78,
+      "score": {
+        "composite": 69,
+        "dividend": 27,
+        "growth": 27,
+        "quality": 5,
+        "risk": 10
+      },
+      "notes": "Strong ROE (17.9%). High leverage (D/E: 55.4). Low P/E (5.2x)"
+    },
+    {
+      "code": "PGLOBAL",
+      "name": "PGLOBAL Berhad",
+      "industry": "Industrial Products & Services",
+      "lastPrice": 0.47,
+      "pe": 8.57,
+      "pb": 0.75,
+      "dividendYield": 10.75,
+      "roe": 8.71,
+      "debtToEquity": 26.29,
+      "marketCap": 395.25,
+      "score": {
+        "composite": 69,
+        "dividend": 40,
+        "growth": 13,
+        "quality": 6,
+        "risk": 10
+      },
+      "notes": "High dividend yield (10.8%). Undervalued P/B (0.75). High leverage (D/E: 26.3)"
+    },
+    {
+      "code": "TAANN",
+      "name": "TAANN Berhad",
+      "industry": "Plantation",
+      "lastPrice": 5.26,
+      "pe": 10.31,
+      "pb": 1.21,
+      "dividendYield": 7.6,
+      "roe": 11.78,
+      "debtToEquity": 6.39,
+      "marketCap": 2316.83,
+      "score": {
+        "composite": 68,
+        "dividend": 30,
+        "growth": 18,
+        "quality": 9,
+        "risk": 10
+      },
+      "notes": "Moderate value play in Plantation"
+    },
+    {
+      "code": "KIPREIT",
+      "name": "KIPREIT Berhad",
+      "industry": "REIT",
+      "lastPrice": 0.85,
+      "pe": 6.16,
+      "pb": 0.79,
+      "dividendYield": 7.99,
+      "roe": 12.87,
+      "debtToEquity": 65.1,
+      "marketCap": 814.84,
+      "score": {
+        "composite": 67,
+        "dividend": 32,
+        "growth": 19,
+        "quality": 6,
+        "risk": 10
+      },
+      "notes": "Undervalued P/B (0.79). High leverage (D/E: 65.1). Low P/E (6.2x)"
+    },
+    {
+      "code": "INTA",
+      "name": "INTA Berhad",
+      "industry": "Construction",
+      "lastPrice": 0.38,
+      "pe": 5.77,
+      "pb": 0.9,
+      "dividendYield": 6.58,
+      "roe": 15.68,
+      "debtToEquity": 58.89,
+      "marketCap": 237.04,
+      "score": {
+        "composite": 65,
+        "dividend": 26,
+        "growth": 24,
+        "quality": 5,
+        "risk": 10
+      },
+      "notes": "Strong ROE (15.7%). High leverage (D/E: 58.9). Low P/E (5.8x)"
+    },
+    {
+      "code": "AMEREIT",
+      "name": "AMEREIT Berhad",
+      "industry": "REIT",
+      "lastPrice": 1.6,
+      "pe": 7.29,
+      "pb": 1.27,
+      "dividendYield": 5.21,
+      "roe": 17.39,
+      "debtToEquity": 43.66,
+      "marketCap": 849.76,
+      "score": {
+        "composite": 60,
+        "dividend": 21,
+        "growth": 26,
+        "quality": 3,
+        "risk": 10
+      },
+      "notes": "Strong ROE (17.4%). High leverage (D/E: 43.7). Low P/E (7.3x)"
+    },
+    {
+      "code": "HARNLEN",
+      "name": "HARNLEN Berhad",
+      "industry": "Plantation",
+      "lastPrice": 0.62,
+      "pe": 9.27,
+      "pb": 1.05,
+      "dividendYield": 7.26,
+      "roe": 11.35,
+      "debtToEquity": 31.37,
+      "marketCap": 380.53,
+      "score": {
+        "composite": 60,
+        "dividend": 29,
+        "growth": 17,
+        "quality": 4,
+        "risk": 10
+      },
+      "notes": "High leverage (D/E: 31.4)"
+    },
+    {
+      "code": "PARAMON",
+      "name": "PARAMON Berhad",
+      "industry": "Property",
+      "lastPrice": 1.01,
+      "pe": 5.3,
+      "pb": 0.43,
+      "dividendYield": 7.43,
+      "roe": 8.08,
+      "debtToEquity": 84.21,
+      "marketCap": 629.0,
+      "score": {
+        "composite": 59,
+        "dividend": 30,
+        "growth": 12,
+        "quality": 7,
+        "risk": 10
+      },
+      "notes": "Undervalued P/B (0.43). High leverage (D/E: 84.2). Low P/E (5.3x)"
+    },
+    {
+      "code": "NADIBHD",
+      "name": "NADIBHD Berhad",
+      "industry": "Construction",
+      "lastPrice": 0.37,
+      "pe": 3.54,
+      "pb": 0.51,
+      "dividendYield": 5.48,
+      "roe": 14.54,
+      "debtToEquity": 59.69,
+      "marketCap": 274.84,
+      "score": {
+        "composite": 58,
+        "dividend": 22,
+        "growth": 22,
+        "quality": 7,
+        "risk": 7
+      },
+      "notes": "Undervalued P/B (0.51). High leverage (D/E: 59.7). Low P/E (3.5x)"
+    },
+    {
+      "code": "PTRANS",
+      "name": "PTRANS Berhad",
+      "industry": "Consumer Products & Services",
+      "lastPrice": 0.2,
+      "pe": 3.32,
+      "pb": 0.27,
+      "dividendYield": 7.5,
+      "roe": 8.27,
+      "debtToEquity": 85.03,
+      "marketCap": 247.29,
+      "score": {
+        "composite": 56,
+        "dividend": 30,
+        "growth": 12,
+        "quality": 7,
+        "risk": 7
+      },
+      "notes": "Undervalued P/B (0.27). High leverage (D/E: 85.0). Low P/E (3.3x)"
+    },
+    {
+      "code": "MFLOUR",
+      "name": "MFLOUR Berhad",
+      "industry": "Food & Beverages",
+      "lastPrice": 0.58,
+      "pe": 4.77,
+      "pb": 0.52,
+      "dividendYield": 6.09,
+      "roe": 10.86,
+      "debtToEquity": 65.76,
+      "marketCap": 712.51,
+      "score": {
+        "composite": 55,
+        "dividend": 24,
+        "growth": 16,
+        "quality": 7,
+        "risk": 7
+      },
+      "notes": "Undervalued P/B (0.52). High leverage (D/E: 65.8). Low P/E (4.8x)"
+    },
+    {
+      "code": "LBALUM",
+      "name": "LBALUM Berhad",
+      "industry": "Industrial Products & Services",
+      "lastPrice": 0.49,
+      "pe": 3.47,
+      "pb": 0.44,
+      "dividendYield": 5.15,
+      "roe": 12.7,
+      "debtToEquity": 45.23,
+      "marketCap": 210.9,
+      "score": {
+        "composite": 54,
+        "dividend": 21,
+        "growth": 19,
+        "quality": 7,
+        "risk": 7
+      },
+      "notes": "Undervalued P/B (0.44). High leverage (D/E: 45.2). Low P/E (3.5x)"
+    }
+  ]
+}

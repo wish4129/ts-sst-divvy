@@ -1,0 +1,67 @@
+{
+  "MAGNI": {
+    "last_close": 1.86,
+    "pred_30d_close": 2.0521,
+    "pred_change_pct": 10.33
+  },
+  "MBMR": {
+    "last_close": 5.07,
+    "pred_30d_close": 5.1202,
+    "pred_change_pct": 0.99
+  },
+  "MHC": {
+    "last_close": 1.58,
+    "pred_30d_close": 1.4181,
+    "pred_change_pct": -10.25
+  },
+  "AJI": {
+    "last_close": 13.86,
+    "pred_30d_close": 13.5133,
+    "pred_change_pct": -2.5
+  },
+  "CVIEW": {
+    "last_close": 3.18,
+    "pred_30d_close": 2.962,
+    "pred_change_pct": -6.86
+  },
+  "AME": {
+    "last_close": 1.5,
+    "pred_30d_close": 1.5297,
+    "pred_change_pct": 1.98
+  },
+  "DELEUM": {
+    "last_close": 1.22,
+    "pred_30d_close": 1.3177,
+    "pred_change_pct": 8.0
+  },
+  "WASCO": {
+    "last_close": 0.795,
+    "pred_30d_close": 1.0125,
+    "pred_change_pct": 27.36
+  },
+  "SKBSHUT": {
+    "last_close": 0.95,
+    "pred_30d_close": 0.8537,
+    "pred_change_pct": -10.14
+  },
+  "PGLOBAL": {
+    "last_close": 0.465,
+    "pred_30d_close": 0.4458,
+    "pred_change_pct": -4.13
+  },
+  "TAANN": {
+    "last_close": 5.26,
+    "pred_30d_close": 4.5544,
+    "pred_change_pct": -13.42
+  },
+  "KIPREIT": {
+    "last_close": 0.85,
+    "pred_30d_close": 0.8505,
+    "pred_change_pct": 0.06
+  },
+  "INTA": {
+    "last_close": 0.38,
+    "pred_30d_close": 0.3812,
+    "pred_change_pct": 0.31
+  }
+}

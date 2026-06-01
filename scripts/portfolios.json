@@ -8,10 +8,17 @@
     "INSAS":   {"code": "3379.KL", "name": "INSAS Berhad",       "industry": "Investment",   "initial": 0.89},
     "LIIHEN":  {"code": "7089.KL", "name": "Lii Hen Industries", "industry": "Furniture",    "initial": 0.95},
     "SCIENTEX":{"code": "4731.KL", "name": "Scientex Berhad",    "industry": "Packaging",    "initial": 4.15},
-    "GENETEC": {"code": "0104.KL", "name": "Genetec Technology", "industry": "Industrial",   "initial": 1.52},
+    "GENETEC": {"code": "0104.KL", "name": "Genetec Technology", "industry": "Industrial",   "initial": 1.52, "kronos_warning": "BEARISH -18.9% pred_change — review by 2026-06-15"},
     "KLK":     {"code": "2445.KL", "name": "KL Kepong",          "industry": "Plantation",   "initial": 20.50},
-    "INARI":   {"code": "0166.KL", "name": "Inari Amertron",     "industry": "Semiconductor","initial": 3.05},
-    "SIME":    {"code": "4197.KL", "name": "Sime Darby",         "industry": "Conglomerate", "initial": 2.38}
+    "INARI":   {"code": "0166.KL", "name": "Inari Amertron",     "industry": "Semiconductor","initial": 3.05, "kronos_warning": "BEARISH -40.2% pred_change — STRONG review needed by 2026-06-15"},
+    "SIME":    {"code": "4197.KL", "name": "Sime Darby",         "industry": "Conglomerate", "initial": 2.38},
+    "MAGNI":   {"code": "7087.KL", "name": "Magni-Tech Industries", "industry": "Consumer Products & Services", "initial": 1.86, "added": "2026-06-01"},
+    "MBMR":    {"code": "5983.KL", "name": "MBM Resources",         "industry": "Automotive", "initial": 5.07, "added": "2026-06-01"},
+    "AME":     {"code": "5293.KL", "name": "AME Elite Consortium",   "industry": "Construction", "initial": 1.50, "added": "2026-06-01"},
+    "DELEUM":  {"code": "5132.KL", "name": "Deleum Berhad",          "industry": "Energy",    "initial": 1.22, "added": "2026-06-01"},
+    "WASCO":   {"code": "5142.KL", "name": "Wasco Berhad",           "industry": "Energy",    "initial": 0.80, "added": "2026-06-01"},
+    "KIPREIT": {"code": "5280.KL", "name": "KIP Real Estate Investment Trust", "industry": "REIT", "initial": 0.85, "added": "2026-06-01"},
+    "INTA":    {"code": "INTA.KL", "name": "INTA Berhad",            "industry": "Construction", "initial": 0.38, "added": "2026-06-01"}
   },
   "personas": {
     "ares": {
