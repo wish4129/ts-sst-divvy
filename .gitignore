@@ -9,3 +9,4 @@ data/divvy.db-wal
 .env
 __pycache__/
 web/dist/
+web/dist/
