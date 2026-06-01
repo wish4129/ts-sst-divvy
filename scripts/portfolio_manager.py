@@ -31,6 +31,12 @@ HISTORY_PATH = ROOT / "data" / "portfolio_history.json"
 LIVE_PRICES_PATH = ROOT / "data" / "live_prices.json"
 KRONOS_PATH = ROOT / "data" / "kronos_forecast.json"
 MALAYSIA_TZ = timezone(timedelta(hours=8))
+LOT_SIZE = 100  # Bursa Malaysia minimum tradable lot
+
+
+def round_lot(shares: int) -> int:
+    """Round down to nearest lot (100 shares). Returns 0 if below 1 lot."""
+    return (shares // LOT_SIZE) * LOT_SIZE
 
 # Kevin's email for user lookup (UUID comes from Supabase Auth)
 KEVIN_EMAIL = "munkevin@gmail.com"
@@ -529,6 +535,16 @@ def main():
             engine = TRADE_ENGINES.get(pid)
             trades = engine(persona, prices, snapshot, stock_map, prev_prices, forecasts) if engine else []
 
+            # Enforce Bursa lot size: round all shares down to nearest 100, skip sub-lot trades
+            normalized = []
+            for t in trades:
+                lot_shares = round_lot(t["shares"])
+                if lot_shares < LOT_SIZE:
+                    continue  # skip odd lots
+                t["shares"] = lot_shares
+                normalized.append(t)
+            trades = normalized
+
             pre_snap_id = save_snapshot(db, cur, persona["id"], timestamp,
                                         snapshot["total"], snapshot["invested"], snapshot["cash"],
                                         snapshot["pnl"], snapshot["pnl_pct"], snapshot["stocks"])
@@ -540,17 +556,26 @@ def main():
                 source = t.get("source", "unknown")
 
                 if t["action"] == "SELL_ALL":
-                    sell_shares = state["holdings"][t["stock"]]["shares"]
+                    sell_shares = round_lot(state["holdings"][t["stock"]]["shares"])
+                    if sell_shares < LOT_SIZE:
+                        continue
                     proceeds = sell_shares * t["price"]
                     state["cash"] += proceeds
-                    del state["holdings"][t["stock"]]
+                    # If rounded down, reduce instead of deleting
+                    remaining = state["holdings"][t["stock"]]["shares"] - sell_shares
+                    if remaining < LOT_SIZE:
+                        del state["holdings"][t["stock"]]
+                    else:
+                        state["holdings"][t["stock"]]["shares"] = remaining
                     trade_id = save_trade(db, cur, persona["id"], stock_code, "SELL_ALL", sell_shares, t["price"],
                                           t["reason"], ksig, source, "stop_loss" if "stop" in source else source,
                                           pre_snap_id, timestamp)
                     executed.append({**t, "proceeds": round(proceeds, 2), "trade_id": trade_id})
 
                 elif t["action"] == "SELL":
-                    sell_shares = min(t["shares"], state["holdings"][t["stock"]]["shares"])
+                    sell_shares = round_lot(min(t["shares"], state["holdings"][t["stock"]]["shares"]))
+                    if sell_shares < LOT_SIZE:
+                        continue
                     proceeds = sell_shares * t["price"]
                     state["cash"] += proceeds
                     state["holdings"][t["stock"]]["shares"] -= sell_shares
@@ -563,8 +588,9 @@ def main():
                 elif t["action"] == "BUY":
                     cost = t["shares"] * t["price"]
                     if cost <= state["cash"] * 1.05:
-                        actual_shares = min(t["shares"], int(state["cash"] / t["price"]))
-                        if actual_shares > 0:
+                        actual_shares = round_lot(min(t["shares"], int(state["cash"] / t["price"])))
+                        if actual_shares < LOT_SIZE:
+                            continue
                             actual_cost = actual_shares * t["price"]
                             state["cash"] -= actual_cost
                             if t["stock"] in state["holdings"]:
