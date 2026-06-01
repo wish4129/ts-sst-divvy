@@ -63,18 +63,12 @@ export default function Battle() {
   useEffect(() => {
     const fetchBattle = async () => {
       try {
-        const url = API_URL ? `${API_URL}/battle` : '/portfolio_history.json'
+        const url = API_URL ? `${API_URL}/battle` : '/battle'
         const res = await fetch(url)
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        const d = await res.json()
-        setData(d)
+        setData(await res.json())
       } catch (e: any) {
-        setError(e?.message || 'Unknown error')
-        // Fallback: try static file
-        try {
-          const res = await fetch('/portfolio_history.json')
-          if (res.ok) setData(await res.json())
-        } catch {}
+        setError(e?.message || 'Failed to load battle data')
       } finally {
         setLoading(false)
       }
@@ -105,10 +99,6 @@ export default function Battle() {
             ⚔️ Portfolio Battle
           </h1>
           <p className="text-gray-400 mt-2">RM10,000 each · Hourly rebalance · Mon-Fri 9am-5pm</p>
-          <div className="flex items-center justify-center gap-1 mt-1 text-xs text-gray-600">
-            <RefreshCw className="w-3 h-3" />
-            Data from {API_URL ? 'live API' : 'static file'}
-          </div>
         </div>
 
         <div className="grid grid-cols-3 gap-4 mb-10">
