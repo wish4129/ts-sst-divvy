@@ -2,9 +2,14 @@ import pandas as pd
 import numpy as np
 import sys, json, time
 from datetime import datetime, timedelta
+from pathlib import Path
 
 sys.path.append("./Kronos/")
 from model import Kronos, KronosTokenizer, KronosPredictor
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+from db import get_db, dict_cursor
 
 # --- Load model ---
 print("Loading Kronos-small...", flush=True)
@@ -88,6 +93,7 @@ for stock_name, ticker in stocks:
         pred_max = pred_close.max()
         
         results[stock_name] = {
+            'ticker': ticker,
             'last_close': round(last_close, 4),
             'pred_30d_close': round(float(pred_close[-1]), 4),
             'pred_change_pct': round(pred_change, 2),
@@ -102,9 +108,9 @@ for stock_name, ticker in stocks:
         
     except Exception as e:
         print(f"  ERROR: {e}")
-        results[stock_name] = {'error': str(e)}
+        results[stock_name] = {'ticker': ticker, 'error': str(e)}
 
-# --- Save ---
+# --- Save JSON (backward compat) ---
 with open('data/kronos_forecast.json', 'w') as f:
     json.dump(results, f, indent=2)
 
@@ -118,3 +124,26 @@ for name, r in results.items():
         sign = '▲' if r['pred_change_pct'] > 0 else '▼'
         print(f"  {sign} {name}: RM{r['last_close']:.2f} → RM{r['pred_30d_close']:.2f} ({r['pred_change_pct']:+.1f}%) vol={r['pred_volatility']}%")
 print(f"\nSaved to data/kronos_forecast.json")
+
+# --- Write to Supabase ---
+try:
+    db = get_db()
+    cur = dict_cursor(db)
+    inserted = 0
+    for name, r in results.items():
+        if 'error' in r:
+            continue
+        cur.execute(
+            """INSERT INTO kronos_forecasts (stock_id, pred_30d_close, pred_change_pct,
+               pred_low, pred_high, pred_volatility)
+               VALUES (%s,%s,%s,%s,%s,%s)""",
+            (r['ticker'], r['pred_30d_close'], r['pred_change_pct'],
+             r['pred_low'], r['pred_high'], r['pred_volatility']))
+        inserted += 1
+    db.commit()
+    cur.close()
+    db.close()
+    print(f"✓ Wrote {inserted} forecasts to Supabase (kronos_forecasts)")
+except Exception as e:
+    print(f"⚠ Supabase write skipped: {e}")
+    print(f"  (DB_PASSWORD env var may not be set — JSON file is still saved)")

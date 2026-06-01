@@ -7,3 +7,4 @@ data/divvy.db
 data/divvy.db-shm
 data/divvy.db-wal
 .env
+__pycache__/

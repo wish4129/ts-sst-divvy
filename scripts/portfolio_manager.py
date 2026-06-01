@@ -1,23 +1,22 @@
 #!/usr/bin/env python3
-"""Divvy Portfolio Manager — SQLite-backed Bursa portfolio rebalancing engine.
+"""Divvy Portfolio Manager — Supabase Postgres-backed Bursa portfolio rebalancing engine.
 
 Three personas (Ares, Demeter, Athena) each manage configurable capital.
 All trades recorded with full decision trail (reason, Kronos signal, source).
 Runs hourly. Kronos 30-day AI forecasts integrated into all engines.
 
-Schema: schema.sql (SQLite local → Supabase Postgres future, near-identical)
-
-Usage: python3 scripts/portfolio_manager.py [--dry-run] [--skip-kronos] [--export-json]
+Usage: DB_PASSWORD=xxx python3 scripts/portfolio_manager.py [--dry-run] [--skip-kronos] [--export-json]
 """
 
 import json
 import os
-import sqlite3
 import sys
 import time
 import uuid
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+
+from db import get_db, dict_cursor
 
 try:
     import yfinance as yf
@@ -27,36 +26,34 @@ except ImportError:
     import yfinance as yf
 
 ROOT = Path(__file__).resolve().parent.parent
-DB_PATH = ROOT / "data" / "divvy.db"
 PORTFOLIOS_PATH = ROOT / "scripts" / "portfolios.json"
 HISTORY_PATH = ROOT / "data" / "portfolio_history.json"
 LIVE_PRICES_PATH = ROOT / "data" / "live_prices.json"
 KRONOS_PATH = ROOT / "data" / "kronos_forecast.json"
 MALAYSIA_TZ = timezone(timedelta(hours=8))
 
+# Kevin's user UUID in Supabase
+KEVIN_USER_ID = "385a7e30-3d63-4b6a-a1af-175a774acd40"
+
 
 # ── DB helpers ─────────────────────────────────────────────────────
 
-def get_db():
-    db = sqlite3.connect(str(DB_PATH))
-    db.row_factory = sqlite3.Row
-    db.execute("PRAGMA journal_mode=WAL")
-    db.execute("PRAGMA foreign_keys=ON")
-    return db
-
-
-def load_portfolios_from_db(db):
-    """Load all 3 persona portfolios with holdings from SQLite."""
+def load_portfolios_from_db(db, cur):
+    """Load all 3 persona portfolios with holdings from Postgres."""
     portfolios = {}
-    for row in db.execute("SELECT * FROM user_portfolios WHERE user_id='kevin' ORDER BY persona"):
+    cur.execute("SELECT * FROM user_portfolios WHERE user_id=%s ORDER BY persona", (KEVIN_USER_ID,))
+    for row in cur.fetchall():
         pid = row['persona']
         holdings = {}
-        for h in db.execute(
-            "SELECT ph.*, s.name as stock_name FROM portfolio_holdings ph JOIN stocks s ON ph.stock_id=s.id WHERE portfolio_id=?",
+        cur.execute(
+            "SELECT ph.*, s.name as stock_name FROM portfolio_holdings ph "
+            "JOIN stocks s ON ph.stock_id=s.id WHERE portfolio_id=%s",
             (row['id'],)
-        ):
+        )
+        for h in cur.fetchall():
             holdings[h['stock_name']] = {
-                'shares': h['shares'], 'cost': h['avg_cost'], 'target_pct': h['target_pct']
+                'shares': h['shares'], 'cost': float(h['avg_cost']),
+                'target_pct': float(h['target_pct']),
             }
         portfolios[pid] = {
             'id': row['id'],
@@ -64,18 +61,16 @@ def load_portfolios_from_db(db):
             'god': _persona_god(pid),
             'style': _persona_style(pid),
             'strategy': row['strategy'],
-            'initial_capital': row['initial_capital'],
-            'cash': row['cash'],
+            'initial_capital': float(row['initial_capital']),
+            'cash': float(row['cash']),
             'holdings': holdings,
             'rules': _persona_rules(pid),
         }
     return portfolios
 
 
-def load_stock_map(db):
-    """Build {short_name: {code, name, industry, initial}} from DB + portfolios.json fallback.
-    Uses short names (MAYBANK) as keys matching live_prices.json and portfolios.json."""
-    # Read portfolios.json for short name → code mapping
+def load_stock_map(db, cur):
+    """Build {short_name: {code, name, industry, initial}} from DB + portfolios.json fallback."""
     try:
         pf = json.loads(PORTFOLIOS_PATH.read_text())
         pf_stocks = pf.get("stocks", {})
@@ -83,9 +78,9 @@ def load_stock_map(db):
         pf_stocks = {}
 
     stock_map = {}
-    for row in db.execute("SELECT * FROM stocks WHERE status != 'removed'"):
-        # Find short name from portfolios.json (or use full name as fallback)
-        short_name = row['name']  # default
+    cur.execute("SELECT * FROM stocks WHERE status != 'removed'")
+    for row in cur.fetchall():
+        short_name = row['name']
         for sn, info in pf_stocks.items():
             if info.get('code') == row['id']:
                 short_name = sn
@@ -94,44 +89,54 @@ def load_stock_map(db):
             'code': row['id'],
             'name': row['name'],
             'industry': row['industry'] or '',
-            'initial': row['initial_price'],
+            'initial': float(row['initial_price']),
         }
     return stock_map
 
 
-def save_trade(db, portfolio_id, stock_id, action, shares, price, reason, kronos_signal, decision_source, triggered_by, snapshot_id, timestamp):
-    """Record trade with full decision trail."""
-    db.execute("""INSERT INTO trades (portfolio_id, stock_id, action, shares, price, total_amount,
-                   reason, kronos_signal, decision_source, triggered_by, snapshot_id, executed_at)
-                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
-               (portfolio_id, stock_id, action, shares, price, shares * price,
-                reason, json.dumps(kronos_signal) if kronos_signal else None,
-                decision_source, triggered_by, snapshot_id, timestamp))
-    return db.execute("SELECT last_insert_rowid()").fetchone()[0]
+def save_trade(db, cur, portfolio_id, stock_id, action, shares, price, reason,
+                kronos_signal, decision_source, triggered_by, snapshot_id, timestamp):
+    """Record trade with full decision trail. Returns trade_id."""
+    cur.execute(
+        """INSERT INTO trades (portfolio_id, stock_id, action, shares, price, total_amount,
+           reason, kronos_signal, decision_source, triggered_by, snapshot_id, executed_at)
+           VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING id""",
+        (portfolio_id, stock_id, action, shares, price, shares * price,
+         reason, json.dumps(kronos_signal) if kronos_signal else None,
+         decision_source, triggered_by, snapshot_id, timestamp))
+    return cur.fetchone()['id']
 
 
-def save_snapshot(db, portfolio_id, timestamp, total, invested, cash, pnl, pnl_pct, holdings):
-    """Save portfolio performance snapshot."""
-    db.execute("""INSERT INTO portfolio_snapshots (portfolio_id, snapshot_at, total_value, invested, cash, pnl, pnl_pct, holdings_json)
-                  VALUES (?,?,?,?,?,?,?,?)""",
-               (portfolio_id, timestamp, total, invested, cash, pnl, pnl_pct, json.dumps(holdings)))
-    return db.execute("SELECT last_insert_rowid()").fetchone()[0]
+def save_snapshot(db, cur, portfolio_id, timestamp, total, invested, cash, pnl, pnl_pct, holdings):
+    """Save portfolio performance snapshot. Returns snapshot_id."""
+    cur.execute(
+        """INSERT INTO portfolio_snapshots (portfolio_id, snapshot_at, total_value, invested,
+           cash, pnl, pnl_pct, holdings_json)
+           VALUES (%s,%s,%s,%s,%s,%s,%s,%s) RETURNING id""",
+        (portfolio_id, timestamp, total, invested, cash, pnl, pnl_pct, json.dumps(holdings)))
+    return cur.fetchone()['id']
 
 
-def update_portfolio_cash(db, portfolio_id, cash):
-    db.execute("UPDATE user_portfolios SET cash=?, updated_at=? WHERE id=?", (cash, datetime.now(MALAYSIA_TZ).isoformat(), portfolio_id))
+def update_portfolio_cash(db, cur, portfolio_id, cash):
+    cur.execute("UPDATE user_portfolios SET cash=%s, updated_at=%s WHERE id=%s",
+                (cash, datetime.now(MALAYSIA_TZ).isoformat(), portfolio_id))
 
 
-def update_holding(db, portfolio_id, stock_id, shares, avg_cost, target_pct):
+def update_holding(db, cur, portfolio_id, stock_id, shares, avg_cost, target_pct):
     if shares <= 0:
-        db.execute("DELETE FROM portfolio_holdings WHERE portfolio_id=? AND stock_id=?", (portfolio_id, stock_id))
+        cur.execute("DELETE FROM portfolio_holdings WHERE portfolio_id=%s AND stock_id=%s",
+                    (portfolio_id, stock_id))
     else:
-        db.execute("""INSERT INTO portfolio_holdings (portfolio_id, stock_id, shares, avg_cost, target_pct)
-                      VALUES (?,?,?,?,?) ON CONFLICT(portfolio_id, stock_id) DO UPDATE SET shares=excluded.shares, avg_cost=excluded.avg_cost, target_pct=excluded.target_pct""",
-                   (portfolio_id, stock_id, shares, avg_cost, target_pct))
+        cur.execute(
+            """INSERT INTO portfolio_holdings (portfolio_id, stock_id, shares, avg_cost, target_pct)
+               VALUES (%s,%s,%s,%s,%s)
+               ON CONFLICT (portfolio_id, stock_id)
+               DO UPDATE SET shares=EXCLUDED.shares, avg_cost=EXCLUDED.avg_cost,
+                             target_pct=EXCLUDED.target_pct""",
+            (portfolio_id, stock_id, shares, avg_cost, target_pct))
 
 
-def export_json_for_web(db, personas_data):
+def export_json_for_web(db, cur, personas_data):
     """Export portfolio_history.json for the static web app (backward compat)."""
     history = {"runs": [], "personas": {}}
     if HISTORY_PATH.exists():
@@ -140,35 +145,33 @@ def export_json_for_web(db, personas_data):
         except Exception:
             pass
 
-    # Append snapshots as runs
-    snapshots = db.execute("""SELECT * FROM portfolio_snapshots ORDER BY snapshot_at DESC LIMIT 50""").fetchall()
-    for s in snapshots:
-        run = {
-            "timestamp": s['snapshot_at'],
-            "personas": {},
-        }
-        # Group by portfolio
-        pid_map = {}
-        for pf in db.execute("SELECT * FROM user_portfolios WHERE user_id='kevin'"):
-            pid_map[pf['id']] = pf['persona']
+    cur.execute("SELECT * FROM portfolio_snapshots ORDER BY snapshot_at DESC LIMIT 50")
+    snapshots = cur.fetchall()
 
+    pid_map = {}
+    cur.execute("SELECT * FROM user_portfolios WHERE user_id=%s", (KEVIN_USER_ID,))
+    for pf in cur.fetchall():
+        pid_map[pf['id']] = pf['persona']
+
+    for s in snapshots:
+        run = {"timestamp": s['snapshot_at'].isoformat() if hasattr(s['snapshot_at'], 'isoformat') else str(s['snapshot_at']), "personas": {}}
         snap_pid = pid_map.get(s['portfolio_id'], 'unknown')
         run["personas"][snap_pid] = {
-            "total": s['total_value'],
-            "invested": s['invested'],
-            "cash": s['cash'],
-            "pnl": s['pnl'],
-            "pnl_pct": s['pnl_pct'],
+            "total": float(s['total_value']),
+            "invested": float(s['invested']),
+            "cash": float(s['cash']),
+            "pnl": float(s['pnl']),
+            "pnl_pct": float(s['pnl_pct']),
             "holdings": json.loads(s['holdings_json']) if s['holdings_json'] else {},
             "trades_this_run": 0,
         }
         history["runs"].append(run)
 
-    # Also save persona state
     for pid, pdata in personas_data.items():
         history["personas"][pid] = {
             "cash": pdata['cash'],
-            "holdings": {name: {"shares": h['shares'], "cost": h['cost']} for name, h in pdata['holdings'].items()},
+            "holdings": {name: {"shares": h['shares'], "cost": h['cost']}
+                         for name, h in pdata['holdings'].items()},
             "trade_log": [],
         }
 
@@ -180,7 +183,7 @@ def export_json_for_web(db, personas_data):
     print(f"  ✓ Exported {len(history['runs'])} snapshots to portfolio_history.json")
 
 
-# ── Persona metadata (hardcoded — in portfolios.json for now, DB later) ──
+# ── Persona metadata ────────────────────────────────────────────────
 
 def _persona_god(pid):
     return {"ares": "God of War", "demeter": "Harvest Goddess", "athena": "Goddess of Wisdom"}.get(pid, pid)
@@ -470,146 +473,130 @@ def main():
     timestamp = now.strftime("%Y-%m-%dT%H:%M:%S+08:00")
 
     db = get_db()
+    cur = dict_cursor(db)
 
-    # Load from DB
-    portfolios = load_portfolios_from_db(db)
-    stock_map = load_stock_map(db)
-    forecasts = {} if skip_kronos else load_kronos_forecasts()
+    try:
+        portfolios = load_portfolios_from_db(db, cur)
+        stock_map = load_stock_map(db, cur)
+        forecasts = {} if skip_kronos else load_kronos_forecasts()
 
-    if export_only:
-        export_json_for_web(db, portfolios)
-        db.close()
-        return
+        if export_only:
+            export_json_for_web(db, cur, portfolios)
+            return
 
-    # Fetch prices
-    print(f"[{timestamp}] Fetching prices...")
-    prices = fetch_prices(stock_map)
-    print(f"  Prices: {json.dumps({k: round(v, 4) for k, v in prices.items()})}")
+        # Fetch prices
+        print(f"[{timestamp}] Fetching prices...")
+        prices = fetch_prices(stock_map)
+        print(f"  Prices: {json.dumps({k: round(v, 4) for k, v in prices.items()})}")
 
-    # Previous prices (from last snapshot in DB)
-    prev_prices = {}
-    prev_snap = db.execute("SELECT holdings_json FROM portfolio_snapshots ORDER BY snapshot_at DESC LIMIT 1").fetchone()
-    if prev_snap and prev_snap['holdings_json']:
-        try:
-            prev_holdings = json.loads(prev_snap['holdings_json'])
-            prev_prices = {name: h.get('price', 0) for name, h in prev_holdings.items()}
-        except Exception:
-            pass
+        # Previous prices (from last snapshot)
+        prev_prices = {}
+        cur.execute("SELECT holdings_json FROM portfolio_snapshots ORDER BY snapshot_at DESC LIMIT 1")
+        prev_snap = cur.fetchone()
+        if prev_snap and prev_snap['holdings_json']:
+            try:
+                prev_holdings = json.loads(prev_snap['holdings_json'])
+                prev_prices = {name: h.get('price', 0) for name, h in prev_holdings.items()}
+            except Exception:
+                pass
 
-    run_record = {"timestamp": timestamp, "personas": {}, "prices": prices, "kronos": bool(forecasts)}
+        run_record = {"timestamp": timestamp, "personas": {}, "prices": prices, "kronos": bool(forecasts)}
 
-    for pid, persona in portfolios.items():
-        # Current state from DB
-        state = {"cash": persona["cash"],
-                 "holdings": persona["holdings"].copy(),
-                 "trade_log": []}
+        for pid, persona in portfolios.items():
+            state = {"cash": persona["cash"],
+                     "holdings": {k: v.copy() for k, v in persona["holdings"].items()},
+                     "trade_log": []}
 
-        snapshot = calc_portfolio_value(state["holdings"], prices, state["cash"])
-        engine = TRADE_ENGINES.get(pid)
-        trades = engine(persona, prices, snapshot, stock_map, prev_prices, forecasts) if engine else []
+            snapshot = calc_portfolio_value(state["holdings"], prices, state["cash"])
+            engine = TRADE_ENGINES.get(pid)
+            trades = engine(persona, prices, snapshot, stock_map, prev_prices, forecasts) if engine else []
 
-        # Save snapshot BEFORE trades (pre-trade state)
-        pre_snap_id = save_snapshot(db, persona["id"], timestamp,
-                                    snapshot["total"], snapshot["invested"], snapshot["cash"],
-                                    snapshot["pnl"], snapshot["pnl_pct"], snapshot["stocks"])
+            pre_snap_id = save_snapshot(db, cur, persona["id"], timestamp,
+                                        snapshot["total"], snapshot["invested"], snapshot["cash"],
+                                        snapshot["pnl"], snapshot["pnl_pct"], snapshot["stocks"])
 
-        # Execute trades with full decision trail
-        executed = []
-        for t in trades:
-            stock_code = stock_map.get(t["stock"], {}).get("code", t["stock"])
-            ksig = t.get("signal", {})
-            source = t.get("source", "unknown")
-
-            if t["action"] == "SELL_ALL":
-                sell_shares = state["holdings"][t["stock"]]["shares"]
-                proceeds = sell_shares * t["price"]
-                state["cash"] += proceeds
-                del state["holdings"][t["stock"]]
-                trade_id = save_trade(db, persona["id"], stock_code, "SELL_ALL", sell_shares, t["price"],
-                                      t["reason"], ksig, source, "stop_loss" if "stop" in source else source,
-                                      pre_snap_id, timestamp)
-                executed.append({**t, "proceeds": round(proceeds, 2), "trade_id": trade_id})
-
-            elif t["action"] == "SELL":
-                sell_shares = min(t["shares"], state["holdings"][t["stock"]]["shares"])
-                proceeds = sell_shares * t["price"]
-                state["cash"] += proceeds
-                state["holdings"][t["stock"]]["shares"] -= sell_shares
-                if state["holdings"][t["stock"]]["shares"] <= 0:
-                    del state["holdings"][t["stock"]]
-                trade_id = save_trade(db, persona["id"], stock_code, "SELL", sell_shares, t["price"],
-                                      t["reason"], ksig, source, source, pre_snap_id, timestamp)
-                executed.append({**t, "proceeds": round(proceeds, 2), "shares": sell_shares, "trade_id": trade_id})
-
-            elif t["action"] == "BUY":
-                cost = t["shares"] * t["price"]
-                if cost <= state["cash"] * 1.05:
-                    actual_shares = min(t["shares"], int(state["cash"] / t["price"]))
-                    if actual_shares > 0:
-                        actual_cost = actual_shares * t["price"]
-                        state["cash"] -= actual_cost
-                        if t["stock"] in state["holdings"]:
-                            old = state["holdings"][t["stock"]]
-                            total_shares = old["shares"] + actual_shares
-                            old["cost"] = ((old["cost"] * old["shares"]) + actual_cost) / total_shares
-                            old["shares"] = total_shares
-                        else:
-                            state["holdings"][t["stock"]] = {"shares": actual_shares, "cost": t["price"], "target_pct": 0}
-                        trade_id = save_trade(db, persona["id"], stock_code, "BUY", actual_shares, t["price"],
-                                              t["reason"], ksig, source, source, pre_snap_id, timestamp)
-                        executed.append({**t, "cost": round(actual_cost, 2), "shares": actual_shares, "trade_id": trade_id})
-
-        if dry_run:
+            executed = []
             for t in trades:
-                print(f"  [{pid}] WOULD {t['action']} {t['stock']}: {t['reason']}")
-        else:
-            # Update DB state
-            update_portfolio_cash(db, persona["id"], state["cash"])
-            for name, h in state["holdings"].items():
-                stock_code = stock_map.get(name, {}).get("code", name)
-                update_holding(db, persona["id"], stock_code, h["shares"], h["cost"], h.get("target_pct", 0))
+                stock_code = stock_map.get(t["stock"], {}).get("code", t["stock"])
+                ksig = t.get("signal", {})
+                source = t.get("source", "unknown")
 
-            # Delete holdings that were sold off
-            held_codes = {stock_map.get(n, {}).get("code", n) for n in state["holdings"]}
-            if held_codes:
-                placeholders = ','.join('?' * len(held_codes))
-                db.execute(f"DELETE FROM portfolio_holdings WHERE portfolio_id=? AND stock_id NOT IN ({placeholders})",
-                           [persona["id"]] + list(held_codes))
+                if t["action"] == "SELL_ALL":
+                    sell_shares = state["holdings"][t["stock"]]["shares"]
+                    proceeds = sell_shares * t["price"]
+                    state["cash"] += proceeds
+                    del state["holdings"][t["stock"]]
+                    trade_id = save_trade(db, cur, persona["id"], stock_code, "SELL_ALL", sell_shares, t["price"],
+                                          t["reason"], ksig, source, "stop_loss" if "stop" in source else source,
+                                          pre_snap_id, timestamp)
+                    executed.append({**t, "proceeds": round(proceeds, 2), "trade_id": trade_id})
+
+                elif t["action"] == "SELL":
+                    sell_shares = min(t["shares"], state["holdings"][t["stock"]]["shares"])
+                    proceeds = sell_shares * t["price"]
+                    state["cash"] += proceeds
+                    state["holdings"][t["stock"]]["shares"] -= sell_shares
+                    if state["holdings"][t["stock"]]["shares"] <= 0:
+                        del state["holdings"][t["stock"]]
+                    trade_id = save_trade(db, cur, persona["id"], stock_code, "SELL", sell_shares, t["price"],
+                                          t["reason"], ksig, source, source, pre_snap_id, timestamp)
+                    executed.append({**t, "proceeds": round(proceeds, 2), "shares": sell_shares, "trade_id": trade_id})
+
+                elif t["action"] == "BUY":
+                    cost = t["shares"] * t["price"]
+                    if cost <= state["cash"] * 1.05:
+                        actual_shares = min(t["shares"], int(state["cash"] / t["price"]))
+                        if actual_shares > 0:
+                            actual_cost = actual_shares * t["price"]
+                            state["cash"] -= actual_cost
+                            if t["stock"] in state["holdings"]:
+                                old = state["holdings"][t["stock"]]
+                                total_shares = old["shares"] + actual_shares
+                                old["cost"] = ((old["cost"] * old["shares"]) + actual_cost) / total_shares
+                                old["shares"] = total_shares
+                            else:
+                                state["holdings"][t["stock"]] = {"shares": actual_shares, "cost": t["price"], "target_pct": 0}
+                            trade_id = save_trade(db, cur, persona["id"], stock_code, "BUY", actual_shares, t["price"],
+                                                  t["reason"], ksig, source, source, pre_snap_id, timestamp)
+                            executed.append({**t, "cost": round(actual_cost, 2), "shares": actual_shares, "trade_id": trade_id})
+
+            if dry_run:
+                for t in trades:
+                    print(f"  [{pid}] WOULD {t['action']} {t['stock']}: {t['reason']}")
             else:
-                db.execute("DELETE FROM portfolio_holdings WHERE portfolio_id=?", (persona["id"],))
+                update_portfolio_cash(db, cur, persona["id"], state["cash"])
+                for name, h in state["holdings"].items():
+                    stock_code = stock_map.get(name, {}).get("code", name)
+                    update_holding(db, cur, persona["id"], stock_code, h["shares"], h["cost"], h.get("target_pct", 0))
 
-            for e in executed:
-                print(f"  [{pid}] #{e.get('trade_id')} {e['action']} {e['stock']} x{e.get('shares', 'ALL')} "
-                      f"@ RM{e['price']}: {e['reason']}")
+                # Delete holdings that were sold off
+                held_codes = {stock_map.get(n, {}).get("code", n) for n in state["holdings"]}
+                if held_codes:
+                    cur.execute(
+                        "DELETE FROM portfolio_holdings WHERE portfolio_id=%s AND stock_id NOT IN %s",
+                        (persona["id"], tuple(held_codes)))
+                else:
+                    cur.execute("DELETE FROM portfolio_holdings WHERE portfolio_id=%s", (persona["id"],))
 
-        # Recalculate after trades
-        final_snapshot = calc_portfolio_value(state["holdings"], prices, state["cash"])
-        # Save post-trade snapshot
-        save_snapshot(db, persona["id"], timestamp,
-                      final_snapshot["total"], final_snapshot["invested"], final_snapshot["cash"],
-                      final_snapshot["pnl"], final_snapshot["pnl_pct"], final_snapshot["stocks"])
+                db.commit()
 
-        summary = {"total": final_snapshot["total"], "invested": final_snapshot["invested"],
-                   "cash": final_snapshot["cash"], "pnl": final_snapshot["pnl"],
-                   "pnl_pct": final_snapshot["pnl_pct"], "holdings": final_snapshot["stocks"],
-                   "trades_this_run": len(executed)}
-        run_record["personas"][pid] = summary
-        print(f"  [{pid}] Total: RM{final_snapshot['total']:.2f} | P&L: {final_snapshot['pnl_pct']:+.2f}% | Trades: {len(executed)}")
+            run_record["personas"][pid] = {
+                "snapshot": snapshot, "trades": executed, "state": state,
+            }
 
-    db.commit()
+        export_json_for_web(db, cur, portfolios)
 
-    # Export JSON for web app
-    export_json_for_web(db, portfolios)
+        summary = {pid: f"{v['snapshot']['pnl_pct']:+.1f}% ({len(v['trades'])} trades)"
+                   for pid, v in run_record["personas"].items()}
+        print(f"[{timestamp}] Done: {summary}")
 
-    # Leaderboard
-    print("\n═══ LEADERBOARD ═══")
-    ranked = sorted(run_record["personas"].items(), key=lambda x: x[1]["pnl_pct"], reverse=True)
-    medals = ["🥇", "🥈", "🥉"]
-    for i, (pid, s) in enumerate(ranked):
-        print(f"  {medals[i]} {pid.upper()}: RM{s['total']:.2f} ({s['pnl_pct']:+.2f}%) — {_persona_god(pid)}")
-
-    db.close()
-    return run_record
+    except Exception as e:
+        db.rollback()
+        print(f"ERROR: {e}")
+        raise
+    finally:
+        cur.close()
+        db.close()
 
 
 if __name__ == "__main__":
