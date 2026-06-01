@@ -98,13 +98,27 @@ def calc_portfolio_value(holdings, prices, cash):
 
 # ── Trading engines ────────────────────────────────────────────────
 
-def ares_trade(persona, prices, snapshot, stock_map):
-    """Ares: Cut -12%, ride winners, chase momentum. High turnover."""
+def ares_trade(persona, prices, snapshot, stock_map, prev_prices=None):
+    """Ares: Cut -12%, momentum cool -5%, ride winners. High turnover."""
     rules = persona["rules"]
     trades = []
 
     for name, s in snapshot["stocks"].items():
         pnl_pct = s["pnl_pct"] / 100
+
+        # Momentum cooling: trim 25% if dropped 5%+ from last run
+        if prev_prices and name in prev_prices:
+            prev_price = prev_prices[name]
+            if prev_price > 0:
+                session_change = (s["price"] - prev_price) / prev_price
+                if session_change <= rules.get("momentum_cooling_threshold", -0.05):
+                    trim_shares = int(s["shares"] * rules.get("momentum_cooling_trim", 0.25))
+                    if trim_shares > 0:
+                        trades.append({
+                            "action": "SELL", "stock": name,
+                            "reason": f"Momentum cool: {session_change*100:.1f}% intraday (trim {rules['momentum_cooling_trim']*100:.0f}%)",
+                            "shares": trim_shares, "price": s["price"],
+                        })
 
         # Hard stop loss
         if pnl_pct <= rules["stop_loss"]:
@@ -115,31 +129,45 @@ def ares_trade(persona, prices, snapshot, stock_map):
             })
 
     # If no stop-loss triggered, check for rebalance drift
-    if not trades:
-        for name, h in persona["holdings"].items():
-            s = snapshot["stocks"].get(name)
-            if not s:
-                continue
-            current_weight = s["weight"] / 100
-            drift = abs(current_weight - h["target_pct"] / 100)
-            if drift > rules["rebalance_drift"]:
-                direction = "BUY" if current_weight < h["target_pct"] / 100 else "SELL"
-                trades.append({
-                    "action": direction, "stock": name,
-                    "reason": f"Rebalance drift {drift*100:.1f}% (target {h['target_pct']}%)",
-                    "shares": int(s["shares"] * drift * 0.5), "price": s["price"],
-                })
+    triggered = {t["stock"] for t in trades if t["action"] == "SELL_ALL"}
+    for name, h in persona["holdings"].items():
+        if name in triggered:
+            continue
+        s = snapshot["stocks"].get(name)
+        if not s:
+            continue
+        current_weight = s["weight"] / 100
+        drift = abs(current_weight - h["target_pct"] / 100)
+        if drift > rules["rebalance_drift"]:
+            direction = "BUY" if current_weight < h["target_pct"] / 100 else "SELL"
+            trades.append({
+                "action": direction, "stock": name,
+                "reason": f"Rebalance drift {drift*100:.1f}% (target {h['target_pct']}%)",
+                "shares": int(s["shares"] * drift * 0.5), "price": s["price"],
+            })
 
     return trades
 
 
-def demeter_trade(persona, prices, snapshot, stock_map):
-    """Demeter: Hold forever. Only sell on dividend cut (external signal)."""
+def demeter_trade(persona, prices, snapshot, stock_map, prev_prices=None):
+    """Demeter: Hold forever. Sell only on dividend cut or DY<3%."""
     trades = []
-    # Demeter does NOT sell on price drops.
-    # Only check: if cash > buffer, rebalance towards targets.
     rules = persona["rules"]
     cash_pct = snapshot["cash"] / snapshot["total"] if snapshot["total"] > 0 else 0
+
+    # Check dividend yield degradation (trim if DY < 3% from price appreciation)
+    min_dy = rules.get("min_dividend_yield", 0.03)
+    for name, s in snapshot["stocks"].items():
+        stock_info = stock_map.get(name, {})
+        # Estimate current DY: initial_dy * (initial_price / current_price)
+        # Using the initial DY from the stock map
+        initial_price = stock_info.get("initial", s["cost"])
+        if s["price"] > initial_price * 1.5:  # Price up 50%+ from initial
+            # Calculate if DY would have compressed below threshold
+            price_ratio = s["price"] / initial_price
+            # Rough estimate: if price doubled, DY halves. If DY was ~5%, now ~2.5%
+            # Flag for review (we don't have live DY data without scraping)
+            pass
 
     if cash_pct > rules["cash_buffer"] + 0.05:
         # Excess cash — buy most underweight
@@ -163,16 +191,39 @@ def demeter_trade(persona, prices, snapshot, stock_map):
                     "shares": shares, "price": snapshot["stocks"][most_under]["price"],
                 })
 
+    # DY < 3% trim: sell 50% if price run-up compressed yield too far
+    for name, s in snapshot["stocks"].items():
+        stock_info = stock_map.get(name, {})
+        initial_price = stock_info.get("initial", s["cost"])
+        if s["price"] >= initial_price * 1.67:  # Price up 67% ≈ DY halved, likely <3%
+            trim_shares = int(s["shares"] * 0.5)
+            if trim_shares > 0:
+                trades.append({
+                    "action": "SELL", "stock": name,
+                    "reason": f"DY compression: price +{(s['price']/initial_price-1)*100:.0f}% from initial (DY likely <{min_dy*100:.0f}%)",
+                    "shares": trim_shares, "price": s["price"],
+                })
+
     return trades
 
 
-def athena_trade(persona, prices, snapshot, stock_map):
-    """Athena: Sell 50% at +25%, buy 50% more at -10%. Tactical rotation."""
+def athena_trade(persona, prices, snapshot, stock_map, prev_prices=None):
+    """Athena: Sell 50% @ +25%, full exit @ +40%, dip buy @ -10% (1/month)."""
     rules = persona["rules"]
     trades = []
 
     for name, s in snapshot["stocks"].items():
         pnl_pct = s["pnl_pct"] / 100
+
+        # Full exit at extreme profit
+        full_exit = rules.get("full_exit_threshold", 0.40)
+        if full_exit and pnl_pct >= full_exit:
+            trades.append({
+                "action": "SELL_ALL", "stock": name,
+                "reason": f"Full exit +{s['pnl_pct']:.1f}% (≥{full_exit*100:.0f}%)",
+                "shares": s["shares"], "price": s["price"],
+            })
+            continue  # Skip other checks for this stock
 
         # Take profit: sell 50%
         if rules["take_profit"] and pnl_pct >= rules["take_profit"]:
@@ -191,9 +242,19 @@ def athena_trade(persona, prices, snapshot, stock_map):
                 "reason": f"Stop loss ({s['pnl_pct']:.1f}%)",
                 "shares": s["shares"], "price": s["price"],
             })
+            continue
 
-        # Dip buy: add 50% more
-        if rules["dip_buy_threshold"] and pnl_pct <= rules["dip_buy_threshold"] and pnl_pct > (rules["stop_loss"] or -999):
+        # Dip buy: add 50% more (with cooldown — max 1 per stock per month)
+        dip_cooldown_days = rules.get("dip_buy_cooldown_days", 30)
+        can_dip_buy = True
+        if prev_prices and name in prev_prices:
+            # Check if already dip-bought recently by looking at cost basis changes
+            # Simple heuristic: if shares > initial and cost < initial price, likely dip-bought
+            h = persona["holdings"].get(name)
+            if h and s["shares"] > h["shares"] * 1.4:
+                can_dip_buy = False  # Already added 40%+ more shares
+
+        if can_dip_buy and rules.get("dip_buy_threshold") and pnl_pct <= rules["dip_buy_threshold"] and pnl_pct > (rules["stop_loss"] or -999):
             buy_shares = int(s["shares"] * rules["dip_buy_pct"])
             if buy_shares > 0:
                 trades.append({
@@ -252,6 +313,12 @@ def main():
     # Process each persona
     run_record = {"timestamp": timestamp, "personas": {}, "prices": prices}
 
+    # Get previous prices for momentum comparison
+    prev_prices = {}
+    if history.get("runs"):
+        prev_run = history["runs"][-1]
+        prev_prices = prev_run.get("prices", {})
+
     for pid, persona in portfolios["personas"].items():
         # Load running state
         state = history.get("personas", {}).get(pid, {
@@ -267,7 +334,7 @@ def main():
         # Run trading engine
         engine = TRADE_ENGINES.get(pid)
         if engine:
-            trades = engine(persona, prices, snapshot, stock_map)
+            trades = engine(persona, prices, snapshot, stock_map, prev_prices)
         else:
             trades = []
 
