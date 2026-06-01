@@ -1,6 +1,5 @@
 node_modules/
-dist/
 .sst/
-.sst-output/
-.env
-*.log
+Kronos/
+*.csv
+data/*.csv
