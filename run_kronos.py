@@ -87,7 +87,7 @@ for stock_name, ticker in stocks:
         pred_min = pred_close.min()
         pred_max = pred_close.max()
         
-        results[name] = {
+        results[stock_name] = {
             'last_close': round(last_close, 4),
             'pred_30d_close': round(float(pred_close[-1]), 4),
             'pred_change_pct': round(pred_change, 2),

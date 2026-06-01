@@ -1,6 +1,7 @@
 {
   "initialized": "2026-06-01T09:00:00+08:00",
   "initial_capital": 10000,
+  "last_rebalance": "2026-06-01T18:30:00+08:00",
   "stocks": {
     "MAYBANK":  {"code": "1155.KL", "name": "Malayan Banking",    "industry": "Banking",      "initial": 9.85},
     "YTLPOWR": {"code": "6742.KL", "name": "YTL Power",          "industry": "Utilities",    "initial": 3.95},
@@ -8,17 +9,17 @@
     "INSAS":   {"code": "3379.KL", "name": "INSAS Berhad",       "industry": "Investment",   "initial": 0.89},
     "LIIHEN":  {"code": "7089.KL", "name": "Lii Hen Industries", "industry": "Furniture",    "initial": 0.95},
     "SCIENTEX":{"code": "4731.KL", "name": "Scientex Berhad",    "industry": "Packaging",    "initial": 4.15},
-    "GENETEC": {"code": "0104.KL", "name": "Genetec Technology", "industry": "Industrial",   "initial": 1.52, "kronos_warning": "BEARISH -18.9% pred_change — review by 2026-06-15"},
+    "GENETEC": {"code": "0104.KL", "name": "Genetec Technology", "industry": "Industrial",   "initial": 1.52, "kronos_warning": "BEARISH -18.9% — removed from active, review Jun 15"},
     "KLK":     {"code": "2445.KL", "name": "KL Kepong",          "industry": "Plantation",   "initial": 20.50},
-    "INARI":   {"code": "0166.KL", "name": "Inari Amertron",     "industry": "Semiconductor","initial": 3.05, "kronos_warning": "BEARISH -40.2% pred_change — STRONG review needed by 2026-06-15"},
+    "INARI":   {"code": "0166.KL", "name": "Inari Amertron",     "industry": "Semiconductor","initial": 3.05, "kronos_warning": "BEARISH -40.2% — removed from active, review Jun 15"},
     "SIME":    {"code": "4197.KL", "name": "Sime Darby",         "industry": "Conglomerate", "initial": 2.38},
-    "MAGNI":   {"code": "7087.KL", "name": "Magni-Tech Industries", "industry": "Consumer Products & Services", "initial": 1.86, "added": "2026-06-01"},
-    "MBMR":    {"code": "5983.KL", "name": "MBM Resources",         "industry": "Automotive", "initial": 5.07, "added": "2026-06-01"},
-    "AME":     {"code": "5293.KL", "name": "AME Elite Consortium",   "industry": "Construction", "initial": 1.50, "added": "2026-06-01"},
-    "DELEUM":  {"code": "5132.KL", "name": "Deleum Berhad",          "industry": "Energy",    "initial": 1.22, "added": "2026-06-01"},
-    "WASCO":   {"code": "5142.KL", "name": "Wasco Berhad",           "industry": "Energy",    "initial": 0.80, "added": "2026-06-01"},
-    "KIPREIT": {"code": "5280.KL", "name": "KIP Real Estate Investment Trust", "industry": "REIT", "initial": 0.85, "added": "2026-06-01"},
-    "INTA":    {"code": "INTA.KL", "name": "INTA Berhad",            "industry": "Construction", "initial": 0.38, "added": "2026-06-01"}
+    "MAGNI":   {"code": "7087.KL", "name": "Magni-Tech Industries", "industry": "Consumer Products & Services", "initial": 1.86, "added": "2026-06-01", "kronos": "+10.3%"},
+    "MBMR":    {"code": "5983.KL", "name": "MBM Resources",         "industry": "Automotive", "initial": 5.07, "added": "2026-06-01", "kronos": "+1.0%"},
+    "AME":     {"code": "5293.KL", "name": "AME Elite Consortium",   "industry": "Construction", "initial": 1.50, "added": "2026-06-01", "kronos": "+2.0%"},
+    "DELEUM":  {"code": "5132.KL", "name": "Deleum Berhad",          "industry": "Energy",    "initial": 1.22, "added": "2026-06-01", "kronos": "+8.0%"},
+    "WASCO":   {"code": "5142.KL", "name": "Wasco Berhad",           "industry": "Energy",    "initial": 0.80, "added": "2026-06-01", "kronos": "+27.4%"},
+    "KIPREIT": {"code": "5280.KL", "name": "KIP Real Estate Investment Trust", "industry": "REIT", "initial": 0.85, "added": "2026-06-01", "kronos": "+0.1%"},
+    "INTA":    {"code": "INTA.KL", "name": "INTA Berhad",            "industry": "Construction", "initial": 0.38, "added": "2026-06-01", "kronos": "+0.3%"}
   },
   "personas": {
     "ares": {
@@ -27,11 +28,11 @@
       "style": "Aggressive",
       "strategy": "Strike fast. Momentum + deep value. Max 25% single bet. Cut losers at -12%, momentum-cool: -5% intraday → trim 25%. No take-profit — let compounders run. High conviction, high turnover.",
       "holdings": {
+        "WASCO":   {"shares": 3125, "cost": 0.80, "target_pct": 25},
         "YTLPOWR": {"shares": 760,  "cost": 3.95, "target_pct": 25},
         "INSAS":   {"shares": 2250, "cost": 0.89, "target_pct": 20},
-        "GENETEC": {"shares": 1320, "cost": 1.52, "target_pct": 20},
-        "INARI":   {"shares": 490,  "cost": 3.05, "target_pct": 15},
-        "LIIHEN":  {"shares": 1050, "cost": 0.95, "target_pct": 15},
+        "DELEUM":  {"shares": 1229, "cost": 1.22, "target_pct": 15},
+        "LIIHEN":  {"shares": 1050, "cost": 0.95, "target_pct": 10},
         "MAYBANK": {"shares": 50,   "cost": 9.85, "target_pct": 5}
       },
       "rules": {
@@ -54,10 +55,12 @@
       "style": "Conservative",
       "strategy": "Steady harvest. Dividend compounding. Trim if DY drops <3% (price ran too far). 10% cash buffer (FD 3% p.a.). Only sell on dividend cut >20%. Tight 10% rebalance.",
       "holdings": {
-        "MAYBANK":  {"shares": 305,  "cost": 9.85, "target_pct": 30},
-        "AXREIT":   {"shares": 1370, "cost": 1.82, "target_pct": 25},
-        "KLK":      {"shares": 98,   "cost": 20.50,"target_pct": 20},
-        "SCIENTEX": {"shares": 360,  "cost": 4.15, "target_pct": 15},
+        "MAYBANK":  {"shares": 253,  "cost": 9.85, "target_pct": 25},
+        "AXREIT":   {"shares": 1098, "cost": 1.82, "target_pct": 20},
+        "KLK":      {"shares": 73,   "cost": 20.50,"target_pct": 15},
+        "KIPREIT":  {"shares": 1176, "cost": 0.85, "target_pct": 10},
+        "SCIENTEX": {"shares": 240,  "cost": 4.15, "target_pct": 10},
+        "MAGNI":    {"shares": 537,  "cost": 1.86, "target_pct": 10},
         "SIME":     {"shares": 420,  "cost": 2.38, "target_pct": 10}
       },
       "rules": {
@@ -82,7 +85,7 @@
         "MAYBANK":  {"shares": 203,  "cost": 9.85, "target_pct": 20},
         "YTLPOWR": {"shares": 506,  "cost": 3.95, "target_pct": 20},
         "AXREIT":   {"shares": 825,  "cost": 1.82, "target_pct": 15},
-        "INARI":    {"shares": 492,  "cost": 3.05, "target_pct": 15},
+        "AME":      {"shares": 1000, "cost": 1.50, "target_pct": 15},
         "SCIENTEX": {"shares": 361,  "cost": 4.15, "target_pct": 15},
         "KLK":      {"shares": 73,   "cost": 20.50,"target_pct": 15}
       },
