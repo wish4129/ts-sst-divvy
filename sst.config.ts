@@ -13,7 +13,6 @@ export default $config({
   async run() {
     const supabaseUrl = "https://ceyqewaixcijbmdtbdlr.supabase.co";
     const supabaseAnonKey = process.env.SUPABASE_ANON_KEY!;
-    const databaseUrl = process.env.DATABASE_URL!;
 
     new sst.aws.StaticSite("WebApp", {
       path: "web/",
