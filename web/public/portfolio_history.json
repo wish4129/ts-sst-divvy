@@ -1396,33 +1396,268 @@
           "trades_this_run": 0
         }
       }
+    },
+    {
+      "timestamp": "2026-06-01T15:42:47+00:00",
+      "personas": {
+        "ares": {
+          "total": 20958.0,
+          "invested": 10913.5,
+          "cash": 10000.0,
+          "pnl": 10958.0,
+          "pnl_pct": 109.58,
+          "holdings": {
+            "WASCO": {
+              "shares": 3100,
+              "cost": 0.795,
+              "price": 0.8,
+              "invested": 2464.5,
+              "current": 2480.0,
+              "pnl": 15.5,
+              "pnl_pct": 0.63,
+              "weight": 11.8
+            },
+            "YTLPOWR": {
+              "shares": 700,
+              "cost": 4.16,
+              "price": 4.02,
+              "invested": 2912.0,
+              "current": 2814.0,
+              "pnl": -98.0,
+              "pnl_pct": -3.37,
+              "weight": 13.4
+            },
+            "INSAS": {
+              "shares": 2200,
+              "cost": 0.895,
+              "price": 0.91,
+              "invested": 1969.0,
+              "current": 2002.0,
+              "pnl": 33.0,
+              "pnl_pct": 1.68,
+              "weight": 9.6
+            },
+            "DELEUM": {
+              "shares": 1200,
+              "cost": 1.22,
+              "price": 1.22,
+              "invested": 1464.0,
+              "current": 1464.0,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 7.0
+            },
+            "SIME": {
+              "shares": 500,
+              "cost": 2.08,
+              "price": 2.42,
+              "invested": 1040.0,
+              "current": 1210.0,
+              "pnl": 170.0,
+              "pnl_pct": 16.35,
+              "weight": 5.8
+            },
+            "MAYBANK": {
+              "shares": 100,
+              "cost": 10.64,
+              "price": 9.88,
+              "invested": 1064.0,
+              "current": 988.0,
+              "pnl": -76.0,
+              "pnl_pct": -7.14,
+              "weight": 4.7
+            }
+          },
+          "trades_this_run": 0
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-01T15:42:47+00:00",
+      "personas": {
+        "athena": {
+          "total": 19398.0,
+          "invested": 9115.0,
+          "cash": 10000.0,
+          "pnl": 9398.0,
+          "pnl_pct": 93.98,
+          "holdings": {
+            "MAYBANK": {
+              "shares": 200,
+              "cost": 9.85,
+              "price": 9.88,
+              "invested": 1970.0,
+              "current": 1976.0,
+              "pnl": 6.0,
+              "pnl_pct": 0.3,
+              "weight": 10.2
+            },
+            "MAGNI": {
+              "shares": 800,
+              "cost": 1.86,
+              "price": 1.86,
+              "invested": 1488.0,
+              "current": 1488.0,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 7.7
+            },
+            "AME": {
+              "shares": 1000,
+              "cost": 1.5,
+              "price": 1.5,
+              "invested": 1500.0,
+              "current": 1500.0,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 7.7
+            },
+            "AXREIT": {
+              "shares": 800,
+              "cost": 1.82,
+              "price": 1.85,
+              "invested": 1456.0,
+              "current": 1480.0,
+              "pnl": 24.0,
+              "pnl_pct": 1.65,
+              "weight": 7.6
+            },
+            "SCIENTEX": {
+              "shares": 300,
+              "cost": 4.15,
+              "price": 4.2,
+              "invested": 1245.0,
+              "current": 1260.0,
+              "pnl": 15.0,
+              "pnl_pct": 1.2,
+              "weight": 6.5
+            },
+            "SIME": {
+              "shares": 700,
+              "cost": 2.08,
+              "price": 2.42,
+              "invested": 1456.0,
+              "current": 1694.0,
+              "pnl": 238.0,
+              "pnl_pct": 16.35,
+              "weight": 8.7
+            }
+          },
+          "trades_this_run": 0
+        }
+      }
+    },
+    {
+      "timestamp": "2026-06-01T15:42:47+00:00",
+      "personas": {
+        "demeter": {
+          "total": 19658.0,
+          "invested": 9548.0,
+          "cash": 10000.0,
+          "pnl": 9658.0,
+          "pnl_pct": 96.58,
+          "holdings": {
+            "MAYBANK": {
+              "shares": 200,
+              "cost": 9.85,
+              "price": 9.88,
+              "invested": 1970.0,
+              "current": 1976.0,
+              "pnl": 6.0,
+              "pnl_pct": 0.3,
+              "weight": 10.1
+            },
+            "AXREIT": {
+              "shares": 1000,
+              "cost": 1.82,
+              "price": 1.85,
+              "invested": 1820.0,
+              "current": 1850.0,
+              "pnl": 30.0,
+              "pnl_pct": 1.65,
+              "weight": 9.4
+            },
+            "MBMR": {
+              "shares": 200,
+              "cost": 5.07,
+              "price": 5.07,
+              "invested": 1014.0,
+              "current": 1014.0,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 5.2
+            },
+            "MAGNI": {
+              "shares": 500,
+              "cost": 1.86,
+              "price": 1.86,
+              "invested": 930.0,
+              "current": 930.0,
+              "pnl": 0.0,
+              "pnl_pct": 0.0,
+              "weight": 4.7
+            },
+            "SCIENTEX": {
+              "shares": 200,
+              "cost": 4.15,
+              "price": 4.2,
+              "invested": 830.0,
+              "current": 840.0,
+              "pnl": 10.0,
+              "pnl_pct": 1.2,
+              "weight": 4.3
+            },
+            "SIME": {
+              "shares": 400,
+              "cost": 2.38,
+              "price": 2.42,
+              "invested": 952.0,
+              "current": 968.0,
+              "pnl": 16.0,
+              "pnl_pct": 1.68,
+              "weight": 4.9
+            },
+            "KLK": {
+              "shares": 100,
+              "cost": 20.32,
+              "price": 20.8,
+              "invested": 2032.0,
+              "current": 2080.0,
+              "pnl": 48.0,
+              "pnl_pct": 2.36,
+              "weight": 10.6
+            }
+          },
+          "trades_this_run": 0
+        }
+      }
     }
   ],
   "personas": {
     "ares": {
       "cash": 10000.0,
       "holdings": {
-        "Wasco Berhad": {
+        "WASCO": {
           "shares": 3100,
           "cost": 0.795
         },
-        "YTL Power": {
+        "YTLPOWR": {
           "shares": 700,
           "cost": 4.16
         },
-        "INSAS Berhad": {
+        "INSAS": {
           "shares": 2200,
           "cost": 0.895
         },
-        "Deleum Berhad": {
+        "DELEUM": {
           "shares": 1200,
           "cost": 1.22
         },
-        "Sime Darby": {
+        "SIME": {
           "shares": 500,
           "cost": 2.08
         },
-        "Malayan Banking": {
+        "MAYBANK": {
           "shares": 100,
           "cost": 10.64
         }
@@ -1432,31 +1667,31 @@
     "demeter": {
       "cash": 10000.0,
       "holdings": {
-        "Malayan Banking": {
+        "MAYBANK": {
           "shares": 200,
           "cost": 9.85
         },
-        "Axis REIT": {
+        "AXREIT": {
           "shares": 1000,
           "cost": 1.82
         },
-        "MBM Resources": {
+        "MBMR": {
           "shares": 200,
           "cost": 5.07
         },
-        "Magni-Tech Industries": {
+        "MAGNI": {
           "shares": 500,
           "cost": 1.86
         },
-        "Scientex Berhad": {
+        "SCIENTEX": {
           "shares": 200,
           "cost": 4.15
         },
-        "Sime Darby": {
+        "SIME": {
           "shares": 400,
           "cost": 2.38
         },
-        "KL Kepong": {
+        "KLK": {
           "shares": 100,
           "cost": 20.32
         }
@@ -1466,27 +1701,27 @@
     "athena": {
       "cash": 10000.0,
       "holdings": {
-        "Malayan Banking": {
+        "MAYBANK": {
           "shares": 200,
           "cost": 9.85
         },
-        "Magni-Tech Industries": {
+        "MAGNI": {
           "shares": 800,
           "cost": 1.86
         },
-        "AME Elite Consortium": {
+        "AME": {
           "shares": 1000,
           "cost": 1.5
         },
-        "Axis REIT": {
+        "AXREIT": {
           "shares": 800,
           "cost": 1.82
         },
-        "Scientex Berhad": {
+        "SCIENTEX": {
           "shares": 300,
           "cost": 4.15
         },
-        "Sime Darby": {
+        "SIME": {
           "shares": 700,
           "cost": 2.08
         }

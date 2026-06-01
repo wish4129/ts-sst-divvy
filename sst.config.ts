@@ -11,8 +11,6 @@ export default $config({
     };
   },
   async run() {
-    const dbPassword = new sst.Secret("DBPassword");
-
     const api = new sst.aws.ApiGatewayV2("Api", {
       cors: {
         allowOrigins: ["*"],
@@ -20,15 +18,7 @@ export default $config({
       },
     });
 
-    api.route("GET /battle", "src/functions/battle.handler", {
-      environment: {
-        DB_HOST: "aws-1-ap-northeast-1.pooler.supabase.com",
-        DB_PORT: "6543",
-        DB_NAME: "postgres",
-        DB_USER: "postgres.ceyqewaixcijbmdtbdlr",
-        DB_PASSWORD: dbPassword.value,
-      },
-    });
+    api.route("GET /battle", "src/functions/battle.handler");
 
     new sst.aws.StaticSite("WebApp", {
       path: "web/",

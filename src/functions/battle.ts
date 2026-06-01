@@ -11,7 +11,7 @@ const client = postgres({
     port: 6543,
     database: "postgres",
     username: "postgres.ceyqewaixcijbmdtbdlr",
-    password: process.env.DB_PASSWORD!,
+    password: "pKj4k4JnoXAhRzrI",
     ssl: "require",
     max: 1,
     idle_timeout: 10,
