@@ -5,12 +5,12 @@
     "semantic_hash": "fc04f9113cfa7dce9c51a59f7b60b813"
   },
   "/Users/munkevin/xionGit/divvy/sst.config.ts": {
-    "mtime": 1780413881.3521903,
-    "ast_hash": "c97fba1a874991973098d871c4f7fda0",
-    "semantic_hash": "c97fba1a874991973098d871c4f7fda0"
+    "mtime": 1780408919.5809166,
+    "ast_hash": "d9d1c69d8de16738c55d5da94e11fa07",
+    "semantic_hash": "d9d1c69d8de16738c55d5da94e11fa07"
   },
   "/Users/munkevin/xionGit/divvy/sst-env.d.ts": {
-    "mtime": 1780413998.2335277,
+    "mtime": 1780410179.1690447,
     "ast_hash": "69af58655c025a726576b4645f44bb00",
     "semantic_hash": "69af58655c025a726576b4645f44bb00"
   },
@@ -40,7 +40,7 @@
     "semantic_hash": "a2ba7da639206d1b20d929a8f716bc08"
   },
   "/Users/munkevin/xionGit/divvy/web/sst-env.d.ts": {
-    "mtime": 1780413998.2333868,
+    "mtime": 1780410179.169021,
     "ast_hash": "740056b3969e5dbff84ccbc0d3dd7b0c",
     "semantic_hash": "740056b3969e5dbff84ccbc0d3dd7b0c"
   },
@@ -80,7 +80,7 @@
     "semantic_hash": "2f5bd47cc126604b50dfd1ab5a1ad032"
   },
   "/Users/munkevin/xionGit/divvy/web/src/sst-env.d.ts": {
-    "mtime": 1780413980.6128523,
+    "mtime": 1780410170.0100777,
     "ast_hash": "bbd2a56471d7e435cf9fbb90f6b748f3",
     "semantic_hash": "bbd2a56471d7e435cf9fbb90f6b748f3"
   },
@@ -140,9 +140,9 @@
     "semantic_hash": "c0cce26aa4494a3fdc49717ed126bee1"
   },
   "/Users/munkevin/xionGit/divvy/web/src/pages/Watchlist.tsx": {
-    "mtime": 1780412382.4216547,
-    "ast_hash": "cb96531aa727a794fb933dc2a68f980f",
-    "semantic_hash": "cb96531aa727a794fb933dc2a68f980f"
+    "mtime": 1780407896.3132463,
+    "ast_hash": "676ad7e9d094d914177a40470285bf3d",
+    "semantic_hash": "676ad7e9d094d914177a40470285bf3d"
   },
   "/Users/munkevin/xionGit/divvy/web/src/pages/Battle.tsx": {
     "mtime": 1780363909.3311074,
@@ -260,7 +260,7 @@
     "semantic_hash": "8ec2ed3b2c19eacaba3f7f84ff6ad7f9"
   },
   "/Users/munkevin/xionGit/divvy/data/kronos_forecast.json": {
-    "mtime": 1780413984.1803327,
+    "mtime": 1780410173.631095,
     "ast_hash": "40bbb97982f74899c98ceef6ea58e519",
     "semantic_hash": "40bbb97982f74899c98ceef6ea58e519"
   },
@@ -340,33 +340,23 @@
     "semantic_hash": "09a00533c7eb2268bc16b7271c8c2fa6"
   },
   "/Users/munkevin/xionGit/divvy/scripts/sync_from_db.py": {
-    "mtime": 1780411488.9896715,
-    "ast_hash": "c265187a1fa3d4c486f25ffed1c7b20b",
-    "semantic_hash": "c265187a1fa3d4c486f25ffed1c7b20b"
+    "mtime": 1780410149.8744357,
+    "ast_hash": "d62d83ddbe99771b65beb920d82a538c",
+    "semantic_hash": "d62d83ddbe99771b65beb920d82a538c"
   },
   "/Users/munkevin/xionGit/divvy/web/src/pages/Universe.tsx": {
-    "mtime": 1780413929.8962238,
-    "ast_hash": "8c3bf8760aa1c19ce6188874624de721",
-    "semantic_hash": "8c3bf8760aa1c19ce6188874624de721"
+    "mtime": 1780408877.5303423,
+    "ast_hash": "d5592d970b60ea7a5d635f54ba1ed303",
+    "semantic_hash": "d5592d970b60ea7a5d635f54ba1ed303"
   },
   "/Users/munkevin/xionGit/divvy/scripts/persona_db.py": {
-    "mtime": 1780411499.6379638,
-    "ast_hash": "c18aea5dc67c63e19525cb11a5bdc09a",
-    "semantic_hash": "c18aea5dc67c63e19525cb11a5bdc09a"
+    "mtime": 1780409995.4563994,
+    "ast_hash": "a3d56b9f3c9384101fe2a8b11dcd24eb",
+    "semantic_hash": "a3d56b9f3c9384101fe2a8b11dcd24eb"
   },
   "/Users/munkevin/xionGit/divvy/src/functions/universe.ts": {
-    "mtime": 1780413872.3289778,
-    "ast_hash": "b6e55e420a9f3d42fe530a5946503e6c",
-    "semantic_hash": "b6e55e420a9f3d42fe530a5946503e6c"
-  },
-  "/Users/munkevin/xionGit/divvy/scripts/run_random_analysis.py": {
-    "mtime": 1780413838.7499237,
-    "ast_hash": "c1495b2f3acccdbadf8e7b0bbb609499",
-    "semantic_hash": "c1495b2f3acccdbadf8e7b0bbb609499"
-  },
-  "/Users/munkevin/xionGit/divvy/scripts/seed_bursa_universe.py": {
-    "mtime": 1780413793.3939807,
-    "ast_hash": "da095de35afa02a7743a5423aa1991b2",
-    "semantic_hash": "da095de35afa02a7743a5423aa1991b2"
+    "mtime": 1780409356.843024,
+    "ast_hash": "2dbf58e4f8bc3f554e00b6b081fe800f",
+    "semantic_hash": "2dbf58e4f8bc3f554e00b6b081fe800f"
   }
 }
