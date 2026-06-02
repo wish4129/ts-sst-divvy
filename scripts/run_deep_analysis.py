@@ -209,6 +209,108 @@ def build_detailed_rationale(pid, stock_name, stock_info, holding, score_data, f
     return {"sections": sections, "sources": sources}
 
 
+def generate_ai_report(stock_name, stock_info, fin_data, score_data, ksig, macro_signals, persona, pf_stocks):
+    """Call DeepSeek v4 Pro to produce a comprehensive AI analysis report."""
+    import os
+    api_key = os.environ.get("DEEPSEEK_API_KEY", "")
+    if not api_key:
+        return None
+    
+    code = stock_info["code"]
+    industry = stock_info.get("industry", "")
+    
+    # Build context
+    price_now = fin_data.get("current_price", "N/A")
+    pe = fin_data.get("pe_ratio", "N/A")
+    dy = fin_data.get("dividend_yield_pct", "N/A")
+    roe = fin_data.get("roe_pct", "N/A")
+    de = fin_data.get("de_ratio", "N/A")
+    rev_growth = fin_data.get("revenue_growth_yoy_pct", "N/A")
+    mcap = fin_data.get("market_cap_m", "N/A")
+    
+    kronos_pct = ksig.get("pred_change_pct", "N/A") if ksig else "N/A"
+    kronos_low = ksig.get("pred_low", "N/A") if ksig else "N/A"
+    kronos_high = ksig.get("pred_high", "N/A") if ksig else "N/A"
+    kronos_vol = ksig.get("pred_volatility", "N/A") if ksig else "N/A"
+    
+    macro_summary = ", ".join(
+        f"{v.get('label','')}: {v.get('value','')} ({v.get('trend','')})"
+        for v in list(macro_signals.values())[:5]
+    ) if macro_signals else "No macro data"
+    
+    score_comp = score_data.get("composite", "N/A")
+    score_macro = score_data.get("macro_adjustment", 0)
+    
+    prompt = f"""You are a Bursa Malaysia equity analyst. Write a comprehensive analysis report for {stock_name} ({code}), a {industry} company listed on Bursa Malaysia.
+
+**Current Data:**
+- Price: RM{price_now}
+- Market Cap: RM{mcap}M
+- P/E Ratio: {pe}x
+- Dividend Yield: {dy}%
+- ROE (quarterly): {roe}%
+- Debt/Equity: {de}x
+- Revenue Growth YoY: {rev_growth}%
+- Industry Score: {score_comp}/100 (Macro Adj: {score_macro:+})
+
+**Kronos AI 30-Day Forecast:**
+- Predicted Change: {kronos_pct}%
+- Predicted Range: RM{kronos_low} – RM{kronos_high}
+- Volatility: {kronos_vol}%
+
+**Macro Context:**
+{macro_summary}
+
+**Persona:** {persona.upper()} — {PERSONA_CONTEXT[persona]['style']}
+
+Write the report in these 6 sections. Be concise but thorough. Use Malaysian English (RM, Bursa, etc.):
+
+1. **Introduction & History** — Brief background of the company, what it does, market position, key milestones
+2. **Trend Analysis** — Price trend, revenue trend, industry trend, Kronos forecast direction
+3. **Strengths** — Key competitive advantages, financial strengths, macro tailwinds
+4. **Weaknesses** — Risks, competitive threats, financial red flags, macro headwinds
+5. **Summary** — Overall assessment for {persona} persona. Buy/Hold/Sell recommendation with brief rationale.
+6. **Target** — Price target (RM), cut loss point (RM), expected timeframe (weeks/months), volatility assessment, hidden risks to monitor
+
+Return ONLY a JSON object with these exact keys:
+{{"introduction_history": "...", "trend_analysis": "...", "strengths": "...", "weaknesses": "...", "summary": "...", "target": "..."}}"""
+
+    try:
+        import urllib.request
+        req = urllib.request.Request(
+            "https://api.deepseek.com/chat/completions",
+            data=json.dumps({
+                "model": "deepseek-v4-pro",
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0.3,
+                "max_tokens": 2048,
+            }).encode(),
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {api_key}",
+            },
+        )
+        resp = urllib.request.urlopen(req, timeout=60)
+        body = json.loads(resp.read().decode())
+        content = body["choices"][0]["message"]["content"].strip()
+        
+        # Parse JSON from response (may have markdown code blocks)
+        if "```json" in content:
+            content = content.split("```json")[1].split("```")[0].strip()
+        elif "```" in content:
+            content = content.split("```")[1].split("```")[0].strip()
+        
+        report = json.loads(content)
+        required = ["introduction_history", "trend_analysis", "strengths", "weaknesses", "summary", "target"]
+        if all(k in report for k in required):
+            return report
+        print(f"  ⚠ AI report missing keys for {stock_name}")
+        return None
+    except Exception as e:
+        print(f"  ⚠ AI report failed for {stock_name}: {e}")
+        return None
+
+
 def _macro_narrative(adj):
     if adj > 3: return "favorable macro regime boosting scores"
     if adj > 0: return "modest macro support"
@@ -239,18 +341,28 @@ for pid in ["ares", "demeter", "athena"]:
         )
         sections = result["sections"]
         
+        # Generate AI report via DeepSeek
+        ai_report = generate_ai_report(
+            name, info, fin_data, score_data, ksig,
+            macro.get("signals", {}), pid, pf["stocks"]
+        )
+        
         cur.execute(
             """INSERT INTO stock_analyses (stock_id, persona, score_composite, score_breakdown,
-               decision_rationale, kronos_signal, macro_context)
-               VALUES (%s,%s,%s,%s,%s,%s,%s)""",
+               decision_rationale, kronos_signal, macro_context, ai_report, ai_model)
+               VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
             (code, pid, score_data.get("composite"),
              json.dumps(score_data.get("breakdown", {})),
-             json.dumps(result),  # {sections, sources}
+             json.dumps(result),
              json.dumps(ksig) if ksig else None,
-             json.dumps(macro.get("signals", {})))
+             json.dumps(macro.get("signals", {})),
+             json.dumps(ai_report) if ai_report else None,
+             "deepseek-v4-pro" if ai_report else None)
         )
-        generated += 1
-        print(f"  {pid:8s} {name:10s} ({code}) — {len(sections)} sections")
+        if ai_report:
+            print(f"  {pid:8s} {name:10s} ({code}) — +AI report")
+        else:
+            print(f"  {pid:8s} {name:10s} ({code}) — {len(sections)} sections")
 
 db.commit()
 cur.close()

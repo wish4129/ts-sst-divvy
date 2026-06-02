@@ -42,11 +42,12 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
           industry: row.industry,
           score_composite: Number(row.score_composite),
           score_breakdown: row.score_breakdown,
-          rationale: row.decision_rationale,  // JSON object with 6 sections
+          rationale: row.decision_rationale,
           kronos_signal: row.kronos_signal,
           macro_context: row.macro_context,
+          ai_report: row.ai_report,
+          ai_model: row.ai_model,
           generated_at: row.generated_at,
-          run_count: rows.length,
         }),
       };
     }

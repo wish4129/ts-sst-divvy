@@ -22,10 +22,12 @@ interface PersonaAnalysis {
   score_composite: number
   score_breakdown: Record<string, { value: number | null; raw: number; weighted: number }>
   rationale: {
-    sections: Record<string, any>  // string or TriggerItem[]
+    sections: Record<string, any>
     sources: Record<string, string>
   }
   kronos_signal: any
+  ai_report: Record<string, string> | null
+  ai_model: string | null
   generated_at: string
 }
 
@@ -37,6 +39,40 @@ const DEFAULT_SOURCES: Record<string, string> = {
   'Macro Context': 'Yahoo Finance macro signals',
   'Risk Factors': 'Quarterly reports + Kronos volatility',
   'Action Triggers': 'Persona trading rules (portfolios.json)',
+}
+
+const AI_REPORT_LABELS: Record<string, string> = {
+  introduction_history: 'Introduction & History',
+  trend_analysis: 'Trend Analysis',
+  strengths: 'Strengths',
+  weaknesses: 'Weaknesses',
+  summary: 'Summary',
+  target: 'Price Target & Risk',
+}
+
+function AiReportSection({ report, model }: { report: Record<string, string>; model: string | null }) {
+  const [open, setOpen] = useState(true)
+  return (
+    <div>
+      <button onClick={() => setOpen(!open)}
+        className="w-full flex items-center gap-2 px-5 py-3 text-left hover:bg-emerald-100/30 dark:hover:bg-emerald-900/20 transition-colors">
+        {open ? <ChevronDown className="w-4 h-4 text-emerald-500" /> : <ChevronRight className="w-4 h-4 text-emerald-500" />}
+        <Brain className="w-4 h-4 text-emerald-500" />
+        <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide">AI Analysis Report</span>
+        {model && <span className="text-[10px] text-gray-400 ml-auto">via {model}</span>}
+      </button>
+      {open && (
+        <div className="px-5 pb-4 space-y-4">
+          {Object.entries(report).map(([key, text]) => (
+            <div key={key}>
+              <h4 className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-1">{AI_REPORT_LABELS[key] || key}</h4>
+              <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{text}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
 }
 
 function AnalysisSections({ analysis }: { analysis: PersonaAnalysis }) {
@@ -198,6 +234,13 @@ export default function StockDetail() {
             </div>
 
             <AnalysisSections analysis={analysis} />
+
+            {/* AI Analysis Report */}
+            {analysis.ai_report && (
+              <div className="divide-y divide-emerald-200/50 dark:divide-emerald-800/50 border-t border-emerald-200 dark:border-emerald-800">
+                <AiReportSection report={analysis.ai_report} model={analysis.ai_model} />
+              </div>
+            )}
 
             {/* Factor breakdown */}
             {analysis.score_breakdown && (
