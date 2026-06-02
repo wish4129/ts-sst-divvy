@@ -5,6 +5,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 const API_URL = import.meta.env.VITE_API_URL || ''
 
 interface StockHolding {
+  code: string
   shares: number
   cost: number
   price: number
