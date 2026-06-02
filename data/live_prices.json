@@ -14,7 +14,6 @@
   "SCIENTEX": 3.73,
   "PBBANK": 4.71,
   "YTLPOWR": 4.16,
-  "INTA": 0.0,
   "SIME": 2.08,
   "LIIHEN": 0.3,
   "INSAS": 0.895,
@@ -23,5 +22,6 @@
   "GENETEC": 0.33,
   "PADINI": 1.43,
   "TIME": 6.03,
-  "SEM": 1.98
+  "SEM": 1.98,
+  "INTA": 0.38
 }
