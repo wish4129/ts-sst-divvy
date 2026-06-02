@@ -52,8 +52,17 @@ export default function Watchlist() {
   // Merge DB data with static data for missing fields (financials, sparkline, etc.)
   const mergedStocks = useMemo(() => {
     if (!dbStocks.length) return staticStocks
+    
+    // Build reverse map: ticker → short code
+    const tickerToShort: Record<string, string> = {}
+    for (const [short, ticker] of Object.entries(TICKER_MAP)) {
+      tickerToShort[ticker] = short
+    }
+    
     return dbStocks.map(dbs => {
-      const existing = staticStocks.find(s => s.code === dbs.code)
+      // API returns ticker codes (1155.KL), static uses short codes (MAYBANK)
+      const shortCode = tickerToShort[dbs.code] || dbs.code
+      const existing = staticStocks.find(s => s.code === shortCode)
       if (existing) {
         return {
           ...existing,
