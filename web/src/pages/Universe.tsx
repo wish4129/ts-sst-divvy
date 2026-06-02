@@ -23,6 +23,7 @@ export default function Universe() {
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
   const [requesting, setRequesting] = useState<Set<string>>(new Set())
+  const [queued, setQueued] = useState<Set<string>>(new Set())
   const [message, setMessage] = useState('')
 
   const fetchStocks = useCallback(async (p: number, s: string) => {
@@ -55,7 +56,7 @@ export default function Universe() {
   }
 
   const requestAnalysis = async (stockCode: string) => {
-    if (!API_URL || requesting.has(stockCode)) return
+    if (!API_URL || requesting.has(stockCode) || queued.has(stockCode)) return
     setRequesting(prev => new Set(prev).add(stockCode))
     try {
       const res = await fetch(`${API_URL}/universe/request-analysis`, {
@@ -65,7 +66,8 @@ export default function Universe() {
       })
       const json = await res.json()
       if (json.success) {
-        setMessage(`Queued ${stockCode} for deep analysis`)
+        setQueued(prev => new Set(prev).add(stockCode))
+        setMessage(`Queued ${stockCode.replace('.KL','')} for deep analysis`)
         setTimeout(() => setMessage(''), 4000)
       }
     } catch (e) {
@@ -76,6 +78,11 @@ export default function Universe() {
       next.delete(stockCode)
       return next
     })
+  }
+
+  const formatDate = (d: string | null) => {
+    if (!d) return null
+    return new Date(d).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: '2-digit' })
   }
 
   const totalPages = Math.ceil(total / 50)
@@ -146,9 +153,9 @@ export default function Universe() {
                         </td>
                         <td className="px-4 py-3 text-center">
                           {s.has_analysis ? (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300" title={s.last_analyzed_at ? `Last analyzed: ${formatDate(s.last_analyzed_at)}` : undefined}>
                               <CheckCircle2 className="h-3 w-3" />
-                              Analyzed
+                              {s.last_analyzed_at ? formatDate(s.last_analyzed_at) : 'Analyzed'}
                             </span>
                           ) : (
                             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300">
@@ -160,9 +167,11 @@ export default function Universe() {
                         <td className="px-4 py-3 text-center">
                           <button
                             onClick={() => requestAnalysis(s.stock_code)}
-                            disabled={s.has_analysis || requesting.has(s.stock_code)}
+                            disabled={s.has_analysis || queued.has(s.stock_code) || requesting.has(s.stock_code)}
                             className={`inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-medium transition-colors ${
                               s.has_analysis
+                                ? 'bg-gray-100 text-gray-400 cursor-not-allowed dark:bg-gray-800'
+                                : queued.has(s.stock_code)
                                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed dark:bg-gray-800'
                                 : requesting.has(s.stock_code)
                                 ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900'
@@ -174,7 +183,7 @@ export default function Universe() {
                             ) : (
                               <Beaker className="h-3 w-3" />
                             )}
-                            {s.has_analysis ? 'Done' : requesting.has(s.stock_code) ? 'Queueing' : 'Analyze'}
+                            {s.has_analysis ? 'Done' : queued.has(s.stock_code) ? 'Queued' : requesting.has(s.stock_code) ? 'Queueing' : 'Analyze'}
                           </button>
                         </td>
                       </tr>
