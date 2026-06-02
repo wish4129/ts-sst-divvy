@@ -158,5 +158,35 @@
     "pred_high": 0.3906,
     "pred_volatility": 1.71,
     "time_s": 0.9
+  },
+  "PBBANK": {
+    "ticker": "1295.KL",
+    "last_close": 4.71,
+    "pred_30d_close": 4.7624,
+    "pred_change_pct": 1.11,
+    "pred_low": 4.6961,
+    "pred_high": 4.8106,
+    "pred_volatility": 0.62,
+    "time_s": 1.5
+  },
+  "TIME": {
+    "ticker": "5031.KL",
+    "last_close": 6.03,
+    "pred_30d_close": 5.5811,
+    "pred_change_pct": -7.44,
+    "pred_low": 5.5811,
+    "pred_high": 6.0661,
+    "pred_volatility": 1.97,
+    "time_s": 1.4
+  },
+  "SCICOM": {
+    "ticker": "0099.KL",
+    "last_close": 1.74,
+    "pred_30d_close": 1.3032,
+    "pred_change_pct": -25.11,
+    "pred_low": 1.3032,
+    "pred_high": 1.8308,
+    "pred_volatility": 9.22,
+    "time_s": 1.4
   }
 }

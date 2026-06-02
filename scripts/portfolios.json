@@ -113,6 +113,32 @@
       "initial": 0.38,
       "added": "2026-06-01",
       "kronos": "+0.3%"
+    },
+    "PBBANK": {
+      "code": "1295.KL",
+      "name": "Public Bank Berhad",
+      "industry": "Banking",
+      "initial": 4.71,
+      "added": "2026-06-02",
+      "kronos": "+1.1%"
+    },
+    "TIME": {
+      "code": "5031.KL",
+      "name": "TIME dotCom",
+      "industry": "Telco",
+      "initial": 6.03,
+      "added": "2026-06-02",
+      "kronos": "-7.4%",
+      "kronos_warning": "BEARISH -7.4% — revisit Jun 30"
+    },
+    "SCICOM": {
+      "code": "0099.KL",
+      "name": "Scicom (MSC) Berhad",
+      "industry": "Tech",
+      "initial": 1.74,
+      "added": "2026-06-02",
+      "kronos": "-25.1%",
+      "kronos_warning": "STRONG BEARISH -25.1% — revisit Jun 30"
     }
   },
   "personas": {

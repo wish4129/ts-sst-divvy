@@ -69,6 +69,7 @@ SHORT_TO_TICKER = {
     'KIPREIT': '5280.KL', 'INTA': 'INTA.KL',
     'RHB': '1066.KL', 'PADINI': '7052.KL',
     'GAMUDA': '5398.KL', 'MATRIX': '5236.KL',
+    'PBBANK': '1295.KL', 'TIME': '5031.KL', 'SCICOM': '0099.KL',
 }
 
 
