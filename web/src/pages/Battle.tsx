@@ -109,11 +109,8 @@ export default function Battle() {
             const isWinner = i === 0
             return (
               <div key={pid}
-                className={`rounded-xl p-5 border-2 transition-all ${
-                  isWinner
-                    ? 'border-yellow-500/50 bg-yellow-500/5 shadow-lg shadow-yellow-500/10'
-                    : 'border-gray-700 bg-gray-800/50'
-                }`}
+                className="rounded-xl p-5 border-2 transition-all bg-gray-800/50"
+                style={{ borderColor: COLORS[pid] + '80' }}
               >
                 <div className="flex items-center justify-between mb-3">
                   <div>
