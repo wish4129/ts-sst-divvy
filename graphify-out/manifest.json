@@ -1,0 +1,332 @@
+{
+  "/Users/munkevin/xionGit/divvy/schema.sql": {
+    "mtime": 1780315035.2899506,
+    "ast_hash": "fc04f9113cfa7dce9c51a59f7b60b813",
+    "semantic_hash": "fc04f9113cfa7dce9c51a59f7b60b813"
+  },
+  "/Users/munkevin/xionGit/divvy/sst.config.ts": {
+    "mtime": 1780387351.4437623,
+    "ast_hash": "0a6295d27c43fcc99d0aee31a166e1d5",
+    "semantic_hash": "0a6295d27c43fcc99d0aee31a166e1d5"
+  },
+  "/Users/munkevin/xionGit/divvy/sst-env.d.ts": {
+    "mtime": 1780407189.4356787,
+    "ast_hash": "69af58655c025a726576b4645f44bb00",
+    "semantic_hash": "69af58655c025a726576b4645f44bb00"
+  },
+  "/Users/munkevin/xionGit/divvy/run_kronos.py": {
+    "mtime": 1780330789.4885178,
+    "ast_hash": "d1032110a18c8fa0b87996478eeff526",
+    "semantic_hash": "d1032110a18c8fa0b87996478eeff526"
+  },
+  "/Users/munkevin/xionGit/divvy/package.json": {
+    "mtime": 1780328208.6100595,
+    "ast_hash": "f21b70ffdb72a71b53d30534fd8e232f",
+    "semantic_hash": "f21b70ffdb72a71b53d30534fd8e232f"
+  },
+  "/Users/munkevin/xionGit/divvy/tsconfig.json": {
+    "mtime": 1780294287.17366,
+    "ast_hash": "cfb619b20293a8301244470cbf96bacf",
+    "semantic_hash": "cfb619b20293a8301244470cbf96bacf"
+  },
+  "/Users/munkevin/xionGit/divvy/drizzle.config.ts": {
+    "mtime": 1780318584.2106478,
+    "ast_hash": "b4139729d5fa98869fdff6df9e8a8e31",
+    "semantic_hash": "b4139729d5fa98869fdff6df9e8a8e31"
+  },
+  "/Users/munkevin/xionGit/divvy/web/tailwind.config.js": {
+    "mtime": 1780294644.3650355,
+    "ast_hash": "a2ba7da639206d1b20d929a8f716bc08",
+    "semantic_hash": "a2ba7da639206d1b20d929a8f716bc08"
+  },
+  "/Users/munkevin/xionGit/divvy/web/sst-env.d.ts": {
+    "mtime": 1780407189.4356556,
+    "ast_hash": "740056b3969e5dbff84ccbc0d3dd7b0c",
+    "semantic_hash": "740056b3969e5dbff84ccbc0d3dd7b0c"
+  },
+  "/Users/munkevin/xionGit/divvy/web/package.json": {
+    "mtime": 1780320635.441443,
+    "ast_hash": "4b0733be9627f83b4c4b3d0b7deec747",
+    "semantic_hash": "4b0733be9627f83b4c4b3d0b7deec747"
+  },
+  "/Users/munkevin/xionGit/divvy/web/tsconfig.json": {
+    "mtime": 1780294605.6911044,
+    "ast_hash": "caa549e2e84308ae43d13fba989ff287",
+    "semantic_hash": "caa549e2e84308ae43d13fba989ff287"
+  },
+  "/Users/munkevin/xionGit/divvy/web/vite.config.ts": {
+    "mtime": 1780294595.7415247,
+    "ast_hash": "6470b0ad57e763c6a72b37cac4f25733",
+    "semantic_hash": "6470b0ad57e763c6a72b37cac4f25733"
+  },
+  "/Users/munkevin/xionGit/divvy/web/postcss.config.js": {
+    "mtime": 1780294326.0189354,
+    "ast_hash": "ef3ba2a81ba19f8ea5ddf625521e96f0",
+    "semantic_hash": "ef3ba2a81ba19f8ea5ddf625521e96f0"
+  },
+  "/Users/munkevin/xionGit/divvy/web/public/portfolio_history.json": {
+    "mtime": 1780363152.3926663,
+    "ast_hash": "4871f2909f12d48c01d85cf60fbb2b8a",
+    "semantic_hash": "4871f2909f12d48c01d85cf60fbb2b8a"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/App.tsx": {
+    "mtime": 1780325321.7304049,
+    "ast_hash": "1de514fcdddeb66028364b7e88d752a0",
+    "semantic_hash": "1de514fcdddeb66028364b7e88d752a0"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/main.tsx": {
+    "mtime": 1780320663.8369844,
+    "ast_hash": "2f5bd47cc126604b50dfd1ab5a1ad032",
+    "semantic_hash": "2f5bd47cc126604b50dfd1ab5a1ad032"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/sst-env.d.ts": {
+    "mtime": 1780407183.4619277,
+    "ast_hash": "bbd2a56471d7e435cf9fbb90f6b748f3",
+    "semantic_hash": "bbd2a56471d7e435cf9fbb90f6b748f3"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/vite-env.d.ts": {
+    "mtime": 1780294422.186936,
+    "ast_hash": "0352474ba2918efe13895edbc3780d94",
+    "semantic_hash": "0352474ba2918efe13895edbc3780d94"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/components/SparklineChart.tsx": {
+    "mtime": 1780294462.298642,
+    "ast_hash": "da675ea18ecd9b27fac198896024cac7",
+    "semantic_hash": "da675ea18ecd9b27fac198896024cac7"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/components/IndustryFilter.tsx": {
+    "mtime": 1780294462.2769694,
+    "ast_hash": "20a12128921a2e0b3cfbea99616b3043",
+    "semantic_hash": "20a12128921a2e0b3cfbea99616b3043"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/components/Header.tsx": {
+    "mtime": 1780320679.0315282,
+    "ast_hash": "15c3b2586300504ca93734a622f65cbb",
+    "semantic_hash": "15c3b2586300504ca93734a622f65cbb"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/components/ScoreBadge.tsx": {
+    "mtime": 1780294462.2616036,
+    "ast_hash": "db212f3267618cf20a16f932d785ee64",
+    "semantic_hash": "db212f3267618cf20a16f932d785ee64"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/components/StockCard.tsx": {
+    "mtime": 1780294474.6184943,
+    "ast_hash": "1fd9dfcac5c0cccaedcb735c16d519e4",
+    "semantic_hash": "1fd9dfcac5c0cccaedcb735c16d519e4"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/lib/AuthContext.tsx": {
+    "mtime": 1780320653.5952432,
+    "ast_hash": "3f2aef2b938a1b4a1275521258330cd9",
+    "semantic_hash": "3f2aef2b938a1b4a1275521258330cd9"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/lib/supabase.ts": {
+    "mtime": 1780320643.0693552,
+    "ast_hash": "866e919088bb2f034c5a449971be9031",
+    "semantic_hash": "866e919088bb2f034c5a449971be9031"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/data/stocks.ts": {
+    "mtime": 1780407115.1760855,
+    "ast_hash": "566877b036d039d9ba165c71db76d216",
+    "semantic_hash": "566877b036d039d9ba165c71db76d216"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/pages/StockDetail.tsx": {
+    "mtime": 1780390794.0306866,
+    "ast_hash": "726a24ed56f5c1aa5f56d69400194724",
+    "semantic_hash": "726a24ed56f5c1aa5f56d69400194724"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/pages/Home.tsx": {
+    "mtime": 1780363042.121841,
+    "ast_hash": "c0cce26aa4494a3fdc49717ed126bee1",
+    "semantic_hash": "c0cce26aa4494a3fdc49717ed126bee1"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/pages/Watchlist.tsx": {
+    "mtime": 1780390799.2154467,
+    "ast_hash": "b3c895138ebe25372ac473cc5d2ed7a7",
+    "semantic_hash": "b3c895138ebe25372ac473cc5d2ed7a7"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/pages/Battle.tsx": {
+    "mtime": 1780363909.3311074,
+    "ast_hash": "476a5b8fd8163a5c5a3daac978f36789",
+    "semantic_hash": "476a5b8fd8163a5c5a3daac978f36789"
+  },
+  "/Users/munkevin/xionGit/divvy/web/src/pages/AuthCallback.tsx": {
+    "mtime": 1780320686.4354615,
+    "ast_hash": "ff8c8afea00121a989a99b1f28447575",
+    "semantic_hash": "ff8c8afea00121a989a99b1f28447575"
+  },
+  "/Users/munkevin/xionGit/divvy/scripts/run_deep_analysis.py": {
+    "mtime": 1780407126.9918149,
+    "ast_hash": "21e98c6be9142aa6173d9d8a937b6178",
+    "semantic_hash": "21e98c6be9142aa6173d9d8a937b6178"
+  },
+  "/Users/munkevin/xionGit/divvy/scripts/db.py": {
+    "mtime": 1780319259.4757304,
+    "ast_hash": "65f7c398ab2186d71c0103a5d647ff53",
+    "semantic_hash": "65f7c398ab2186d71c0103a5d647ff53"
+  },
+  "/Users/munkevin/xionGit/divvy/scripts/run_gen_ai.py": {
+    "mtime": 1780379467.8722775,
+    "ast_hash": "16c42034ac4b678d842e860ed5fcbab7",
+    "semantic_hash": "16c42034ac4b678d842e860ed5fcbab7"
+  },
+  "/Users/munkevin/xionGit/divvy/scripts/financial_fetcher.py": {
+    "mtime": 1780327068.3677073,
+    "ast_hash": "7c01bdf094f0aafad99c0af1465d9d3a",
+    "semantic_hash": "7c01bdf094f0aafad99c0af1465d9d3a"
+  },
+  "/Users/munkevin/xionGit/divvy/scripts/run_ai_analysis.py": {
+    "mtime": 1780371885.2677362,
+    "ast_hash": "1f27e29d6ac69be3f175357ef1630f50",
+    "semantic_hash": "1f27e29d6ac69be3f175357ef1630f50"
+  },
+  "/Users/munkevin/xionGit/divvy/scripts/gen_ai_reports.py": {
+    "mtime": 1780377321.154263,
+    "ast_hash": "dcc46cd3e8c339b72ac9de5d4f411248",
+    "semantic_hash": "dcc46cd3e8c339b72ac9de5d4f411248"
+  },
+  "/Users/munkevin/xionGit/divvy/scripts/macro_fetcher.py": {
+    "mtime": 1780327030.609143,
+    "ast_hash": "8e8ab5879d365947f4e72cc84afc7caa",
+    "semantic_hash": "8e8ab5879d365947f4e72cc84afc7caa"
+  },
+  "/Users/munkevin/xionGit/divvy/scripts/portfolio_manager.py": {
+    "mtime": 1780329464.5973272,
+    "ast_hash": "28f8bcb47c27f4fd0d7eaae7e34c3cf9",
+    "semantic_hash": "28f8bcb47c27f4fd0d7eaae7e34c3cf9"
+  },
+  "/Users/munkevin/xionGit/divvy/scripts/portfolios.json": {
+    "mtime": 1780407148.1537576,
+    "ast_hash": "13c6399d2b99bc49c843a7897eb7c642",
+    "semantic_hash": "13c6399d2b99bc49c843a7897eb7c642"
+  },
+  "/Users/munkevin/xionGit/divvy/scripts/trigger_new_user.sql": {
+    "mtime": 1780320874.8458602,
+    "ast_hash": "df6db702934cfd84f9c6daf6fd33be11",
+    "semantic_hash": "df6db702934cfd84f9c6daf6fd33be11"
+  },
+  "/Users/munkevin/xionGit/divvy/scripts/industry_scorer.py": {
+    "mtime": 1780327545.3788605,
+    "ast_hash": "6dd39fe01a186338f6a01ab5165570b1",
+    "semantic_hash": "6dd39fe01a186338f6a01ab5165570b1"
+  },
+  "/Users/munkevin/xionGit/divvy/scripts/run_ai_analysis.sh": {
+    "mtime": 1780372491.1289055,
+    "ast_hash": "cf2e0a088882174fed0fca6b62e5ba93",
+    "semantic_hash": "cf2e0a088882174fed0fca6b62e5ba93"
+  },
+  "/Users/munkevin/xionGit/divvy/scripts/deploy_pipeline.py": {
+    "mtime": 1780295988.2965055,
+    "ast_hash": "ba460195769d3004f4284c1fc5cfbf07",
+    "semantic_hash": "ba460195769d3004f4284c1fc5cfbf07"
+  },
+  "/Users/munkevin/xionGit/divvy/data/live_prices.json": {
+    "mtime": 1780363147.2631512,
+    "ast_hash": "fbc363e4307053c627c722b09e5379b9",
+    "semantic_hash": "fbc363e4307053c627c722b09e5379b9"
+  },
+  "/Users/munkevin/xionGit/divvy/data/stock_financials.json": {
+    "mtime": 1780327527.403977,
+    "ast_hash": "0c132716bd23eed6f0fcf6d630c020c8",
+    "semantic_hash": "0c132716bd23eed6f0fcf6d630c020c8"
+  },
+  "/Users/munkevin/xionGit/divvy/data/macro_signals.json": {
+    "mtime": 1780327143.1051445,
+    "ast_hash": "07f9f640d261365656ea87caff6f0d95",
+    "semantic_hash": "07f9f640d261365656ea87caff6f0d95"
+  },
+  "/Users/munkevin/xionGit/divvy/data/kronos_forecast_new_candidates.json": {
+    "mtime": 1780308996.1153293,
+    "ast_hash": "b8e502a2587a454c1fca265ba9ca7de7",
+    "semantic_hash": "b8e502a2587a454c1fca265ba9ca7de7"
+  },
+  "/Users/munkevin/xionGit/divvy/data/portfolio_history.json": {
+    "mtime": 1780327939.786704,
+    "ast_hash": "5d7f41268396e07cc087846dbf2a2190",
+    "semantic_hash": "5d7f41268396e07cc087846dbf2a2190"
+  },
+  "/Users/munkevin/xionGit/divvy/data/macro_history.json": {
+    "mtime": 1780327143.1054912,
+    "ast_hash": "8616fff042d60f9794beffb936e09917",
+    "semantic_hash": "8616fff042d60f9794beffb936e09917"
+  },
+  "/Users/munkevin/xionGit/divvy/data/stock_scores.json": {
+    "mtime": 1780362372.8240256,
+    "ast_hash": "efc5cc35eb1aff7a3e9853e2b0fa88f3",
+    "semantic_hash": "efc5cc35eb1aff7a3e9853e2b0fa88f3"
+  },
+  "/Users/munkevin/xionGit/divvy/data/industry_matrix.json": {
+    "mtime": 1780326766.795976,
+    "ast_hash": "8ec2ed3b2c19eacaba3f7f84ff6ad7f9",
+    "semantic_hash": "8ec2ed3b2c19eacaba3f7f84ff6ad7f9"
+  },
+  "/Users/munkevin/xionGit/divvy/data/kronos_forecast.json": {
+    "mtime": 1780407158.4548478,
+    "ast_hash": "8d81bd5934aca9a0fe99f189c2f7025b",
+    "semantic_hash": "8d81bd5934aca9a0fe99f189c2f7025b"
+  },
+  "/Users/munkevin/xionGit/divvy/data/screener_results.json": {
+    "mtime": 1780308801.7050102,
+    "ast_hash": "78714f06bd7e4be01b8a1cb90608539e",
+    "semantic_hash": "78714f06bd7e4be01b8a1cb90608539e"
+  },
+  "/Users/munkevin/xionGit/divvy/data/historical_ohlcv.json": {
+    "mtime": 1780305199.6866705,
+    "ast_hash": "764aef6e1ee746b7aba35045d6cbfdf9",
+    "semantic_hash": "764aef6e1ee746b7aba35045d6cbfdf9"
+  },
+  "/Users/munkevin/xionGit/divvy/src/db.ts": {
+    "mtime": 1780318573.6460097,
+    "ast_hash": "5974141f77cfbaad7a932f17ed65454d",
+    "semantic_hash": "5974141f77cfbaad7a932f17ed65454d"
+  },
+  "/Users/munkevin/xionGit/divvy/src/schema/schema.ts": {
+    "mtime": 1780328438.6414316,
+    "ast_hash": "8a0b68b00770c03dee54242c995cd6aa",
+    "semantic_hash": "8a0b68b00770c03dee54242c995cd6aa"
+  },
+  "/Users/munkevin/xionGit/divvy/src/schema/migrations/0001_pale_the_hood.sql": {
+    "mtime": 1780328450.7184196,
+    "ast_hash": "44864660e6f8626f50e819ad53218303",
+    "semantic_hash": "44864660e6f8626f50e819ad53218303"
+  },
+  "/Users/munkevin/xionGit/divvy/src/schema/migrations/0001_rls_policies.sql": {
+    "mtime": 1780320725.7862225,
+    "ast_hash": "0733e8dfd7f7f2fd907f7672bba402e0",
+    "semantic_hash": "0733e8dfd7f7f2fd907f7672bba402e0"
+  },
+  "/Users/munkevin/xionGit/divvy/src/schema/migrations/0000_omniscient_whirlwind.sql": {
+    "mtime": 1780318263.9371836,
+    "ast_hash": "77fad05f74a7b9d3b47c8062063554ec",
+    "semantic_hash": "77fad05f74a7b9d3b47c8062063554ec"
+  },
+  "/Users/munkevin/xionGit/divvy/src/schema/migrations/meta/0000_snapshot.json": {
+    "mtime": 1780318263.9368792,
+    "ast_hash": "037155e2ee591763bf0d91c4e3a642ad",
+    "semantic_hash": "037155e2ee591763bf0d91c4e3a642ad"
+  },
+  "/Users/munkevin/xionGit/divvy/src/schema/migrations/meta/_journal.json": {
+    "mtime": 1780328450.718311,
+    "ast_hash": "1de5779175e08a8493aa22a8da31de98",
+    "semantic_hash": "1de5779175e08a8493aa22a8da31de98"
+  },
+  "/Users/munkevin/xionGit/divvy/src/schema/migrations/meta/0001_snapshot.json": {
+    "mtime": 1780328450.7180612,
+    "ast_hash": "f00affdcd79fb52bf1068d05bcdbba7a",
+    "semantic_hash": "f00affdcd79fb52bf1068d05bcdbba7a"
+  },
+  "/Users/munkevin/xionGit/divvy/src/functions/battle.ts": {
+    "mtime": 1780363587.5837195,
+    "ast_hash": "a9bb5f68befa0fedbe57c86a43910424",
+    "semantic_hash": "a9bb5f68befa0fedbe57c86a43910424"
+  },
+  "/Users/munkevin/xionGit/divvy/src/functions/watchlist.ts": {
+    "mtime": 1780387328.66863,
+    "ast_hash": "08c747a25808f77b1c5f9b30483579e0",
+    "semantic_hash": "08c747a25808f77b1c5f9b30483579e0"
+  },
+  "/Users/munkevin/xionGit/divvy/src/functions/analysis.ts": {
+    "mtime": 1780387346.4652164,
+    "ast_hash": "7a80c32d8c9443374f89855be10ec1a8",
+    "semantic_hash": "7a80c32d8c9443374f89855be10ec1a8"
+  }
+}

@@ -26,6 +26,7 @@ const TICKER_MAP: Record<string, string> = {
   'KIPREIT': '5280.KL', 'INTA': 'INTA.KL',
   'RHB': '1066.KL', 'PADINI': '7052.KL',
   'GAMUDA': '5398.KL', 'MATRIX': '5236.KL',
+  'PBBANK': '1295.KL', 'TIME': '5031.KL', 'SCICOM': '0099.KL',
 }
 
 export default function Watchlist() {
@@ -57,7 +58,9 @@ export default function Watchlist() {
         return {
           ...existing,
           status: dbs.status as 'active' | 'revisit' | 'removed',
-          score: { ...existing.score, composite: dbs.compositeScore },
+          score: dbs.compositeScore > 0
+            ? { ...existing.score, composite: dbs.compositeScore }
+            : existing.score,
         }
       }
       // New stock from DB not in static data — build minimal entry
