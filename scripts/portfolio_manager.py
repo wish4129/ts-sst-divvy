@@ -577,18 +577,18 @@ def main():
                         actual_shares = round_lot(min(t["shares"], int(state["cash"] / t["price"])))
                         if actual_shares < LOT_SIZE:
                             continue
-                            actual_cost = actual_shares * t["price"]
-                            state["cash"] -= actual_cost
-                            if t["stock"] in state["holdings"]:
-                                old = state["holdings"][t["stock"]]
-                                total_shares = old["shares"] + actual_shares
-                                old["cost"] = ((old["cost"] * old["shares"]) + actual_cost) / total_shares
-                                old["shares"] = total_shares
-                            else:
-                                state["holdings"][t["stock"]] = {"shares": actual_shares, "cost": t["price"], "target_pct": 0}
-                            trade_id = save_trade(db, cur, persona["id"], stock_code, "BUY", actual_shares, t["price"],
-                                                  t["reason"], ksig, source, source, pre_snap_id, timestamp)
-                            executed.append({**t, "cost": round(actual_cost, 2), "shares": actual_shares, "trade_id": trade_id})
+                        actual_cost = actual_shares * t["price"]
+                        state["cash"] -= actual_cost
+                        if t["stock"] in state["holdings"]:
+                            old = state["holdings"][t["stock"]]
+                            total_shares = old["shares"] + actual_shares
+                            old["cost"] = ((old["cost"] * old["shares"]) + actual_cost) / total_shares
+                            old["shares"] = total_shares
+                        else:
+                            state["holdings"][t["stock"]] = {"shares": actual_shares, "cost": t["price"], "target_pct": 0}
+                        trade_id = save_trade(db, cur, persona["id"], stock_code, "BUY", actual_shares, t["price"],
+                                              t["reason"], ksig, source, source, pre_snap_id, timestamp)
+                        executed.append({**t, "cost": round(actual_cost, 2), "shares": actual_shares, "trade_id": trade_id})
 
             if dry_run:
                 for t in trades:
