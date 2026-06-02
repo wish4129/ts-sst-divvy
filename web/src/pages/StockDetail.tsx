@@ -105,25 +105,28 @@ function AiReportSection({ report, model }: { report: Record<string, string>; mo
 function RenderLine({ line }: { line: string }) {
   if (!line.trim()) return <div className="h-2" />
   
+  // Bullet points — detect and strip prefix
+  const trimmed = line.trimStart()
+  const indent = line.length - trimmed.length
+  const isBullet = /^[-•*]\s/.test(trimmed)
+  
+  // Strip bullet prefix before parsing bold markers
+  const content = isBullet ? trimmed.replace(/^[-•*]\s+/, '') : trimmed
+  
   // Bold: **text**
-  const parts = line.split(/(\*\*[^*]+\*\*)/g)
+  const parts = content.split(/(\*\*[^*]+\*\*)/g)
   const rendered = parts.map((p, i) => {
     if (p.startsWith('**') && p.endsWith('**')) {
       return <strong key={i} className="text-gray-900 dark:text-gray-100">{p.slice(2, -2)}</strong>
     }
     return <span key={i}>{p}</span>
   })
-
-  // Bullet points
-  const trimmed = line.trimStart()
-  const indent = line.length - trimmed.length
-  const isBullet = /^[-•*]\s/.test(trimmed)
   
   return (
     <div style={{ paddingLeft: `${indent * 4 + (isBullet ? 16 : 0)}px` }}
          className={isBullet ? 'flex items-start gap-2' : ''}>
       {isBullet && <span className="text-emerald-400 flex-shrink-0 mt-1">•</span>}
-      <span>{isBullet ? rendered.slice(1) : rendered}</span>
+      <span>{rendered}</span>
     </div>
   )
 }
