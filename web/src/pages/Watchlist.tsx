@@ -52,46 +52,51 @@ export default function Watchlist() {
 
   // Merge DB data with static data for missing fields (financials, sparkline, etc.)
   const mergedStocks = useMemo(() => {
-    if (!dbStocks.length) return staticStocks
-    
-    // Build reverse map: ticker → short code
-    const tickerToShort: Record<string, string> = {}
-    for (const [short, ticker] of Object.entries(TICKER_MAP)) {
-      tickerToShort[ticker] = short
-    }
-    
-    return dbStocks.map(dbs => {
-      // API returns ticker codes (1155.KL), static uses short codes (MAYBANK)
-      const shortCode = tickerToShort[dbs.code] || dbs.code
-      const existing = staticStocks.find(s => s.code === shortCode)
-      if (existing) {
-        return {
-          ...existing,
-          status: dbs.status as 'active' | 'revisit' | 'removed',
-          score: dbs.compositeScore > 0
-            ? { ...existing.score, composite: dbs.compositeScore }
-            : existing.score,
+    const base = !dbStocks.length ? staticStocks : (() => {
+      // Build reverse map: ticker → short code
+      const tickerToShort: Record<string, string> = {}
+      for (const [short, ticker] of Object.entries(TICKER_MAP)) {
+        tickerToShort[ticker] = short
+      }
+      
+      return dbStocks.map(dbs => {
+        // API returns ticker codes (1155.KL), static uses short codes (MAYBANK)
+        const shortCode = tickerToShort[dbs.code] || dbs.code
+        const existing = staticStocks.find(s => s.code === shortCode)
+        if (existing) {
+          return {
+            ...existing,
+            score: dbs.compositeScore > 0
+              ? { ...existing.score, composite: dbs.compositeScore }
+              : existing.score,
+          }
         }
-      }
-      // New stock from DB not in static data — build minimal entry
-      return {
-        code: dbs.code,
-        name: dbs.name,
-        industry: dbs.industry,
-        marketCap: 0,
-        lastPrice: dbs.lastPrice,
-        priceChange: 0,
-        dividendYield: 0,
-        score: { composite: dbs.compositeScore, dividend: 0, growth: 0, quality: 0, risk: 0 },
-        financials: [],
-        dividends: [],
-        status: dbs.status as 'active' | 'revisit' | 'removed',
-        addedAt: '',
-        revisitAt: null,
-        notes: '',
-        sparkline: [],
-      }
-    })
+        // New stock from DB not in static data — build minimal entry
+        return {
+          code: dbs.code,
+          name: dbs.name,
+          industry: dbs.industry,
+          marketCap: 0,
+          lastPrice: dbs.lastPrice,
+          priceChange: 0,
+          dividendYield: 0,
+          score: { composite: dbs.compositeScore, dividend: 0, growth: 0, quality: 0, risk: 0 },
+          financials: [],
+          dividends: [],
+          status: 'revisit' as const,
+          addedAt: '',
+          revisitAt: null,
+          notes: '',
+          sparkline: [],
+        }
+      })
+    })()
+    
+    // Derive status dynamically from score (≥70 = active)
+    return base.map(s => ({
+      ...s,
+      status: (s.score.composite >= 70 ? 'active' : 'revisit') as 'active' | 'revisit' | 'removed',
+    }))
   }, [dbStocks])
 
   const active = useMemo(() =>
