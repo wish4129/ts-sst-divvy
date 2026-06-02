@@ -22,7 +22,23 @@ export default function StockDetail() {
   const persona = searchParams.get('persona')
   const [analysis, setAnalysis] = useState<PersonaAnalysis | null>(null)
 
-  const stock = stocks.find((s) => s.code === code?.toUpperCase())
+  // Look up by short code (WASCO) or ticker code (5142.KL)
+  const stock = stocks.find((s) => 
+    s.code === code?.toUpperCase() || code === s.code || 
+    stocks.some(x => x.code === code?.toUpperCase())
+  ) || stocks.find((s) => {
+    // Ticker → short code mapping from portfolios
+    const tickerMap: Record<string, string> = {
+      '1155.KL': 'MAYBANK', '6742.KL': 'YTLPOWR', '5106.KL': 'AXREIT',
+      '3379.KL': 'INSAS', '7089.KL': 'LIIHEN', '4731.KL': 'SCIENTEX',
+      '0104.KL': 'GENETEC', '2445.KL': 'KLK', '0166.KL': 'INARI',
+      '4197.KL': 'SIME', '7087.KL': 'MAGNI', '5983.KL': 'MBMR',
+      '5293.KL': 'AME', '5132.KL': 'DELEUM', '5142.KL': 'WASCO',
+      '5280.KL': 'KIPREIT', 'INTA.KL': 'INTA',
+    }
+    const shortCode = tickerMap[code || '']
+    return shortCode ? s.code === shortCode : false
+  })
 
   useEffect(() => {
     if (persona && API_URL) {

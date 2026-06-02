@@ -56,6 +56,7 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
       const pid = h.portfolioId;
       if (!personaHoldings[pid]) personaHoldings[pid] = {};
       personaHoldings[pid][h.stockName || h.stockId] = {
+        code: h.stockId,
         shares: h.shares,
         cost: Number(h.avgCost),
         price: Number(h.avgCost),  // default to cost (no live prices in API)
