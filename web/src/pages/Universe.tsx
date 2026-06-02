@@ -1,229 +1,213 @@
-import { useState, useEffect, useMemo, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect, useCallback } from 'react'
+import { Search, Beaker, Loader2, CheckCircle2, Clock } from 'lucide-react'
 
 const API_URL = import.meta.env.VITE_API_URL || ''
 
 interface UniverseStock {
-  code: string
+  stock_code: string
   name: string
-  market: string
-  sector: string | null
-  inWatchlist: boolean
-  createdAt: string
-}
-
-interface Pagination {
-  page: number
-  limit: number
-  total: number
-  totalPages: number
-}
-
-const MARKET_COLORS: Record<string, string> = {
-  'Main Market': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-  'ACE Market': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
-  'LEAP Market': 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200',
-  'Unknown': 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400',
+  industry: string | null
+  market_cap: number | null
+  last_price: number | null
+  pe_ratio: number | null
+  dividend_yield: number | null
+  has_analysis: boolean
+  last_analyzed_at: string | null
+  added_at: string
 }
 
 export default function Universe() {
-  const navigate = useNavigate()
   const [stocks, setStocks] = useState<UniverseStock[]>([])
-  const [pagination, setPagination] = useState<Pagination>({ page: 1, limit: 50, total: 0, totalPages: 0 })
-  const [search, setSearch] = useState('')
-  const [marketFilter, setMarketFilter] = useState('')
   const [loading, setLoading] = useState(true)
-  const [addingCode, setAddingCode] = useState<string | null>(null)
+  const [search, setSearch] = useState('')
+  const [page, setPage] = useState(1)
+  const [total, setTotal] = useState(0)
+  const [requesting, setRequesting] = useState<Set<string>>(new Set())
+  const [message, setMessage] = useState('')
 
-  const fetchStocks = useCallback(async (page: number, searchTerm: string, market: string) => {
+  const fetchStocks = useCallback(async (p: number, s: string) => {
+    if (!API_URL) {
+      setLoading(false)
+      return
+    }
     setLoading(true)
     try {
-      const params = new URLSearchParams({ page: String(page), limit: '50' })
-      if (searchTerm) params.set('search', searchTerm)
-      if (market) params.set('market', market)
-
+      const params = new URLSearchParams({ page: String(p), limit: '50' })
+      if (s) params.set('search', s)
       const res = await fetch(`${API_URL}/universe?${params}`)
-      const data = await res.json()
-      setStocks(data.data || [])
-      setPagination(data.pagination || { page: 1, limit: 50, total: 0, totalPages: 0 })
+      const json = await res.json()
+      setStocks(json.data || [])
+      setTotal(json.pagination?.total || 0)
     } catch (e) {
-      console.error('Failed to fetch universe:', e)
-    } finally {
-      setLoading(false)
+      console.error(e)
     }
+    setLoading(false)
   }, [])
 
   useEffect(() => {
-    fetchStocks(1, search, marketFilter)
-  }, [fetchStocks, search, marketFilter])
+    fetchStocks(page, search)
+  }, [page, fetchStocks])
 
-  const addToWatchlist = async (code: string) => {
-    setAddingCode(code)
-    try {
-      const res = await fetch(`${API_URL}/universe/add`, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ code }),
-      })
-      const data = await res.json()
-      if (data.success) {
-        // Update local state
-        setStocks(prev => prev.map(s => s.code === code ? { ...s, inWatchlist: true } : s))
-      }
-    } catch (e) {
-      console.error('Failed to add to watchlist:', e)
-    } finally {
-      setAddingCode(null)
-    }
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    setPage(1)
+    fetchStocks(1, search)
   }
 
-  const markets = useMemo(() => {
-    const m = new Set<string>()
-    stocks.forEach(s => m.add(s.market))
-    return Array.from(m).sort()
-  }, [stocks])
+  const requestAnalysis = async (stockCode: string) => {
+    if (!API_URL || requesting.has(stockCode)) return
+    setRequesting(prev => new Set(prev).add(stockCode))
+    try {
+      const res = await fetch(`${API_URL}/universe/request-analysis`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ stockCode }),
+      })
+      const json = await res.json()
+      if (json.success) {
+        setMessage(`Queued ${stockCode} for deep analysis`)
+        setTimeout(() => setMessage(''), 4000)
+      }
+    } catch (e) {
+      console.error(e)
+    }
+    setRequesting(prev => {
+      const next = new Set(prev)
+      next.delete(stockCode)
+      return next
+    })
+  }
 
-  const totalInWatchlist = useMemo(() => stocks.filter(s => s.inWatchlist).length, [stocks])
+  const totalPages = Math.ceil(total / 50)
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 space-y-4">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Bursa Malaysia Universe</h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-          {pagination.total.toLocaleString()} listed companies · {totalInWatchlist} in watchlist
-        </p>
-      </div>
-
-      {/* Search & Filter */}
-      <div className="flex flex-col sm:flex-row gap-3">
-        <div className="flex-1 relative">
-          <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          <input
-            type="text"
-            placeholder="Search by name or code..."
-            value={search}
-            onChange={e => { setSearch(e.target.value); fetchStocks(1, e.target.value, marketFilter) }}
-            className="w-full pl-10 pr-4 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none"
-          />
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <main className="max-w-5xl mx-auto px-4 py-6">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Bursa Universe</h1>
+            <p className="text-sm text-gray-500">{total.toLocaleString()} stocks · Request deep analysis on any stock</p>
+          </div>
         </div>
-        <select
-          value={marketFilter}
-          onChange={e => { setMarketFilter(e.target.value); fetchStocks(1, search, e.target.value) }}
-          className="px-4 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-sm focus:ring-2 focus:ring-emerald-500 outline-none"
-        >
-          <option value="">All Markets</option>
-          <option value="Main Market">Main Market</option>
-          <option value="ACE Market">ACE Market</option>
-          <option value="LEAP Market">LEAP Market</option>
-        </select>
-      </div>
 
-      {/* Table */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+        {message && (
+          <div className="mb-4 px-4 py-2 bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 rounded-lg text-sm flex items-center gap-2">
+            <CheckCircle2 className="h-4 w-4" />
+            {message}
+          </div>
+        )}
+
+        <form onSubmit={handleSearch} className="mb-4 flex gap-2">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search by name or code..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            />
+          </div>
+          <button
+            type="submit"
+            className="px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-medium hover:bg-emerald-700 transition-colors"
+          >
+            Search
+          </button>
+        </form>
+
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600" />
-          </div>
-        ) : stocks.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-gray-400">
-            <svg className="w-12 h-12 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <p className="text-sm">No companies found</p>
+            <Loader2 className="h-6 w-6 animate-spin text-emerald-600" />
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
-                  <th className="text-left px-4 py-3 font-medium text-gray-500 dark:text-gray-400 w-24">Code</th>
-                  <th className="text-left px-4 py-3 font-medium text-gray-500 dark:text-gray-400">Company Name</th>
-                  <th className="text-left px-4 py-3 font-medium text-gray-500 dark:text-gray-400 w-32">Market</th>
-                  <th className="text-center px-4 py-3 font-medium text-gray-500 dark:text-gray-400 w-28">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
-                {stocks.map(stock => (
-                  <tr
-                    key={stock.code}
-                    className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
-                  >
-                    <td className="px-4 py-3 font-mono text-xs text-gray-500 dark:text-gray-400">
-                      {stock.code}
-                    </td>
-                    <td className="px-4 py-3">
-                      <button
-                        onClick={() => navigate(`/stock/${stock.code}`)}
-                        className="text-left font-medium text-gray-900 dark:text-white hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors truncate max-w-md block"
-                      >
-                        {stock.name}
-                      </button>
-                    </td>
-                    <td className="px-4 py-3">
-                      <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${MARKET_COLORS[stock.market] || MARKET_COLORS['Unknown']}`}>
-                        {stock.market}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-center">
-                      {stock.inWatchlist ? (
-                        <span className="inline-flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          In watchlist
-                        </span>
-                      ) : (
-                        <button
-                          onClick={() => addToWatchlist(stock.code)}
-                          disabled={addingCode === stock.code}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 rounded-lg text-xs font-medium transition-colors disabled:opacity-50"
-                        >
-                          {addingCode === stock.code ? (
-                            <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-emerald-600" />
+          <>
+            <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+                      <th className="text-left px-4 py-3 font-medium text-gray-500">Code</th>
+                      <th className="text-left px-4 py-3 font-medium text-gray-500">Name</th>
+                      <th className="text-left px-4 py-3 font-medium text-gray-500 hidden sm:table-cell">Industry</th>
+                      <th className="text-right px-4 py-3 font-medium text-gray-500 hidden md:table-cell">Price</th>
+                      <th className="text-center px-4 py-3 font-medium text-gray-500">Status</th>
+                      <th className="text-center px-4 py-3 font-medium text-gray-500">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {stocks.map(s => (
+                      <tr key={s.stock_code} className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-850">
+                        <td className="px-4 py-3 font-mono text-xs text-gray-600 dark:text-gray-400">{s.stock_code.replace('.KL', '')}</td>
+                        <td className="px-4 py-3 text-gray-900 dark:text-gray-100 max-w-[200px] truncate">{s.name}</td>
+                        <td className="px-4 py-3 text-gray-500 hidden sm:table-cell">{s.industry || '—'}</td>
+                        <td className="px-4 py-3 text-right text-gray-700 dark:text-gray-300 hidden md:table-cell">
+                          {s.last_price ? `RM ${Number(s.last_price).toFixed(2)}` : '—'}
+                        </td>
+                        <td className="px-4 py-3 text-center">
+                          {s.has_analysis ? (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
+                              <CheckCircle2 className="h-3 w-3" />
+                              Analyzed
+                            </span>
                           ) : (
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                            </svg>
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300">
+                              <Clock className="h-3 w-3" />
+                              Pending
+                            </span>
                           )}
-                          Add
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-
-        {/* Pagination */}
-        {pagination.totalPages > 1 && (
-          <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
-            <span className="text-xs text-gray-500">
-              Page {pagination.page} of {pagination.totalPages} · {pagination.total} total
-            </span>
-            <div className="flex gap-1">
-              <button
-                onClick={() => fetchStocks(pagination.page - 1, search, marketFilter)}
-                disabled={pagination.page <= 1}
-                className="px-3 py-1.5 text-xs rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-30 transition-colors"
-              >
-                Prev
-              </button>
-              <button
-                onClick={() => fetchStocks(pagination.page + 1, search, marketFilter)}
-                disabled={pagination.page >= pagination.totalPages}
-                className="px-3 py-1.5 text-xs rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-30 transition-colors"
-              >
-                Next
-              </button>
+                        </td>
+                        <td className="px-4 py-3 text-center">
+                          <button
+                            onClick={() => requestAnalysis(s.stock_code)}
+                            disabled={s.has_analysis || requesting.has(s.stock_code)}
+                            className={`inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-medium transition-colors ${
+                              s.has_analysis
+                                ? 'bg-gray-100 text-gray-400 cursor-not-allowed dark:bg-gray-800'
+                                : requesting.has(s.stock_code)
+                                ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900'
+                                : 'bg-emerald-600 text-white hover:bg-emerald-700'
+                            }`}
+                          >
+                            {requesting.has(s.stock_code) ? (
+                              <Loader2 className="h-3 w-3 animate-spin" />
+                            ) : (
+                              <Beaker className="h-3 w-3" />
+                            )}
+                            {s.has_analysis ? 'Done' : requesting.has(s.stock_code) ? 'Queueing' : 'Analyze'}
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
+
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-2 mt-4">
+                <button
+                  onClick={() => setPage(p => Math.max(1, p - 1))}
+                  disabled={page === 1}
+                  className="px-3 py-1 rounded text-sm bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 disabled:opacity-50"
+                >
+                  Prev
+                </button>
+                <span className="text-sm text-gray-500">
+                  Page {page} of {totalPages}
+                </span>
+                <button
+                  onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                  disabled={page === totalPages}
+                  className="px-3 py-1 rounded text-sm bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 disabled:opacity-50"
+                >
+                  Next
+                </button>
+              </div>
+            )}
+          </>
         )}
-      </div>
+      </main>
     </div>
   )
 }

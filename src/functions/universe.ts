@@ -24,6 +24,9 @@ export async function handler(
     if (method === "POST" && path === "/universe/add") {
       return await addToWatchlist(event);
     }
+    if (method === "POST" && path === "/universe/request-analysis") {
+      return await requestAnalysis(event);
+    }
     return { statusCode: 404, body: JSON.stringify({ error: "Not found" }) };
   } catch (err: any) {
     console.error("Universe handler error:", err);
@@ -34,56 +37,31 @@ export async function handler(
 async function listUniverse(event: APIGatewayProxyEventV2) {
   const q = event.queryStringParameters || {};
   const search = (q.search || "").trim().toLowerCase();
-  const market = (q.market || "").trim();
   const page = Math.max(1, parseInt(q.page || "1"));
   const limit = Math.min(100, Math.max(5, parseInt(q.limit || "50")));
   const offset = (page - 1) * limit;
 
-  // Build where clause using tagged template interpolation
   let countResult: any;
   let rows: any;
 
-  if (search && market) {
+  if (search) {
     countResult = await sql`
       SELECT COUNT(*)::int as count FROM bursa_universe
-      WHERE (LOWER(name) LIKE ${"%" + search + "%"} OR code LIKE ${"%" + search + "%"})
-      AND market = ${market}
+      WHERE (LOWER(name) LIKE ${"%" + search + "%"} OR stock_code LIKE ${"%" + search + "%"})
     `;
     rows = await sql`
-      SELECT code, name, market, sector, in_watchlist as "inWatchlist", created_at as "createdAt"
+      SELECT stock_code, name, industry, market_cap, last_price, pe_ratio, 
+             dividend_yield, has_analysis, last_analyzed_at, added_at
       FROM bursa_universe
-      WHERE (LOWER(name) LIKE ${"%" + search + "%"} OR code LIKE ${"%" + search + "%"})
-      AND market = ${market}
-      ORDER BY name ASC
-      LIMIT ${limit} OFFSET ${offset}
-    `;
-  } else if (search) {
-    countResult = await sql`
-      SELECT COUNT(*)::int as count FROM bursa_universe
-      WHERE (LOWER(name) LIKE ${"%" + search + "%"} OR code LIKE ${"%" + search + "%"})
-    `;
-    rows = await sql`
-      SELECT code, name, market, sector, in_watchlist as "inWatchlist", created_at as "createdAt"
-      FROM bursa_universe
-      WHERE (LOWER(name) LIKE ${"%" + search + "%"} OR code LIKE ${"%" + search + "%"})
-      ORDER BY name ASC
-      LIMIT ${limit} OFFSET ${offset}
-    `;
-  } else if (market) {
-    countResult = await sql`
-      SELECT COUNT(*)::int as count FROM bursa_universe WHERE market = ${market}
-    `;
-    rows = await sql`
-      SELECT code, name, market, sector, in_watchlist as "inWatchlist", created_at as "createdAt"
-      FROM bursa_universe
-      WHERE market = ${market}
+      WHERE (LOWER(name) LIKE ${"%" + search + "%"} OR stock_code LIKE ${"%" + search + "%"})
       ORDER BY name ASC
       LIMIT ${limit} OFFSET ${offset}
     `;
   } else {
     countResult = await sql`SELECT COUNT(*)::int as count FROM bursa_universe`;
     rows = await sql`
-      SELECT code, name, market, sector, in_watchlist as "inWatchlist", created_at as "createdAt"
+      SELECT stock_code, name, industry, market_cap, last_price, pe_ratio, 
+             dividend_yield, has_analysis, last_analyzed_at, added_at
       FROM bursa_universe
       ORDER BY name ASC
       LIMIT ${limit} OFFSET ${offset}
@@ -105,12 +83,11 @@ async function listUniverse(event: APIGatewayProxyEventV2) {
 async function addToWatchlist(event: APIGatewayProxyEventV2) {
   const body = JSON.parse(event.body || "{}");
   const { code } = body;
-
   if (!code) {
     return { statusCode: 400, body: JSON.stringify({ error: "code is required" }) };
   }
 
-  const ticker = `${code}.KL`;
+  const ticker = code.includes(".KL") ? code : `${code}.KL`;
 
   // Check if already in stocks
   const existing = await sql`SELECT id FROM stocks WHERE id = ${ticker}`;
@@ -122,27 +99,52 @@ async function addToWatchlist(event: APIGatewayProxyEventV2) {
     };
   }
 
-  // Get company details from bursa_universe
-  const company = await sql`SELECT name, market FROM bursa_universe WHERE code = ${code}`;
+  // Get company details
+  const company = await sql`SELECT name, industry FROM bursa_universe WHERE stock_code = ${ticker}`;
   if ((company as any[]).length === 0) {
     return { statusCode: 404, body: JSON.stringify({ error: "Company not found" }) };
   }
 
-  const { name, market } = (company as any)[0];
-
-  // Insert into stocks table
+  const { name, industry } = (company as any)[0];
   await sql`
-    INSERT INTO stocks (id, name, industry, initial_price, status)
-    VALUES (${ticker}, ${name}, ${market}, 0, 'revisit')
+    INSERT INTO stocks (id, name, industry, initial_price, status, added_at, updated_at)
+    VALUES (${ticker}, ${name}, ${industry || ''}, 0, 'revisit', NOW(), NOW())
     ON CONFLICT (id) DO NOTHING
   `;
 
-  // Update in_watchlist flag
-  await sql`UPDATE bursa_universe SET in_watchlist = true WHERE code = ${code}`;
+  await sql`UPDATE bursa_universe SET has_analysis = TRUE WHERE stock_code = ${ticker}`;
 
   return {
     statusCode: 200,
     headers: { "content-type": "application/json", "access-control-allow-origin": "*" },
     body: JSON.stringify({ success: true, message: "Added to watchlist", stockId: ticker }),
+  };
+}
+
+async function requestAnalysis(event: APIGatewayProxyEventV2) {
+  const body = JSON.parse(event.body || "{}");
+  const { stockCode } = body;
+  if (!stockCode) {
+    return { statusCode: 400, body: JSON.stringify({ error: "stockCode is required" }) };
+  }
+
+  const ticker = stockCode.includes(".KL") ? stockCode : `${stockCode}.KL`;
+
+  // Check if company exists
+  const company = await sql`SELECT name FROM bursa_universe WHERE stock_code = ${ticker}`;
+  if ((company as any[]).length === 0) {
+    return { statusCode: 404, body: JSON.stringify({ error: "Company not found in universe" }) };
+  }
+
+  // Insert into pending queue
+  await sql`
+    INSERT INTO pending_analyses (stock_code)
+    VALUES (${ticker})
+  `;
+
+  return {
+    statusCode: 200,
+    headers: { "content-type": "application/json", "access-control-allow-origin": "*" },
+    body: JSON.stringify({ success: true, message: "Analysis queued", stockCode: ticker }),
   };
 }

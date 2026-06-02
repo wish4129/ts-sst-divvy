@@ -23,6 +23,7 @@ export default $config({
     api.route("GET /watchlist", "src/functions/watchlist.handler");
     api.route("GET /universe", "src/functions/universe.handler");
     api.route("POST /universe/add", "src/functions/universe.handler");
+    api.route("POST /universe/request-analysis", "src/functions/universe.handler");
 
     new sst.aws.StaticSite("WebApp", {
       path: "web/",
