@@ -1,7 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
-import Header from '../components/Header'
 import ScoreBadge from '../components/ScoreBadge'
 import SparklineChart from '../components/SparklineChart'
 import { stocks, INDUSTRY_COLORS } from '../data/stocks'
@@ -13,7 +12,6 @@ export default function StockDetail() {
   if (!stock) {
     return (
       <div className="min-h-screen">
-        <Header />
         <main className="max-w-3xl mx-auto px-4 py-20 text-center">
           <h1 className="text-2xl font-bold text-gray-400 mb-2">Stock not found</h1>
           <Link to="/" className="text-emerald-600 hover:text-emerald-700">Back to Dashboard</Link>
@@ -29,7 +27,6 @@ export default function StockDetail() {
 
   return (
     <div className="min-h-screen">
-      <Header />
       <main className="max-w-4xl mx-auto px-4 py-6">
         <Link to="/" className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 mb-4">
           <ArrowLeft className="w-4 h-4" /> Back

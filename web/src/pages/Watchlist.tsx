@@ -1,5 +1,4 @@
 import { useState, useMemo } from 'react'
-import Header from '../components/Header'
 import ScoreBadge from '../components/ScoreBadge'
 import { stocks, INDUSTRY_COLORS } from '../data/stocks'
 import type { Stock } from '../data/stocks'
@@ -67,7 +66,6 @@ export default function Watchlist() {
 
   return (
     <div className="min-h-screen">
-      <Header />
       <main className="max-w-3xl mx-auto px-4 py-6">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Watchlist</h1>
 
