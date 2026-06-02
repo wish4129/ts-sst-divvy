@@ -80,7 +80,7 @@ function AnalysisSections({ analysis }: { analysis: PersonaAnalysis }) {
             {isOpen && (
               <div className="px-5 pb-4">
                 {/* Action Triggers: checkboxes */}
-                {Array.isArray(content) && typeof content[0] === 'object' && 'text' in content[0] ? (
+                {Array.isArray(content) && content.length > 0 && typeof content[0] === 'object' && 'text' in content[0] ? (
                   <div className="space-y-2">
                     {(content as TriggerItem[]).map((t, j) => (
                       <div key={j} className="flex items-start gap-2">
@@ -88,32 +88,34 @@ function AnalysisSections({ analysis }: { analysis: PersonaAnalysis }) {
                           ? <CheckSquare className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
                           : <Square className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
                         }
-                        <div>
-                          <span className={`text-sm ${t.active ? 'text-emerald-700 dark:text-emerald-400 font-medium' : 'text-gray-600 dark:text-gray-400'}`}>
-                            {t.text}
-                          </span>
-                          {t.source_url && (
-                            <a href={t.source_url} target="_blank" rel="noopener noreferrer"
-                               className="inline-flex items-center gap-1 ml-2 text-[10px] text-emerald-500 hover:text-emerald-600">
-                              <ExternalLink className="w-3 h-3" /> source
-                            </a>
-                          )}
-                        </div>
+                        <span className={`text-sm ${t.active ? 'text-emerald-700 dark:text-emerald-400 font-medium' : 'text-gray-600 dark:text-gray-400'}`}>
+                          {t.text}
+                        </span>
                       </div>
                     ))}
                   </div>
+                ) : Array.isArray(content) ? (
+                  /* Bullet point list */
+                  <ul className="space-y-1.5">
+                    {content.map((item: string, j: number) => (
+                      <li key={j} className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed flex items-start gap-2">
+                        <span className="text-emerald-400 mt-1.5 flex-shrink-0">•</span>
+                        <span>{String(item)}</span>
+                      </li>
+                    ))}
+                  </ul>
                 ) : (
-                  /* Regular text sections */
+                  /* Fallback: plain text */
                   <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{String(content)}</p>
                 )}
                 
                 {/* Source link */}
-                <div className="flex items-center gap-1 mt-2 pt-2 border-t border-emerald-100 dark:border-emerald-800/30">
+                <div className="flex items-center gap-1 mt-3 pt-2 border-t border-emerald-100 dark:border-emerald-800/30">
                   <span className="text-[10px] text-gray-400 sm:hidden">{sourceLabel}</span>
                   {sourceUrl && (
                     <a href={sourceUrl} target="_blank" rel="noopener noreferrer"
                        className="inline-flex items-center gap-1 text-[10px] text-emerald-500 hover:text-emerald-600 ml-auto">
-                      <ExternalLink className="w-3 h-3" /> Reference source
+                      <ExternalLink className="w-3 h-3" /> Reference
                     </a>
                   )}
                 </div>

@@ -122,7 +122,7 @@ def build_detailed_rationale(pid, stock_name, stock_info, holding, score_data, f
                 fit_parts.append(f"ROE {roe_annual:.1f}% annualized — strong profitability supports growth thesis")
     
     fit_parts.append(f"{target}% portfolio allocation within {ctx['sizing'].split(',')[0]}")
-    sections["Strategic Fit"] = " | ".join(fit_parts)
+    sections["Strategic Fit"] = fit_parts
 
     # ── 2. Score Analysis ──
     score_parts = []
@@ -137,7 +137,7 @@ def build_detailed_rationale(pid, stock_name, stock_info, holding, score_data, f
         v = b.get("value")
         if v is not None:
             score_parts.append(f"{fn.replace('_', ' ')}: {v} → {b['weighted']:.1f} weighted")
-    sections["Score Analysis"] = " | ".join(score_parts)
+    sections["Score Analysis"] = score_parts
 
     # ── 3. Kronos AI Signal ──
     if ksig and "pred_change_pct" in ksig:
@@ -149,9 +149,9 @@ def build_detailed_rationale(pid, stock_name, stock_info, holding, score_data, f
             f"Volatility: {ksig.get('pred_volatility', 0):.1f}%",
         ]
         if "error" not in ksig:
-            sections["Kronos AI 30-Day Forecast"] = " | ".join(kronos_parts)
+            sections["Kronos AI 30-Day Forecast"] = kronos_parts
     else:
-        sections["Kronos AI 30-Day Forecast"] = "No forecast available for this stock"
+        sections["Kronos AI 30-Day Forecast"] = ["No forecast available for this stock"]
 
     # ── 4. Macro Context ──
     ind_matrix = json.loads((ROOT / "data" / "industry_matrix.json").read_text())
@@ -162,7 +162,7 @@ def build_detailed_rationale(pid, stock_name, stock_info, holding, score_data, f
         if abs(beta) > 0.3 and mv.get("value") is not None:
             impact = "tailwind" if (beta > 0 and mv.get("trend") == "up") or (beta < 0 and mv.get("trend") == "down") else "headwind"
             macro_parts.append(f"{mv['label']}: {mv['value']} ({mv.get('trend','?')}) — {impact} (beta={beta})")
-    sections["Macro Context"] = " | ".join(macro_parts[:5]) if macro_parts else "No significant macro exposure"
+    sections["Macro Context"] = macro_parts[:5] if macro_parts else ["No significant macro exposure"]
 
     # ── 5. Risk Factors ──
     risks = []
@@ -173,7 +173,7 @@ def build_detailed_rationale(pid, stock_name, stock_info, holding, score_data, f
         risks.append(f"Kronos warns {ksig['pred_change_pct']:.1f}% — significant downside risk")
     if fin_data.get("revenue_growth_yoy_pct") is not None and fin_data["revenue_growth_yoy_pct"] < 0:
         risks.append(f"Revenue declining {fin_data['revenue_growth_yoy_pct']:.1f}% YoY")
-    sections["Risk Factors"] = " | ".join(risks) if risks else "No significant risk flags identified"
+    sections["Risk Factors"] = risks if risks else ["No significant risk flags identified"]
 
     # ── 6. Action Triggers — structured with active state ──
     triggers = []
