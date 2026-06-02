@@ -1,25 +1,96 @@
-import { useState, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ScoreBadge from '../components/ScoreBadge'
-import { stocks, INDUSTRY_COLORS } from '../data/stocks'
-import type { Stock } from '../data/stocks'
+import { stocks as staticStocks, INDUSTRY_COLORS } from '../data/stocks'
+
+const API_URL = import.meta.env.VITE_API_URL || ''
+
+interface WatchlistStock {
+  code: string
+  name: string
+  industry: string
+  lastPrice: number
+  status: 'active' | 'revisit' | 'removed'
+  compositeScore: number
+  hasAiReport: boolean
+}
 
 type Tab = 'active' | 'revisit' | 'removed'
 
+const TICKER_MAP: Record<string, string> = {
+  'MAYBANK': '1155.KL', 'YTLPOWR': '6742.KL', 'AXREIT': '5106.KL',
+  'INSAS': '3379.KL', 'LIIHEN': '7089.KL', 'SCIENTEX': '4731.KL',
+  'GENETEC': '0104.KL', 'KLK': '2445.KL', 'INARI': '0166.KL',
+  'SIME': '4197.KL', 'MAGNI': '7087.KL', 'MBMR': '5983.KL',
+  'AME': '5293.KL', 'DELEUM': '5132.KL', 'WASCO': '5142.KL',
+  'KIPREIT': '5280.KL', 'INTA': 'INTA.KL',
+  'RHB': '1066.KL', 'PADINI': '7052.KL',
+}
+
 export default function Watchlist() {
   const [tab, setTab] = useState<Tab>('active')
+  const [dbStocks, setDbStocks] = useState<WatchlistStock[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (!API_URL) {
+      // Fallback to static data for local dev
+      setLoading(false)
+      return
+    }
+    fetch(`${API_URL}/watchlist`)
+      .then(r => r.json())
+      .then((data: WatchlistStock[]) => {
+        if (Array.isArray(data)) setDbStocks(data)
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false))
+  }, [])
+
+  // Merge DB data with static data for missing fields (financials, sparkline, etc.)
+  const mergedStocks = useMemo(() => {
+    if (!dbStocks.length) return staticStocks
+    return dbStocks.map(dbs => {
+      const existing = staticStocks.find(s => s.code === dbs.code)
+      if (existing) {
+        return {
+          ...existing,
+          status: dbs.status as 'active' | 'revisit' | 'removed',
+          score: { ...existing.score, composite: dbs.compositeScore },
+        }
+      }
+      // New stock from DB not in static data — build minimal entry
+      return {
+        code: dbs.code,
+        name: dbs.name,
+        industry: dbs.industry,
+        marketCap: 0,
+        lastPrice: dbs.lastPrice,
+        priceChange: 0,
+        dividendYield: 0,
+        score: { composite: dbs.compositeScore, dividend: 0, growth: 0, quality: 0, risk: 0 },
+        financials: [],
+        dividends: [],
+        status: dbs.status as 'active' | 'revisit' | 'removed',
+        addedAt: '',
+        revisitAt: null,
+        notes: '',
+        sparkline: [],
+      }
+    })
+  }, [dbStocks])
 
   const active = useMemo(() =>
-    stocks.filter((s) => s.status === 'active').sort((a, b) => b.score.composite - a.score.composite),
-    []
+    mergedStocks.filter((s) => s.status === 'active').sort((a, b) => b.score.composite - a.score.composite),
+    [mergedStocks]
   )
   const revisit = useMemo(() =>
-    stocks.filter((s) => s.status === 'revisit').sort((a, b) => b.score.composite - a.score.composite),
-    []
+    mergedStocks.filter((s) => s.status === 'revisit').sort((a, b) => b.score.composite - a.score.composite),
+    [mergedStocks]
   )
   const removed = useMemo(() =>
-    stocks.filter((s) => s.status === 'removed'),
-    []
+    mergedStocks.filter((s) => s.status === 'removed'),
+    [mergedStocks]
   )
 
   const data = tab === 'active' ? active : tab === 'revisit' ? revisit : removed
@@ -31,15 +102,7 @@ export default function Watchlist() {
         : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
     }`
 
-  function daysUntil(date: string | null): string {
-    if (!date) return '-'
-    const d = new Date(date)
-    const now = new Date()
-    const diff = Math.ceil((d.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
-    return diff <= 0 ? 'Due' : `${diff}d`
-  }
-
-  function StockRow({ stock }: { stock: Stock }) {
+  function StockRow({ stock }: { stock: typeof mergedStocks[number] }) {
     const navigate = useNavigate()
     const indColor = INDUSTRY_COLORS[stock.industry] || 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
     const statusColor =
@@ -47,20 +110,12 @@ export default function Watchlist() {
       stock.status === 'revisit' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300' :
       'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
 
-    const tickerMap: Record<string, string> = {
-      'MAYBANK': '1155.KL', 'YTLPOWR': '6742.KL', 'AXREIT': '5106.KL',
-      'INSAS': '3379.KL', 'LIIHEN': '7089.KL', 'SCIENTEX': '4731.KL',
-      'GENETEC': '0104.KL', 'KLK': '2445.KL', 'INARI': '0166.KL',
-      'SIME': '4197.KL', 'MAGNI': '7087.KL', 'MBMR': '5983.KL',
-      'AME': '5293.KL', 'DELEUM': '5132.KL', 'WASCO': '5142.KL',
-      'KIPREIT': '5280.KL', 'INTA': 'INTA.KL',
-      'RHB': '1066.KL', 'PADINI': '7052.KL',
-    }
+    const ticker = TICKER_MAP[stock.code] || stock.code
 
     return (
       <div
         className="flex items-center justify-between py-3 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors cursor-pointer"
-        onClick={() => navigate(`/stock/${tickerMap[stock.code] || stock.code}`)}
+        onClick={() => navigate(`/stock/${ticker}`)}
       >
         <div className="flex items-center gap-3 min-w-0">
           <ScoreBadge score={stock.score.composite} size="sm" />
@@ -72,7 +127,7 @@ export default function Watchlist() {
         <div className="flex items-center gap-4 flex-shrink-0">
           <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${indColor}`}>{stock.industry}</span>
           <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusColor}`}>
-            {stock.status === 'revisit' && stock.revisitAt ? daysUntil(stock.revisitAt) : stock.status}
+            {stock.status}
           </span>
         </div>
       </div>
@@ -95,7 +150,9 @@ export default function Watchlist() {
           ))}
         </div>
 
-        {data.length === 0 ? (
+        {loading ? (
+          <p className="text-gray-400 text-center py-10">Loading...</p>
+        ) : data.length === 0 ? (
           <p className="text-gray-400 text-center py-10">No stocks in this list.</p>
         ) : (
           <div className="divide-y divide-gray-100 dark:divide-gray-800">

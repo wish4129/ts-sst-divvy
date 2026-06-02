@@ -52,9 +52,19 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
       };
     }
 
-    // All personas for this stock — latest each
-    const rows = await sql`
-      SELECT DISTINCT ON (sa.persona) sa.*, s.name as stock_name, s.industry
+    // No persona — return the latest analysis (any persona) with full AI report,
+    // plus a summary of all personas
+    const latestRow = await sql`
+      SELECT sa.*, s.name as stock_name, s.industry
+      FROM stock_analyses sa
+      JOIN stocks s ON sa.stock_id = s.id
+      WHERE sa.stock_id = ${code} AND sa.ai_report IS NOT NULL
+      ORDER BY sa.generated_at DESC LIMIT 1
+    `;
+
+    const personaRows = await sql`
+      SELECT DISTINCT ON (sa.persona) sa.persona, sa.score_composite, sa.generated_at,
+             s.name as stock_name, s.industry
       FROM stock_analyses sa
       JOIN stocks s ON sa.stock_id = s.id
       WHERE sa.stock_id = ${code}
@@ -62,20 +72,34 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     `;
 
     const byPersona: Record<string, any> = {};
-    for (const r of rows) {
+    for (const r of personaRows) {
       byPersona[r.persona] = {
         persona: r.persona,
         score_composite: Number(r.score_composite),
-        rationale: r.decision_rationale,
-        kronos_signal: r.kronos_signal,
         generated_at: r.generated_at,
       };
     }
 
+    const latest = latestRow[0];
+
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-      body: JSON.stringify(byPersona),
+      body: JSON.stringify({
+        stock_name: latest?.stock_name || personaRows[0]?.stock_name || "",
+        industry: latest?.industry || personaRows[0]?.industry || "",
+        personas: byPersona,
+        // Include latest AI report from any persona for watchlist view
+        ai_report: latest?.ai_report || null,
+        ai_model: latest?.ai_model || null,
+        score_composite: latest ? Number(latest.score_composite) : 0,
+        score_breakdown: latest?.score_breakdown || null,
+        rationale: latest?.decision_rationale || null,
+        kronos_signal: latest?.kronos_signal || null,
+        macro_context: latest?.macro_context || null,
+        generated_at: latest?.generated_at || null,
+        persona: latest?.persona || null,
+      }),
     };
   } catch (error: any) {
     return {

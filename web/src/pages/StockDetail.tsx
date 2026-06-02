@@ -1,5 +1,5 @@
 import { useParams, useSearchParams, Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { ArrowLeft, Brain, ChevronDown, ChevronRight, ExternalLink, CheckSquare, Square } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import ScoreBadge from '../components/ScoreBadge'
@@ -243,22 +243,48 @@ export default function StockDetail() {
   })
 
   useEffect(() => {
-    if (persona && API_URL) {
-      const url = `${API_URL}/analysis/${code}?persona=${persona}`
-      console.debug('[StockDetail] fetching:', url)
-      fetch(url)
-        .then(r => r.json())
-        .then(d => {
-          console.debug('[StockDetail] response keys:', Object.keys(d || {}))
-          console.debug('[StockDetail] ai_report exists:', !!d?.ai_report)
-          if (d?.ai_report) console.debug('[StockDetail] ai_report keys:', Object.keys(d.ai_report))
-          if (d) setAnalysis(d)
-        })
-        .catch(e => console.error('[StockDetail] fetch error:', e))
-    }
+    if (!API_URL || !code) return
+    const url = persona
+      ? `${API_URL}/analysis/${code}?persona=${persona}`
+      : `${API_URL}/analysis/${code}`
+    console.debug('[StockDetail] fetching:', url)
+    fetch(url)
+      .then(r => r.json())
+      .then(d => {
+        console.debug('[StockDetail] response keys:', Object.keys(d || {}))
+        console.debug('[StockDetail] ai_report exists:', !!d?.ai_report)
+        if (d?.ai_report) console.debug('[StockDetail] ai_report keys:', Object.keys(d.ai_report))
+        if (d) setAnalysis(d)
+      })
+      .catch(e => console.error('[StockDetail] fetch error:', e))
   }, [code, persona])
 
-  if (!stock) {
+  // Build fallback stock from API when stock not in static data
+  const fallbackStock = useMemo(() => {
+    if (stock) return null
+    if (!analysis) return null
+    return {
+      code: code?.toUpperCase() || '',
+      name: (analysis as any).stock_name || code || '',
+      industry: (analysis as any).industry || '',
+      marketCap: 0,
+      lastPrice: 0,
+      priceChange: 0,
+      dividendYield: 0,
+      score: { composite: (analysis as any).score_composite || 0, dividend: 0, growth: 0, quality: 0, risk: 0 },
+      financials: [],
+      dividends: [],
+      status: 'revisit' as const,
+      addedAt: '',
+      revisitAt: null,
+      notes: '',
+      sparkline: [],
+    }
+  }, [stock, analysis, code])
+
+  const displayStock = stock || fallbackStock
+
+  if (!displayStock) {
     return (
       <div className="min-h-screen">
         <main className="max-w-3xl mx-auto px-4 py-20 text-center">
@@ -269,10 +295,10 @@ export default function StockDetail() {
     )
   }
 
-  const indColor = INDUSTRY_COLORS[stock.industry] || 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
-  const changeColor = stock.priceChange >= 0 ? 'text-emerald-600' : 'text-red-500'
-  const changeIcon = stock.priceChange >= 0 ? '▲' : '▼'
-  const divData = stock.dividends.map((d) => ({ date: d.exDate.slice(0, 7), amount: d.amount, yield: d.yield }))
+  const indColor = INDUSTRY_COLORS[displayStock.industry] || 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
+  const changeColor = displayStock.priceChange >= 0 ? 'text-emerald-600' : 'text-red-500'
+  const changeIcon = displayStock.priceChange >= 0 ? '▲' : '▼'
+  const divData = displayStock.dividends.map((d) => ({ date: d.exDate.slice(0, 7), amount: d.amount, yield: d.yield }))
 
   return (
     <div className="min-h-screen">
@@ -286,17 +312,17 @@ export default function StockDetail() {
         <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
           <div>
             <div className="flex items-center gap-3 mb-1">
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stock.name}</h1>
-              <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${indColor}`}>{stock.industry}</span>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{displayStock.name}</h1>
+              <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${indColor}`}>{displayStock.industry}</span>
             </div>
-            <p className="text-sm text-gray-500">{stock.code} · MCap RM {stock.marketCap}B</p>
+            <p className="text-sm text-gray-500">{displayStock.code} · MCap RM {displayStock.marketCap}B</p>
           </div>
           <div className="flex items-center gap-4">
             <div className="text-right">
-              <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">RM {stock.lastPrice.toFixed(2)}</span>
-              <span className={`ml-2 text-sm font-medium ${changeColor}`}>{changeIcon} {Math.abs(stock.priceChange).toFixed(2)}%</span>
+              <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">RM {displayStock.lastPrice.toFixed(2)}</span>
+              <span className={`ml-2 text-sm font-medium ${changeColor}`}>{changeIcon} {Math.abs(displayStock.priceChange).toFixed(2)}%</span>
             </div>
-            <ScoreBadge score={stock.score.composite} size="lg" />
+            <ScoreBadge score={displayStock.score.composite} size="lg" />
           </div>
         </div>
 
@@ -351,10 +377,10 @@ export default function StockDetail() {
           <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800">
             <h2 className="font-semibold text-sm text-gray-700 dark:text-gray-300 mb-3">Score Breakdown</h2>
             {[
-              { label: 'Dividend', value: stock.score.dividend, max: 40, color: 'bg-emerald-500' },
-              { label: 'Growth', value: stock.score.growth, max: 30, color: 'bg-blue-500' },
-              { label: 'Quality', value: stock.score.quality, max: 20, color: 'bg-violet-500' },
-              { label: 'Risk', value: stock.score.risk, max: 10, color: 'bg-amber-500' },
+              { label: 'Dividend', value: displayStock.score.dividend, max: 40, color: 'bg-emerald-500' },
+              { label: 'Growth', value: displayStock.score.growth, max: 30, color: 'bg-blue-500' },
+              { label: 'Quality', value: displayStock.score.quality, max: 20, color: 'bg-violet-500' },
+              { label: 'Risk', value: displayStock.score.risk, max: 10, color: 'bg-amber-500' },
             ].map((factor) => (
               <div key={factor.label} className="flex items-center gap-3 mb-2">
                 <span className="text-xs text-gray-500 w-16">{factor.label}</span>
@@ -373,11 +399,11 @@ export default function StockDetail() {
             <h2 className="font-semibold text-sm text-gray-700 dark:text-gray-300 mb-3">30-Day Price Trend</h2>
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs text-gray-500">
-                RM {Math.min(...stock.sparkline).toFixed(2)} – RM {Math.max(...stock.sparkline).toFixed(2)}
+                RM {Math.min(...displayStock.sparkline).toFixed(2)} – RM {Math.max(...displayStock.sparkline).toFixed(2)}
               </span>
-              <span className="text-xs text-gray-500">DY {stock.dividendYield}%</span>
+              <span className="text-xs text-gray-500">DY {displayStock.dividendYield}%</span>
             </div>
-            <SparklineChart data={stock.sparkline} width={300} height={60} />
+            <SparklineChart data={displayStock.sparkline} width={300} height={60} />
           </div>
         </div>
 
@@ -398,7 +424,7 @@ export default function StockDetail() {
                 </tr>
               </thead>
               <tbody>
-                {stock.financials.map((f) => (
+                {displayStock.financials.map((f) => (
                   <tr key={f.quarter} className="border-b border-gray-100 dark:border-gray-800">
                     <td className="py-2 pr-4 font-medium text-gray-700 dark:text-gray-300">{f.quarter}</td>
                     <td className="text-right py-2 px-2">{f.revenue.toLocaleString()}</td>
