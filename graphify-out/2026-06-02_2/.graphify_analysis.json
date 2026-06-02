@@ -1,91 +1,6 @@
 {
   "communities": {
     "0": [
-      "meta_0001_snapshot_columns_action",
-      "meta_0001_snapshot_columns_added_at",
-      "meta_0001_snapshot_columns_added_to_universe",
-      "meta_0001_snapshot_columns_avg_cost",
-      "meta_0001_snapshot_columns_cash",
-      "meta_0001_snapshot_columns_close",
-      "meta_0001_snapshot_columns_composite_score",
-      "meta_0001_snapshot_columns_date",
-      "meta_0001_snapshot_columns_decision_source",
-      "meta_0001_snapshot_columns_dividend_yield",
-      "meta_0001_snapshot_columns_executed_at",
-      "meta_0001_snapshot_columns_generated_at",
-      "meta_0001_snapshot_columns_high",
-      "meta_0001_snapshot_columns_holdings_json",
-      "meta_0001_snapshot_columns_industry",
-      "meta_0001_snapshot_columns_initial_price",
-      "meta_0001_snapshot_columns_invested",
-      "meta_0001_snapshot_columns_kronos_signal",
-      "meta_0001_snapshot_columns_kronos_warning",
-      "meta_0001_snapshot_columns_low",
-      "meta_0001_snapshot_columns_open",
-      "meta_0001_snapshot_columns_pe_ratio",
-      "meta_0001_snapshot_columns_persona",
-      "meta_0001_snapshot_columns_pnl",
-      "meta_0001_snapshot_columns_pnl_pct",
-      "meta_0001_snapshot_columns_portfolio_id",
-      "meta_0001_snapshot_columns_pred_30d_close",
-      "meta_0001_snapshot_columns_pred_change_pct",
-      "meta_0001_snapshot_columns_pred_high",
-      "meta_0001_snapshot_columns_pred_low",
-      "meta_0001_snapshot_columns_pred_volatility",
-      "meta_0001_snapshot_columns_price",
-      "meta_0001_snapshot_columns_reason",
-      "meta_0001_snapshot_columns_roe",
-      "meta_0001_snapshot_columns_scanned_at",
-      "meta_0001_snapshot_columns_shares",
-      "meta_0001_snapshot_columns_snapshot_at",
-      "meta_0001_snapshot_columns_snapshot_id",
-      "meta_0001_snapshot_columns_status",
-      "meta_0001_snapshot_columns_stock_code",
-      "meta_0001_snapshot_columns_stock_id",
-      "meta_0001_snapshot_columns_stock_name",
-      "meta_0001_snapshot_columns_target_pct",
-      "meta_0001_snapshot_columns_total_amount",
-      "meta_0001_snapshot_columns_total_value",
-      "meta_0001_snapshot_columns_triggered_by",
-      "meta_0001_snapshot_columns_updated_at",
-      "meta_0001_snapshot_columns_user_id",
-      "meta_0001_snapshot_columns_volume",
-      "meta_0001_snapshot_id",
-      "meta_0001_snapshot_id_default",
-      "meta_0001_snapshot_id_name",
-      "meta_0001_snapshot_id_notnull",
-      "meta_0001_snapshot_id_primarykey",
-      "meta_0001_snapshot_id_type",
-      "meta_0001_snapshot_idx_kronos_stock_concurrently",
-      "meta_0001_snapshot_idx_kronos_stock_isunique",
-      "meta_0001_snapshot_idx_kronos_stock_method",
-      "meta_0001_snapshot_idx_kronos_stock_with",
-      "meta_0001_snapshot_indexes_idx_kronos_stock",
-      "meta_0001_snapshot_indexes_idx_prices_stock_date",
-      "meta_0001_snapshot_indexes_idx_snapshots_portfolio",
-      "meta_0001_snapshot_indexes_idx_trades_portfolio",
-      "meta_0001_snapshot_indexes_idx_trades_stock",
-      "meta_0001_snapshot_public_stocks_checkconstraints",
-      "meta_0001_snapshot_public_stocks_compositeprimarykeys",
-      "meta_0001_snapshot_public_stocks_indexes",
-      "meta_0001_snapshot_public_stocks_isrlsenabled",
-      "meta_0001_snapshot_public_stocks_policies",
-      "meta_0001_snapshot_public_stocks_schema",
-      "meta_0001_snapshot_public_stocks_uniqueconstraints",
-      "meta_0001_snapshot_tables",
-      "meta_0001_snapshot_tables_public_kronos_forecasts",
-      "meta_0001_snapshot_tables_public_portfolio_holdings",
-      "meta_0001_snapshot_tables_public_portfolio_snapshots",
-      "meta_0001_snapshot_tables_public_screener_candidates",
-      "meta_0001_snapshot_tables_public_stock_prices",
-      "meta_0001_snapshot_tables_public_stocks",
-      "meta_0001_snapshot_tables_public_trades",
-      "meta_0001_snapshot_tables_public_user_portfolios",
-      "meta_0001_snapshot_uniqueconstraints_uq_holding",
-      "meta_0001_snapshot_uq_holding_columns",
-      "meta_0001_snapshot_uq_holding_nullsnotdistinct"
-    ],
-    "1": [
       "meta_0000_snapshot_columns_action",
       "meta_0000_snapshot_columns_added_at",
       "meta_0000_snapshot_columns_added_to_universe",
@@ -167,78 +82,7 @@
       "meta_0000_snapshot_tables_public_trades",
       "meta_0000_snapshot_tables_public_user_portfolios"
     ],
-    "2": [
-      "float",
-      "scripts_db_dict_cursor",
-      "scripts_db_get_db",
-      "scripts_db_py",
-      "scripts_db_rationale_1",
-      "scripts_deploy_pipeline_main",
-      "scripts_deploy_pipeline_py",
-      "scripts_financial_fetcher_extract_financials",
-      "scripts_financial_fetcher_py",
-      "scripts_financial_fetcher_rationale_1",
-      "scripts_financial_fetcher_rationale_37",
-      "scripts_financial_fetcher_rationale_46",
-      "scripts_financial_fetcher_safe_float",
-      "scripts_persona_db_get_all_stocks_dict",
-      "scripts_persona_db_get_persona_configs",
-      "scripts_persona_db_get_persona_holdings",
-      "scripts_persona_db_get_stock_list",
-      "scripts_persona_db_py",
-      "scripts_persona_db_py_str",
-      "scripts_persona_db_rationale_1",
-      "scripts_persona_db_rationale_109",
-      "scripts_persona_db_rationale_24",
-      "scripts_persona_db_rationale_29",
-      "scripts_persona_db_rationale_34",
-      "scripts_persona_db_rationale_45",
-      "scripts_persona_db_rationale_64",
-      "scripts_persona_db_rationale_85",
-      "scripts_persona_db_save_persona_holdings",
-      "scripts_persona_db_short_to_ticker",
-      "scripts_persona_db_ticker_to_short",
-      "scripts_portfolio_manager_ares_trade",
-      "scripts_portfolio_manager_athena_trade",
-      "scripts_portfolio_manager_calc_portfolio_value",
-      "scripts_portfolio_manager_demeter_trade",
-      "scripts_portfolio_manager_export_json_for_web",
-      "scripts_portfolio_manager_fetch_prices",
-      "scripts_portfolio_manager_get_kevin_user_id",
-      "scripts_portfolio_manager_kronos_signal",
-      "scripts_portfolio_manager_load_kronos_forecasts",
-      "scripts_portfolio_manager_load_portfolios_from_db",
-      "scripts_portfolio_manager_load_stock_map",
-      "scripts_portfolio_manager_main",
-      "scripts_portfolio_manager_persona_god",
-      "scripts_portfolio_manager_persona_rules",
-      "scripts_portfolio_manager_persona_style",
-      "scripts_portfolio_manager_py",
-      "scripts_portfolio_manager_py_int",
-      "scripts_portfolio_manager_rationale_105",
-      "scripts_portfolio_manager_rationale_138",
-      "scripts_portfolio_manager_rationale_150",
-      "scripts_portfolio_manager_rationale_179",
-      "scripts_portfolio_manager_rationale_38",
-      "scripts_portfolio_manager_rationale_46",
-      "scripts_portfolio_manager_rationale_66",
-      "scripts_portfolio_manager_round_lot",
-      "scripts_portfolio_manager_save_snapshot",
-      "scripts_portfolio_manager_save_trade",
-      "scripts_portfolio_manager_update_holding",
-      "scripts_portfolio_manager_update_portfolio_cash",
-      "scripts_run_deep_analysis_generate_ai_report",
-      "scripts_run_deep_analysis_main",
-      "scripts_run_deep_analysis_parse_markdown_report",
-      "scripts_run_deep_analysis_parse_stocks_ts",
-      "scripts_run_deep_analysis_py",
-      "scripts_run_deep_analysis_py_int",
-      "scripts_run_deep_analysis_rationale_140",
-      "scripts_run_deep_analysis_rationale_189",
-      "scripts_run_deep_analysis_rationale_77",
-      "str"
-    ],
-    "3": [
+    "1": [
       "data_stock_financials_ame_order_book",
       "data_stock_financials_ame_tender_win_rate",
       "data_stock_financials_axreit_gearing",
@@ -307,58 +151,129 @@
       "data_stock_financials_ytlpowr_regulated_return",
       "meta_0000_snapshot_columns_dividend_yield"
     ],
-    "4": [
-      "scripts_portfolios_ame_added",
-      "scripts_portfolios_ame_kronos",
-      "scripts_portfolios_ares_cash",
-      "scripts_portfolios_ares_god",
-      "scripts_portfolios_ares_holdings",
-      "scripts_portfolios_ares_strategy",
-      "scripts_portfolios_ares_style",
-      "scripts_portfolios_initial_capital",
-      "scripts_portfolios_initialized",
-      "scripts_portfolios_json",
-      "scripts_portfolios_klk_code",
-      "scripts_portfolios_klk_cost",
-      "scripts_portfolios_klk_industry",
-      "scripts_portfolios_klk_initial",
-      "scripts_portfolios_klk_name",
-      "scripts_portfolios_klk_note",
-      "scripts_portfolios_klk_shares",
-      "scripts_portfolios_klk_target_pct",
-      "scripts_portfolios_last_rebalance",
-      "scripts_portfolios_personas",
-      "scripts_portfolios_personas_ares",
-      "scripts_portfolios_personas_athena",
-      "scripts_portfolios_personas_demeter",
-      "scripts_portfolios_stocks",
-      "scripts_portfolios_stocks_ame",
-      "scripts_portfolios_stocks_axreit",
-      "scripts_portfolios_stocks_deleum",
-      "scripts_portfolios_stocks_gamuda",
-      "scripts_portfolios_stocks_genetec",
-      "scripts_portfolios_stocks_inari",
-      "scripts_portfolios_stocks_insas",
-      "scripts_portfolios_stocks_inta",
-      "scripts_portfolios_stocks_kipreit",
-      "scripts_portfolios_stocks_klk",
-      "scripts_portfolios_stocks_liihen",
-      "scripts_portfolios_stocks_magni",
-      "scripts_portfolios_stocks_matrix",
-      "scripts_portfolios_stocks_maybank",
-      "scripts_portfolios_stocks_mbmr",
-      "scripts_portfolios_stocks_padini",
-      "scripts_portfolios_stocks_pbbank",
-      "scripts_portfolios_stocks_rhb",
-      "scripts_portfolios_stocks_scicom",
-      "scripts_portfolios_stocks_scientex",
-      "scripts_portfolios_stocks_sime",
-      "scripts_portfolios_stocks_time",
-      "scripts_portfolios_stocks_wasco",
-      "scripts_portfolios_stocks_ytlpowr",
-      "scripts_portfolios_time_kronos_warning"
+    "2": [
+      "meta_0001_snapshot_columns_action",
+      "meta_0001_snapshot_columns_added_at",
+      "meta_0001_snapshot_columns_added_to_universe",
+      "meta_0001_snapshot_columns_avg_cost",
+      "meta_0001_snapshot_columns_cash",
+      "meta_0001_snapshot_columns_close",
+      "meta_0001_snapshot_columns_composite_score",
+      "meta_0001_snapshot_columns_date",
+      "meta_0001_snapshot_columns_decision_source",
+      "meta_0001_snapshot_columns_dividend_yield",
+      "meta_0001_snapshot_columns_executed_at",
+      "meta_0001_snapshot_columns_generated_at",
+      "meta_0001_snapshot_columns_high",
+      "meta_0001_snapshot_columns_holdings_json",
+      "meta_0001_snapshot_columns_industry",
+      "meta_0001_snapshot_columns_initial_price",
+      "meta_0001_snapshot_columns_invested",
+      "meta_0001_snapshot_columns_kronos_signal",
+      "meta_0001_snapshot_columns_kronos_warning",
+      "meta_0001_snapshot_columns_low",
+      "meta_0001_snapshot_columns_open",
+      "meta_0001_snapshot_columns_pe_ratio",
+      "meta_0001_snapshot_columns_persona",
+      "meta_0001_snapshot_columns_pnl",
+      "meta_0001_snapshot_columns_pnl_pct",
+      "meta_0001_snapshot_columns_portfolio_id",
+      "meta_0001_snapshot_columns_pred_30d_close",
+      "meta_0001_snapshot_columns_pred_change_pct",
+      "meta_0001_snapshot_columns_pred_high",
+      "meta_0001_snapshot_columns_pred_low",
+      "meta_0001_snapshot_columns_pred_volatility",
+      "meta_0001_snapshot_columns_price",
+      "meta_0001_snapshot_columns_reason",
+      "meta_0001_snapshot_columns_roe",
+      "meta_0001_snapshot_columns_scanned_at",
+      "meta_0001_snapshot_columns_shares",
+      "meta_0001_snapshot_columns_snapshot_at",
+      "meta_0001_snapshot_columns_snapshot_id",
+      "meta_0001_snapshot_columns_status",
+      "meta_0001_snapshot_columns_stock_code",
+      "meta_0001_snapshot_columns_stock_id",
+      "meta_0001_snapshot_columns_stock_name",
+      "meta_0001_snapshot_columns_target_pct",
+      "meta_0001_snapshot_columns_total_amount",
+      "meta_0001_snapshot_columns_total_value",
+      "meta_0001_snapshot_columns_triggered_by",
+      "meta_0001_snapshot_columns_updated_at",
+      "meta_0001_snapshot_columns_user_id",
+      "meta_0001_snapshot_columns_volume",
+      "meta_0001_snapshot_id",
+      "meta_0001_snapshot_id_default",
+      "meta_0001_snapshot_id_name",
+      "meta_0001_snapshot_id_notnull",
+      "meta_0001_snapshot_id_primarykey",
+      "meta_0001_snapshot_id_type",
+      "meta_0001_snapshot_idx_kronos_stock_concurrently",
+      "meta_0001_snapshot_idx_kronos_stock_isunique",
+      "meta_0001_snapshot_idx_kronos_stock_method",
+      "meta_0001_snapshot_idx_kronos_stock_with",
+      "meta_0001_snapshot_indexes_idx_kronos_stock",
+      "meta_0001_snapshot_indexes_idx_prices_stock_date",
+      "meta_0001_snapshot_indexes_idx_snapshots_portfolio",
+      "meta_0001_snapshot_indexes_idx_trades_portfolio",
+      "meta_0001_snapshot_indexes_idx_trades_stock",
+      "meta_0001_snapshot_uniqueconstraints_uq_holding",
+      "meta_0001_snapshot_uq_holding_columns",
+      "meta_0001_snapshot_uq_holding_nullsnotdistinct"
     ],
-    "5": [
+    "3": [
+      "scripts_db_dict_cursor",
+      "scripts_db_get_db",
+      "scripts_db_py",
+      "scripts_db_rationale_1",
+      "scripts_deploy_pipeline_main",
+      "scripts_deploy_pipeline_py",
+      "scripts_financial_fetcher_extract_financials",
+      "scripts_financial_fetcher_py",
+      "scripts_financial_fetcher_rationale_1",
+      "scripts_financial_fetcher_rationale_37",
+      "scripts_financial_fetcher_rationale_46",
+      "scripts_financial_fetcher_safe_float",
+      "scripts_portfolio_manager_ares_trade",
+      "scripts_portfolio_manager_athena_trade",
+      "scripts_portfolio_manager_calc_portfolio_value",
+      "scripts_portfolio_manager_demeter_trade",
+      "scripts_portfolio_manager_export_json_for_web",
+      "scripts_portfolio_manager_fetch_prices",
+      "scripts_portfolio_manager_get_kevin_user_id",
+      "scripts_portfolio_manager_kronos_signal",
+      "scripts_portfolio_manager_load_kronos_forecasts",
+      "scripts_portfolio_manager_load_portfolios_from_db",
+      "scripts_portfolio_manager_load_stock_map",
+      "scripts_portfolio_manager_main",
+      "scripts_portfolio_manager_persona_god",
+      "scripts_portfolio_manager_persona_rules",
+      "scripts_portfolio_manager_persona_style",
+      "scripts_portfolio_manager_py",
+      "scripts_portfolio_manager_py_int",
+      "scripts_portfolio_manager_rationale_105",
+      "scripts_portfolio_manager_rationale_138",
+      "scripts_portfolio_manager_rationale_150",
+      "scripts_portfolio_manager_rationale_179",
+      "scripts_portfolio_manager_rationale_38",
+      "scripts_portfolio_manager_rationale_46",
+      "scripts_portfolio_manager_rationale_66",
+      "scripts_portfolio_manager_round_lot",
+      "scripts_portfolio_manager_save_snapshot",
+      "scripts_portfolio_manager_save_trade",
+      "scripts_portfolio_manager_update_holding",
+      "scripts_portfolio_manager_update_portfolio_cash",
+      "scripts_run_deep_analysis_generate_ai_report",
+      "scripts_run_deep_analysis_main",
+      "scripts_run_deep_analysis_parse_markdown_report",
+      "scripts_run_deep_analysis_parse_stocks_ts",
+      "scripts_run_deep_analysis_py",
+      "scripts_run_deep_analysis_py_int",
+      "scripts_run_deep_analysis_rationale_140",
+      "scripts_run_deep_analysis_rationale_189",
+      "scripts_run_deep_analysis_rationale_77",
+      "str"
+    ],
+    "4": [
       "data_industry_matrix_description",
       "data_industry_matrix_fallback",
       "data_industry_matrix_fallback_dividend",
@@ -403,7 +318,119 @@
       "data_industry_matrix_reit_macro_sensitivity",
       "data_industry_matrix_version"
     ],
+    "5": [
+      "meta_0000_snapshot_dialect",
+      "meta_0000_snapshot_previd",
+      "meta_0000_snapshot_version",
+      "meta_0001_snapshot_dialect",
+      "meta_0001_snapshot_foreignkeys_kronos_forecasts_stock_id_stocks_id_fk",
+      "meta_0001_snapshot_foreignkeys_portfolio_holdings_portfolio_id_user_portfolios_id_fk",
+      "meta_0001_snapshot_foreignkeys_portfolio_holdings_stock_id_stocks_id_fk",
+      "meta_0001_snapshot_foreignkeys_portfolio_snapshots_portfolio_id_user_portfolios_id_fk",
+      "meta_0001_snapshot_foreignkeys_stock_prices_stock_id_stocks_id_fk",
+      "meta_0001_snapshot_foreignkeys_trades_portfolio_id_user_portfolios_id_fk",
+      "meta_0001_snapshot_foreignkeys_trades_stock_id_stocks_id_fk",
+      "meta_0001_snapshot_previd",
+      "meta_0001_snapshot_public_stocks_checkconstraints",
+      "meta_0001_snapshot_public_stocks_compositeprimarykeys",
+      "meta_0001_snapshot_public_stocks_foreignkeys",
+      "meta_0001_snapshot_public_stocks_indexes",
+      "meta_0001_snapshot_public_stocks_isrlsenabled",
+      "meta_0001_snapshot_public_stocks_policies",
+      "meta_0001_snapshot_public_stocks_schema",
+      "meta_0001_snapshot_public_stocks_uniqueconstraints",
+      "meta_0001_snapshot_tables",
+      "meta_0001_snapshot_tables_public_kronos_forecasts",
+      "meta_0001_snapshot_tables_public_portfolio_holdings",
+      "meta_0001_snapshot_tables_public_portfolio_snapshots",
+      "meta_0001_snapshot_tables_public_screener_candidates",
+      "meta_0001_snapshot_tables_public_stock_prices",
+      "meta_0001_snapshot_tables_public_stocks",
+      "meta_0001_snapshot_tables_public_trades",
+      "meta_0001_snapshot_tables_public_user_portfolios",
+      "meta_0001_snapshot_trades_stock_id_stocks_id_fk_columnsfrom",
+      "meta_0001_snapshot_trades_stock_id_stocks_id_fk_columnsto",
+      "meta_0001_snapshot_trades_stock_id_stocks_id_fk_ondelete",
+      "meta_0001_snapshot_trades_stock_id_stocks_id_fk_onupdate",
+      "meta_0001_snapshot_trades_stock_id_stocks_id_fk_tablefrom",
+      "meta_0001_snapshot_trades_stock_id_stocks_id_fk_tableto",
+      "meta_0001_snapshot_version",
+      "src_schema_migrations_meta_0000_snapshot_json"
+    ],
     "6": [
+      "scripts_portfolios_ame_added",
+      "scripts_portfolios_ame_kronos",
+      "scripts_portfolios_ares_holdings",
+      "scripts_portfolios_klk_code",
+      "scripts_portfolios_klk_cost",
+      "scripts_portfolios_klk_industry",
+      "scripts_portfolios_klk_initial",
+      "scripts_portfolios_klk_name",
+      "scripts_portfolios_klk_note",
+      "scripts_portfolios_klk_shares",
+      "scripts_portfolios_klk_target_pct",
+      "scripts_portfolios_stocks",
+      "scripts_portfolios_stocks_ame",
+      "scripts_portfolios_stocks_axreit",
+      "scripts_portfolios_stocks_deleum",
+      "scripts_portfolios_stocks_gamuda",
+      "scripts_portfolios_stocks_genetec",
+      "scripts_portfolios_stocks_inari",
+      "scripts_portfolios_stocks_insas",
+      "scripts_portfolios_stocks_inta",
+      "scripts_portfolios_stocks_kipreit",
+      "scripts_portfolios_stocks_klk",
+      "scripts_portfolios_stocks_liihen",
+      "scripts_portfolios_stocks_magni",
+      "scripts_portfolios_stocks_matrix",
+      "scripts_portfolios_stocks_maybank",
+      "scripts_portfolios_stocks_mbmr",
+      "scripts_portfolios_stocks_padini",
+      "scripts_portfolios_stocks_pbbank",
+      "scripts_portfolios_stocks_rhb",
+      "scripts_portfolios_stocks_scicom",
+      "scripts_portfolios_stocks_scientex",
+      "scripts_portfolios_stocks_sime",
+      "scripts_portfolios_stocks_time",
+      "scripts_portfolios_stocks_wasco",
+      "scripts_portfolios_stocks_ytlpowr",
+      "scripts_portfolios_time_kronos_warning"
+    ],
+    "7": [
+      "scripts_portfolios_ares_cash",
+      "scripts_portfolios_ares_god",
+      "scripts_portfolios_ares_rules",
+      "scripts_portfolios_ares_strategy",
+      "scripts_portfolios_ares_style",
+      "scripts_portfolios_initial_capital",
+      "scripts_portfolios_initialized",
+      "scripts_portfolios_json",
+      "scripts_portfolios_last_rebalance",
+      "scripts_portfolios_personas",
+      "scripts_portfolios_personas_ares",
+      "scripts_portfolios_personas_athena",
+      "scripts_portfolios_personas_demeter",
+      "scripts_portfolios_rules_cash_buffer",
+      "scripts_portfolios_rules_defensive_cyclical_rotation",
+      "scripts_portfolios_rules_dip_buy_cooldown_days",
+      "scripts_portfolios_rules_dip_buy_pct",
+      "scripts_portfolios_rules_dip_buy_threshold",
+      "scripts_portfolios_rules_dividend_reinvest",
+      "scripts_portfolios_rules_fd_rate",
+      "scripts_portfolios_rules_full_exit_threshold",
+      "scripts_portfolios_rules_max_single_position",
+      "scripts_portfolios_rules_min_dividend_yield",
+      "scripts_portfolios_rules_min_stocks",
+      "scripts_portfolios_rules_momentum_cooling_trim",
+      "scripts_portfolios_rules_momentum_weight",
+      "scripts_portfolios_rules_rebalance_drift",
+      "scripts_portfolios_rules_sell_trigger",
+      "scripts_portfolios_rules_stop_loss",
+      "scripts_portfolios_rules_take_profit",
+      "scripts_portfolios_rules_take_profit_sell_pct",
+      "scripts_portfolios_rules_value_weight"
+    ],
+    "8": [
       "data_kronos_forecast_ame",
       "data_kronos_forecast_axreit",
       "data_kronos_forecast_deleum",
@@ -433,7 +460,7 @@
       "data_kronos_forecast_wasco",
       "data_kronos_forecast_ytlpowr"
     ],
-    "7": [
+    "9": [
       "db_first_pipeline_refactor_0001_expand_stocks_sql",
       "db_first_pipeline_refactor_build_pipeline",
       "db_first_pipeline_refactor_db_first_pipeline",
@@ -459,7 +486,7 @@
       "scripts_sync_from_db_py",
       "scripts_sync_from_db_rationale_1"
     ],
-    "8": [
+    "10": [
       "data_portfolio_history_ares_cash",
       "data_portfolio_history_ares_holdings",
       "data_portfolio_history_ares_trade_log",
@@ -484,7 +511,7 @@
       "data_portfolio_history_ytl_power_cost",
       "data_portfolio_history_ytl_power_shares"
     ],
-    "9": [
+    "11": [
       "public_portfolio_history_ares_cash",
       "public_portfolio_history_ares_holdings",
       "public_portfolio_history_ares_trade_log",
@@ -509,7 +536,7 @@
       "public_portfolio_history_runs",
       "web_public_portfolio_history_json"
     ],
-    "10": [
+    "12": [
       "data_macro_signals_cpo_category",
       "data_macro_signals_cpo_change_pct",
       "data_macro_signals_cpo_label",
@@ -533,7 +560,7 @@
       "data_macro_signals_signals_usd_myr",
       "data_macro_signals_timestamp"
     ],
-    "11": [
+    "13": [
       "components_header_header",
       "lib_authcontext_authcontext",
       "lib_authcontext_authprovider",
@@ -549,7 +576,6 @@
       "src_app_logingate",
       "src_app_notfound",
       "src_app_stockdetail",
-      "src_app_universe",
       "src_app_watchlist",
       "web_src_app_tsx",
       "web_src_components_header_tsx",
@@ -557,29 +583,7 @@
       "web_src_lib_supabase_ts",
       "web_src_main_tsx"
     ],
-    "12": [
-      "scripts_portfolios_ares_rules",
-      "scripts_portfolios_rules_cash_buffer",
-      "scripts_portfolios_rules_defensive_cyclical_rotation",
-      "scripts_portfolios_rules_dip_buy_cooldown_days",
-      "scripts_portfolios_rules_dip_buy_pct",
-      "scripts_portfolios_rules_dip_buy_threshold",
-      "scripts_portfolios_rules_dividend_reinvest",
-      "scripts_portfolios_rules_fd_rate",
-      "scripts_portfolios_rules_full_exit_threshold",
-      "scripts_portfolios_rules_max_single_position",
-      "scripts_portfolios_rules_min_dividend_yield",
-      "scripts_portfolios_rules_min_stocks",
-      "scripts_portfolios_rules_momentum_cooling_trim",
-      "scripts_portfolios_rules_momentum_weight",
-      "scripts_portfolios_rules_rebalance_drift",
-      "scripts_portfolios_rules_sell_trigger",
-      "scripts_portfolios_rules_stop_loss",
-      "scripts_portfolios_rules_take_profit",
-      "scripts_portfolios_rules_take_profit_sell_pct",
-      "scripts_portfolios_rules_value_weight"
-    ],
-    "13": [
+    "14": [
       "divvy_package_dependencies",
       "divvy_package_dependencies_drizzle_kit",
       "divvy_package_dependencies_drizzle_orm",
@@ -598,26 +602,6 @@
       "divvy_package_type",
       "divvy_package_version",
       "package_json"
-    ],
-    "14": [
-      "functions_battle_client",
-      "functions_battle_db",
-      "functions_battle_handler",
-      "schema_schema_bursauniverse",
-      "schema_schema_portfolioholdings",
-      "schema_schema_portfoliosnapshots",
-      "schema_schema_screenercandidates",
-      "schema_schema_stockprices",
-      "schema_schema_stocks",
-      "schema_schema_trades",
-      "schema_schema_userportfolios",
-      "schema_schema_users",
-      "schema_schema_userstockpicks",
-      "src_db_client",
-      "src_db_db",
-      "src_db_ts",
-      "src_functions_battle_ts",
-      "src_schema_schema_ts"
     ],
     "15": [
       "data_kronos_forecast_new_candidates_aji",
@@ -658,6 +642,25 @@
       "data_live_prices_ytlpowr"
     ],
     "17": [
+      "functions_battle_client",
+      "functions_battle_db",
+      "functions_battle_handler",
+      "schema_schema_portfolioholdings",
+      "schema_schema_portfoliosnapshots",
+      "schema_schema_screenercandidates",
+      "schema_schema_stockprices",
+      "schema_schema_stocks",
+      "schema_schema_trades",
+      "schema_schema_userportfolios",
+      "schema_schema_users",
+      "schema_schema_userstockpicks",
+      "src_db_client",
+      "src_db_db",
+      "src_db_ts",
+      "src_functions_battle_ts",
+      "src_schema_schema_ts"
+    ],
+    "18": [
       "pages_battle_battle",
       "pages_battle_battledata",
       "pages_battle_colors",
@@ -674,7 +677,7 @@
       "pages_battle_stockholding",
       "web_src_pages_battle_tsx"
     ],
-    "18": [
+    "19": [
       "divvy_tsconfig_compileroptions",
       "divvy_tsconfig_compileroptions_allowsyntheticdefaultimports",
       "divvy_tsconfig_compileroptions_esmoduleinterop",
@@ -690,7 +693,7 @@
       "divvy_tsconfig_include",
       "tsconfig_json"
     ],
-    "19": [
+    "20": [
       "meta_0000_snapshot_foreignkeys_kronos_forecasts_stock_id_stocks_id_fk",
       "meta_0000_snapshot_foreignkeys_portfolio_holdings_portfolio_id_user_portfolios_id_fk",
       "meta_0000_snapshot_foreignkeys_portfolio_holdings_stock_id_stocks_id_fk",
@@ -705,22 +708,6 @@
       "meta_0000_snapshot_trades_stock_id_stocks_id_fk_onupdate",
       "meta_0000_snapshot_trades_stock_id_stocks_id_fk_tablefrom",
       "meta_0000_snapshot_trades_stock_id_stocks_id_fk_tableto"
-    ],
-    "20": [
-      "meta_0001_snapshot_foreignkeys_kronos_forecasts_stock_id_stocks_id_fk",
-      "meta_0001_snapshot_foreignkeys_portfolio_holdings_portfolio_id_user_portfolios_id_fk",
-      "meta_0001_snapshot_foreignkeys_portfolio_holdings_stock_id_stocks_id_fk",
-      "meta_0001_snapshot_foreignkeys_portfolio_snapshots_portfolio_id_user_portfolios_id_fk",
-      "meta_0001_snapshot_foreignkeys_stock_prices_stock_id_stocks_id_fk",
-      "meta_0001_snapshot_foreignkeys_trades_portfolio_id_user_portfolios_id_fk",
-      "meta_0001_snapshot_foreignkeys_trades_stock_id_stocks_id_fk",
-      "meta_0001_snapshot_public_stocks_foreignkeys",
-      "meta_0001_snapshot_trades_stock_id_stocks_id_fk_columnsfrom",
-      "meta_0001_snapshot_trades_stock_id_stocks_id_fk_columnsto",
-      "meta_0001_snapshot_trades_stock_id_stocks_id_fk_ondelete",
-      "meta_0001_snapshot_trades_stock_id_stocks_id_fk_onupdate",
-      "meta_0001_snapshot_trades_stock_id_stocks_id_fk_tablefrom",
-      "meta_0001_snapshot_trades_stock_id_stocks_id_fk_tableto"
     ],
     "21": [
       "components_industryfilter_industryfilterprops",
@@ -827,15 +814,6 @@
       "web_package_devdependencies_vitejs_plugin_react"
     ],
     "29": [
-      "meta_0000_snapshot_dialect",
-      "meta_0000_snapshot_previd",
-      "meta_0000_snapshot_version",
-      "meta_0001_snapshot_dialect",
-      "meta_0001_snapshot_previd",
-      "meta_0001_snapshot_version",
-      "src_schema_migrations_meta_0000_snapshot_json"
-    ],
-    "30": [
       "web_package_dependencies",
       "web_package_dependencies_lucide_react",
       "web_package_dependencies_react",
@@ -844,126 +822,112 @@
       "web_package_dependencies_recharts",
       "web_package_dependencies_supabase_supabase_js"
     ],
-    "31": [
-      "functions_universe_addtowatchlist",
-      "functions_universe_handler",
-      "functions_universe_listuniverse",
-      "functions_universe_sql",
-      "src_functions_universe_ts"
-    ],
-    "32": [
-      "pages_universe_market_colors",
-      "pages_universe_pagination",
-      "pages_universe_universe",
-      "pages_universe_universestock",
-      "web_src_pages_universe_tsx"
-    ],
-    "33": [
+    "30": [
       "data_stock_scores_date",
       "data_stock_scores_json",
       "data_stock_scores_macro_date",
       "data_stock_scores_scores"
     ],
-    "34": [
+    "31": [
       "index_divvy",
       "index_html",
       "main_tsx",
       "vite_svg"
     ],
-    "35": [
+    "32": [
       "meta_journal_dialect",
       "meta_journal_entries",
       "meta_journal_version",
       "src_schema_migrations_meta_journal_json"
     ],
-    "36": [
+    "33": [
       "data_screener_results_date",
       "data_screener_results_json",
       "data_screener_results_new_candidates"
     ],
-    "37": [
+    "34": [
       "divvy_sst_config_app",
       "divvy_sst_config_run",
       "sst_config_ts"
     ],
-    "38": [
+    "35": [
       "functions_analysis_handler",
       "functions_analysis_sql",
       "src_functions_analysis_ts"
     ],
-    "39": [
-      "scripts_gen_ai_reports_generate_ai_report",
-      "scripts_gen_ai_reports_py"
-    ],
-    "40": [
-      "scripts_macro_fetcher_py",
-      "scripts_macro_fetcher_rationale_1"
-    ],
-    "41": [
-      "scripts_run_ai_analysis_py",
-      "scripts_run_ai_analysis_rationale_1"
-    ],
-    "42": [
-      "scripts_run_ai_analysis_sh",
-      "users_munkevin_xiongit_divvy_scripts_run_ai_analysis_sh__entry"
-    ],
-    "43": [
-      "src_sst_env_d_importmeta",
-      "web_src_sst_env_d_ts"
-    ],
-    "44": [
+    "36": [
       "divvy_sst_env_d_resource",
       "sst_env_d_ts"
     ],
-    "45": [
+    "37": [
+      "scripts_gen_ai_reports_generate_ai_report",
+      "scripts_gen_ai_reports_py"
+    ],
+    "38": [
+      "scripts_macro_fetcher_py",
+      "scripts_macro_fetcher_rationale_1"
+    ],
+    "39": [
+      "scripts_run_ai_analysis_py",
+      "scripts_run_ai_analysis_rationale_1"
+    ],
+    "40": [
+      "scripts_run_ai_analysis_sh",
+      "users_munkevin_xiongit_divvy_scripts_run_ai_analysis_sh__entry"
+    ],
+    "41": [
+      "src_sst_env_d_importmeta",
+      "web_src_sst_env_d_ts"
+    ],
+    "42": [
       "drizzle_config_ts"
     ],
-    "46": [
+    "43": [
       "web_tailwind_config_js"
     ],
-    "47": [
+    "44": [
       "web_sst_env_d_ts"
     ],
-    "48": [
+    "45": [
       "web_vite_config_ts"
     ],
-    "49": [
+    "46": [
       "web_postcss_config_js"
     ],
-    "50": [
+    "47": [
       "web_src_vite_env_d_ts"
     ],
-    "51": [
+    "48": [
       "scripts_run_gen_ai_py"
     ],
-    "52": [
+    "49": [
       "data_macro_history_json"
     ],
-    "53": [
+    "50": [
       "db_first_pipeline_refactor_supabase_db"
     ]
   },
   "cohesion": {
-    "0": 0.11049074346165148,
-    "1": 0.11645569620253164,
-    "2": 0.05115089514066496,
-    "3": 0.15649027589326098,
-    "4": 0.19727891156462585,
-    "5": 0.0753045404208195,
-    "6": 0.4523809523809524,
-    "7": 0.15217391304347827,
-    "8": 0.1976284584980237,
-    "9": 0.1976284584980237,
-    "10": 0.36363636363636365,
-    "11": 0.13852813852813853,
-    "12": 0.1,
-    "13": 0.1111111111111111,
-    "14": 0.1437908496732026,
+    "0": 0.11645569620253164,
+    "1": 0.15649027589326098,
+    "2": 0.13387607417458164,
+    "3": 0.06509803921568627,
+    "4": 0.0753045404208195,
+    "5": 0.1816816816816817,
+    "6": 0.3048048048048048,
+    "7": 0.08870967741935484,
+    "8": 0.4523809523809524,
+    "9": 0.15217391304347827,
+    "10": 0.1976284584980237,
+    "11": 0.1976284584980237,
+    "12": 0.36363636363636365,
+    "13": 0.14761904761904762,
+    "14": 0.1111111111111111,
     "15": 0.38235294117647056,
     "16": 0.11764705882352941,
-    "17": 0.13333333333333333,
-    "18": 0.14285714285714285,
-    "19": 0.5384615384615384,
+    "17": 0.15441176470588236,
+    "18": 0.13333333333333333,
+    "19": 0.14285714285714285,
     "20": 0.5384615384615384,
     "21": 0.1978021978021978,
     "22": 0.15384615384615385,
@@ -974,14 +938,14 @@
     "27": 0.25,
     "28": 0.25,
     "29": 0.2857142857142857,
-    "30": 0.2857142857142857,
-    "31": 0.8,
-    "32": 0.4,
-    "33": 0.5,
-    "34": 0.5,
-    "35": 0.5,
-    "36": 0.6666666666666666,
-    "37": 0.6666666666666666,
+    "30": 0.5,
+    "31": 0.5,
+    "32": 0.5,
+    "33": 0.6666666666666666,
+    "34": 0.6666666666666666,
+    "35": 1.0,
+    "36": 1.0,
+    "37": 1.0,
     "38": 1.0,
     "39": 1.0,
     "40": 1.0,
@@ -994,10 +958,7 @@
     "47": 1.0,
     "48": 1.0,
     "49": 1.0,
-    "50": 1.0,
-    "51": 1.0,
-    "52": 1.0,
-    "53": 1.0
+    "50": 1.0
   },
   "gods": [
     {
@@ -1097,11 +1058,11 @@
       "why": "peripheral node `AuthCallback()` unexpectedly reaches hub `useAuth()`"
     },
     {
-      "source": "parse_stocks_ts()",
-      "target": "float",
+      "source": "extract_financials()",
+      "target": "str",
       "source_files": [
-        "scripts/run_deep_analysis.py",
-        "scripts/persona_db.py"
+        "scripts/financial_fetcher.py",
+        "scripts/run_deep_analysis.py"
       ],
       "confidence": "INFERRED",
       "relation": "calls",
@@ -1109,7 +1070,7 @@
     }
   ],
   "tokens": {
-    "input": 0,
-    "output": 0
+    "input": 1563,
+    "output": 10745
   }
 }

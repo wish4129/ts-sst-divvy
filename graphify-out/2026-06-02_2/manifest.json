@@ -5,12 +5,12 @@
     "semantic_hash": "fc04f9113cfa7dce9c51a59f7b60b813"
   },
   "/Users/munkevin/xionGit/divvy/sst.config.ts": {
-    "mtime": 1780408919.5809166,
-    "ast_hash": "d9d1c69d8de16738c55d5da94e11fa07",
-    "semantic_hash": "d9d1c69d8de16738c55d5da94e11fa07"
+    "mtime": 1780387351.4437623,
+    "ast_hash": "0a6295d27c43fcc99d0aee31a166e1d5",
+    "semantic_hash": "0a6295d27c43fcc99d0aee31a166e1d5"
   },
   "/Users/munkevin/xionGit/divvy/sst-env.d.ts": {
-    "mtime": 1780410179.1690447,
+    "mtime": 1780408384.3828297,
     "ast_hash": "69af58655c025a726576b4645f44bb00",
     "semantic_hash": "69af58655c025a726576b4645f44bb00"
   },
@@ -40,7 +40,7 @@
     "semantic_hash": "a2ba7da639206d1b20d929a8f716bc08"
   },
   "/Users/munkevin/xionGit/divvy/web/sst-env.d.ts": {
-    "mtime": 1780410179.169021,
+    "mtime": 1780408384.382809,
     "ast_hash": "740056b3969e5dbff84ccbc0d3dd7b0c",
     "semantic_hash": "740056b3969e5dbff84ccbc0d3dd7b0c"
   },
@@ -70,9 +70,9 @@
     "semantic_hash": "4871f2909f12d48c01d85cf60fbb2b8a"
   },
   "/Users/munkevin/xionGit/divvy/web/src/App.tsx": {
-    "mtime": 1780408890.4999483,
-    "ast_hash": "df5be10e7803e81e60236a6967e6926a",
-    "semantic_hash": "df5be10e7803e81e60236a6967e6926a"
+    "mtime": 1780325321.7304049,
+    "ast_hash": "1de514fcdddeb66028364b7e88d752a0",
+    "semantic_hash": "1de514fcdddeb66028364b7e88d752a0"
   },
   "/Users/munkevin/xionGit/divvy/web/src/main.tsx": {
     "mtime": 1780320663.8369844,
@@ -80,7 +80,7 @@
     "semantic_hash": "2f5bd47cc126604b50dfd1ab5a1ad032"
   },
   "/Users/munkevin/xionGit/divvy/web/src/sst-env.d.ts": {
-    "mtime": 1780410170.0100777,
+    "mtime": 1780408378.1779072,
     "ast_hash": "bbd2a56471d7e435cf9fbb90f6b748f3",
     "semantic_hash": "bbd2a56471d7e435cf9fbb90f6b748f3"
   },
@@ -100,9 +100,9 @@
     "semantic_hash": "20a12128921a2e0b3cfbea99616b3043"
   },
   "/Users/munkevin/xionGit/divvy/web/src/components/Header.tsx": {
-    "mtime": 1780408962.5441153,
-    "ast_hash": "9c45032772c1865be3e9faad168e1d67",
-    "semantic_hash": "9c45032772c1865be3e9faad168e1d67"
+    "mtime": 1780320679.0315282,
+    "ast_hash": "15c3b2586300504ca93734a622f65cbb",
+    "semantic_hash": "15c3b2586300504ca93734a622f65cbb"
   },
   "/Users/munkevin/xionGit/divvy/web/src/components/ScoreBadge.tsx": {
     "mtime": 1780294462.2616036,
@@ -155,9 +155,9 @@
     "semantic_hash": "ff8c8afea00121a989a99b1f28447575"
   },
   "/Users/munkevin/xionGit/divvy/scripts/run_deep_analysis.py": {
-    "mtime": 1780410063.6952746,
-    "ast_hash": "9b5532c5ae5ead3fc1429a0c0dd45ac9",
-    "semantic_hash": "9b5532c5ae5ead3fc1429a0c0dd45ac9"
+    "mtime": 1780407126.9918149,
+    "ast_hash": "21e98c6be9142aa6173d9d8a937b6178",
+    "semantic_hash": "21e98c6be9142aa6173d9d8a937b6178"
   },
   "/Users/munkevin/xionGit/divvy/scripts/db.py": {
     "mtime": 1780319259.4757304,
@@ -170,9 +170,9 @@
     "semantic_hash": "16c42034ac4b678d842e860ed5fcbab7"
   },
   "/Users/munkevin/xionGit/divvy/scripts/financial_fetcher.py": {
-    "mtime": 1780410009.4330344,
-    "ast_hash": "cbd1b544ebf7b44c8531b7a6cd0554ed",
-    "semantic_hash": "cbd1b544ebf7b44c8531b7a6cd0554ed"
+    "mtime": 1780327068.3677073,
+    "ast_hash": "7c01bdf094f0aafad99c0af1465d9d3a",
+    "semantic_hash": "7c01bdf094f0aafad99c0af1465d9d3a"
   },
   "/Users/munkevin/xionGit/divvy/scripts/run_ai_analysis.py": {
     "mtime": 1780371885.2677362,
@@ -180,9 +180,9 @@
     "semantic_hash": "1f27e29d6ac69be3f175357ef1630f50"
   },
   "/Users/munkevin/xionGit/divvy/scripts/gen_ai_reports.py": {
-    "mtime": 1780410038.0054998,
-    "ast_hash": "83f7830491b5274ef1587b19b7fe8fb5",
-    "semantic_hash": "83f7830491b5274ef1587b19b7fe8fb5"
+    "mtime": 1780377321.154263,
+    "ast_hash": "dcc46cd3e8c339b72ac9de5d4f411248",
+    "semantic_hash": "dcc46cd3e8c339b72ac9de5d4f411248"
   },
   "/Users/munkevin/xionGit/divvy/scripts/macro_fetcher.py": {
     "mtime": 1780327030.609143,
@@ -190,9 +190,9 @@
     "semantic_hash": "8e8ab5879d365947f4e72cc84afc7caa"
   },
   "/Users/munkevin/xionGit/divvy/scripts/portfolio_manager.py": {
-    "mtime": 1780410119.5747042,
-    "ast_hash": "dbfbd496a522705150960cf64f2df432",
-    "semantic_hash": "dbfbd496a522705150960cf64f2df432"
+    "mtime": 1780329464.5973272,
+    "ast_hash": "28f8bcb47c27f4fd0d7eaae7e34c3cf9",
+    "semantic_hash": "28f8bcb47c27f4fd0d7eaae7e34c3cf9"
   },
   "/Users/munkevin/xionGit/divvy/scripts/portfolios.json": {
     "mtime": 1780408379.0739262,
@@ -205,9 +205,9 @@
     "semantic_hash": "df6db702934cfd84f9c6daf6fd33be11"
   },
   "/Users/munkevin/xionGit/divvy/scripts/industry_scorer.py": {
-    "mtime": 1780410051.3522542,
-    "ast_hash": "8d0f3088315fe0e83c601fa07523d534",
-    "semantic_hash": "8d0f3088315fe0e83c601fa07523d534"
+    "mtime": 1780327545.3788605,
+    "ast_hash": "6dd39fe01a186338f6a01ab5165570b1",
+    "semantic_hash": "6dd39fe01a186338f6a01ab5165570b1"
   },
   "/Users/munkevin/xionGit/divvy/scripts/run_ai_analysis.sh": {
     "mtime": 1780372491.1289055,
@@ -260,7 +260,7 @@
     "semantic_hash": "8ec2ed3b2c19eacaba3f7f84ff6ad7f9"
   },
   "/Users/munkevin/xionGit/divvy/data/kronos_forecast.json": {
-    "mtime": 1780410173.631095,
+    "mtime": 1780408379.0748684,
     "ast_hash": "40bbb97982f74899c98ceef6ea58e519",
     "semantic_hash": "40bbb97982f74899c98ceef6ea58e519"
   },
@@ -280,9 +280,9 @@
     "semantic_hash": "5974141f77cfbaad7a932f17ed65454d"
   },
   "/Users/munkevin/xionGit/divvy/src/schema/schema.ts": {
-    "mtime": 1780408678.992658,
-    "ast_hash": "3b04187b12e7e1660eb4957c8248fd07",
-    "semantic_hash": "3b04187b12e7e1660eb4957c8248fd07"
+    "mtime": 1780328438.6414316,
+    "ast_hash": "8a0b68b00770c03dee54242c995cd6aa",
+    "semantic_hash": "8a0b68b00770c03dee54242c995cd6aa"
   },
   "/Users/munkevin/xionGit/divvy/src/schema/migrations/0001_pale_the_hood.sql": {
     "mtime": 1780328450.7184196,
@@ -340,23 +340,8 @@
     "semantic_hash": "09a00533c7eb2268bc16b7271c8c2fa6"
   },
   "/Users/munkevin/xionGit/divvy/scripts/sync_from_db.py": {
-    "mtime": 1780410149.8744357,
-    "ast_hash": "d62d83ddbe99771b65beb920d82a538c",
-    "semantic_hash": "d62d83ddbe99771b65beb920d82a538c"
-  },
-  "/Users/munkevin/xionGit/divvy/web/src/pages/Universe.tsx": {
-    "mtime": 1780408877.5303423,
-    "ast_hash": "d5592d970b60ea7a5d635f54ba1ed303",
-    "semantic_hash": "d5592d970b60ea7a5d635f54ba1ed303"
-  },
-  "/Users/munkevin/xionGit/divvy/scripts/persona_db.py": {
-    "mtime": 1780409995.4563994,
-    "ast_hash": "a3d56b9f3c9384101fe2a8b11dcd24eb",
-    "semantic_hash": "a3d56b9f3c9384101fe2a8b11dcd24eb"
-  },
-  "/Users/munkevin/xionGit/divvy/src/functions/universe.ts": {
-    "mtime": 1780409356.843024,
-    "ast_hash": "2dbf58e4f8bc3f554e00b6b081fe800f",
-    "semantic_hash": "2dbf58e4f8bc3f554e00b6b081fe800f"
+    "mtime": 1780408236.2339742,
+    "ast_hash": "7b96eb72de19ef548623688881935307",
+    "semantic_hash": "7b96eb72de19ef548623688881935307"
   }
 }
