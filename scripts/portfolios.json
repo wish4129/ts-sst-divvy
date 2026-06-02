@@ -183,13 +183,13 @@
       "holdings": {
         "MAYBANK": {
           "shares": 200,
-          "cost": 9.85,
+          "cost": 10.64,
           "target_pct": 25,
           "note": "Blue chip, DY 6.2%, PE 12.4x"
         },
         "AXREIT": {
           "shares": 1000,
-          "cost": 1.82,
+          "cost": 1.95,
           "target_pct": 20,
           "note": "Retail REIT, occupancy recovery"
         },
@@ -207,13 +207,13 @@
         },
         "SCIENTEX": {
           "shares": 200,
-          "cost": 4.15,
+          "cost": 3.73,
           "target_pct": 8,
           "note": "Packaging + property, steady dividend"
         },
         "SIME": {
           "shares": 400,
-          "cost": 2.38,
+          "cost": 2.08,
           "target_pct": 10,
           "note": "Conglomerate, DY 6.25%, D/E 0.43"
         },
@@ -247,7 +247,7 @@
       "holdings": {
         "MAYBANK": {
           "shares": 200,
-          "cost": 9.85,
+          "cost": 10.64,
           "target_pct": 20,
           "note": "Blue chip anchor, DY 6.2%"
         },
@@ -265,13 +265,13 @@
         },
         "AXREIT": {
           "shares": 800,
-          "cost": 1.82,
+          "cost": 1.95,
           "target_pct": 15,
           "note": "REIT income stability"
         },
         "SCIENTEX": {
           "shares": 300,
-          "cost": 4.15,
+          "cost": 3.73,
           "target_pct": 15,
           "note": "Packaging, PE 10.36x, ROE 12.6% ann"
         },
