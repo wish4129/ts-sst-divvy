@@ -67,11 +67,41 @@ function AiReportSection({ report, model }: { report: Record<string, string>; mo
           {Object.entries(report).map(([key, text]) => (
             <div key={key}>
               <h4 className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-1">{AI_REPORT_LABELS[key] || key}</h4>
-              <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{text}</p>
+              <div className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed space-y-1">
+                {text.split('\n').map((line, i) => (
+                  <RenderLine key={i} line={line} />
+                ))}
+              </div>
             </div>
           ))}
         </div>
       )}
+    </div>
+  )
+}
+
+function RenderLine({ line }: { line: string }) {
+  if (!line.trim()) return <div className="h-2" />
+  
+  // Bold: **text**
+  const parts = line.split(/(\*\*[^*]+\*\*)/g)
+  const rendered = parts.map((p, i) => {
+    if (p.startsWith('**') && p.endsWith('**')) {
+      return <strong key={i} className="text-gray-900 dark:text-gray-100">{p.slice(2, -2)}</strong>
+    }
+    return <span key={i}>{p}</span>
+  })
+
+  // Bullet points
+  const trimmed = line.trimStart()
+  const indent = line.length - trimmed.length
+  const isBullet = /^[-•*]\s/.test(trimmed)
+  
+  return (
+    <div style={{ paddingLeft: `${indent * 4 + (isBullet ? 16 : 0)}px` }}
+         className={isBullet ? 'flex items-start gap-2' : ''}>
+      {isBullet && <span className="text-emerald-400 flex-shrink-0 mt-1">•</span>}
+      <span>{isBullet ? rendered.slice(1) : rendered}</span>
     </div>
   )
 }
