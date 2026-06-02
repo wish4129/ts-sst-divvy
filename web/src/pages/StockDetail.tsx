@@ -53,6 +53,20 @@ const AI_REPORT_LABELS: Record<string, string> = {
 
 function AiReportSection({ report, model }: { report: Record<string, string>; model: string | null }) {
   const [open, setOpen] = useState(true)
+  
+  // Normalize: merge price_target + cut_loss into target if target is missing
+  const normalized = { ...report }
+  if (!normalized.target && (normalized.price_target || normalized.cut_loss)) {
+    normalized.target = [
+      normalized.price_target,
+      normalized.cut_loss,
+    ].filter(Boolean).join('\n')
+    delete normalized.price_target
+    delete normalized.cut_loss
+  }
+  
+  const sections = ['introduction_history', 'trend_analysis', 'strengths', 'weaknesses', 'summary', 'target']
+    .filter(k => normalized[k])
   return (
     <div>
       <button onClick={() => setOpen(!open)}
@@ -64,16 +78,18 @@ function AiReportSection({ report, model }: { report: Record<string, string>; mo
       </button>
       {open && (
         <div className="px-5 pb-4 space-y-4">
-          {Object.entries(report).map(([key, text]) => (
+          {sections.map(key => {
+            const text = normalized[key]
+            return (
             <div key={key}>
               <h4 className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-1">{AI_REPORT_LABELS[key] || key}</h4>
               <div className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed space-y-1">
-                {text.split('\n').map((line, i) => (
+                {text.split('\n').map((line: string, i: number) => (
                   <RenderLine key={i} line={line} />
                 ))}
               </div>
             </div>
-          ))}
+          )})}
         </div>
       )}
     </div>
