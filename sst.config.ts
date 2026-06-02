@@ -14,13 +14,15 @@ export default $config({
     const api = new sst.aws.ApiGatewayV2("Api", {
       cors: {
         allowOrigins: ["*"],
-        allowMethods: ["GET"],
+        allowMethods: ["GET", "POST"],
       },
     });
 
     api.route("GET /battle", "src/functions/battle.handler");
     api.route("GET /analysis/{code}", "src/functions/analysis.handler");
     api.route("GET /watchlist", "src/functions/watchlist.handler");
+    api.route("GET /universe", "src/functions/universe.handler");
+    api.route("POST /universe/add", "src/functions/universe.handler");
 
     new sst.aws.StaticSite("WebApp", {
       path: "web/",

@@ -6,6 +6,7 @@ import { useAuth } from './lib/AuthContext'
 const Home = lazy(() => import('./pages/Home'))
 const StockDetail = lazy(() => import('./pages/StockDetail'))
 const Watchlist = lazy(() => import('./pages/Watchlist'))
+const Universe = lazy(() => import('./pages/Universe'))
 const Battle = lazy(() => import('./pages/Battle'))
 const AuthCallback = lazy(() => import('./pages/AuthCallback'))
 
@@ -58,6 +59,7 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/stock/:code" element={<StockDetail />} />
                 <Route path="/watchlist" element={<Watchlist />} />
+                <Route path="/universe" element={<Universe />} />
                 <Route path="/battle" element={<Battle />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>

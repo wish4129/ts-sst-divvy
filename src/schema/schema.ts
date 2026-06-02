@@ -138,3 +138,13 @@ export const screenerCandidates = pgTable('screener_candidates', {
   compositeScore: integer('composite_score'),
   addedToUniverse: boolean('added_to_universe').notNull().default(false),
 });
+
+// ── Bursa Malaysia full stock universe (~1,000 listed companies) ──
+export const bursaUniverse = pgTable('bursa_universe', {
+  code: text('code').primaryKey(),              // stock code: '5250', '1155'
+  name: text('name').notNull(),                 // full company name
+  market: text('market').notNull(),             // 'Main Market', 'ACE Market', 'LEAP Market'
+  sector: text('sector'),                       // sector classification (future enrichment)
+  inWatchlist: boolean('in_watchlist').notNull().default(false),  // already in stocks table
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+});
