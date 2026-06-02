@@ -217,7 +217,26 @@ export default function StockDetail() {
           <ArrowLeft className="w-4 h-4" /> Back to Battle
         </Link>
 
-        {/* Persona Analysis Banner */}
+        {/* Persona Analysis Banner — moved below stock hero */}
+
+        <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
+          <div>
+            <div className="flex items-center gap-3 mb-1">
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stock.name}</h1>
+              <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${indColor}`}>{stock.industry}</span>
+            </div>
+            <p className="text-sm text-gray-500">{stock.code} · MCap RM {stock.marketCap}B</p>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="text-right">
+              <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">RM {stock.lastPrice.toFixed(2)}</span>
+              <span className={`ml-2 text-sm font-medium ${changeColor}`}>{changeIcon} {Math.abs(stock.priceChange).toFixed(2)}%</span>
+            </div>
+            <ScoreBadge score={stock.score.composite} size="lg" />
+          </div>
+        </div>
+
+        {/* Persona Analysis Banner — AI Report right after stock title */}
         {analysis && (
           <div className="mb-6 rounded-xl border-2 border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 dark:border-emerald-500/20 overflow-hidden">
             <div className="p-5 border-b border-emerald-200 dark:border-emerald-800">
@@ -263,23 +282,6 @@ export default function StockDetail() {
             )}
           </div>
         )}
-
-        <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
-          <div>
-            <div className="flex items-center gap-3 mb-1">
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stock.name}</h1>
-              <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${indColor}`}>{stock.industry}</span>
-            </div>
-            <p className="text-sm text-gray-500">{stock.code} · MCap RM {stock.marketCap}B</p>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="text-right">
-              <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">RM {stock.lastPrice.toFixed(2)}</span>
-              <span className={`ml-2 text-sm font-medium ${changeColor}`}>{changeIcon} {Math.abs(stock.priceChange).toFixed(2)}%</span>
-            </div>
-            <ScoreBadge score={stock.score.composite} size="lg" />
-          </div>
-        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
           <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800">
