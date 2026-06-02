@@ -47,6 +47,7 @@ const AI_REPORT_LABELS: Record<string, string> = {
   strengths: 'Strengths',
   weaknesses: 'Weaknesses',
   summary: 'Summary',
+  target: 'Price Target & Cut Loss',
   price_target: 'Price Target',
   cut_loss: 'Cut Loss',
 }
