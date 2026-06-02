@@ -129,10 +129,10 @@
           "note": "Kronos +14.4% \u2014 strongest momentum"
         },
         "YTLPOWR": {
-          "shares": 600,
+          "shares": 300,
           "cost": 4.16,
-          "target_pct": 22,
-          "note": "Revenue growth 22%, Kronos -10.5%"
+          "target_pct": 12,
+          "note": "TRIMMED: Kronos -10.5% bearish, score 34.6"
         },
         "INSAS": {
           "shares": 2000,
@@ -147,16 +147,16 @@
           "note": "Kronos +7.3%, DY 8.7% \u2014 energy momentum"
         },
         "SIME": {
-          "shares": 400,
+          "shares": 800,
           "cost": 2.08,
-          "target_pct": 12,
-          "note": "NEW: Conglomerate value, #4 score, DY 6.25%"
+          "target_pct": 17,
+          "note": "INCREASED: #3 score 69.2, DY 6.25%"
         },
         "MAYBANK": {
           "shares": 100,
           "cost": 10.64,
-          "target_pct": 10,
-          "note": "RESTORED: Blue chip anchor, DY 6.2%"
+          "target_pct": 15,
+          "note": "INCREASED: #2 score 70.8, blue chip anchor"
         }
       },
       "rules": {
