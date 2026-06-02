@@ -86,16 +86,17 @@ def generate_ai_report(stock_name, stock_info, fin_data, score_data, ksig, macro
 
 **Persona:** {persona.upper()} — {PERSONA_CONTEXT[persona]['style']}
 
-Write the report in these 6 sections. Be concise but thorough. Use Malaysian English (RM, Bursa, etc.):
+Write the report in these 7 sections. Be concise but thorough. Use Malaysian English (RM, Bursa, etc.):
 
 1. **Introduction & History** — Brief background of the company, what it does, market position, key milestones
 2. **Trend Analysis** — Price trend, revenue trend, industry trend, Kronos forecast direction
 3. **Strengths** — Key competitive advantages, financial strengths, macro tailwinds
 4. **Weaknesses** — Risks, competitive threats, financial red flags, macro headwinds
 5. **Summary** — Overall assessment for {persona} persona. Buy/Hold/Sell recommendation with brief rationale.
-6. **Target** — Price target (RM), cut loss point (RM), expected timeframe (weeks/months), volatility assessment, hidden risks to monitor
+6. **Price Target** — Price target (RM), expected timeframe (weeks/months), volatility assessment, hidden risks to monitor
+7. **Cut Loss** — Cut loss stop price (RM), percentage loss, trigger conditions
 
-Return the report as a markdown document with 6 sections using `### Section Name` headers. Follow this EXACT format — copy the structure, not the content:
+Return the report as a markdown document with 7 sections using `### Section Name` headers. Follow this EXACT format — copy the structure, not the content:
 
 EXAMPLE OUTPUT:
 ### Introduction & History
@@ -113,12 +114,16 @@ Loan growth slowing, exposure to Malaysia's political risk, fintech disruption t
 ### Summary
 BUY for Demeter. Defensive yield play with stable earnings and strong capital buffer. Fits conservative dividend strategy.
 
-### Target
+### Price Target
 - Price target: RM11.20 (+15% upside)
-- Cut loss: RM9.20 (-5.5%)
 - Timeframe: 3-6 months
 - Volatility: Low (beta 0.85)
 - Hidden risks: OPR cuts compressing NIM, asset quality deterioration in SME portfolio
+
+### Cut Loss
+- Stop price: RM9.20 (-5.5%)
+- Trigger: Falls below 50-day MA or Kronos bearish >-10%
+- Max acceptable loss: 8% of position
 
 Now write the actual report for {stock_name}:"""
 
@@ -148,18 +153,19 @@ Now write the actual report for {stock_name}:"""
             "strengths": "Strengths",
             "weaknesses": "Weaknesses",
             "summary": "Summary",
-            "target": "Target",
+            "price_target": "Price Target",
+            "cut_loss": "Cut Loss",
         }
         report = {}
         for section_key, header in section_map.items():
             # Try ### Header first, then **Header**
             escaped = _re.escape(header)
-            pattern = rf'(?:###\s+{escaped}|[*][*]{escaped}[*][*])\s*\n(.*?)(?=\n(?:###\s|[*][*](?:Introduction|Trend|Strengths|Weaknesses|Summary|Target)[*][*])|\Z)'
+            pattern = rf'(?:###\s+{escaped}|[*][*]{escaped}[*][*])\s*\n(.*?)(?=\n(?:###\s|[*][*](?:Introduction|Trend|Strengths|Weaknesses|Summary|Price Target|Cut Loss)[*][*])|\Z)'
             m = _re.search(pattern, content, _re.DOTALL)
             if m:
                 report[section_key] = m.group(1).strip()
         
-        required = ["introduction_history", "trend_analysis", "strengths", "weaknesses", "summary", "target"]
+        required = ["introduction_history", "trend_analysis", "strengths", "weaknesses", "summary", "price_target", "cut_loss"]
         if all(k in report for k in required):
             return report
         
