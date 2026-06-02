@@ -28,7 +28,7 @@ export default $config({
       },
       environment: {
         VITE_SUPABASE_URL: "https://ceyqewaixcijbmdtbdlr.supabase.co",
-        VITE_SUPABASE_ANON_KEY: "eyJhbG...Kcbg",
+        VITE_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNleXFld2FpeGNpamJtZHRiZGxyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMTM4MDcsImV4cCI6MjA5NTg4OTgwN30.gW5MKzdMMUrzGq--NekVSsJT07KlQ_O0skrRjSHKcbg",
         VITE_API_URL: api.url,
       },
     });
