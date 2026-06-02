@@ -236,6 +236,7 @@ export default function StockDetail() {
       '4197.KL': 'SIME', '7087.KL': 'MAGNI', '5983.KL': 'MBMR',
       '5293.KL': 'AME', '5132.KL': 'DELEUM', '5142.KL': 'WASCO',
       '5280.KL': 'KIPREIT', 'INTA.KL': 'INTA',
+      '1066.KL': 'RHB', '7052.KL': 'PADINI',
     }
     const shortCode = tickerMap[code || '']
     return s.code === code?.toUpperCase() || (shortCode ? s.code === shortCode : false)
