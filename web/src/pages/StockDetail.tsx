@@ -66,8 +66,13 @@ function AiReportSection({ report, model }: { report: Record<string, string>; mo
     delete normalized.cut_loss
   }
   
-  const sections = ['introduction_history', 'trend_analysis', 'strengths', 'weaknesses', 'summary', 'target']
-    .filter(k => normalized[k])
+  const sectionOrder = ['introduction_history', 'trend_analysis', 'strengths', 'weaknesses', 'summary', 'target']
+  const sections = sectionOrder.filter(k => normalized[k])
+  
+  console.debug('[AiReport] report keys:', Object.keys(report))
+  console.debug('[AiReport] normalized keys:', Object.keys(normalized))
+  console.debug('[AiReport] sections to render:', sections)
+  console.debug('[AiReport] missing from filter:', sectionOrder.filter(k => !normalized[k]))
   return (
     <div>
       <button onClick={() => setOpen(!open)}
@@ -235,10 +240,17 @@ export default function StockDetail() {
 
   useEffect(() => {
     if (persona && API_URL) {
-      fetch(`${API_URL}/analysis/${code}?persona=${persona}`)
+      const url = `${API_URL}/analysis/${code}?persona=${persona}`
+      console.debug('[StockDetail] fetching:', url)
+      fetch(url)
         .then(r => r.json())
-        .then(d => { if (d) setAnalysis(d) })
-        .catch(() => {})
+        .then(d => {
+          console.debug('[StockDetail] response keys:', Object.keys(d || {}))
+          console.debug('[StockDetail] ai_report exists:', !!d?.ai_report)
+          if (d?.ai_report) console.debug('[StockDetail] ai_report keys:', Object.keys(d.ai_report))
+          if (d) setAnalysis(d)
+        })
+        .catch(e => console.error('[StockDetail] fetch error:', e))
     }
   }, [code, persona])
 
