@@ -181,8 +181,9 @@ export default function Battle() {
                 </thead>
                 <tbody>
                   {Object.entries(snap.holdings).map(([name, h]) => (
-                    <tr key={name} className="border-b border-gray-800">
-                      <td className="py-2 font-medium">{name}</td>
+                    <tr key={name} className="border-b border-gray-800 hover:bg-gray-800/30 cursor-pointer transition-colors"
+                      onClick={() => window.location.href = `/stock/${name}?persona=${pid}`}>
+                      <td className="py-2 font-medium text-emerald-400 hover:text-emerald-300">{name}</td>
                       <td className="py-2 text-right font-mono">{h.shares.toLocaleString()}</td>
                       <td className="py-2 text-right font-mono text-gray-400">RM {h.cost.toFixed(3)}</td>
                       <td className="py-2 text-right font-mono">RM {h.price.toFixed(3)}</td>

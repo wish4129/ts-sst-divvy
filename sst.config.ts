@@ -19,6 +19,7 @@ export default $config({
     });
 
     api.route("GET /battle", "src/functions/battle.handler");
+    api.route("GET /analysis/{code}", "src/functions/analysis.handler");
 
     new sst.aws.StaticSite("WebApp", {
       path: "web/",

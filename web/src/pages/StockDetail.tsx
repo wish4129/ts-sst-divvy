@@ -1,13 +1,37 @@
-import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
+import { useParams, useSearchParams, Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { ArrowLeft, Brain, TrendingUp } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import ScoreBadge from '../components/ScoreBadge'
 import SparklineChart from '../components/SparklineChart'
 import { stocks, INDUSTRY_COLORS } from '../data/stocks'
 
+const API_URL = import.meta.env.VITE_API_URL || ''
+
+interface PersonaAnalysis {
+  persona: string
+  decision_rationale: string
+  score_composite: number
+  score_breakdown: Record<string, { value: number | null; raw: number; weighted: number }>
+  kronos_signal: any
+}
+
 export default function StockDetail() {
   const { code } = useParams<{ code: string }>()
+  const [searchParams] = useSearchParams()
+  const persona = searchParams.get('persona')
+  const [analysis, setAnalysis] = useState<PersonaAnalysis | null>(null)
+
   const stock = stocks.find((s) => s.code === code?.toUpperCase())
+
+  useEffect(() => {
+    if (persona && API_URL) {
+      fetch(`${API_URL}/analysis/${code}?persona=${persona}`)
+        .then(r => r.json())
+        .then(d => { if (d) setAnalysis(d) })
+        .catch(() => {})
+    }
+  }, [code, persona])
 
   if (!stock) {
     return (
@@ -28,9 +52,37 @@ export default function StockDetail() {
   return (
     <div className="min-h-screen">
       <main className="max-w-4xl mx-auto px-4 py-6">
-        <Link to="/" className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 mb-4">
-          <ArrowLeft className="w-4 h-4" /> Back
+        <Link to="/battle" className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 mb-4">
+          <ArrowLeft className="w-4 h-4" /> Back to Battle
         </Link>
+
+        {/* Persona Analysis Banner */}
+        {analysis && (
+          <div className="mb-6 p-5 rounded-xl border-2 border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 dark:border-emerald-500/20">
+            <div className="flex items-center gap-2 mb-3">
+              <Brain className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              <h2 className="font-bold text-emerald-800 dark:text-emerald-300 capitalize">{persona}'s Analysis</h2>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300">
+                Score {analysis.score_composite}/100
+              </span>
+            </div>
+            <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{analysis.decision_rationale}</p>
+            
+            {/* Factor breakdown */}
+            {analysis.score_breakdown && (
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                {Object.entries(analysis.score_breakdown).map(([factor, b]: [string, any]) => (
+                  <div key={factor} className="flex items-center justify-between text-xs">
+                    <span className="text-gray-500 capitalize">{factor.replace(/_/g, ' ')}</span>
+                    <span className="font-mono text-gray-700 dark:text-gray-300">
+                      {b.weighted?.toFixed(1) || '—'}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
           <div>
@@ -139,15 +191,6 @@ export default function StockDetail() {
               <Bar dataKey="amount" fill="#059669" radius={[4, 4, 0, 0]} name="DPS (RM)" />
             </BarChart>
           </ResponsiveContainer>
-        </div>
-
-        <div className="flex gap-3">
-          <button className="px-4 py-2 text-sm font-medium rounded-lg border border-amber-300 text-amber-700 bg-amber-50 hover:bg-amber-100 dark:border-amber-700 dark:text-amber-400 dark:bg-amber-950 dark:hover:bg-amber-900 transition-colors">
-            Move to Revisit
-          </button>
-          <button className="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 text-gray-600 bg-gray-50 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-900 dark:hover:bg-gray-800 transition-colors">
-            Add Note
-          </button>
         </div>
       </main>
     </div>

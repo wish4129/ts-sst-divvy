@@ -7,7 +7,7 @@ from pathlib import Path
 sys.path.append("./Kronos/")
 from model import Kronos, KronosTokenizer, KronosPredictor
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "scripts"))
 from db import get_db, dict_cursor
 
