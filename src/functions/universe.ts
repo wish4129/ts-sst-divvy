@@ -25,49 +25,72 @@ export async function handler(
       return await addToWatchlist(event);
     }
     return { statusCode: 404, body: JSON.stringify({ error: "Not found" }) };
-  } finally {
-    // Don't close — reused across invocations
+  } catch (err: any) {
+    console.error("Universe handler error:", err);
+    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
   }
 }
 
 async function listUniverse(event: APIGatewayProxyEventV2) {
   const q = event.queryStringParameters || {};
-  const search = (q.search || "").trim();
+  const search = (q.search || "").trim().toLowerCase();
   const market = (q.market || "").trim();
   const page = Math.max(1, parseInt(q.page || "1"));
-  const limit = Math.min(100, Math.max(10, parseInt(q.limit || "50")));
+  const limit = Math.min(100, Math.max(5, parseInt(q.limit || "50")));
   const offset = (page - 1) * limit;
 
-  // Build query
-  const conditions: string[] = [];
-  const params: any[] = [];
+  // Build where clause using tagged template interpolation
+  let countResult: any;
+  let rows: any;
 
-  if (search) {
-    conditions.push(`(LOWER(name) LIKE $${params.length + 1} OR code LIKE $${params.length + 2})`);
-    params.push(`%${search.toLowerCase()}%`, `%${search}%`);
+  if (search && market) {
+    countResult = await sql`
+      SELECT COUNT(*)::int as count FROM bursa_universe
+      WHERE (LOWER(name) LIKE ${"%" + search + "%"} OR code LIKE ${"%" + search + "%"})
+      AND market = ${market}
+    `;
+    rows = await sql`
+      SELECT code, name, market, sector, in_watchlist as "inWatchlist", created_at as "createdAt"
+      FROM bursa_universe
+      WHERE (LOWER(name) LIKE ${"%" + search + "%"} OR code LIKE ${"%" + search + "%"})
+      AND market = ${market}
+      ORDER BY name ASC
+      LIMIT ${limit} OFFSET ${offset}
+    `;
+  } else if (search) {
+    countResult = await sql`
+      SELECT COUNT(*)::int as count FROM bursa_universe
+      WHERE (LOWER(name) LIKE ${"%" + search + "%"} OR code LIKE ${"%" + search + "%"})
+    `;
+    rows = await sql`
+      SELECT code, name, market, sector, in_watchlist as "inWatchlist", created_at as "createdAt"
+      FROM bursa_universe
+      WHERE (LOWER(name) LIKE ${"%" + search + "%"} OR code LIKE ${"%" + search + "%"})
+      ORDER BY name ASC
+      LIMIT ${limit} OFFSET ${offset}
+    `;
+  } else if (market) {
+    countResult = await sql`
+      SELECT COUNT(*)::int as count FROM bursa_universe WHERE market = ${market}
+    `;
+    rows = await sql`
+      SELECT code, name, market, sector, in_watchlist as "inWatchlist", created_at as "createdAt"
+      FROM bursa_universe
+      WHERE market = ${market}
+      ORDER BY name ASC
+      LIMIT ${limit} OFFSET ${offset}
+    `;
+  } else {
+    countResult = await sql`SELECT COUNT(*)::int as count FROM bursa_universe`;
+    rows = await sql`
+      SELECT code, name, market, sector, in_watchlist as "inWatchlist", created_at as "createdAt"
+      FROM bursa_universe
+      ORDER BY name ASC
+      LIMIT ${limit} OFFSET ${offset}
+    `;
   }
-  if (market) {
-    conditions.push(`market = $${params.length + 1}`);
-    params.push(market);
-  }
 
-  const where = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
-
-  // Count
-  const countResult = await sql.unsafe(
-    `SELECT COUNT(*) FROM bursa_universe ${where}`,
-    ...params
-  );
-  const total = parseInt(String((countResult as any)[0]?.count || 0));
-
-  // Fetch
-  const rows = await sql.unsafe(
-    `SELECT code, name, market, sector, in_watchlist as "inWatchlist", created_at as "createdAt"
-     FROM bursa_universe ${where}
-     ORDER BY name ASC
-     LIMIT ${limit} OFFSET ${offset}`,
-    ...params
-  );
+  const total = (countResult as any)[0]?.count || 0;
 
   return {
     statusCode: 200,
@@ -87,13 +110,10 @@ async function addToWatchlist(event: APIGatewayProxyEventV2) {
     return { statusCode: 400, body: JSON.stringify({ error: "code is required" }) };
   }
 
-  // Check if already in stocks
   const ticker = `${code}.KL`;
-  const existing = await sql.unsafe(
-    `SELECT id FROM stocks WHERE id = $1`,
-    ticker
-  );
 
+  // Check if already in stocks
+  const existing = await sql`SELECT id FROM stocks WHERE id = ${ticker}`;
   if ((existing as any[]).length > 0) {
     return {
       statusCode: 200,
@@ -103,30 +123,22 @@ async function addToWatchlist(event: APIGatewayProxyEventV2) {
   }
 
   // Get company details from bursa_universe
-  const company = await sql.unsafe(
-    `SELECT name, market FROM bursa_universe WHERE code = $1`,
-    code
-  );
-
+  const company = await sql`SELECT name, market FROM bursa_universe WHERE code = ${code}`;
   if ((company as any[]).length === 0) {
     return { statusCode: 404, body: JSON.stringify({ error: "Company not found" }) };
   }
 
   const { name, market } = (company as any)[0];
 
-  // Insert into stocks table (use 0 as initial price — will be updated later)
-  await sql.unsafe(
-    `INSERT INTO stocks (id, name, industry, initial_price, status)
-     VALUES ($1, $2, $3, 0, 'revisit')
-     ON CONFLICT (id) DO NOTHING`,
-    ticker, name, market
-  );
+  // Insert into stocks table
+  await sql`
+    INSERT INTO stocks (id, name, industry, initial_price, status)
+    VALUES (${ticker}, ${name}, ${market}, 0, 'revisit')
+    ON CONFLICT (id) DO NOTHING
+  `;
 
   // Update in_watchlist flag
-  await sql.unsafe(
-    `UPDATE bursa_universe SET in_watchlist = true WHERE code = $1`,
-    code
-  );
+  await sql`UPDATE bursa_universe SET in_watchlist = true WHERE code = ${code}`;
 
   return {
     statusCode: 200,
