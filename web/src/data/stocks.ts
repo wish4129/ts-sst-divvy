@@ -51,7 +51,7 @@ export const stocks: Stock[] = [
     lastPrice: 9.85,
     priceChange: 0.51,
     dividendYield: 6.2,
-    score: { composite: 70, dividend: 32, growth: 18, quality: 16, risk: 6 },
+    score: { composite: 72, dividend: 32, growth: 18, quality: 16, risk: 6 },
     financials: [
       { quarter: 'Q1 2026', revenue: 15800, netIncome: 2520, freeCashFlow: 8900, peRatio: 12.8, pbRatio: 1.3, roe: 10.2, debtToEquity: 6.8, revenueGrowthYoY: 4.2 },
       { quarter: 'Q4 2025', revenue: 16200, netIncome: 2680, freeCashFlow: 7200, peRatio: 13.1, pbRatio: 1.3, roe: 10.8, debtToEquity: 6.9, revenueGrowthYoY: 5.1 },
@@ -83,7 +83,7 @@ export const stocks: Stock[] = [
     lastPrice: 1.82,
     priceChange: 0.31,
     dividendYield: 5.4,
-    score: { composite: 66, dividend: 30, growth: 12, quality: 18, risk: 8 },
+    score: { composite: 68, dividend: 30, growth: 12, quality: 18, risk: 8 },
     financials: [
       { quarter: 'Q1 2026', revenue: 75, netIncome: 38, freeCashFlow: 32, peRatio: 14.2, pbRatio: 0.92, roe: 6.5, debtToEquity: 0.95, revenueGrowthYoY: 5.0 },
       { quarter: 'Q4 2025', revenue: 77, netIncome: 40, freeCashFlow: 34, peRatio: 14.0, pbRatio: 0.93, roe: 6.7, debtToEquity: 0.94, revenueGrowthYoY: 6.2 },
@@ -111,7 +111,7 @@ export const stocks: Stock[] = [
     lastPrice: 3.95,
     priceChange: 2.6,
     dividendYield: 3.2,
-    score: { composite: 34, dividend: 18, growth: 26, quality: 12, risk: 9 },
+    score: { composite: 65, dividend: 18, growth: 26, quality: 12, risk: 9 },
     financials: [
       { quarter: 'Q1 2026', revenue: 5800, netIncome: 820, freeCashFlow: 1100, peRatio: 9.8, pbRatio: 1.8, roe: 18.5, debtToEquity: 2.1, revenueGrowthYoY: 22.0 },
       { quarter: 'Q4 2025', revenue: 5400, netIncome: 780, freeCashFlow: 950, peRatio: 10.2, pbRatio: 1.9, roe: 17.8, debtToEquity: 2.2, revenueGrowthYoY: 18.5 },
@@ -139,7 +139,7 @@ export const stocks: Stock[] = [
     lastPrice: 0.89,
     priceChange: 0.02,
     dividendYield: 4.5,
-    score: { composite: 49, dividend: 21, growth: 18, quality: 14, risk: 7 },
+    score: { composite: 60, dividend: 21, growth: 18, quality: 14, risk: 7 },
     financials: [
       { quarter: 'Q1 2026', revenue: 85, netIncome: 22, freeCashFlow: 18, peRatio: 8.2, pbRatio: 0.7, roe: 8.5, debtToEquity: 0.3, revenueGrowthYoY: 2.1 },
       { quarter: 'Q4 2025', revenue: 82, netIncome: 21, freeCashFlow: 17, peRatio: 8.5, pbRatio: 0.7, roe: 8.2, debtToEquity: 0.3, revenueGrowthYoY: 1.8 },
@@ -162,7 +162,7 @@ export const stocks: Stock[] = [
     lastPrice: 0.95,
     priceChange: -0.05,
     dividendYield: 5.8,
-    score: { composite: 39, dividend: 25, growth: 16, quality: 13, risk: 8 },
+    score: { composite: 62, dividend: 25, growth: 16, quality: 13, risk: 8 },
     financials: [
       { quarter: 'Q1 2026', revenue: 210, netIncome: 15, freeCashFlow: 12, peRatio: 8.5, pbRatio: 0.9, roe: 10.1, debtToEquity: 0.4, revenueGrowthYoY: -2.5 },
       { quarter: 'Q4 2025', revenue: 215, netIncome: 16, freeCashFlow: 13, peRatio: 8.3, pbRatio: 0.9, roe: 10.5, debtToEquity: 0.4, revenueGrowthYoY: -1.8 },
@@ -185,7 +185,7 @@ export const stocks: Stock[] = [
     lastPrice: 4.15,
     priceChange: 0.08,
     dividendYield: 3.5,
-    score: { composite: 56, dividend: 20, growth: 22, quality: 17, risk: 7 },
+    score: { composite: 66, dividend: 20, growth: 22, quality: 17, risk: 7 },
     financials: [
       { quarter: 'Q1 2026', revenue: 1050, netIncome: 85, freeCashFlow: 65, peRatio: 11.5, pbRatio: 1.3, roe: 11.2, debtToEquity: 0.6, revenueGrowthYoY: 3.1 },
       { quarter: 'Q4 2025', revenue: 1020, netIncome: 82, freeCashFlow: 60, peRatio: 11.8, pbRatio: 1.3, roe: 10.9, debtToEquity: 0.6, revenueGrowthYoY: 2.8 },
@@ -208,7 +208,7 @@ export const stocks: Stock[] = [
     lastPrice: 1.52,
     priceChange: -0.12,
     dividendYield: 1.5,
-    score: { composite: 25, dividend: 12, growth: 25, quality: 10, risk: 8 },
+    score: { composite: 55, dividend: 12, growth: 25, quality: 10, risk: 8 },
     financials: [
       { quarter: 'Q1 2026', revenue: 95, netIncome: 12, freeCashFlow: 8, peRatio: 25.0, pbRatio: 4.2, roe: 16.8, debtToEquity: 0.2, revenueGrowthYoY: 18.5 },
       { quarter: 'Q4 2025', revenue: 88, netIncome: 11, freeCashFlow: 7, peRatio: 26.5, pbRatio: 4.4, roe: 16.2, debtToEquity: 0.2, revenueGrowthYoY: 15.2 },
@@ -231,7 +231,7 @@ export const stocks: Stock[] = [
     lastPrice: 20.50,
     priceChange: 0.32,
     dividendYield: 3.8,
-    score: { composite: 42, dividend: 22, growth: 25, quality: 16, risk: 7 },
+    score: { composite: 70, dividend: 22, growth: 25, quality: 16, risk: 7 },
     financials: [
       { quarter: 'Q1 2026', revenue: 5200, netIncome: 380, freeCashFlow: 420, peRatio: 16.0, pbRatio: 1.6, roe: 10.2, debtToEquity: 0.5, revenueGrowthYoY: 5.2 },
       { quarter: 'Q4 2025', revenue: 5100, netIncome: 370, freeCashFlow: 400, peRatio: 16.5, pbRatio: 1.6, roe: 10.0, debtToEquity: 0.5, revenueGrowthYoY: 4.8 },
@@ -254,7 +254,7 @@ export const stocks: Stock[] = [
     lastPrice: 3.05,
     priceChange: -0.18,
     dividendYield: 3.2,
-    score: { composite: 30, dividend: 18, growth: 24, quality: 9, risk: 7 },
+    score: { composite: 58, dividend: 18, growth: 24, quality: 9, risk: 7 },
     financials: [
       { quarter: 'Q1 2026', revenue: 380, netIncome: 52, freeCashFlow: 35, peRatio: 18.5, pbRatio: 3.8, roe: 20.5, debtToEquity: 0.1, revenueGrowthYoY: 12.5 },
       { quarter: 'Q4 2025', revenue: 360, netIncome: 48, freeCashFlow: 32, peRatio: 19.2, pbRatio: 3.9, roe: 19.8, debtToEquity: 0.1, revenueGrowthYoY: 10.8 },
@@ -277,7 +277,7 @@ export const stocks: Stock[] = [
     lastPrice: 2.38,
     priceChange: 0.04,
     dividendYield: 4.2,
-    score: { composite: 69, dividend: 26, growth: 17, quality: 14, risk: 7 },
+    score: { composite: 64, dividend: 26, growth: 17, quality: 14, risk: 7 },
     financials: [
       { quarter: 'Q1 2026', revenue: 12000, netIncome: 480, freeCashFlow: 520, peRatio: 9.8, pbRatio: 0.9, roe: 9.5, debtToEquity: 0.8, revenueGrowthYoY: 3.5 },
       { quarter: 'Q4 2025', revenue: 11800, netIncome: 460, freeCashFlow: 500, peRatio: 10.2, pbRatio: 0.9, roe: 9.2, debtToEquity: 0.8, revenueGrowthYoY: 3.0 },
@@ -300,7 +300,7 @@ export const stocks: Stock[] = [
     lastPrice: 1.86,
     priceChange: 2.8,
     dividendYield: 18.71,
-    score: { composite: 66, dividend: 40, growth: 20, quality: 23, risk: 10 },
+    score: { composite: 90, dividend: 40, growth: 20, quality: 20, risk: 10 },
     financials: [
       { quarter: 'Q1 2026', revenue: 285, netIncome: 32, freeCashFlow: 28, peRatio: 6.4, pbRatio: 0.86, roe: 13.5, debtToEquity: 0.0, revenueGrowthYoY: 5.2 },
       { quarter: 'Q4 2025', revenue: 278, netIncome: 31, freeCashFlow: 26, peRatio: 6.5, pbRatio: 0.87, roe: 13.2, debtToEquity: 0.0, revenueGrowthYoY: 4.8 },
@@ -324,7 +324,7 @@ export const stocks: Stock[] = [
     lastPrice: 5.07,
     priceChange: 1.2,
     dividendYield: 11.83,
-    score: { composite: 63, dividend: 40, growth: 20, quality: 21, risk: 10 },
+    score: { composite: 90, dividend: 40, growth: 20, quality: 20, risk: 10 },
     financials: [
       { quarter: 'Q1 2026', revenue: 520, netIncome: 65, freeCashFlow: 55, peRatio: 6.0, pbRatio: 0.81, roe: 13.6, debtToEquity: 1.2, revenueGrowthYoY: 6.5 },
       { quarter: 'Q4 2025', revenue: 510, netIncome: 62, freeCashFlow: 52, peRatio: 6.2, pbRatio: 0.82, roe: 13.2, debtToEquity: 1.2, revenueGrowthYoY: 5.8 },
@@ -348,7 +348,7 @@ export const stocks: Stock[] = [
     lastPrice: 1.50,
     priceChange: 0.0,
     dividendYield: 8.67,
-    score: { composite: 73, dividend: 35, growth: 30, quality: 5, risk: 7 },
+    score: { composite: 77, dividend: 35, growth: 30, quality: 5, risk: 7 },
     financials: [
       { quarter: 'Q1 2026', revenue: 180, netIncome: 22, freeCashFlow: 15, peRatio: 3.4, pbRatio: 0.84, roe: 24.8, debtToEquity: 40.1, revenueGrowthYoY: 8.5 },
       { quarter: 'Q4 2025', revenue: 175, netIncome: 21, freeCashFlow: 14, peRatio: 3.5, pbRatio: 0.85, roe: 24.2, debtToEquity: 39.8, revenueGrowthYoY: 7.2 },
@@ -371,7 +371,7 @@ export const stocks: Stock[] = [
     lastPrice: 1.22,
     priceChange: -4.0,
     dividendYield: 7.62,
-    score: { composite: 53, dividend: 30, growth: 21, quality: 10, risk: 10 },
+    score: { composite: 71, dividend: 30, growth: 21, quality: 10, risk: 10 },
     financials: [
       { quarter: 'Q1 2026', revenue: 120, netIncome: 9, freeCashFlow: 12, peRatio: 7.2, pbRatio: 1.01, roe: 13.9, debtToEquity: 8.4, revenueGrowthYoY: 4.2 },
       { quarter: 'Q4 2025', revenue: 115, netIncome: 8.5, freeCashFlow: 11, peRatio: 7.5, pbRatio: 1.02, roe: 13.5, debtToEquity: 8.5, revenueGrowthYoY: 3.8 },
@@ -394,7 +394,7 @@ export const stocks: Stock[] = [
     lastPrice: 0.80,
     priceChange: -23.0,
     dividendYield: 8.81,
-    score: { composite: 52, dividend: 35, growth: 20, quality: 6, risk: 7 },
+    score: { composite: 68, dividend: 35, growth: 20, quality: 6, risk: 7 },
     financials: [
       { quarter: 'Q1 2026', revenue: 280, netIncome: 14, freeCashFlow: 18, peRatio: 4.5, pbRatio: 0.61, roe: 13.4, debtToEquity: 47.5, revenueGrowthYoY: 6.5 },
       { quarter: 'Q4 2025', revenue: 270, netIncome: 13, freeCashFlow: 17, peRatio: 4.8, pbRatio: 0.63, roe: 12.8, debtToEquity: 48.2, revenueGrowthYoY: 5.2 },
@@ -417,7 +417,7 @@ export const stocks: Stock[] = [
     lastPrice: 0.85,
     priceChange: 1.4,
     dividendYield: 7.99,
-    score: { composite: 66, dividend: 32, growth: 19, quality: 6, risk: 10 },
+    score: { composite: 67, dividend: 32, growth: 19, quality: 6, risk: 10 },
     financials: [
       { quarter: 'Q1 2026', revenue: 32, netIncome: 14, freeCashFlow: 18, peRatio: 6.2, pbRatio: 0.79, roe: 12.9, debtToEquity: 65.1, revenueGrowthYoY: 4.5 },
       { quarter: 'Q4 2025', revenue: 31, netIncome: 13.5, freeCashFlow: 17, peRatio: 6.4, pbRatio: 0.80, roe: 12.5, debtToEquity: 64.8, revenueGrowthYoY: 4.0 },
@@ -441,7 +441,7 @@ export const stocks: Stock[] = [
     lastPrice: 0.38,
     priceChange: 0.0,
     dividendYield: 6.58,
-    score: { composite: 3, dividend: 26, growth: 24, quality: 5, risk: 10 },
+    score: { composite: 65, dividend: 26, growth: 24, quality: 5, risk: 10 },
     financials: [
       { quarter: 'Q1 2026', revenue: 110, netIncome: 8, freeCashFlow: 6, peRatio: 5.8, pbRatio: 0.90, roe: 15.7, debtToEquity: 58.9, revenueGrowthYoY: 8.2 },
       { quarter: 'Q4 2025', revenue: 105, netIncome: 7.5, freeCashFlow: 5.5, peRatio: 6.0, pbRatio: 0.91, roe: 15.2, debtToEquity: 59.5, revenueGrowthYoY: 7.5 },
