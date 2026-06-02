@@ -175,24 +175,38 @@ def build_detailed_rationale(pid, stock_name, stock_info, holding, score_data, f
         risks.append(f"Revenue declining {fin_data['revenue_growth_yoy_pct']:.1f}% YoY")
     sections["Risk Factors"] = " | ".join(risks) if risks else "No significant risk flags identified"
 
-    # ── 6. Action Triggers ──
+    # ── 6. Action Triggers — structured with active state ──
     triggers = []
+    trig_sources = {
+        "ares": "https://github.com/wish4129/ts-sst-divvy/blob/main/scripts/portfolios.json",
+        "demeter": "https://github.com/wish4129/ts-sst-divvy/blob/main/scripts/portfolios.json",
+        "athena": "https://github.com/wish4129/ts-sst-divvy/blob/main/scripts/portfolios.json",
+    }
     for t in ctx["triggers"]:
-        triggers.append(t)
+        triggers.append({"text": t, "active": False, "source_url": trig_sources.get(pid, "")})
+    
+    # Dynamic active triggers
     if pid == "ares" and ksig and ksig.get("pred_change_pct", 0) < -10:
-        triggers.append("⚠️ ACTIVE: Kronos bearish beyond threshold — next run may trigger trim")
+        triggers.append({"text": "⚠️ Kronos bearish beyond threshold — next run may trigger trim", "active": True, "source_url": trig_sources.get(pid, "")})
     if pid == "demeter" and fin_data.get("dividend_yield_pct", 0) < 4:
-        triggers.append("⚠️ MONITOR: Dividend yield approaching 3% floor")
+        triggers.append({"text": "⚠️ Dividend yield approaching 3% floor — monitor", "active": True, "source_url": trig_sources.get(pid, "")})
     if pid == "athena":
-        roe = fin_data.get("roe_pct")
-        if roe:
-            roe_annual = roe * 4 if roe < 15 else roe
         pe = fin_data.get("pe_ratio")
         if pe and pe > 20:
-            triggers.append("⚠️ MONITOR: P/E above GARP threshold — watch for take-profit signal")
-    sections["Action Triggers"] = " | ".join(triggers)
+            triggers.append({"text": "⚠️ P/E above GARP threshold — watch for take-profit signal", "active": True, "source_url": trig_sources.get(pid, "")})
+    sections["Action Triggers"] = triggers
 
-    return sections
+    # ── 7. Source References ──
+    sources = {
+        "Quarterly Financials": "https://finance.yahoo.com/quote/" + code,
+        "Industry Matrix": "https://github.com/wish4129/ts-sst-divvy/blob/main/data/industry_matrix.json",
+        "Macro Signals": "https://github.com/wish4129/ts-sst-divvy/blob/main/data/macro_signals.json",
+        "Kronos Model": "https://huggingface.co/NeoQuasar/Kronos-small",
+        "Portfolio Strategy": trig_sources.get(pid, ""),
+        "Stock Scores": "https://github.com/wish4129/ts-sst-divvy/blob/main/data/stock_scores.json",
+    }
+
+    return {"sections": sections, "sources": sources}
 
 
 def _macro_narrative(adj):
@@ -219,10 +233,11 @@ for pid in ["ares", "demeter", "athena"]:
         fin_data = fin_by_code.get(code, {})
         ksig = kronos.get(name, {})
         
-        sections = build_detailed_rationale(
+        result = build_detailed_rationale(
             pid, name, info, holding, score_data, fin_data, ksig,
             macro.get("signals", {})
         )
+        sections = result["sections"]
         
         cur.execute(
             """INSERT INTO stock_analyses (stock_id, persona, score_composite, score_breakdown,
@@ -230,7 +245,7 @@ for pid in ["ares", "demeter", "athena"]:
                VALUES (%s,%s,%s,%s,%s,%s,%s)""",
             (code, pid, score_data.get("composite"),
              json.dumps(score_data.get("breakdown", {})),
-             json.dumps(sections),
+             json.dumps(result),  # {sections, sources}
              json.dumps(ksig) if ksig else None,
              json.dumps(macro.get("signals", {})))
         )

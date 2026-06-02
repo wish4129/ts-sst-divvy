@@ -1,12 +1,19 @@
 import { useParams, useSearchParams, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { ArrowLeft, Brain, ChevronDown, ChevronRight } from 'lucide-react'
+import { ArrowLeft, Brain, ChevronDown, ChevronRight, ExternalLink, CheckSquare, Square } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import ScoreBadge from '../components/ScoreBadge'
 import SparklineChart from '../components/SparklineChart'
 import { stocks, INDUSTRY_COLORS } from '../data/stocks'
+import type { Stock } from '../data/stocks'
 
 const API_URL = import.meta.env.VITE_API_URL || ''
+
+interface TriggerItem {
+  text: string
+  active: boolean
+  source_url?: string
+}
 
 interface PersonaAnalysis {
   persona: string
@@ -14,40 +21,52 @@ interface PersonaAnalysis {
   industry: string
   score_composite: number
   score_breakdown: Record<string, { value: number | null; raw: number; weighted: number }>
-  rationale: any  // may be object or JSON string
+  rationale: {
+    sections: Record<string, any>  // string or TriggerItem[]
+    sources: Record<string, string>
+  }
   kronos_signal: any
   generated_at: string
 }
 
-// ── Source references for each section ──
-const SECTION_SOURCES: Record<string, string> = {
+// ── Default source labels ──
+const DEFAULT_SOURCES: Record<string, string> = {
   'Strategic Fit': 'Portfolio strategy rules + Kronos forecast',
   'Score Analysis': 'Industry matrix + quarterly financials (yfinance)',
   'Kronos AI 30-Day Forecast': 'Kronos-small model (NeoQuasar/Kronos)',
-  'Macro Context': 'Yahoo Finance (Brent, SOX, KLCI, USD/MYR, S&P 500)',
-  'Risk Factors': 'Quarterly reports + Kronos volatility signals',
+  'Macro Context': 'Yahoo Finance macro signals',
+  'Risk Factors': 'Quarterly reports + Kronos volatility',
   'Action Triggers': 'Persona trading rules (portfolios.json)',
 }
 
 function AnalysisSections({ analysis }: { analysis: PersonaAnalysis }) {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
   
-  // Parse rationale — may be JSON string from DB
-  let rationale: Record<string, string> = {}
+  // Parse — may be JSON string from DB
+  let data: { sections?: Record<string, any>; sources?: Record<string, string> } = {}
   try {
-    rationale = typeof analysis.rationale === 'string' 
+    const raw = typeof analysis.rationale === 'string' 
       ? JSON.parse(analysis.rationale) 
-      : analysis.rationale || {}
-  } catch { rationale = {} }
+      : analysis.rationale
+    data = raw || {}
+  } catch { data = {} }
 
-  if (!Object.keys(rationale).length) return null
+  const sections = data.sections || {}
+  const sources = data.sources || {}
+
+  const sectionKeys = Object.keys(sections)
+  if (!sectionKeys.length) return null
 
   const toggle = (section: string) => setExpanded(prev => ({ ...prev, [section]: !prev[section] }))
 
   return (
     <div className="divide-y divide-emerald-200/50 dark:divide-emerald-800/50">
-      {Object.entries(rationale).map(([section, text], i) => {
-        const isOpen = expanded[section] ?? (i < 2)  // first 2 open by default
+      {sectionKeys.map((section, i) => {
+        const content = sections[section]
+        const isOpen = expanded[section] ?? (i < 2)
+        const sourceUrl = sources[section] || ''
+        const sourceLabel = DEFAULT_SOURCES[section] || ''
+
         return (
           <div key={section}>
             <button
@@ -56,12 +75,48 @@ function AnalysisSections({ analysis }: { analysis: PersonaAnalysis }) {
             >
               {isOpen ? <ChevronDown className="w-4 h-4 text-emerald-500 flex-shrink-0" /> : <ChevronRight className="w-4 h-4 text-emerald-500 flex-shrink-0" />}
               <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide">{section}</span>
-              <span className="text-[10px] text-gray-400 ml-auto hidden sm:inline">{SECTION_SOURCES[section] || ''}</span>
+              <span className="text-[10px] text-gray-400 ml-auto hidden sm:inline">{sourceLabel}</span>
             </button>
             {isOpen && (
               <div className="px-5 pb-4">
-                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{text}</p>
-                <span className="text-[10px] text-gray-400 mt-2 block sm:hidden">Source: {SECTION_SOURCES[section] || 'N/A'}</span>
+                {/* Action Triggers: checkboxes */}
+                {Array.isArray(content) && typeof content[0] === 'object' && 'text' in content[0] ? (
+                  <div className="space-y-2">
+                    {(content as TriggerItem[]).map((t, j) => (
+                      <div key={j} className="flex items-start gap-2">
+                        {t.active 
+                          ? <CheckSquare className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
+                          : <Square className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                        }
+                        <div>
+                          <span className={`text-sm ${t.active ? 'text-emerald-700 dark:text-emerald-400 font-medium' : 'text-gray-600 dark:text-gray-400'}`}>
+                            {t.text}
+                          </span>
+                          {t.source_url && (
+                            <a href={t.source_url} target="_blank" rel="noopener noreferrer"
+                               className="inline-flex items-center gap-1 ml-2 text-[10px] text-emerald-500 hover:text-emerald-600">
+                              <ExternalLink className="w-3 h-3" /> source
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  /* Regular text sections */
+                  <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{String(content)}</p>
+                )}
+                
+                {/* Source link */}
+                <div className="flex items-center gap-1 mt-2 pt-2 border-t border-emerald-100 dark:border-emerald-800/30">
+                  <span className="text-[10px] text-gray-400 sm:hidden">{sourceLabel}</span>
+                  {sourceUrl && (
+                    <a href={sourceUrl} target="_blank" rel="noopener noreferrer"
+                       className="inline-flex items-center gap-1 text-[10px] text-emerald-500 hover:text-emerald-600 ml-auto">
+                      <ExternalLink className="w-3 h-3" /> Reference source
+                    </a>
+                  )}
+                </div>
               </div>
             )}
           </div>
