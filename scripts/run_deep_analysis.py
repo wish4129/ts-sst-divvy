@@ -288,18 +288,23 @@ Malaysian English. Be specific with the numbers provided."""
 # ═══════════════════════════════════════════════════════════════
 
 def main():
-    # Load data
+    # Load stocks from DB
     print("Loading data...", flush=True)
+    from persona_db import get_persona_configs, get_persona_holdings
     stocks_data = parse_stocks_ts()
     print(f"  Parsed {len(stocks_data)} stocks from stocks.ts", flush=True)
     
-    # Load portfolios
-    pf_path = ROOT / "scripts" / "portfolios.json"
-    if pf_path.exists():
-        pf = json.loads(pf_path.read_text())
-    else:
-        pf = {"personas": {"ares": {"holdings": {}}, "demeter": {"holdings": {}}, "athena": {"holdings": {}}},
-              "stocks": {}}
+    # Load persona holdings from DB
+    personas = get_persona_configs()
+    pf = {"personas": {}}
+    for pid in ["ares", "demeter", "athena"]:
+        config = personas.get(pid, {})
+        holdings = get_persona_holdings(pid)
+        pf["personas"][pid] = {
+            "holdings": holdings,
+            "rules": config.get("rules", {}),
+        }
+    pf["stocks"] = {}
     
     # Load macro
     macro_path = ROOT / "data" / "macro_signals.json"

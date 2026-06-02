@@ -26,7 +26,8 @@ except ImportError:
     import yfinance as yf
 
 ROOT = Path(__file__).resolve().parent.parent
-PORTFOLIOS_PATH = ROOT / "scripts" / "portfolios.json"
+sys.path.insert(0, str(ROOT / "scripts"))
+from persona_db import get_all_stocks_dict, TICKER_TO_SHORT, save_persona_holdings
 HISTORY_PATH = ROOT / "web" / "public" / "portfolio_history.json"
 LIVE_PRICES_PATH = ROOT / "data" / "live_prices.json"
 KRONOS_PATH = ROOT / "data" / "kronos_forecast.json"
@@ -64,12 +65,9 @@ KEVIN_USER_ID = _get_kevin_user_id()
 
 def load_portfolios_from_db(db, cur):
     """Load all 3 persona portfolios with holdings from Postgres."""
-    # Build stock_id → short_name map from portfolios.json
-    try:
-        pf = json.loads(PORTFOLIOS_PATH.read_text())
-        code_to_name = {info['code']: sn for sn, info in pf.get('stocks', {}).items()}
-    except Exception:
-        code_to_name = {}
+    # Build stock_id → short_name map from DB
+    all_stocks = get_all_stocks_dict()
+    code_to_name = {info['code']: sn for sn, info in all_stocks.items()}
 
     portfolios = {}
     cur.execute("SELECT * FROM user_portfolios WHERE user_id=%s ORDER BY persona", (KEVIN_USER_ID,))
@@ -102,35 +100,8 @@ def load_portfolios_from_db(db, cur):
 
 
 def load_stock_map(db, cur):
-    """Build {short_name: {code, name, industry, initial}} from DB + portfolios.json fallback."""
-    try:
-        pf = json.loads(PORTFOLIOS_PATH.read_text())
-        pf_stocks = pf.get("stocks", {})
-    except Exception:
-        pf_stocks = {}
-
-    stock_map = {}
-    # Pre-build from portfolios.json first (source of truth for short names)
-    for sn, info in pf_stocks.items():
-        stock_map[sn] = {
-            'code': info['code'],
-            'name': info['name'],
-            'industry': info.get('industry', ''),
-            'initial': info['initial'],
-        }
-    
-    # Enrich with DB data where available
-    cur.execute("SELECT * FROM stocks WHERE status != 'removed'")
-    for row in cur.fetchall():
-        # Find the short name for this code
-        for sn, info in pf_stocks.items():
-            if info.get('code') == row['id']:
-                if sn in stock_map:
-                    stock_map[sn]['industry'] = row['industry'] or stock_map[sn]['industry']
-                    stock_map[sn]['initial'] = float(row['initial_price'])
-                break
-    
-    return stock_map
+    """Build {short_name: {code, name, industry, initial}} from DB."""
+    return get_all_stocks_dict()
 
 
 def save_trade(db, cur, portfolio_id, stock_id, action, shares, price, reason,

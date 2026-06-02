@@ -8,6 +8,10 @@ from pathlib import Path
 from datetime import datetime
 
 ROOT = Path(__file__).resolve().parent.parent
+import sys
+sys.path.insert(0, str(ROOT / "scripts"))
+from persona_db import get_all_stocks_dict
+from persona_db import TICKER_TO_SHORT
 
 # ── Load data sources ──
 matrix = json.loads((ROOT / "data" / "industry_matrix.json").read_text())
@@ -23,10 +27,9 @@ macro_path = ROOT / "data" / "macro_signals.json"
 if macro_path.exists():
     MACRO = json.loads(macro_path.read_text()).get("signals", {})
 
-PORTFOLIOS = json.loads((ROOT / "scripts" / "portfolios.json").read_text())
-
-# Map name → code
-NAME_TO_CODE = {name: info["code"] for name, info in PORTFOLIOS["stocks"].items()}
+# Load stocks from DB
+ALL_STOCKS = get_all_stocks_dict()
+NAME_TO_CODE = {name: info["code"] for name, info in ALL_STOCKS.items()}
 CODE_TO_NAME = {v: k for k, v in NAME_TO_CODE.items()}
 
 

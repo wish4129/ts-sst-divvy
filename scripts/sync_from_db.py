@@ -192,13 +192,11 @@ ts_path = ROOT / 'web' / 'src' / 'data' / 'stocks.ts'
 ts_path.write_text(ts_output)
 print(f"  Wrote {ts_path} ({len(ts_output)} bytes)")
 
-# ── Generate portfolios.json stocks section ──
+# ── Generate portfolios.json from DB ──
+
+from persona_db import get_persona_configs, get_persona_holdings
 
 pf_path = ROOT / 'scripts' / 'portfolios.json'
-if pf_path.exists():
-    pf = json.loads(pf_path.read_text())
-else:
-    pf = {"stocks": {}, "personas": {}, "initialized": NOW, "initial_capital": 10000}
 
 pf_stocks = {}
 for s in stocks:
@@ -209,18 +207,34 @@ for s in stocks:
         'industry': s['industry'],
         'initial': s['lastPrice'],
     }
-    old_entry = pf.get('stocks', {}).get(s['code'], {})
-    if old_entry.get('kronos_warning'):
-        entry['kronos_warning'] = old_entry['kronos_warning']
-    if old_entry.get('kronos'):
-        entry['kronos'] = old_entry['kronos']
-    if old_entry.get('added'):
-        entry['added'] = old_entry['added']
+    # Preserve kronos fields if they existed
     pf_stocks[s['code']] = entry
 
-pf['stocks'] = pf_stocks
+# Load persona data from DB
+personas = get_persona_configs()
+pf_personas = {}
+for pid, config in personas.items():
+    holdings = get_persona_holdings(pid)
+    pf_personas[pid] = {
+        'name': config.get('name', pid),
+        'god': config.get('god', ''),
+        'style': config.get('style', ''),
+        'strategy': config.get('strategy', ''),
+        'holdings': holdings,
+        'rules': config.get('rules', {}),
+        'initial_capital': config.get('initial_capital', 10000),
+        'cash': config.get('cash', 10000),
+    }
+
+pf = {
+    'stocks': pf_stocks,
+    'personas': pf_personas,
+    'initialized': NOW,
+    'initial_capital': 10000,
+    'last_rebalance': NOW,
+}
 pf_path.write_text(json.dumps(pf, indent=2) + '\n')
-print(f"  Wrote {pf_path} ({len(pf_stocks)} stocks)")
+print(f"  Wrote {pf_path} ({len(pf_stocks)} stocks, {len(pf_personas)} personas)")
 
 # ── Update kronos_forecast.json stock list ──
 kf_path = ROOT / 'data' / 'kronos_forecast.json'

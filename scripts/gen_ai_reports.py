@@ -20,12 +20,14 @@ os.environ['DEEPSEEK_API_KEY'] = key
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 from db import get_db, dict_cursor
+from persona_db import get_persona_configs, get_persona_holdings, get_all_stocks_dict
 
 MYT = timezone(timedelta(hours=8))
 
-# Load data
-pf = json.loads((ROOT / "scripts" / "portfolios.json").read_text())
-scores = json.loads((ROOT / "data" / "stock_scores.json").read_text())
+# Load data from DB
+personas = get_persona_configs()
+all_stocks = get_all_stocks_dict()
+scores = json.loads((ROOT / "data" / "stock_scores.json").read_text()) if (ROOT / "data" / "stock_scores.json").exists() else {}
 macro = json.loads((ROOT / "data" / "macro_signals.json").read_text())
 fin = json.loads((ROOT / "data" / "stock_financials.json").read_text())
 kronos = json.loads((ROOT / "data" / "kronos_forecast.json").read_text()) if (ROOT / "data" / "kronos_forecast.json").exists() else {}
@@ -182,10 +184,10 @@ now = datetime.now(MYT)
 total = 0
 
 for pid in ["ares", "demeter", "athena"]:
-    persona = pf["personas"][pid]
-    for name, holding in persona["holdings"].items():
-        info = pf["stocks"].get(name, {})
-        code = info["code"]
+    holdings = get_persona_holdings(pid)
+    for name, holding in holdings.items():
+        info = all_stocks.get(name, {})
+        code = info.get("code", "")
         score_data = score_by_code.get(code, {})
         fin_data = fin_by_code.get(code, {})
         ksig = kronos.get(name, {})

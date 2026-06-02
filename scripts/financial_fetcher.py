@@ -20,15 +20,15 @@ except ImportError:
     import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
-PORTFOLIOS_PATH = ROOT / "scripts" / "portfolios.json"
+sys.path.insert(0, str(ROOT / "scripts"))
+from persona_db import get_stock_list
 OUTPUT_PATH = ROOT / "data" / "stock_financials.json"
 
 MALAYSIA_TZ = timezone(timedelta(hours=8))
 
-# ── Load stocks ──
-pf = json.loads(PORTFOLIOS_PATH.read_text())
-stocks = [(name, info) for name, info in pf["stocks"].items()]
-tickers = [info["code"] for name, info in stocks]
+# ── Load stocks from DB ──
+stocks = get_stock_list()
+tickers = [code for name, code in stocks]
 
 print(f"[{datetime.now(MALAYSIA_TZ).isoformat()}] Fetching financials for {len(stocks)} stocks...")
 
