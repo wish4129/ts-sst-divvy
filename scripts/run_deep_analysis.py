@@ -1,10 +1,19 @@
 #!/usr/bin/env python3
 """Deep Analysis Generator — rerun weekly to update persona rationales.
 
-Reads: portfolios.json, stock_scores.json, macro_signals.json, kronos_forecast.json
+Reads: portfolios.json, stock_scores.json, macro_signals.json, kronos_forecast.json, stocks table
 Writes: stock_analyses table (keeps history — no UNIQUE constraint)
-"""
-import sys, json
+
+Two-phase analysis:
+  1. Portfolio holdings — full rationale with structured sections + AI report
+  2. Watchlist stocks — AI report only (stocks in DB not in any persona portfolio)
+
+AI reports use markdown-based section parsing (## headers) — more reliable than JSON.
+Retries up to 2 times on failure. PYTHONUNBUFFERED=1 recommended for cron runs."""
+import sys
+# Force unbuffered output for cron runs
+sys.stdout.reconfigure(line_buffering=True)
+import json
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
@@ -209,10 +218,21 @@ def build_detailed_rationale(pid, stock_name, stock_info, holding, score_data, f
     return {"sections": sections, "sources": sources}
 
 
-def generate_ai_report(stock_name, stock_info, fin_data, score_data, ksig, macro_signals, persona, pf_stocks):
-    """Call DeepSeek v4 Pro to produce a comprehensive AI analysis report."""
-    import os
+def generate_ai_report(stock_name, stock_info, fin_data, score_data, ksig, macro_signals, persona, pf_stocks, max_retries=2):
+    """Call DeepSeek v4 Pro to produce a comprehensive AI analysis report.
+    
+    Uses markdown-based section parsing (more reliable than JSON). Retries on failure.
+    """
+    import os, re, time
     api_key = os.environ.get("DEEPSEEK_API_KEY", "")
+    if not api_key:
+        # Fallback: read from ~/.hermes/.env
+        env_file = Path.home() / ".hermes" / ".env"
+        if env_file.exists():
+            for line in env_file.read_text().splitlines():
+                if "DEEPSEEK_API_KEY" in line and not line.startswith("#"):
+                    api_key = line.split("=", 1)[1].strip().strip('"').strip("'")
+                    break
     if not api_key:
         return None
     
@@ -241,74 +261,116 @@ def generate_ai_report(stock_name, stock_info, fin_data, score_data, ksig, macro
     score_comp = score_data.get("composite", "N/A")
     score_macro = score_data.get("macro_adjustment", 0)
     
-    prompt = f"""You are a Bursa Malaysia equity analyst. Write a comprehensive analysis report for {stock_name} ({code}), a {industry} company listed on Bursa Malaysia.
+    prompt = f"""You are a Bursa Malaysia analyst for the {persona.upper()} persona ({PERSONA_CONTEXT[persona]['style']}).
 
-**Current Data:**
-- Price: RM{price_now}
-- Market Cap: RM{mcap}M
-- P/E Ratio: {pe}x
-- Dividend Yield: {dy}%
-- ROE (quarterly): {roe}%
-- Debt/Equity: {de}x
-- Revenue Growth YoY: {rev_growth}%
-- Industry Score: {score_comp}/100 (Macro Adj: {score_macro:+})
+Write a concise analysis with EXACTLY these ## markdown headers:
 
-**Kronos AI 30-Day Forecast:**
-- Predicted Change: {kronos_pct}%
-- Predicted Range: RM{kronos_low} – RM{kronos_high}
-- Volatility: {kronos_vol}%
+## Introduction & History
+## Trend Analysis
+## Strengths
+## Weaknesses
+## Summary
+## Target
 
-**Macro Context:**
-{macro_summary}
+STOCK: {stock_name} ({code}) — {industry}
+Price: RM{price_now} | MCap: RM{mcap}M | P/E: {pe}x | DY: {dy}% | ROE: {roe}% | D/E: {de}
+Rev Growth: {rev_growth}% | Score: {score_comp}/100 (Macro Adj: {score_macro:+})
+Kronos 30d: {kronos_pct}% (RM{kronos_low}–RM{kronos_high}, vol {kronos_vol}%)
+Macro: {macro_summary}
 
-**Persona:** {persona.upper()} — {PERSONA_CONTEXT[persona]['style']}
+For Strengths/Weaknesses: use "- " bullet points.
+For Target: include price target (RM), cut loss (RM), timeframe, volatility, hidden risks.
+Use Malaysian English. Be specific with the numbers provided."""
 
-Write the report in these 6 sections. Be concise but thorough. Use Malaysian English (RM, Bursa, etc.):
+    SECTION_MAP = {
+        "introduction": "introduction_history", "history": "introduction_history",
+        "trend": "trend_analysis", "strength": "strengths", "weakness": "weaknesses",
+        "summary": "summary", "target": "target",
+    }
 
-1. **Introduction & History** — Brief background of the company, what it does, market position, key milestones
-2. **Trend Analysis** — Price trend, revenue trend, industry trend, Kronos forecast direction
-3. **Strengths** — Key competitive advantages, financial strengths, macro tailwinds
-4. **Weaknesses** — Risks, competitive threats, financial red flags, macro headwinds
-5. **Summary** — Overall assessment for {persona} persona. Buy/Hold/Sell recommendation with brief rationale.
-6. **Target** — Price target (RM), cut loss point (RM), expected timeframe (weeks/months), volatility assessment, hidden risks to monitor
-
-Return ONLY a JSON object with these exact keys:
-{{"introduction_history": "...", "trend_analysis": "...", "strengths": "...", "weaknesses": "...", "summary": "...", "target": "..."}}"""
-
-    try:
-        import urllib.request
-        req = urllib.request.Request(
-            "https://api.deepseek.com/chat/completions",
-            data=json.dumps({
-                "model": "deepseek-v4-pro",
-                "messages": [{"role": "user", "content": prompt}],
-                "temperature": 0.3,
-                "max_tokens": 2048,
-            }).encode(),
-            headers={
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {api_key}",
-            },
-        )
-        resp = urllib.request.urlopen(req, timeout=60)
-        body = json.loads(resp.read().decode())
-        content = body["choices"][0]["message"]["content"].strip()
-        
-        # Parse JSON from response (may have markdown code blocks)
-        if "```json" in content:
-            content = content.split("```json")[1].split("```")[0].strip()
-        elif "```" in content:
-            content = content.split("```")[1].split("```")[0].strip()
-        
-        report = json.loads(content)
-        required = ["introduction_history", "trend_analysis", "strengths", "weaknesses", "summary", "target"]
-        if all(k in report for k in required):
-            return report
-        print(f"  ⚠ AI report missing keys for {stock_name}")
-        return None
-    except Exception as e:
-        print(f"  ⚠ AI report failed for {stock_name}: {e}")
-        return None
+    for attempt in range(max_retries + 1):
+        try:
+            import urllib.request
+            req = urllib.request.Request(
+                "https://api.deepseek.com/chat/completions",
+                data=json.dumps({
+                    "model": "deepseek-v4-pro",
+                    "messages": [{"role": "user", "content": prompt}],
+                    "temperature": 0.3,
+                    "max_tokens": 4096,
+                }).encode(),
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": f"Bearer {api_key}",
+                },
+            )
+            resp = urllib.request.urlopen(req, timeout=120)
+            body = json.loads(resp.read().decode())
+            content = body["choices"][0]["message"].get("content", "").strip()
+            
+            if not content:
+                if attempt < max_retries:
+                    time.sleep(2)
+                    continue
+                return None
+            
+            # Parse markdown sections
+            blocks = re.split(r'\n(?=##\s)', content)
+            sections = {}
+            for block in blocks:
+                m = re.match(r'##\s+(.+?)(?:\s*\n|$)', block)
+                if not m:
+                    lower = block.lower()
+                    if any(kw in lower for kw in ['introduction', 'history', 'background']):
+                        sections["introduction_history"] = block.strip()
+                    elif 'trend' in lower:
+                        sections["trend_analysis"] = block.strip()
+                    continue
+                header = m.group(1).strip()
+                text = block[m.end():].strip()
+                lower_h = header.lower()
+                for keyword, key in SECTION_MAP.items():
+                    if keyword in lower_h:
+                        sections[key] = text
+                        break
+            
+            required = ["introduction_history", "trend_analysis", "strengths", "weaknesses", "summary"]
+            if all(k in sections for k in required):
+                # Split target into price_target + cut_loss
+                if "target" in sections:
+                    target_text = sections.pop("target")
+                    lines = target_text.split("\n")
+                    pt_lines, cl_lines = [], []
+                    in_cl = False
+                    for line in lines:
+                        low = line.lower()
+                        if any(kw in low for kw in ["cut loss", "stop loss", "cut-loss", "max loss", "risk management"]):
+                            in_cl = True
+                        if in_cl:
+                            cl_lines.append(line)
+                        else:
+                            pt_lines.append(line)
+                    sections["price_target"] = "\n".join(pt_lines).strip() or target_text
+                    sections["cut_loss"] = "\n".join(cl_lines).strip() or ""
+                else:
+                    sections["price_target"] = ""
+                    sections["cut_loss"] = ""
+                
+                return sections
+            
+            if attempt < max_retries:
+                time.sleep(2)
+                continue
+            return None
+            
+        except Exception as e:
+            if attempt < max_retries:
+                time.sleep(2)
+                continue
+            print(f"  ⚠ AI report failed for {stock_name} after {max_retries+1} attempts: {e}", flush=True)
+            return None
+    
+    return None
 
 
 def _macro_narrative(adj):
@@ -325,10 +387,15 @@ cur = dict_cursor(db)
 now = datetime.now(MYT)
 
 generated = 0
+generated_ai = 0
+
+# 1. Portfolio holdings (existing logic)
 for pid in ["ares", "demeter", "athena"]:
     persona = pf["personas"][pid]
     for name, holding in persona["holdings"].items():
         info = pf["stocks"].get(name, {})
+        if not info:
+            continue
         code = info["code"]
         
         score_data = score_by_code.get(code, {})
@@ -339,9 +406,8 @@ for pid in ["ares", "demeter", "athena"]:
             pid, name, info, holding, score_data, fin_data, ksig,
             macro.get("signals", {})
         )
-        sections = result["sections"]
         
-        # Generate AI report via DeepSeek
+        # Generate AI report via DeepSeek (markdown parser, with retries)
         ai_report = generate_ai_report(
             name, info, fin_data, score_data, ksig,
             macro.get("signals", {}), pid, pf["stocks"]
@@ -359,12 +425,58 @@ for pid in ["ares", "demeter", "athena"]:
              json.dumps(ai_report) if ai_report else None,
              "deepseek-v4-pro" if ai_report else None)
         )
+        generated += 1
         if ai_report:
-            print(f"  {pid:8s} {name:10s} ({code}) — +AI report")
+            generated_ai += 1
+            print(f"  {pid:8s} {name:10s} ({code}) — ✓ AI report", flush=True)
         else:
-            print(f"  {pid:8s} {name:10s} ({code}) — {len(sections)} sections")
+            print(f"  {pid:8s} {name:10s} ({code}) — rationale only", flush=True)
+
+# 2. Watchlist stocks (from DB stocks table, excluding portfolio holdings)
+portfolio_codes = set()
+for pid in ["ares", "demeter", "athena"]:
+    for name, holding in pf["personas"][pid]["holdings"].items():
+        info = pf["stocks"].get(name, {})
+        if info.get("code"):
+            portfolio_codes.add(info["code"])
+
+cur.execute("SELECT id, name, industry, initial_price FROM stocks WHERE status != 'removed'")
+watchlist = [(r["id"], r["name"], r.get("industry", ""), float(r.get("initial_price", 0) or 0)) 
+             for r in cur.fetchall() if r["id"] not in portfolio_codes]
+
+if watchlist:
+    print(f"\n── Watchlist ({len(watchlist)} stocks) ──")
+    
+    for code, name, industry, price in watchlist:
+        # Build minimal stock_info and fin_data for watchlist stocks
+        stock_info = {"code": code, "industry": industry}
+        fin_data = fin_by_code.get(code, {})
+        score_data = score_by_code.get(code, {"composite": 50, "breakdown": {}})
+        ksig = kronos.get(name, {})
+        
+        for pid in ["ares", "demeter", "athena"]:
+            ai_report = generate_ai_report(
+                name, stock_info, fin_data, score_data, ksig,
+                macro.get("signals", {}), pid, pf["stocks"]
+            )
+            
+            if ai_report:
+                cur.execute(
+                    """INSERT INTO stock_analyses (stock_id, persona, score_composite, score_breakdown,
+                       decision_rationale, kronos_signal, macro_context, ai_report, ai_model)
+                       VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+                    (code, pid, score_data.get("composite"),
+                     json.dumps(score_data.get("breakdown", {})),
+                     json.dumps({"sections": {}, "sources": {}}),
+                     json.dumps(ksig) if ksig else None,
+                     json.dumps(macro.get("signals", {})),
+                     json.dumps(ai_report), "deepseek-v4-pro")
+                )
+                generated += 1
+                generated_ai += 1
+                print(f"  {pid:8s} {name:20s} ({code}) — ✓ AI report", flush=True)
 
 db.commit()
 cur.close()
 db.close()
-print(f"\n✓ Generated {generated} analyses with {len(sections)} sections each at {now.isoformat()}")
+print(f"\n✓ Generated {generated} analyses ({generated_ai} with AI reports) at {now.isoformat()}")
