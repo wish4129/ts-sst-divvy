@@ -3,29 +3,126 @@
   "initial_capital": 10000,
   "last_rebalance": "2026-06-01T18:30:00+08:00",
   "stocks": {
+    "MAGNI": {
+      "code": "7087.KL",
+      "name": "Magni-Tech Industries Berhad",
+      "industry": "Consumer Products & Services",
+      "initial": 1.86,
+      "kronos": "+10.3%",
+      "added": "2026-06-01"
+    },
+    "MBMR": {
+      "code": "5983.KL",
+      "name": "MBM Resources Berhad",
+      "industry": "Automotive",
+      "initial": 5.07,
+      "kronos": "+1.0%",
+      "added": "2026-06-01"
+    },
+    "SCICOM": {
+      "code": "0099.KL",
+      "name": "Scicom (MSC) Berhad",
+      "industry": "Tech",
+      "initial": 1.74,
+      "kronos_warning": "STRONG BEARISH -25.1% \u2014 revisit Jun 30",
+      "kronos": "-25.1%",
+      "added": "2026-06-02"
+    },
+    "AME": {
+      "code": "5293.KL",
+      "name": "AME Elite Consortium Berhad",
+      "industry": "Construction",
+      "initial": 1.5,
+      "kronos": "+2.0%",
+      "added": "2026-06-01"
+    },
     "MAYBANK": {
       "code": "1155.KL",
-      "name": "Malayan Banking",
+      "name": "Malayan Banking Berhad",
       "industry": "Banking",
       "initial": 9.85
     },
-    "YTLPOWR": {
-      "code": "6742.KL",
-      "name": "YTL Power",
-      "industry": "Utilities",
-      "initial": 3.95
+    "DELEUM": {
+      "code": "5132.KL",
+      "name": "Deleum Berhad",
+      "industry": "Energy",
+      "initial": 1.22,
+      "kronos": "+8.0%",
+      "added": "2026-06-01"
+    },
+    "KLK": {
+      "code": "2445.KL",
+      "name": "KL Kepong",
+      "industry": "Plantation",
+      "initial": 20.5
     },
     "AXREIT": {
       "code": "5106.KL",
-      "name": "Axis REIT",
+      "name": "Axis Real Estate Investment Trust",
       "industry": "REIT",
       "initial": 1.82
     },
-    "INSAS": {
-      "code": "3379.KL",
-      "name": "INSAS Berhad",
-      "industry": "Investment",
-      "initial": 0.89
+    "WASCO": {
+      "code": "5142.KL",
+      "name": "Wasco Berhad",
+      "industry": "Energy",
+      "initial": 0.8,
+      "kronos": "+27.4%",
+      "added": "2026-06-01"
+    },
+    "RHB": {
+      "code": "1066.KL",
+      "name": "RHB Bank Berhad",
+      "industry": "Banking",
+      "initial": 8.21
+    },
+    "MATRIX": {
+      "code": "5236.KL",
+      "name": "Matrix Concepts Holdings Berhad",
+      "industry": "Property",
+      "initial": 1.25
+    },
+    "KIPREIT": {
+      "code": "5280.KL",
+      "name": "KIP Real Estate Investment Trust",
+      "industry": "REIT",
+      "initial": 0.85,
+      "kronos": "+0.1%",
+      "added": "2026-06-01"
+    },
+    "SCIENTEX": {
+      "code": "4731.KL",
+      "name": "Scientex Berhad",
+      "industry": "Packaging",
+      "initial": 4.15
+    },
+    "YTLPOWR": {
+      "code": "6742.KL",
+      "name": "YTL Power International",
+      "industry": "Utilities",
+      "initial": 3.95
+    },
+    "PBBANK": {
+      "code": "1295.KL",
+      "name": "Public Bank Berhad",
+      "industry": "Banking",
+      "initial": 4.71,
+      "kronos": "+1.1%",
+      "added": "2026-06-02"
+    },
+    "INTA": {
+      "code": "INTA.KL",
+      "name": "INTA Berhad",
+      "industry": "Construction",
+      "initial": 0.38,
+      "kronos": "+0.3%",
+      "added": "2026-06-01"
+    },
+    "SIME": {
+      "code": "4197.KL",
+      "name": "Sime Darby",
+      "industry": "Conglomerate",
+      "initial": 2.38
     },
     "LIIHEN": {
       "code": "7089.KL",
@@ -33,11 +130,29 @@
       "industry": "Furniture",
       "initial": 0.95
     },
-    "SCIENTEX": {
-      "code": "4731.KL",
-      "name": "Scientex Berhad",
-      "industry": "Packaging",
-      "initial": 4.15
+    "INSAS": {
+      "code": "3379.KL",
+      "name": "INSAS Berhad",
+      "industry": "Investment",
+      "initial": 0.89
+    },
+    "GAMUDA": {
+      "code": "5398.KL",
+      "name": "Gamuda Berhad",
+      "industry": "Construction",
+      "initial": 4.2
+    },
+    "INARI": {
+      "code": "0166.KL",
+      "name": "Inari Amertron",
+      "industry": "Semiconductor",
+      "initial": 3.05
+    },
+    "PADINI": {
+      "code": "7052.KL",
+      "name": "Padini Holdings Berhad",
+      "industry": "Consumer",
+      "initial": 1.43
     },
     "GENETEC": {
       "code": "0104.KL",
@@ -46,99 +161,14 @@
       "initial": 1.52,
       "kronos_warning": "BEARISH -18.9% \u2014 removed from active, review Jun 15"
     },
-    "KLK": {
-      "code": "2445.KL",
-      "name": "KL Kepong",
-      "industry": "Plantation",
-      "initial": 20.5
-    },
-    "SIME": {
-      "code": "4197.KL",
-      "name": "Sime Darby",
-      "industry": "Conglomerate",
-      "initial": 2.38
-    },
-    "MAGNI": {
-      "code": "7087.KL",
-      "name": "Magni-Tech Industries",
-      "industry": "Consumer Products & Services",
-      "initial": 1.86,
-      "added": "2026-06-01",
-      "kronos": "+10.3%"
-    },
-    "MBMR": {
-      "code": "5983.KL",
-      "name": "MBM Resources",
-      "industry": "Automotive",
-      "initial": 5.07,
-      "added": "2026-06-01",
-      "kronos": "+1.0%"
-    },
-    "AME": {
-      "code": "5293.KL",
-      "name": "AME Elite Consortium",
-      "industry": "Construction",
-      "initial": 1.5,
-      "added": "2026-06-01",
-      "kronos": "+2.0%"
-    },
-    "DELEUM": {
-      "code": "5132.KL",
-      "name": "Deleum Berhad",
-      "industry": "Energy",
-      "initial": 1.22,
-      "added": "2026-06-01",
-      "kronos": "+8.0%"
-    },
-    "WASCO": {
-      "code": "5142.KL",
-      "name": "Wasco Berhad",
-      "industry": "Energy",
-      "initial": 0.8,
-      "added": "2026-06-01",
-      "kronos": "+27.4%"
-    },
-    "KIPREIT": {
-      "code": "5280.KL",
-      "name": "KIP Real Estate Investment Trust",
-      "industry": "REIT",
-      "initial": 0.85,
-      "added": "2026-06-01",
-      "kronos": "+0.1%"
-    },
-    "INTA": {
-      "code": "INTA.KL",
-      "name": "INTA Berhad",
-      "industry": "Construction",
-      "initial": 0.38,
-      "added": "2026-06-01",
-      "kronos": "+0.3%"
-    },
-    "PBBANK": {
-      "code": "1295.KL",
-      "name": "Public Bank Berhad",
-      "industry": "Banking",
-      "initial": 4.71,
-      "added": "2026-06-02",
-      "kronos": "+1.1%"
-    },
     "TIME": {
       "code": "5031.KL",
-      "name": "TIME dotCom",
+      "name": "TIME dotCom Berhad",
       "industry": "Telco",
       "initial": 6.03,
-      "added": "2026-06-02",
+      "kronos_warning": "BEARISH -7.4% \u2014 revisit Jun 30",
       "kronos": "-7.4%",
-      "kronos_warning": "BEARISH -7.4% — revisit Jun 30"
-    },
-    "SCICOM": {
-      "code": "0099.KL",
-      "name": "Scicom (MSC) Berhad",
-      "industry": "Tech",
-      "initial": 1.74,
-      "added": "2026-06-02",
-      "kronos": "-25.1%",
-      "kronos_warning": "STRONG BEARISH -25.1% — revisit Jun 30"
+      "added": "2026-06-02"
     }
   },
   "personas": {

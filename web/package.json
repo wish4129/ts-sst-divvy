@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "../.venv/bin/python3 ../scripts/sync_from_db.py",
     "build": "tsc -b && vite build",
     "preview": "vite preview"
   },

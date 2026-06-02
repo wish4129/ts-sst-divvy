@@ -20,11 +20,17 @@ print(f"  Model loaded in {time.time()-t0:.1f}s", flush=True)
 
 predictor = KronosPredictor(model, tokenizer, device="cpu", max_context=512)
 
-# --- Read stocks from portfolios.json to stay in sync ---
-with open("scripts/portfolios.json") as f:
-    pf = json.load(f)
-stocks = [(name, info["code"]) for name, info in pf["stocks"].items()]
-print(f"Forecasting {len(stocks)} stocks from portfolios.json\n")
+# --- Read stocks from DB (source of truth) ---
+sys.path.insert(0, str(ROOT / "scripts"))
+from db import get_db, dict_cursor
+
+db = get_db()
+cur = dict_cursor(db)
+cur.execute("SELECT name, id FROM stocks WHERE status != 'removed' ORDER BY name")
+stocks = [(r['name'], r['id']) for r in cur.fetchall()]
+cur.close()
+db.close()
+print(f"Forecasting {len(stocks)} stocks from DB")
 
 LOOKBACK = 200  # trading days of context
 PRED_LEN = 30   # trading days to predict (~6 weeks)
