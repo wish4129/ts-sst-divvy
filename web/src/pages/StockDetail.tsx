@@ -10,10 +10,13 @@ const API_URL = import.meta.env.VITE_API_URL || ''
 
 interface PersonaAnalysis {
   persona: string
-  decision_rationale: string
+  stock_name: string
+  industry: string
   score_composite: number
   score_breakdown: Record<string, { value: number | null; raw: number; weighted: number }>
+  rationale: Record<string, string>  // 6 sections
   kronos_signal: any
+  generated_at: string
 }
 
 export default function StockDetail() {
@@ -75,26 +78,43 @@ export default function StockDetail() {
         {/* Persona Analysis Banner */}
         {analysis && (
           <div className="mb-6 p-5 rounded-xl border-2 border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 dark:border-emerald-500/20">
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-4">
               <Brain className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-              <h2 className="font-bold text-emerald-800 dark:text-emerald-300 capitalize">{persona}'s Analysis</h2>
+              <h2 className="font-bold text-emerald-800 dark:text-emerald-300 capitalize">{analysis.persona}'s Deep Analysis</h2>
               <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300">
                 Score {analysis.score_composite}/100
               </span>
+              <span className="text-xs text-gray-400 ml-auto">{analysis.generated_at ? new Date(analysis.generated_at).toLocaleDateString() : ''}</span>
             </div>
-            <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{analysis.decision_rationale}</p>
-            
-            {/* Factor breakdown */}
-            {analysis.score_breakdown && (
-              <div className="mt-3 grid grid-cols-2 gap-2">
-                {Object.entries(analysis.score_breakdown).map(([factor, b]: [string, any]) => (
-                  <div key={factor} className="flex items-center justify-between text-xs">
-                    <span className="text-gray-500 capitalize">{factor.replace(/_/g, ' ')}</span>
-                    <span className="font-mono text-gray-700 dark:text-gray-300">
-                      {b.weighted?.toFixed(1) || '—'}
-                    </span>
+
+            {/* 6-section rationale */}
+            {analysis.rationale && typeof analysis.rationale === 'object' ? (
+              <div className="space-y-3">
+                {Object.entries(analysis.rationale).map(([section, text]) => (
+                  <div key={section}>
+                    <h3 className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide mb-1">{section}</h3>
+                    <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{text as string}</p>
                   </div>
                 ))}
+              </div>
+            ) : (
+              <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{analysis.rationale as any}</p>
+            )}
+
+            {/* Factor breakdown */}
+            {analysis.score_breakdown && (
+              <div className="mt-4 pt-3 border-t border-emerald-200 dark:border-emerald-800">
+                <h3 className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide mb-2">Factor Score Breakdown</h3>
+                <div className="grid grid-cols-2 gap-2">
+                  {Object.entries(analysis.score_breakdown).map(([factor, b]: [string, any]) => (
+                    <div key={factor} className="flex items-center justify-between text-xs">
+                      <span className="text-gray-500 capitalize">{factor.replace(/_/g, ' ')}</span>
+                      <span className="font-mono text-gray-700 dark:text-gray-300">
+                        {b.weighted?.toFixed(1) || '—'}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
