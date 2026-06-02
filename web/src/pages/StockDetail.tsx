@@ -1,6 +1,6 @@
 import { useParams, useSearchParams, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { ArrowLeft, Brain, TrendingUp } from 'lucide-react'
+import { ArrowLeft, Brain, ChevronDown, ChevronRight } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import ScoreBadge from '../components/ScoreBadge'
 import SparklineChart from '../components/SparklineChart'
@@ -14,10 +14,63 @@ interface PersonaAnalysis {
   industry: string
   score_composite: number
   score_breakdown: Record<string, { value: number | null; raw: number; weighted: number }>
-  rationale: Record<string, string>  // 6 sections
+  rationale: any  // may be object or JSON string
   kronos_signal: any
   generated_at: string
 }
+
+// ── Source references for each section ──
+const SECTION_SOURCES: Record<string, string> = {
+  'Strategic Fit': 'Portfolio strategy rules + Kronos forecast',
+  'Score Analysis': 'Industry matrix + quarterly financials (yfinance)',
+  'Kronos AI 30-Day Forecast': 'Kronos-small model (NeoQuasar/Kronos)',
+  'Macro Context': 'Yahoo Finance (Brent, SOX, KLCI, USD/MYR, S&P 500)',
+  'Risk Factors': 'Quarterly reports + Kronos volatility signals',
+  'Action Triggers': 'Persona trading rules (portfolios.json)',
+}
+
+function AnalysisSections({ analysis }: { analysis: PersonaAnalysis }) {
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({})
+  
+  // Parse rationale — may be JSON string from DB
+  let rationale: Record<string, string> = {}
+  try {
+    rationale = typeof analysis.rationale === 'string' 
+      ? JSON.parse(analysis.rationale) 
+      : analysis.rationale || {}
+  } catch { rationale = {} }
+
+  if (!Object.keys(rationale).length) return null
+
+  const toggle = (section: string) => setExpanded(prev => ({ ...prev, [section]: !prev[section] }))
+
+  return (
+    <div className="divide-y divide-emerald-200/50 dark:divide-emerald-800/50">
+      {Object.entries(rationale).map(([section, text], i) => {
+        const isOpen = expanded[section] ?? (i < 2)  // first 2 open by default
+        return (
+          <div key={section}>
+            <button
+              onClick={() => toggle(section)}
+              className="w-full flex items-center gap-2 px-5 py-3 text-left hover:bg-emerald-100/30 dark:hover:bg-emerald-900/20 transition-colors"
+            >
+              {isOpen ? <ChevronDown className="w-4 h-4 text-emerald-500 flex-shrink-0" /> : <ChevronRight className="w-4 h-4 text-emerald-500 flex-shrink-0" />}
+              <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide">{section}</span>
+              <span className="text-[10px] text-gray-400 ml-auto hidden sm:inline">{SECTION_SOURCES[section] || ''}</span>
+            </button>
+            {isOpen && (
+              <div className="px-5 pb-4">
+                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{text}</p>
+                <span className="text-[10px] text-gray-400 mt-2 block sm:hidden">Source: {SECTION_SOURCES[section] || 'N/A'}</span>
+              </div>
+            )}
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 
 export default function StockDetail() {
   const { code } = useParams<{ code: string }>()
@@ -26,11 +79,7 @@ export default function StockDetail() {
   const [analysis, setAnalysis] = useState<PersonaAnalysis | null>(null)
 
   // Look up by short code (WASCO) or ticker code (5142.KL)
-  const stock = stocks.find((s) => 
-    s.code === code?.toUpperCase() || code === s.code || 
-    stocks.some(x => x.code === code?.toUpperCase())
-  ) || stocks.find((s) => {
-    // Ticker → short code mapping from portfolios
+  const stock = stocks.find((s) => {
     const tickerMap: Record<string, string> = {
       '1155.KL': 'MAYBANK', '6742.KL': 'YTLPOWR', '5106.KL': 'AXREIT',
       '3379.KL': 'INSAS', '7089.KL': 'LIIHEN', '4731.KL': 'SCIENTEX',
@@ -40,7 +89,7 @@ export default function StockDetail() {
       '5280.KL': 'KIPREIT', 'INTA.KL': 'INTA',
     }
     const shortCode = tickerMap[code || '']
-    return shortCode ? s.code === shortCode : false
+    return s.code === code?.toUpperCase() || (shortCode ? s.code === shortCode : false)
   })
 
   useEffect(() => {
@@ -77,39 +126,34 @@ export default function StockDetail() {
 
         {/* Persona Analysis Banner */}
         {analysis && (
-          <div className="mb-6 p-5 rounded-xl border-2 border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 dark:border-emerald-500/20">
-            <div className="flex items-center gap-2 mb-4">
-              <Brain className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-              <h2 className="font-bold text-emerald-800 dark:text-emerald-300 capitalize">{analysis.persona}'s Deep Analysis</h2>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300">
-                Score {analysis.score_composite}/100
-              </span>
-              <span className="text-xs text-gray-400 ml-auto">{analysis.generated_at ? new Date(analysis.generated_at).toLocaleDateString() : ''}</span>
+          <div className="mb-6 rounded-xl border-2 border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 dark:border-emerald-500/20 overflow-hidden">
+            <div className="p-5 border-b border-emerald-200 dark:border-emerald-800">
+              <div className="flex items-center gap-2">
+                <Brain className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                <h2 className="font-bold text-emerald-800 dark:text-emerald-300 capitalize">{analysis.persona}'s Deep Analysis</h2>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300">
+                  Score {analysis.score_composite}/100
+                </span>
+                <span className="text-xs text-gray-400 ml-auto">
+                  {analysis.generated_at ? new Date(analysis.generated_at).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' }) : ''}
+                </span>
+              </div>
             </div>
 
-            {/* 6-section rationale */}
-            {analysis.rationale && typeof analysis.rationale === 'object' ? (
-              <div className="space-y-3">
-                {Object.entries(analysis.rationale).map(([section, text]) => (
-                  <div key={section}>
-                    <h3 className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide mb-1">{section}</h3>
-                    <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{text as string}</p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{analysis.rationale as any}</p>
-            )}
+            <AnalysisSections analysis={analysis} />
 
             {/* Factor breakdown */}
             {analysis.score_breakdown && (
-              <div className="mt-4 pt-3 border-t border-emerald-200 dark:border-emerald-800">
-                <h3 className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide mb-2">Factor Score Breakdown</h3>
-                <div className="grid grid-cols-2 gap-2">
+              <div className="p-5 border-t border-emerald-200 dark:border-emerald-800">
+                <h3 className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide mb-2">
+                  Factor Score Breakdown
+                  <span className="text-[10px] text-gray-400 ml-2 font-normal normal-case">Source: Quarterly financials (yfinance)</span>
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {Object.entries(analysis.score_breakdown).map(([factor, b]: [string, any]) => (
-                    <div key={factor} className="flex items-center justify-between text-xs">
-                      <span className="text-gray-500 capitalize">{factor.replace(/_/g, ' ')}</span>
-                      <span className="font-mono text-gray-700 dark:text-gray-300">
+                    <div key={factor} className="flex items-center justify-between text-xs bg-white/50 dark:bg-black/20 rounded px-2 py-1">
+                      <span className="text-gray-500 capitalize truncate mr-2">{factor.replace(/_/g, ' ')}</span>
+                      <span className="font-mono text-gray-700 dark:text-gray-300 flex-shrink-0">
                         {b.weighted?.toFixed(1) || '—'}
                       </span>
                     </div>
@@ -149,10 +193,8 @@ export default function StockDetail() {
               <div key={factor.label} className="flex items-center gap-3 mb-2">
                 <span className="text-xs text-gray-500 w-16">{factor.label}</span>
                 <div className="flex-1 h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-                  <div
-                    className={`h-full ${factor.color} rounded-full transition-all`}
-                    style={{ width: `${(factor.value / factor.max) * 100}%` }}
-                  />
+                  <div className={`h-full ${factor.color} rounded-full transition-all`}
+                    style={{ width: `${(factor.value / factor.max) * 100}%` }} />
                 </div>
                 <span className="text-xs font-medium text-gray-600 dark:text-gray-400 w-8 text-right">
                   {factor.value}/{factor.max}
@@ -216,14 +258,12 @@ export default function StockDetail() {
               <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
               <XAxis dataKey="date" tick={{ fontSize: 11 }} className="text-gray-500" />
               <YAxis tick={{ fontSize: 11 }} className="text-gray-500" />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: 'var(--tooltip-bg, #fff)',
-                  border: '1px solid #e5e7eb',
-                  borderRadius: '8px',
-                  fontSize: '12px',
-                }}
-              />
+              <Tooltip contentStyle={{
+                backgroundColor: 'var(--tooltip-bg, #fff)',
+                border: '1px solid #e5e7eb',
+                borderRadius: '8px',
+                fontSize: '12px',
+              }} />
               <Bar dataKey="amount" fill="#059669" radius={[4, 4, 0, 0]} name="DPS (RM)" />
             </BarChart>
           </ResponsiveContainer>
