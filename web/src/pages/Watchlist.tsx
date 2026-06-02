@@ -14,7 +14,7 @@ export default function Watchlist() {
     []
   )
   const revisit = useMemo(() =>
-    stocks.filter((s) => s.status === 'revisit').sort((a, b) => (a.revisitAt || '').localeCompare(b.revisitAt || '')),
+    stocks.filter((s) => s.status === 'revisit').sort((a, b) => b.score.composite - a.score.composite),
     []
   )
   const removed = useMemo(() =>
@@ -54,6 +54,7 @@ export default function Watchlist() {
       'SIME': '4197.KL', 'MAGNI': '7087.KL', 'MBMR': '5983.KL',
       'AME': '5293.KL', 'DELEUM': '5132.KL', 'WASCO': '5142.KL',
       'KIPREIT': '5280.KL', 'INTA': 'INTA.KL',
+      'RHB': '1066.KL', 'PADINI': '7052.KL',
     }
 
     return (
