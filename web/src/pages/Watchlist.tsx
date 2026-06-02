@@ -25,6 +25,7 @@ const TICKER_MAP: Record<string, string> = {
   'AME': '5293.KL', 'DELEUM': '5132.KL', 'WASCO': '5142.KL',
   'KIPREIT': '5280.KL', 'INTA': 'INTA.KL',
   'RHB': '1066.KL', 'PADINI': '7052.KL',
+  'GAMUDA': '5398.KL', 'MATRIX': '5236.KL',
 }
 
 export default function Watchlist() {

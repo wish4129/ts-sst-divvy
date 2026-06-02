@@ -510,6 +510,52 @@ export const stocks: Stock[] = [
     notes: 'Apparel retailer. P/E 17.9x, DY 5.03%. Flat revenue, declining EPS. Strong FCF. Consumer spending recovery play.',
     sparkline: [1.44, 1.43, 1.42, 1.44, 1.43, 1.42, 1.43, 1.44, 1.43, 1.42, 1.43, 1.44, 1.43, 1.42, 1.43, 1.44, 1.43, 1.42, 1.43, 1.44, 1.43, 1.42, 1.43, 1.44, 1.43, 1.42, 1.43, 1.44, 1.43, 1.43],
   },
+  {
+    code: 'GAMUDA',
+    name: 'Gamuda Berhad',
+    industry: 'Construction',
+    marketCap: 25.0,
+    lastPrice: 4.20,
+    priceChange: 0.0,
+    dividendYield: 2.5,
+    score: { composite: 58, dividend: 10, growth: 20, quality: 12, risk: 16 },
+    financials: [
+      { quarter: 'Q1 2026', revenue: 2800, netIncome: 210, freeCashFlow: -2178, peRatio: 24.7, pbRatio: 1.8, roe: 8.4, debtToEquity: 92.7, revenueGrowthYoY: 10.2 },
+      { quarter: 'Q4 2025', revenue: 2650, netIncome: 195, freeCashFlow: -1900, peRatio: 25.1, pbRatio: 1.9, roe: 8.1, debtToEquity: 95.0, revenueGrowthYoY: 8.5 },
+    ],
+    dividends: [
+      { exDate: '2026-01-15', amount: 0.06, yield: 2.8 },
+      { exDate: '2025-07-10', amount: 0.05, yield: 2.4 },
+    ],
+    status: 'revisit',
+    addedAt: '2026-06-02',
+    revisitAt: null,
+    notes: 'Construction giant — MRT, highways, dams. P/E 24.7x, ROE 8.4%. Heavy capex cycle (FCF negative). Infrastructure play.',
+    sparkline: [4.18, 4.20, 4.19, 4.21, 4.22, 4.20, 4.19, 4.21, 4.22, 4.20, 4.19, 4.21, 4.22, 4.20, 4.19, 4.21, 4.22, 4.20, 4.19, 4.21, 4.22, 4.20, 4.19, 4.21, 4.22, 4.20, 4.19, 4.21, 4.20, 4.20],
+  },
+  {
+    code: 'MATRIX',
+    name: 'Matrix Concepts Holdings Berhad',
+    industry: 'Property',
+    marketCap: 2.35,
+    lastPrice: 1.25,
+    priceChange: 0.0,
+    dividendYield: 4.5,
+    score: { composite: 68, dividend: 18, growth: 28, quality: 14, risk: 8 },
+    financials: [
+      { quarter: 'Q1 2026', revenue: 320, netIncome: 62, freeCashFlow: -95, peRatio: 10.4, pbRatio: 0.85, roe: 10.0, debtToEquity: 26.6, revenueGrowthYoY: 31.8 },
+      { quarter: 'Q4 2025', revenue: 280, netIncome: 55, freeCashFlow: -80, peRatio: 10.8, pbRatio: 0.88, roe: 9.5, debtToEquity: 27.0, revenueGrowthYoY: 28.5 },
+    ],
+    dividends: [
+      { exDate: '2026-03-20', amount: 0.03, yield: 4.8 },
+      { exDate: '2025-09-15', amount: 0.028, yield: 4.5 },
+    ],
+    status: 'revisit',
+    addedAt: '2026-06-02',
+    revisitAt: null,
+    notes: 'Negeri Sembilan township developer. P/E 10.4x, DY 4.5%, rev growth 31.8%. Strong growth at value price.',
+    sparkline: [1.26, 1.25, 1.24, 1.26, 1.25, 1.24, 1.25, 1.26, 1.25, 1.24, 1.25, 1.26, 1.25, 1.24, 1.25, 1.26, 1.25, 1.24, 1.25, 1.26, 1.25, 1.24, 1.25, 1.26, 1.25, 1.24, 1.25, 1.26, 1.25, 1.25],
+  },
 ]
 
 export const INDUSTRY_COLORS: Record<string, string> = {
@@ -532,4 +578,5 @@ export const INDUSTRY_COLORS: Record<string, string> = {
   Investment: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200',
   Semiconductor: 'bg-violet-100 text-violet-800 dark:bg-violet-900 dark:text-violet-200',
   Conglomerate: 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200',
+  Property: 'bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-200',
 }

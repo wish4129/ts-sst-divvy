@@ -237,6 +237,7 @@ export default function StockDetail() {
       '5293.KL': 'AME', '5132.KL': 'DELEUM', '5142.KL': 'WASCO',
       '5280.KL': 'KIPREIT', 'INTA.KL': 'INTA',
       '1066.KL': 'RHB', '7052.KL': 'PADINI',
+      '5398.KL': 'GAMUDA', '5236.KL': 'MATRIX',
     }
     const shortCode = tickerMap[code || '']
     return s.code === code?.toUpperCase() || (shortCode ? s.code === shortCode : false)
