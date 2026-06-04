@@ -37,8 +37,14 @@ def main():
     HISTORY_DST.parent.mkdir(parents=True, exist_ok=True)
     if HISTORY_SRC.exists():
         shutil.copy2(HISTORY_SRC, HISTORY_DST)
-        runs = len(json.loads(HISTORY_SRC.read_text()).get("runs", []))
-        print(f"  ✓ Copied {runs} runs to {HISTORY_DST}")
+        history = json.loads(HISTORY_SRC.read_text())
+        if isinstance(history, list):
+            print(f"  ✓ Copied {len(history)} snapshots to {HISTORY_DST}")
+        elif isinstance(history, dict):
+            runs = len(history.get("runs", []))
+            print(f"  ✓ Copied {runs} runs to {HISTORY_DST}")
+        else:
+            print(f"  ✓ Copied to {HISTORY_DST}")
     else:
         print(f"  ⚠ No history found at {HISTORY_SRC}")
 

@@ -1,7 +1,7 @@
 """Industry-specific stock scorer v2 — real data from financial_fetcher + macro_fetcher.
 
 Reads: data/stock_financials.json, data/macro_signals.json, data/industry_matrix.json
-Writes: data/stock_scores.json
+Writes: stock_analyses DB table (score_composite for each stock×persona)
 """
 import json
 from pathlib import Path
@@ -10,10 +10,11 @@ from datetime import datetime
 ROOT = Path(__file__).resolve().parent.parent
 import sys
 sys.path.insert(0, str(ROOT / "scripts"))
+from db import get_db
 from persona_db import get_all_stocks_dict
 from persona_db import TICKER_TO_SHORT
 
-# ── Load data sources ──
+# ── Load external data sources (API-fetched, not DB-replicable) ──
 matrix = json.loads((ROOT / "data" / "industry_matrix.json").read_text())
 FINANCIALS = {}
 fin_path = ROOT / "data" / "stock_financials.json"
@@ -254,14 +255,23 @@ for r in results:
     name = CODE_TO_NAME.get(r["code"], r["code"])
     print(f"{name:10s} {r['industry']:20s} {r['composite']:6.1f} {old:6d} {m:>6s} {d:>6s}")
 
-# Save
-output = {
-    "date": datetime.now().strftime("%Y-%m-%d"),
-    "macro_date": MACRO.get("date") if MACRO else None,
-    "scores": results,
-}
-(ROOT / "data" / "stock_scores.json").write_text(json.dumps(output, indent=2))
-print(f"\n✓ Saved to data/stock_scores.json — {len(results)} stocks")
+# Save to stock_analyses DB table (all 3 personas get same composite score)
+db = get_db()
+cur = db.cursor()
+inserted = 0
+PERSONAS = ['ares', 'demeter', 'athena']
+for r in results:
+    for pid in PERSONAS:
+        cur.execute("""
+            INSERT INTO stock_analyses (stock_id, persona, score_composite)
+            VALUES (%s, %s, %s)
+            ON CONFLICT DO NOTHING
+        """, (r['code'], pid, r['composite']))
+        inserted += cur.rowcount
+db.commit()
+cur.close()
+db.close()
+print(f"\n✓ Wrote {inserted} scores to stock_analyses DB table — {len(results)} stocks × 3 personas")
 
 # Top 5 breakdown
 print(f"\n{'─'*50}")

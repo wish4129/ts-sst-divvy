@@ -24,15 +24,26 @@ from persona_db import get_persona_configs, get_persona_holdings, get_all_stocks
 
 MYT = timezone(timedelta(hours=8))
 
-# Load data from DB
+# Load data from DB + external JSON
 personas = get_persona_configs()
 all_stocks = get_all_stocks_dict()
-scores = json.loads((ROOT / "data" / "stock_scores.json").read_text()) if (ROOT / "data" / "stock_scores.json").exists() else {}
+
+# Scores from DB (stock_analyses) — single source of truth
+db = get_db()
+cur = db.cursor()
+cur.execute("""
+    SELECT stock_id, MAX(score_composite) as score
+    FROM stock_analyses GROUP BY stock_id
+""")
+score_by_code = {r[0]: {"composite": int(r[1]) if r[1] else 0, "macro_adjustment": 0} for r in cur.fetchall()}
+cur.close()
+db.close()
+
+# External data (kept as JSON — fetched from APIs, not DB-replicable)
 macro = json.loads((ROOT / "data" / "macro_signals.json").read_text())
 fin = json.loads((ROOT / "data" / "stock_financials.json").read_text())
 kronos = json.loads((ROOT / "data" / "kronos_forecast.json").read_text()) if (ROOT / "data" / "kronos_forecast.json").exists() else {}
 
-score_by_code = {s["code"]: s for s in scores["scores"]}
 fin_by_code = {}
 for name, data in fin.get("stocks", {}).items():
     if "error" not in data:

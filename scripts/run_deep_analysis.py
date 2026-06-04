@@ -2,12 +2,9 @@
 """Deep Analysis Generator — generates AI reports for all stocks.
 
 Data sources:
-  - stocks.ts          → financial data + scores (single source of truth, curated)
-  - portfolios.json    → persona holdings for Phase 1 portfolio analysis
-  - macro_signals.json → macro context (independently maintained)
-  - stocks table (DB)  → stock registry for Phase 2 watchlist
-
-NO yfinance dependency. All stock data comes from our curated stocks.ts file.
+  - stocks table (DB)  → stock registry + scores from stock_analyses
+  - persona_config + persona_holdings (DB) → portfolio data
+  - macro_signals.json → macro context (external API, independently maintained)
 
 Writes: stock_analyses table (keeps history — no UNIQUE constraint).
 
@@ -56,79 +53,46 @@ PERSONAS = {
 
 
 # ═══════════════════════════════════════════════════════════════
-# Parse stocks.ts — our single source of truth for financial data
+# Stock data from DB — single source of truth
 # ═══════════════════════════════════════════════════════════════
 
-# Map short codes (MAYBANK) → ticker codes (1155.KL)
-SHORT_TO_TICKER = {
-    'MAYBANK': '1155.KL', 'AXREIT': '5106.KL', 'YTLPOWR': '6742.KL',
-    'INSAS': '3379.KL', 'LIIHEN': '7089.KL', 'SCIENTEX': '4731.KL',
-    'GENETEC': '0104.KL', 'KLK': '2445.KL', 'INARI': '0166.KL',
-    'SIME': '4197.KL', 'MAGNI': '7087.KL', 'MBMR': '5983.KL',
-    'AME': '5293.KL', 'DELEUM': '5132.KL', 'WASCO': '5142.KL',
-    'KIPREIT': '5280.KL', 'INTA': 'INTA.KL',
-    'RHB': '1066.KL', 'PADINI': '7052.KL',
-    'GAMUDA': '5398.KL', 'MATRIX': '5236.KL',
-    'PBBANK': '1295.KL', 'TIME': '5031.KL', 'SCICOM': '0099.KL',
-    'SEM': '5250.KL',
-}
+def get_stocks_from_db(db_conn=None) -> dict:
+    """Read stock registry + scores from DB tables.
 
-
-def parse_stocks_ts() -> dict:
-    """Parse web/src/data/stocks.ts into a dict keyed by ticker code.
-    
-    Returns: { '1155.KL': { name, industry, price, pe, dy, roe, de,
-                             rev_growth, eps_growth, beta, fcf, high52, low52,
-                             score_composite, score_subs } }
+    Returns: { '1155.KL': { code, name, industry, score_composite, ... } }
+    All financial fields (pe, dy, roe, de, etc.) are zero-filled since
+    they come from external data (financial_fetcher.py / yfinance).
     """
-    ts_path = ROOT / "web" / "src" / "data" / "stocks.ts"
-    content = ts_path.read_text()
-    
-    # Split by stock blocks (each starts with "code:" at line start)
-    # Skip the type definitions + array opening before the first stock block
-    blocks = re.split(r"\n  \{\s*\n\s*code:", content)
-    if len(blocks) > 1:
-        blocks = ["code:" + b for b in blocks[1:]]  # reattach "code:" prefix
-    
-    # Simple per-field regex for each block (no cross-block .*? backtracking)
-    field_patterns = {
-        "short_code": r"code:\s*'(\w+)'",
-        "name": r"name:\s*'([^']+)'",
-        "industry": r"industry:\s*'([^']+)'",
-        "price": r"lastPrice:\s*([\d.]+)",
-        "dy": r"dividendYield:\s*([\d.]+)",
-        "score_composite": r"score:\s*\{\s*composite:\s*(\d+)",
-        "pe": r"peRatio:\s*([\d.-]+)",
-        "roe": r"roe:\s*([\d.-]+)",
-        "de": r"debtToEquity:\s*([\d.-]+)",
-        "rev_growth": r"revenueGrowthYoY:\s*([\d.-]+)",
-    }
-    
+    close_db = db_conn is None
+    if close_db:
+        db_conn = get_db()
+    cur = db_conn.cursor()
+
+    cur.execute("""
+        SELECT s.id, s.name, s.industry,
+               COALESCE(sa.max_score, 0) as score_composite
+        FROM stocks s
+        LEFT JOIN LATERAL (
+            SELECT MAX(score_composite) as max_score FROM stock_analyses
+            WHERE stock_id = s.id
+        ) sa ON true
+        WHERE s.status != 'removed'
+    """)
+
     result = {}
-    for block in blocks:
-        fields = {}
-        for key, pat in field_patterns.items():
-            m = re.search(pat, block)
-            if m:
-                fields[key] = m.group(1)
-        
-        if "short_code" not in fields:
-            continue
-        
-        short_code = fields["short_code"]
-        ticker = SHORT_TO_TICKER.get(short_code, short_code + '.KL')
-        
+    for r in cur.fetchall():
+        ticker = r[0]
         result[ticker] = {
             "code": ticker,
-            "name": fields.get("name", short_code),
-            "industry": fields.get("industry", ""),
-            "price": _float(fields.get("price"), 0),
-            "dy": _float(fields.get("dy"), 0),
-            "score_composite": int(fields.get("score_composite", 0)),
-            "pe": _float(fields.get("pe"), 0),
-            "roe": _float(fields.get("roe"), 0),
-            "de": _float(fields.get("de"), 0),
-            "rev_growth": _float(fields.get("rev_growth"), 0),
+            "name": r[1],
+            "industry": r[2] or "",
+            "price": 0,
+            "dy": 0,
+            "score_composite": int(r[3]) if r[3] else 0,
+            "pe": 0,
+            "roe": 0,
+            "de": 0,
+            "rev_growth": 0,
             "eps_growth": 0.0,
             "beta": 0.5,
             "fcf": 0,
@@ -136,15 +100,11 @@ def parse_stocks_ts() -> dict:
             "low52": 0.0,
             "mcap": 0.0,
         }
-    
+
+    cur.close()
+    if close_db:
+        db_conn.close()
     return result
-
-
-def _float(val, default=0.0) -> float:
-    try:
-        return float(val)
-    except (TypeError, ValueError):
-        return default
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -313,8 +273,8 @@ def main():
     # Load stocks from DB
     print("Loading data...", flush=True)
     from persona_db import get_persona_configs, get_persona_holdings
-    stocks_data = parse_stocks_ts()
-    print(f"  Parsed {len(stocks_data)} stocks from stocks.ts", flush=True)
+    stocks_data = get_stocks_from_db()
+    print(f"  Loaded {len(stocks_data)} stocks from DB (stock_analyses)", flush=True)
     
     # Load persona holdings from DB
     personas = get_persona_configs()
@@ -364,7 +324,7 @@ def main():
             
             sd = stocks_data.get(code)
             if not sd:
-                print(f"  {pid:8s} {name:20s} ({code}) — no data in stocks.ts, skipping", flush=True)
+                print(f"  {pid:8s} {name:20s} ({code}) — no data in DB, skipping", flush=True)
                 continue
             
             ai_report = generate_ai_report(sd, macro_str, pid)
@@ -398,7 +358,7 @@ def main():
         for code, name, industry in watchlist:
             sd = stocks_data.get(code)
             if not sd:
-                print(f"  {name:30s} ({code}) — no data in stocks.ts, skipping", flush=True)
+                print(f"  {name:30s} ({code}) — no data in DB, skipping", flush=True)
                 continue
             
             for pid in ["ares", "demeter", "athena"]:
