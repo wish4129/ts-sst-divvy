@@ -1,10 +1,10 @@
 {
-  "date": "2026-06-02",
+  "date": "2026-06-04",
   "macro_date": null,
   "scores": [
     {
       "code": "5293.KL",
-      "name": "AME Elite Consortium",
+      "name": "AME Elite Consortium Berhad",
       "industry": "Construction",
       "composite": 73.7,
       "macro_adjustment": 3.2,
@@ -43,7 +43,7 @@
     },
     {
       "code": "1155.KL",
-      "name": "Malayan Banking",
+      "name": "Malayan Banking Berhad",
       "industry": "Banking",
       "composite": 70.8,
       "macro_adjustment": 2.0,
@@ -126,7 +126,7 @@
     },
     {
       "code": "5106.KL",
-      "name": "Axis REIT",
+      "name": "Axis Real Estate Investment Trust",
       "industry": "REIT",
       "composite": 66.1,
       "macro_adjustment": 1.6,
@@ -160,45 +160,6 @@
           "value": 3,
           "raw": 75.0,
           "weighted": 7.5
-        }
-      }
-    },
-    {
-      "code": "7087.KL",
-      "name": "Magni-Tech Industries",
-      "industry": "Consumer Products & Services",
-      "composite": 66.1,
-      "macro_adjustment": 3.4,
-      "breakdown": {
-        "dividend_yield": {
-          "value": 5.38,
-          "raw": 50.7,
-          "weighted": 11.2
-        },
-        "gross_margin": {
-          "value": 18.5,
-          "raw": 50.5,
-          "weighted": 10.1
-        },
-        "roe": {
-          "value": 3.27,
-          "raw": 75.4,
-          "weighted": 13.6
-        },
-        "de_ratio": {
-          "value": 0.0,
-          "raw": 100.0,
-          "weighted": 16.0
-        },
-        "revenue_growth_yoy": {
-          "value": 1.52,
-          "raw": 22.6,
-          "weighted": 3.2
-        },
-        "pe_ratio": {
-          "value": 6.41,
-          "raw": 87.5,
-          "weighted": 8.8
         }
       }
     },
@@ -242,8 +203,47 @@
       }
     },
     {
+      "code": "7087.KL",
+      "name": "Magni-Tech Industries Berhad",
+      "industry": "Consumer Products & Services",
+      "composite": 66.1,
+      "macro_adjustment": 3.4,
+      "breakdown": {
+        "dividend_yield": {
+          "value": 5.38,
+          "raw": 50.7,
+          "weighted": 11.2
+        },
+        "gross_margin": {
+          "value": 18.5,
+          "raw": 50.5,
+          "weighted": 10.1
+        },
+        "roe": {
+          "value": 3.27,
+          "raw": 75.4,
+          "weighted": 13.6
+        },
+        "de_ratio": {
+          "value": 0.0,
+          "raw": 100.0,
+          "weighted": 16.0
+        },
+        "revenue_growth_yoy": {
+          "value": 1.52,
+          "raw": 22.6,
+          "weighted": 3.2
+        },
+        "pe_ratio": {
+          "value": 6.41,
+          "raw": 87.5,
+          "weighted": 8.8
+        }
+      }
+    },
+    {
       "code": "5983.KL",
-      "name": "MBM Resources",
+      "name": "MBM Resources Berhad",
       "industry": "Automotive",
       "composite": 63.9,
       "macro_adjustment": 3.0,
@@ -516,7 +516,7 @@
     },
     {
       "code": "6742.KL",
-      "name": "YTL Power",
+      "name": "YTL Power International",
       "industry": "Utilities",
       "composite": 34.6,
       "macro_adjustment": 2.4,
@@ -554,6 +554,84 @@
       }
     },
     {
+      "code": "0104.KL",
+      "name": "Genetec Technology",
+      "industry": "Industrial",
+      "composite": 33.9,
+      "macro_adjustment": 2.8,
+      "breakdown": {
+        "revenue_growth_yoy": {
+          "value": -72.75,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "gross_margin": {
+          "value": 35.0,
+          "raw": 85.0,
+          "weighted": 17.0
+        },
+        "roe": {
+          "value": -5.92,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "pe_ratio": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "de_ratio": {
+          "value": 0.35,
+          "raw": 92.6,
+          "weighted": 12.0
+        },
+        "order_book": {
+          "value": 120,
+          "raw": 21.0,
+          "weighted": 2.1
+        }
+      }
+    },
+    {
+      "code": "0166.KL",
+      "name": "Inari Amertron",
+      "industry": "Semiconductor",
+      "composite": 4.2,
+      "macro_adjustment": 4.2,
+      "breakdown": {
+        "revenue_growth_yoy": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "gross_margin": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "roe": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "pe_ratio": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "customer_conc": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "capex_revenue": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        }
+      }
+    },
+    {
       "code": "INTA.KL",
       "name": "INTA Berhad",
       "industry": "Construction",
@@ -586,6 +664,365 @@
           "weighted": 0.0
         },
         "dividend_yield": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        }
+      }
+    },
+    {
+      "code": "5398.KL",
+      "name": "Gamuda Berhad",
+      "industry": "Construction",
+      "composite": 3.2,
+      "macro_adjustment": 3.2,
+      "breakdown": {
+        "order_book": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "roe": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "de_ratio": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "tender_win_rate": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "revenue_growth_yoy": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "dividend_yield": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        }
+      }
+    },
+    {
+      "code": "1066.KL",
+      "name": "RHB Bank Berhad",
+      "industry": "Banking",
+      "composite": 2.0,
+      "macro_adjustment": 2.0,
+      "breakdown": {
+        "nim": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "loan_growth_yoy": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "casa_ratio": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "npl_ratio": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "car": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "dividend_yield": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "cost_income": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        }
+      }
+    },
+    {
+      "code": "1295.KL",
+      "name": "Public Bank Berhad",
+      "industry": "Banking",
+      "composite": 2.0,
+      "macro_adjustment": 2.0,
+      "breakdown": {
+        "nim": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "loan_growth_yoy": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "casa_ratio": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "npl_ratio": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "car": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "dividend_yield": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "cost_income": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        }
+      }
+    },
+    {
+      "code": "7052.KL",
+      "name": "Padini Holdings Berhad",
+      "industry": "Consumer",
+      "composite": 0.0,
+      "macro_adjustment": 0,
+      "breakdown": {
+        "dividend_yield": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "revenue_growth_yoy": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "roe": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "de_ratio": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        }
+      }
+    },
+    {
+      "code": "5236.KL",
+      "name": "Matrix Concepts Holdings Berhad",
+      "industry": "Property",
+      "composite": 0.0,
+      "macro_adjustment": 0,
+      "breakdown": {
+        "dividend_yield": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "revenue_growth_yoy": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "roe": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "de_ratio": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        }
+      }
+    },
+    {
+      "code": "5031.KL",
+      "name": "TIME dotCom Berhad",
+      "industry": "Telco",
+      "composite": 0.0,
+      "macro_adjustment": 0,
+      "breakdown": {
+        "dividend_yield": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "revenue_growth_yoy": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "roe": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "de_ratio": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        }
+      }
+    },
+    {
+      "code": "5250.KL",
+      "name": "7-ELEVEN MALAYSIA HOLDINGS BERHAD",
+      "industry": "Main Market",
+      "composite": 0.0,
+      "macro_adjustment": 0,
+      "breakdown": {
+        "dividend_yield": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "revenue_growth_yoy": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "roe": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "de_ratio": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        }
+      }
+    },
+    {
+      "code": "0099.KL",
+      "name": "Scicom (MSC) Berhad",
+      "industry": "Tech",
+      "composite": 0.0,
+      "macro_adjustment": 0,
+      "breakdown": {
+        "dividend_yield": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "revenue_growth_yoy": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "roe": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "de_ratio": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        }
+      }
+    },
+    {
+      "code": "7091.KL",
+      "name": "Unimech Group Berhad",
+      "industry": "Metal Fabrication",
+      "composite": 0.0,
+      "macro_adjustment": 0,
+      "breakdown": {
+        "dividend_yield": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "revenue_growth_yoy": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "roe": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "de_ratio": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        }
+      }
+    },
+    {
+      "code": "5139.KL",
+      "name": "AEON Credit Service (M) Berhad",
+      "industry": "Credit Services",
+      "composite": 0.0,
+      "macro_adjustment": 0,
+      "breakdown": {
+        "dividend_yield": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "revenue_growth_yoy": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "roe": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "de_ratio": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        }
+      }
+    },
+    {
+      "code": "5115.KL",
+      "name": "Alam Maritim Resources Berhad",
+      "industry": "Oil & Gas Equipment & Services",
+      "composite": 0.0,
+      "macro_adjustment": 0,
+      "breakdown": {
+        "dividend_yield": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "revenue_growth_yoy": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "roe": {
+          "value": null,
+          "raw": 0,
+          "weighted": 0.0
+        },
+        "de_ratio": {
           "value": null,
           "raw": 0,
           "weighted": 0.0

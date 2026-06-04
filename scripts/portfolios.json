@@ -1,0 +1,347 @@
+{
+  "stocks": {
+    "MAGNI": {
+      "code": "7087.KL",
+      "name": "Magni-Tech Industries Berhad",
+      "industry": "Consumer Products & Services",
+      "initial": 1.86
+    },
+    "MBMR": {
+      "code": "5983.KL",
+      "name": "MBM Resources Berhad",
+      "industry": "Automotive",
+      "initial": 5.07
+    },
+    "SCICOM": {
+      "code": "0099.KL",
+      "name": "Scicom (MSC) Berhad",
+      "industry": "Tech",
+      "initial": 1.74
+    },
+    "AME": {
+      "code": "5293.KL",
+      "name": "AME Elite Consortium Berhad",
+      "industry": "Construction",
+      "initial": 1.5
+    },
+    "5139": {
+      "code": "5139.KL",
+      "name": "AEON Credit Service (M) Berhad",
+      "industry": "Credit Services",
+      "initial": 5.860000133514404
+    },
+    "MAYBANK": {
+      "code": "1155.KL",
+      "name": "Malayan Banking Berhad",
+      "industry": "Banking",
+      "initial": 9.85
+    },
+    "DELEUM": {
+      "code": "5132.KL",
+      "name": "Deleum Berhad",
+      "industry": "Energy",
+      "initial": 1.22
+    },
+    "KLK": {
+      "code": "2445.KL",
+      "name": "KL Kepong",
+      "industry": "Plantation",
+      "initial": 20.5
+    },
+    "WASCO": {
+      "code": "5142.KL",
+      "name": "Wasco Berhad",
+      "industry": "Energy",
+      "initial": 0.8
+    },
+    "RHB": {
+      "code": "1066.KL",
+      "name": "RHB Bank Berhad",
+      "industry": "Banking",
+      "initial": 8.21
+    },
+    "MATRIX": {
+      "code": "5236.KL",
+      "name": "Matrix Concepts Holdings Berhad",
+      "industry": "Property",
+      "initial": 1.25
+    },
+    "AXREIT": {
+      "code": "5106.KL",
+      "name": "Axis Real Estate Investment Trust",
+      "industry": "REIT",
+      "initial": 1.82
+    },
+    "KIPREIT": {
+      "code": "5280.KL",
+      "name": "KIP Real Estate Investment Trust",
+      "industry": "REIT",
+      "initial": 0.85
+    },
+    "SCIENTEX": {
+      "code": "4731.KL",
+      "name": "Scientex Berhad",
+      "industry": "Packaging",
+      "initial": 4.15
+    },
+    "PBBANK": {
+      "code": "1295.KL",
+      "name": "Public Bank Berhad",
+      "industry": "Banking",
+      "initial": 4.71
+    },
+    "YTLPOWR": {
+      "code": "6742.KL",
+      "name": "YTL Power International",
+      "industry": "Utilities",
+      "initial": 3.95
+    },
+    "INTA": {
+      "code": "INTA.KL",
+      "name": "INTA Berhad",
+      "industry": "Construction",
+      "initial": 0.38
+    },
+    "SIME": {
+      "code": "4197.KL",
+      "name": "Sime Darby",
+      "industry": "Conglomerate",
+      "initial": 2.38
+    },
+    "LIIHEN": {
+      "code": "7089.KL",
+      "name": "Lii Hen Industries",
+      "industry": "Furniture",
+      "initial": 0.95
+    },
+    "7091": {
+      "code": "7091.KL",
+      "name": "Unimech Group Berhad",
+      "industry": "Metal Fabrication",
+      "initial": 1.3600000143051147
+    },
+    "INSAS": {
+      "code": "3379.KL",
+      "name": "INSAS Berhad",
+      "industry": "Investment",
+      "initial": 0.89
+    },
+    "INARI": {
+      "code": "0166.KL",
+      "name": "Inari Amertron",
+      "industry": "Semiconductor",
+      "initial": 3.05
+    },
+    "GAMUDA": {
+      "code": "5398.KL",
+      "name": "Gamuda Berhad",
+      "industry": "Construction",
+      "initial": 4.2
+    },
+    "PADINI": {
+      "code": "7052.KL",
+      "name": "Padini Holdings Berhad",
+      "industry": "Consumer",
+      "initial": 1.43
+    },
+    "GENETEC": {
+      "code": "0104.KL",
+      "name": "Genetec Technology",
+      "industry": "Industrial",
+      "initial": 1.52
+    },
+    "TIME": {
+      "code": "5031.KL",
+      "name": "TIME dotCom Berhad",
+      "industry": "Telco",
+      "initial": 6.03
+    },
+    "5115": {
+      "code": "5115.KL",
+      "name": "Alam Maritim Resources Berhad",
+      "industry": "Oil & Gas Equipment & Services",
+      "initial": 0.3199999928474426
+    },
+    "SEM": {
+      "code": "5250.KL",
+      "name": "7-ELEVEN MALAYSIA HOLDINGS BERHAD",
+      "industry": "Main Market",
+      "initial": 0.0
+    }
+  },
+  "personas": {
+    "ares": {
+      "name": "Ares",
+      "god": "God of War",
+      "style": "Aggressive",
+      "strategy": "Hyper-momentum. 4-5 concentrated bets. Kronos-driven entries. No cooling \u2014 let compounders run. Dump Kronos < -3%. Max 35% single bet. 80% momentum weight. Cut -15%.",
+      "holdings": {
+        "WASCO": {
+          "shares": 4600,
+          "cost": 0.795,
+          "target_pct": 35.0,
+          "note": "Kronos +14.4% \u2014 strongest momentum"
+        },
+        "INSAS": {
+          "shares": 2000,
+          "cost": 0.895,
+          "target_pct": 17.0,
+          "note": "Investment holding, NAV discount play"
+        },
+        "DELEUM": {
+          "shares": 1300,
+          "cost": 1.22,
+          "target_pct": 15.0,
+          "note": "Kronos +7.3%, DY 8.7% \u2014 energy momentum"
+        },
+        "MAGNI": {
+          "shares": 1400,
+          "cost": 1.86,
+          "target_pct": 25.0,
+          "note": "Kronos +6.1%, score 90, zero debt"
+        }
+      },
+      "rules": {
+        "stop_loss": -0.15,
+        "min_stocks": 3,
+        "cash_buffer": 0.0,
+        "take_profit": null,
+        "value_weight": 0.2,
+        "momentum_weight": 0.8,
+        "rebalance_drift": 0.07,
+        "dividend_reinvest": true,
+        "max_single_position": 0.35
+      },
+      "initial_capital": 10000.0,
+      "cash": 868.0
+    },
+    "athena": {
+      "name": "Athena",
+      "god": "Goddess of Wisdom",
+      "style": "Hybrid",
+      "strategy": "GARP tactical. 6 stocks. MAGNI (#2 score) added for consumer. SIME for conglomerate. Sell 50% @ +25%, dip buy @ -10%.",
+      "holdings": {
+        "MAYBANK": {
+          "shares": 200,
+          "cost": 10.64,
+          "target_pct": 20.0,
+          "note": "Blue chip anchor, DY 6.2%"
+        },
+        "MAGNI": {
+          "shares": 800,
+          "cost": 1.86,
+          "target_pct": 18.0,
+          "note": "NEW: #2 score, zero debt, GARP fit"
+        },
+        "AME": {
+          "shares": 1000,
+          "cost": 1.5,
+          "target_pct": 17.0,
+          "note": "#3 score, rev growth 61.6%, ROE 28.5% ann"
+        },
+        "AXREIT": {
+          "shares": 800,
+          "cost": 1.95,
+          "target_pct": 15.0,
+          "note": "REIT income stability"
+        },
+        "SCIENTEX": {
+          "shares": 300,
+          "cost": 3.73,
+          "target_pct": 15.0,
+          "note": "Packaging, PE 10.36x, ROE 12.6% ann"
+        },
+        "SIME": {
+          "shares": 700,
+          "cost": 2.08,
+          "target_pct": 15.0,
+          "note": "NEW: Conglomerate diversification"
+        }
+      },
+      "rules": {
+        "stop_loss": -0.1,
+        "min_stocks": 5,
+        "cash_buffer": 0.0,
+        "dip_buy_pct": 0.5,
+        "take_profit": 0.25,
+        "rebalance_drift": 0.1,
+        "dip_buy_threshold": -0.1,
+        "dividend_reinvest": true,
+        "full_exit_threshold": 0.4,
+        "max_single_position": 0.3,
+        "take_profit_sell_pct": 0.5,
+        "dip_buy_cooldown_days": 30,
+        "defensive_cyclical_rotation": true
+      },
+      "initial_capital": 10000.0,
+      "cash": 749.0
+    },
+    "demeter": {
+      "name": "Demeter",
+      "god": "Harvest Goddess",
+      "style": "Conservative",
+      "strategy": "Dividend compound. 7 stocks. MBMR (#1 score, 16.6% DY) added. KLK restored for CPO. 10% cash FD buffer.",
+      "holdings": {
+        "MAYBANK": {
+          "shares": 200,
+          "cost": 10.64,
+          "target_pct": 25.0,
+          "note": "Blue chip, DY 6.2%, PE 12.4x"
+        },
+        "AXREIT": {
+          "shares": 1000,
+          "cost": 1.95,
+          "target_pct": 20.0,
+          "note": "Retail REIT, occupancy recovery"
+        },
+        "MBMR": {
+          "shares": 200,
+          "cost": 5.07,
+          "target_pct": 15.0,
+          "note": "NEW: #1 score, DY 16.6%, PE 5.96x, D/E 0.01"
+        },
+        "MAGNI": {
+          "shares": 500,
+          "cost": 1.86,
+          "target_pct": 14.0,
+          "note": "#2 score, zero debt, PE 6.41x"
+        },
+        "SCIENTEX": {
+          "shares": 200,
+          "cost": 3.73,
+          "target_pct": 8.0,
+          "note": "Packaging + property, steady dividend"
+        },
+        "SIME": {
+          "shares": 400,
+          "cost": 2.08,
+          "target_pct": 10.0,
+          "note": "Conglomerate, DY 6.25%, D/E 0.43"
+        },
+        "KLK": {
+          "shares": 100,
+          "cost": 20.32,
+          "target_pct": 8.0,
+          "note": "RESTORED: CPO exposure, PE 20.1x, DY 2.95%"
+        }
+      },
+      "rules": {
+        "fd_rate": 0.03,
+        "stop_loss": null,
+        "min_stocks": 4,
+        "cash_buffer": 0.1,
+        "take_profit": null,
+        "sell_trigger": "dividend_cut_20pct",
+        "rebalance_drift": 0.1,
+        "dividend_reinvest": true,
+        "min_dividend_yield": 0.03,
+        "max_single_position": 0.35
+      },
+      "initial_capital": 10000.0,
+      "cash": 368.0
+    }
+  },
+  "initialized": "2026-06-04",
+  "initial_capital": 10000,
+  "last_rebalance": "2026-06-04"
+}

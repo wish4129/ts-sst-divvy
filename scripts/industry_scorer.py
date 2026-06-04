@@ -238,9 +238,7 @@ for code, old in [
     OLD_SCORES[code] = old
 
 results = []
-for name, info in PORTFOLIOS["stocks"].items():
-    if "kronos_warning" in info:
-        continue  # skip flagged stocks
+for name, info in ALL_STOCKS.items():
     r = score_stock(info["code"], info["name"], info.get("industry", ""))
     results.append(r)
 
