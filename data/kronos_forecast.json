@@ -1,1 +1,30 @@
-{}
+{
+  "5115": {
+    "pred_change_pct": -24.74,
+    "pred_30d_close": 0.2521,
+    "pred_low": 0.2521,
+    "pred_high": 0.3226,
+    "pred_volatility": 6.34
+  },
+  "5139": {
+    "pred_change_pct": -2.09,
+    "pred_30d_close": 5.6691,
+    "pred_low": 5.6294,
+    "pred_high": 5.9455,
+    "pred_volatility": 1.73
+  },
+  "7091": {
+    "pred_change_pct": -2.05,
+    "pred_30d_close": 1.3322,
+    "pred_low": 1.3289,
+    "pred_high": 1.3655,
+    "pred_volatility": 0.72
+  },
+  "INTA": {
+    "pred_change_pct": -0.31,
+    "pred_30d_close": 0.3788,
+    "pred_low": 0.3784,
+    "pred_high": 0.398,
+    "pred_volatility": 1.39
+  }
+}
