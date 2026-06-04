@@ -1,1497 +1,298 @@
-{
-  "runs": [
-    {
-      "timestamp": "2026-06-01T14:38:25+08:00",
-      "personas": {
-        "ares": {
-          "total": 7653.6,
-          "invested": 7649.0,
-          "cash": 4.6,
-          "pnl": -2346.4,
-          "pnl_pct": -23.46,
-          "holdings": {
-            "YTLPOWR": {
-              "shares": 700,
-              "cost": 3.95,
-              "price": 3.95,
-              "invested": 2765.0,
-              "current": 2765.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 30.0
-            },
-            "INSAS": {
-              "shares": 2200,
-              "cost": 0.89,
-              "price": 0.89,
-              "invested": 1958.0,
-              "current": 1958.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "GENETEC": {
-              "shares": 1300,
-              "cost": 1.52,
-              "price": 1.52,
-              "invested": 1976.0,
-              "current": 1976.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.1
-            },
-            "LIIHEN": {
-              "shares": 1000,
-              "cost": 0.95,
-              "price": 0.95,
-              "invested": 950.0,
-              "current": 950.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            }
+[
+  {
+    "timestamp": "2026-06-04T12:36:42.641763+08:00",
+    "personas": {
+      "ares": {
+        "total": 10266.0,
+        "invested": 9637.0,
+        "cash": 758.0,
+        "pnl": 266.0,
+        "pnl_pct": 2.66,
+        "holdings": {
+          "WASCO": {
+            "shares": 4600,
+            "cost": 0.795,
+            "price": 0.785,
+            "invested": 3657.0,
+            "current": 3611.0,
+            "pnl": -46.0,
+            "pnl_pct": -1.26,
+            "weight": 82.7,
+            "target_pct": 35.0
           },
-          "trades_this_run": 0
-        },
-        "demeter": {
-          "total": 7517.75,
-          "invested": 7518.0,
-          "cash": -0.25,
-          "pnl": -2482.25,
-          "pnl_pct": -24.82,
-          "holdings": {
-            "MAYBANK": {
-              "shares": 300,
-              "cost": 9.85,
-              "price": 9.85,
-              "invested": 2955.0,
-              "current": 2955.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 30.0
-            },
-            "AXREIT": {
-              "shares": 1300,
-              "cost": 1.82,
-              "price": 1.82,
-              "invested": 2366.0,
-              "current": 2366.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 24.9
-            },
-            "SCIENTEX": {
-              "shares": 300,
-              "cost": 4.15,
-              "price": 4.15,
-              "invested": 1245.0,
-              "current": 1245.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 14.9
-            },
-            "SIME": {
-              "shares": 400,
-              "cost": 2.38,
-              "price": 2.38,
-              "invested": 952.0,
-              "current": 952.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            }
+          "INSAS": {
+            "shares": 2000,
+            "cost": 0.895,
+            "price": 0.885,
+            "invested": 1790.0,
+            "current": 1770.0,
+            "pnl": -20.0,
+            "pnl_pct": -1.12,
+            "weight": 28.8,
+            "target_pct": 17.0
           },
-          "trades_this_run": 0
-        },
-        "athena": {
-          "total": 6651.0,
-          "invested": 6646.0,
-          "cash": 5.0,
-          "pnl": -3349.0,
-          "pnl_pct": -33.49,
-          "holdings": {
-            "MAYBANK": {
-              "shares": 200,
-              "cost": 9.85,
-              "price": 9.85,
-              "invested": 1970.0,
-              "current": 1970.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "YTLPOWR": {
-              "shares": 500,
-              "cost": 3.95,
-              "price": 3.95,
-              "invested": 1975.0,
-              "current": 1975.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "AXREIT": {
-              "shares": 800,
-              "cost": 1.82,
-              "price": 1.82,
-              "invested": 1456.0,
-              "current": 1456.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "SCIENTEX": {
-              "shares": 300,
-              "cost": 4.15,
-              "price": 4.15,
-              "invested": 1245.0,
-              "current": 1245.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            }
+          "DELEUM": {
+            "shares": 1300,
+            "cost": 1.22,
+            "price": 1.15,
+            "invested": 1586.0,
+            "current": 1495.0,
+            "pnl": -91.0,
+            "pnl_pct": -5.74,
+            "weight": 19.6,
+            "target_pct": 15.0
           },
-          "trades_this_run": 0
+          "MAGNI": {
+            "shares": 1400,
+            "cost": 1.86,
+            "price": 1.88,
+            "invested": 2604.0,
+            "current": 2632.0,
+            "pnl": 28.0,
+            "pnl_pct": 1.08,
+            "weight": 25.6,
+            "target_pct": 25.0
+          }
         }
       },
-      "prices": {
-        "MAYBANK": 9.85,
-        "YTLPOWR": 3.95,
-        "AXREIT": 1.82,
-        "INSAS": 0.89,
-        "LIIHEN": 0.95,
-        "SCIENTEX": 4.15,
-        "GENETEC": 1.52,
-        "KLK": 20.5,
-        "INARI": 3.05,
-        "SIME": 2.38
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:07+08:00",
-      "personas": {
-        "ares": {
-          "total": 9123.12,
-          "invested": 9617.0,
-          "cash": -493.88,
-          "pnl": -876.88,
-          "pnl_pct": -8.77,
-          "holdings": {
-            "INSAS Berhad": {
-              "shares": 2200,
-              "cost": 0.89,
-              "price": 0.89,
-              "invested": 1958.0,
-              "current": 1958.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "Deleum Berhad": {
-              "shares": 1200,
-              "cost": 1.22,
-              "price": 1.22,
-              "invested": 1464.0,
-              "current": 1464.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "Wasco Berhad": {
-              "shares": 3100,
-              "cost": 0.8,
-              "price": 0.8,
-              "invested": 2480.0,
-              "current": 2480.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 25.0
-            },
-            "YTL Power": {
-              "shares": 700,
-              "cost": 3.95,
-              "price": 3.95,
-              "invested": 2765.0,
-              "current": 2765.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 30.0
-            },
-            "Lii Hen Industries": {
-              "shares": 1000,
-              "cost": 0.95,
-              "price": 0.95,
-              "invested": 950.0,
-              "current": 950.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            }
+      "demeter": {
+        "total": 9932.0,
+        "invested": 9632.0,
+        "cash": 368.0,
+        "pnl": -68.0,
+        "pnl_pct": -0.68,
+        "holdings": {
+          "MAYBANK": {
+            "shares": 200,
+            "cost": 10.64,
+            "price": 10.58,
+            "invested": 2128.0,
+            "current": 2116.0,
+            "pnl": -12.0,
+            "pnl_pct": -0.56,
+            "weight": 85.2,
+            "target_pct": 25.0
           },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:07+08:00",
-      "personas": {
-        "ares": {
-          "total": 9123.12,
-          "invested": 9617.0,
-          "cash": -493.88,
-          "pnl": -876.88,
-          "pnl_pct": -8.77,
-          "holdings": {
-            "INSAS Berhad": {
-              "shares": 2200,
-              "cost": 0.89,
-              "price": 0.89,
-              "invested": 1958.0,
-              "current": 1958.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "Deleum Berhad": {
-              "shares": 1200,
-              "cost": 1.22,
-              "price": 1.22,
-              "invested": 1464.0,
-              "current": 1464.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "Wasco Berhad": {
-              "shares": 3100,
-              "cost": 0.8,
-              "price": 0.8,
-              "invested": 2480.0,
-              "current": 2480.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 25.0
-            },
-            "YTL Power": {
-              "shares": 700,
-              "cost": 3.95,
-              "price": 3.95,
-              "invested": 2765.0,
-              "current": 2765.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 30.0
-            },
-            "Lii Hen Industries": {
-              "shares": 1000,
-              "cost": 0.95,
-              "price": 0.95,
-              "invested": 950.0,
-              "current": 950.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            }
+          "AXREIT": {
+            "shares": 1000,
+            "cost": 1.95,
+            "price": 1.94,
+            "invested": 1950.0,
+            "current": 1940.0,
+            "pnl": -10.0,
+            "pnl_pct": -0.51,
+            "weight": 43.9,
+            "target_pct": 20.0
           },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:07+08:00",
-      "personas": {
-        "athena": {
-          "total": 8151.6,
-          "invested": 8146.0,
-          "cash": 5.6,
-          "pnl": -1848.4,
-          "pnl_pct": -18.48,
-          "holdings": {
-            "Malayan Banking": {
-              "shares": 200,
-              "cost": 9.85,
-              "price": 9.85,
-              "invested": 1970.0,
-              "current": 1970.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "Scientex Berhad": {
-              "shares": 300,
-              "cost": 4.15,
-              "price": 4.15,
-              "invested": 1245.0,
-              "current": 1245.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "Axis REIT": {
-              "shares": 800,
-              "cost": 1.82,
-              "price": 1.82,
-              "invested": 1456.0,
-              "current": 1456.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "AME Elite Consortium": {
-              "shares": 1000,
-              "cost": 1.5,
-              "price": 1.5,
-              "invested": 1500.0,
-              "current": 1500.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "YTL Power": {
-              "shares": 500,
-              "cost": 3.95,
-              "price": 3.95,
-              "invested": 1975.0,
-              "current": 1975.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            }
+          "MBMR": {
+            "shares": 200,
+            "cost": 5.07,
+            "price": 5.05,
+            "invested": 1014.0,
+            "current": 1010.0,
+            "pnl": -4.0,
+            "pnl_pct": -0.39,
+            "weight": 18.6,
+            "target_pct": 15.0
           },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:07+08:00",
-      "personas": {
-        "athena": {
-          "total": 8151.6,
-          "invested": 8146.0,
-          "cash": 5.6,
-          "pnl": -1848.4,
-          "pnl_pct": -18.48,
-          "holdings": {
-            "Malayan Banking": {
-              "shares": 200,
-              "cost": 9.85,
-              "price": 9.85,
-              "invested": 1970.0,
-              "current": 1970.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "Scientex Berhad": {
-              "shares": 300,
-              "cost": 4.15,
-              "price": 4.15,
-              "invested": 1245.0,
-              "current": 1245.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "Axis REIT": {
-              "shares": 800,
-              "cost": 1.82,
-              "price": 1.82,
-              "invested": 1456.0,
-              "current": 1456.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "AME Elite Consortium": {
-              "shares": 1000,
-              "cost": 1.5,
-              "price": 1.5,
-              "invested": 1500.0,
-              "current": 1500.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "YTL Power": {
-              "shares": 500,
-              "cost": 3.95,
-              "price": 3.95,
-              "invested": 1975.0,
-              "current": 1975.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            }
+          "MAGNI": {
+            "shares": 500,
+            "cost": 1.86,
+            "price": 1.88,
+            "invested": 930.0,
+            "current": 940.0,
+            "pnl": 10.0,
+            "pnl_pct": 1.08,
+            "weight": 14.7,
+            "target_pct": 14.0
           },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:07+08:00",
-      "personas": {
-        "demeter": {
-          "total": 7456.07,
-          "invested": 7437.0,
-          "cash": 19.07,
-          "pnl": -2543.93,
-          "pnl_pct": -25.44,
-          "holdings": {
-            "Malayan Banking": {
-              "shares": 200,
-              "cost": 9.85,
-              "price": 9.85,
-              "invested": 1970.0,
-              "current": 1970.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 24.9
-            },
-            "Sime Darby": {
-              "shares": 400,
-              "cost": 2.38,
-              "price": 2.38,
-              "invested": 952.0,
-              "current": 952.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Scientex Berhad": {
-              "shares": 200,
-              "cost": 4.15,
-              "price": 4.15,
-              "invested": 830.0,
-              "current": 830.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Axis REIT": {
-              "shares": 1000,
-              "cost": 1.82,
-              "price": 1.82,
-              "invested": 1820.0,
-              "current": 1820.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "KIP Real Estate Investment Trust": {
-              "shares": 1100,
-              "cost": 0.85,
-              "price": 0.85,
-              "invested": 935.0,
-              "current": 935.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Magni-Tech Industries": {
-              "shares": 500,
-              "cost": 1.86,
-              "price": 1.86,
-              "invested": 930.0,
-              "current": 930.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            }
+          "SCIENTEX": {
+            "shares": 200,
+            "cost": 3.73,
+            "price": 3.49,
+            "invested": 746.0,
+            "current": 698.0,
+            "pnl": -48.0,
+            "pnl_pct": -6.43,
+            "weight": 9.9,
+            "target_pct": 8.0
           },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:07+08:00",
-      "personas": {
-        "demeter": {
-          "total": 7456.07,
-          "invested": 7437.0,
-          "cash": 19.07,
-          "pnl": -2543.93,
-          "pnl_pct": -25.44,
-          "holdings": {
-            "Malayan Banking": {
-              "shares": 200,
-              "cost": 9.85,
-              "price": 9.85,
-              "invested": 1970.0,
-              "current": 1970.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 24.9
-            },
-            "Sime Darby": {
-              "shares": 400,
-              "cost": 2.38,
-              "price": 2.38,
-              "invested": 952.0,
-              "current": 952.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Scientex Berhad": {
-              "shares": 200,
-              "cost": 4.15,
-              "price": 4.15,
-              "invested": 830.0,
-              "current": 830.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Axis REIT": {
-              "shares": 1000,
-              "cost": 1.82,
-              "price": 1.82,
-              "invested": 1820.0,
-              "current": 1820.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "KIP Real Estate Investment Trust": {
-              "shares": 1100,
-              "cost": 0.85,
-              "price": 0.85,
-              "invested": 935.0,
-              "current": 935.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Magni-Tech Industries": {
-              "shares": 500,
-              "cost": 1.86,
-              "price": 1.86,
-              "invested": 930.0,
-              "current": 930.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            }
+          "SIME": {
+            "shares": 400,
+            "cost": 2.08,
+            "price": 2.04,
+            "invested": 832.0,
+            "current": 816.0,
+            "pnl": -16.0,
+            "pnl_pct": -1.92,
+            "weight": 10.3,
+            "target_pct": 10.0
           },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:38+08:00",
-      "personas": {
-        "ares": {
-          "total": 9123.12,
-          "invested": 9617.0,
-          "cash": -493.88,
-          "pnl": -876.88,
-          "pnl_pct": -8.77,
-          "holdings": {
-            "INSAS Berhad": {
-              "shares": 2200,
-              "cost": 0.89,
-              "price": 0.89,
-              "invested": 1958.0,
-              "current": 1958.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "Deleum Berhad": {
-              "shares": 1200,
-              "cost": 1.22,
-              "price": 1.22,
-              "invested": 1464.0,
-              "current": 1464.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "Wasco Berhad": {
-              "shares": 3100,
-              "cost": 0.8,
-              "price": 0.8,
-              "invested": 2480.0,
-              "current": 2480.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 25.0
-            },
-            "YTL Power": {
-              "shares": 700,
-              "cost": 3.95,
-              "price": 3.95,
-              "invested": 2765.0,
-              "current": 2765.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 30.0
-            },
-            "Lii Hen Industries": {
-              "shares": 1000,
-              "cost": 0.95,
-              "price": 0.95,
-              "invested": 950.0,
-              "current": 950.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            }
-          },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:38+08:00",
-      "personas": {
-        "ares": {
-          "total": 9123.12,
-          "invested": 9617.0,
-          "cash": -493.88,
-          "pnl": -876.88,
-          "pnl_pct": -8.77,
-          "holdings": {
-            "INSAS Berhad": {
-              "shares": 2200,
-              "cost": 0.89,
-              "price": 0.89,
-              "invested": 1958.0,
-              "current": 1958.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "Deleum Berhad": {
-              "shares": 1200,
-              "cost": 1.22,
-              "price": 1.22,
-              "invested": 1464.0,
-              "current": 1464.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "Wasco Berhad": {
-              "shares": 3100,
-              "cost": 0.8,
-              "price": 0.8,
-              "invested": 2480.0,
-              "current": 2480.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 25.0
-            },
-            "YTL Power": {
-              "shares": 700,
-              "cost": 3.95,
-              "price": 3.95,
-              "invested": 2765.0,
-              "current": 2765.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 30.0
-            },
-            "Lii Hen Industries": {
-              "shares": 1000,
-              "cost": 0.95,
-              "price": 0.95,
-              "invested": 950.0,
-              "current": 950.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            }
-          },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:38+08:00",
-      "personas": {
-        "athena": {
-          "total": 8151.6,
-          "invested": 8146.0,
-          "cash": 5.6,
-          "pnl": -1848.4,
-          "pnl_pct": -18.48,
-          "holdings": {
-            "Malayan Banking": {
-              "shares": 200,
-              "cost": 9.85,
-              "price": 9.85,
-              "invested": 1970.0,
-              "current": 1970.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "Scientex Berhad": {
-              "shares": 300,
-              "cost": 4.15,
-              "price": 4.15,
-              "invested": 1245.0,
-              "current": 1245.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "Axis REIT": {
-              "shares": 800,
-              "cost": 1.82,
-              "price": 1.82,
-              "invested": 1456.0,
-              "current": 1456.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "AME Elite Consortium": {
-              "shares": 1000,
-              "cost": 1.5,
-              "price": 1.5,
-              "invested": 1500.0,
-              "current": 1500.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "YTL Power": {
-              "shares": 500,
-              "cost": 3.95,
-              "price": 3.95,
-              "invested": 1975.0,
-              "current": 1975.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            }
-          },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:38+08:00",
-      "personas": {
-        "athena": {
-          "total": 8151.6,
-          "invested": 8146.0,
-          "cash": 5.6,
-          "pnl": -1848.4,
-          "pnl_pct": -18.48,
-          "holdings": {
-            "Malayan Banking": {
-              "shares": 200,
-              "cost": 9.85,
-              "price": 9.85,
-              "invested": 1970.0,
-              "current": 1970.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "Scientex Berhad": {
-              "shares": 300,
-              "cost": 4.15,
-              "price": 4.15,
-              "invested": 1245.0,
-              "current": 1245.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "Axis REIT": {
-              "shares": 800,
-              "cost": 1.82,
-              "price": 1.82,
-              "invested": 1456.0,
-              "current": 1456.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "AME Elite Consortium": {
-              "shares": 1000,
-              "cost": 1.5,
-              "price": 1.5,
-              "invested": 1500.0,
-              "current": 1500.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "YTL Power": {
-              "shares": 500,
-              "cost": 3.95,
-              "price": 3.95,
-              "invested": 1975.0,
-              "current": 1975.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            }
-          },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:38+08:00",
-      "personas": {
-        "demeter": {
-          "total": 7456.07,
-          "invested": 7437.0,
-          "cash": 19.07,
-          "pnl": -2543.93,
-          "pnl_pct": -25.44,
-          "holdings": {
-            "Malayan Banking": {
-              "shares": 200,
-              "cost": 9.85,
-              "price": 9.85,
-              "invested": 1970.0,
-              "current": 1970.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 24.9
-            },
-            "Sime Darby": {
-              "shares": 400,
-              "cost": 2.38,
-              "price": 2.38,
-              "invested": 952.0,
-              "current": 952.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Scientex Berhad": {
-              "shares": 200,
-              "cost": 4.15,
-              "price": 4.15,
-              "invested": 830.0,
-              "current": 830.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Axis REIT": {
-              "shares": 1000,
-              "cost": 1.82,
-              "price": 1.82,
-              "invested": 1820.0,
-              "current": 1820.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "KIP Real Estate Investment Trust": {
-              "shares": 1100,
-              "cost": 0.85,
-              "price": 0.85,
-              "invested": 935.0,
-              "current": 935.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Magni-Tech Industries": {
-              "shares": 500,
-              "cost": 1.86,
-              "price": 1.86,
-              "invested": 930.0,
-              "current": 930.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            }
-          },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:38+08:00",
-      "personas": {
-        "demeter": {
-          "total": 7456.07,
-          "invested": 7437.0,
-          "cash": 19.07,
-          "pnl": -2543.93,
-          "pnl_pct": -25.44,
-          "holdings": {
-            "Malayan Banking": {
-              "shares": 200,
-              "cost": 9.85,
-              "price": 9.85,
-              "invested": 1970.0,
-              "current": 1970.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 24.9
-            },
-            "Sime Darby": {
-              "shares": 400,
-              "cost": 2.38,
-              "price": 2.38,
-              "invested": 952.0,
-              "current": 952.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Scientex Berhad": {
-              "shares": 200,
-              "cost": 4.15,
-              "price": 4.15,
-              "invested": 830.0,
-              "current": 830.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Axis REIT": {
-              "shares": 1000,
-              "cost": 1.82,
-              "price": 1.82,
-              "invested": 1820.0,
-              "current": 1820.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "KIP Real Estate Investment Trust": {
-              "shares": 1100,
-              "cost": 0.85,
-              "price": 0.85,
-              "invested": 935.0,
-              "current": 935.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Magni-Tech Industries": {
-              "shares": 500,
-              "cost": 1.86,
-              "price": 1.86,
-              "invested": 930.0,
-              "current": 930.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            }
-          },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:07+08:00",
-      "personas": {
-        "ares": {
-          "total": 9123.12,
-          "invested": 9617.0,
-          "cash": -493.88,
-          "pnl": -876.88,
-          "pnl_pct": -8.77,
-          "holdings": {
-            "INSAS Berhad": {
-              "shares": 2200,
-              "cost": 0.89,
-              "price": 0.89,
-              "invested": 1958.0,
-              "current": 1958.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "Deleum Berhad": {
-              "shares": 1200,
-              "cost": 1.22,
-              "price": 1.22,
-              "invested": 1464.0,
-              "current": 1464.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "Wasco Berhad": {
-              "shares": 3100,
-              "cost": 0.8,
-              "price": 0.8,
-              "invested": 2480.0,
-              "current": 2480.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 25.0
-            },
-            "YTL Power": {
-              "shares": 700,
-              "cost": 3.95,
-              "price": 3.95,
-              "invested": 2765.0,
-              "current": 2765.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 30.0
-            },
-            "Lii Hen Industries": {
-              "shares": 1000,
-              "cost": 0.95,
-              "price": 0.95,
-              "invested": 950.0,
-              "current": 950.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            }
-          },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:07+08:00",
-      "personas": {
-        "ares": {
-          "total": 9123.12,
-          "invested": 9617.0,
-          "cash": -493.88,
-          "pnl": -876.88,
-          "pnl_pct": -8.77,
-          "holdings": {
-            "INSAS Berhad": {
-              "shares": 2200,
-              "cost": 0.89,
-              "price": 0.89,
-              "invested": 1958.0,
-              "current": 1958.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "Deleum Berhad": {
-              "shares": 1200,
-              "cost": 1.22,
-              "price": 1.22,
-              "invested": 1464.0,
-              "current": 1464.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "Wasco Berhad": {
-              "shares": 3100,
-              "cost": 0.8,
-              "price": 0.8,
-              "invested": 2480.0,
-              "current": 2480.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 25.0
-            },
-            "YTL Power": {
-              "shares": 700,
-              "cost": 3.95,
-              "price": 3.95,
-              "invested": 2765.0,
-              "current": 2765.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 30.0
-            },
-            "Lii Hen Industries": {
-              "shares": 1000,
-              "cost": 0.95,
-              "price": 0.95,
-              "invested": 950.0,
-              "current": 950.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            }
-          },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:07+08:00",
-      "personas": {
-        "athena": {
-          "total": 8151.6,
-          "invested": 8146.0,
-          "cash": 5.6,
-          "pnl": -1848.4,
-          "pnl_pct": -18.48,
-          "holdings": {
-            "Malayan Banking": {
-              "shares": 200,
-              "cost": 9.85,
-              "price": 9.85,
-              "invested": 1970.0,
-              "current": 1970.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "Scientex Berhad": {
-              "shares": 300,
-              "cost": 4.15,
-              "price": 4.15,
-              "invested": 1245.0,
-              "current": 1245.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "Axis REIT": {
-              "shares": 800,
-              "cost": 1.82,
-              "price": 1.82,
-              "invested": 1456.0,
-              "current": 1456.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "AME Elite Consortium": {
-              "shares": 1000,
-              "cost": 1.5,
-              "price": 1.5,
-              "invested": 1500.0,
-              "current": 1500.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "YTL Power": {
-              "shares": 500,
-              "cost": 3.95,
-              "price": 3.95,
-              "invested": 1975.0,
-              "current": 1975.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            }
-          },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:07+08:00",
-      "personas": {
-        "athena": {
-          "total": 8151.6,
-          "invested": 8146.0,
-          "cash": 5.6,
-          "pnl": -1848.4,
-          "pnl_pct": -18.48,
-          "holdings": {
-            "Malayan Banking": {
-              "shares": 200,
-              "cost": 9.85,
-              "price": 9.85,
-              "invested": 1970.0,
-              "current": 1970.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "Scientex Berhad": {
-              "shares": 300,
-              "cost": 4.15,
-              "price": 4.15,
-              "invested": 1245.0,
-              "current": 1245.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "Axis REIT": {
-              "shares": 800,
-              "cost": 1.82,
-              "price": 1.82,
-              "invested": 1456.0,
-              "current": 1456.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "AME Elite Consortium": {
-              "shares": 1000,
-              "cost": 1.5,
-              "price": 1.5,
-              "invested": 1500.0,
-              "current": 1500.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 15.0
-            },
-            "YTL Power": {
-              "shares": 500,
-              "cost": 3.95,
-              "price": 3.95,
-              "invested": 1975.0,
-              "current": 1975.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            }
-          },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:07+08:00",
-      "personas": {
-        "demeter": {
-          "total": 7456.07,
-          "invested": 7437.0,
-          "cash": 19.07,
-          "pnl": -2543.93,
-          "pnl_pct": -25.44,
-          "holdings": {
-            "Malayan Banking": {
-              "shares": 200,
-              "cost": 9.85,
-              "price": 9.85,
-              "invested": 1970.0,
-              "current": 1970.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 24.9
-            },
-            "Sime Darby": {
-              "shares": 400,
-              "cost": 2.38,
-              "price": 2.38,
-              "invested": 952.0,
-              "current": 952.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Scientex Berhad": {
-              "shares": 200,
-              "cost": 4.15,
-              "price": 4.15,
-              "invested": 830.0,
-              "current": 830.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Axis REIT": {
-              "shares": 1000,
-              "cost": 1.82,
-              "price": 1.82,
-              "invested": 1820.0,
-              "current": 1820.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "KIP Real Estate Investment Trust": {
-              "shares": 1100,
-              "cost": 0.85,
-              "price": 0.85,
-              "invested": 935.0,
-              "current": 935.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Magni-Tech Industries": {
-              "shares": 500,
-              "cost": 1.86,
-              "price": 1.86,
-              "invested": 930.0,
-              "current": 930.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            }
-          },
-          "trades_this_run": 0
-        }
-      }
-    },
-    {
-      "timestamp": "2026-06-01T20:00:07+08:00",
-      "personas": {
-        "demeter": {
-          "total": 7456.07,
-          "invested": 7437.0,
-          "cash": 19.07,
-          "pnl": -2543.93,
-          "pnl_pct": -25.44,
-          "holdings": {
-            "Malayan Banking": {
-              "shares": 200,
-              "cost": 9.85,
-              "price": 9.85,
-              "invested": 1970.0,
-              "current": 1970.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 24.9
-            },
-            "Sime Darby": {
-              "shares": 400,
-              "cost": 2.38,
-              "price": 2.38,
-              "invested": 952.0,
-              "current": 952.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Scientex Berhad": {
-              "shares": 200,
-              "cost": 4.15,
-              "price": 4.15,
-              "invested": 830.0,
-              "current": 830.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Axis REIT": {
-              "shares": 1000,
-              "cost": 1.82,
-              "price": 1.82,
-              "invested": 1820.0,
-              "current": 1820.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 20.0
-            },
-            "KIP Real Estate Investment Trust": {
-              "shares": 1100,
-              "cost": 0.85,
-              "price": 0.85,
-              "invested": 935.0,
-              "current": 935.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            },
-            "Magni-Tech Industries": {
-              "shares": 500,
-              "cost": 1.86,
-              "price": 1.86,
-              "invested": 930.0,
-              "current": 930.0,
-              "pnl": 0.0,
-              "pnl_pct": 0.0,
-              "weight": 10.0
-            }
-          },
-          "trades_this_run": 0
-        }
-      }
-    }
-  ],
-  "personas": {
-    "ares": {
-      "cash": 10000.0,
-      "holdings": {
-        "Wasco Berhad": {
-          "shares": 3100,
-          "cost": 0.795
-        },
-        "YTL Power": {
-          "shares": 700,
-          "cost": 4.16
-        },
-        "INSAS Berhad": {
-          "shares": 2200,
-          "cost": 0.895
-        },
-        "Deleum Berhad": {
-          "shares": 1200,
-          "cost": 1.22
-        },
-        "Sime Darby": {
-          "shares": 500,
-          "cost": 2.08
-        },
-        "Malayan Banking": {
-          "shares": 100,
-          "cost": 10.64
+          "KLK": {
+            "shares": 100,
+            "cost": 20.32,
+            "price": 20.44,
+            "invested": 2032.0,
+            "current": 2044.0,
+            "pnl": 12.0,
+            "pnl_pct": 0.59,
+            "weight": 20.6,
+            "target_pct": 8.0
+          }
         }
       },
-      "trade_log": []
-    },
-    "demeter": {
-      "cash": 10000.0,
-      "holdings": {
-        "Malayan Banking": {
-          "shares": 200,
-          "cost": 9.85
-        },
-        "Axis REIT": {
-          "shares": 1000,
-          "cost": 1.82
-        },
-        "MBM Resources": {
-          "shares": 200,
-          "cost": 5.07
-        },
-        "Magni-Tech Industries": {
-          "shares": 500,
-          "cost": 1.86
-        },
-        "Scientex Berhad": {
-          "shares": 200,
-          "cost": 4.15
-        },
-        "Sime Darby": {
-          "shares": 400,
-          "cost": 2.38
-        },
-        "KL Kepong": {
-          "shares": 100,
-          "cost": 20.32
+      "athena": {
+        "total": 9906.0,
+        "invested": 9251.0,
+        "cash": 749.0,
+        "pnl": -94.0,
+        "pnl_pct": -0.94,
+        "holdings": {
+          "MAYBANK": {
+            "shares": 200,
+            "cost": 10.64,
+            "price": 10.58,
+            "invested": 2128.0,
+            "current": 2116.0,
+            "pnl": -12.0,
+            "pnl_pct": -0.56,
+            "weight": 73.9,
+            "target_pct": 20.0
+          },
+          "MAGNI": {
+            "shares": 800,
+            "cost": 1.86,
+            "price": 1.88,
+            "invested": 1488.0,
+            "current": 1504.0,
+            "pnl": 16.0,
+            "pnl_pct": 1.08,
+            "weight": 34.4,
+            "target_pct": 18.0
+          },
+          "AME": {
+            "shares": 1000,
+            "cost": 1.5,
+            "price": 1.51,
+            "invested": 1500.0,
+            "current": 1510.0,
+            "pnl": 10.0,
+            "pnl_pct": 0.67,
+            "weight": 25.7,
+            "target_pct": 17.0
+          },
+          "AXREIT": {
+            "shares": 800,
+            "cost": 1.95,
+            "price": 1.94,
+            "invested": 1560.0,
+            "current": 1552.0,
+            "pnl": -8.0,
+            "pnl_pct": -0.51,
+            "weight": 20.9,
+            "target_pct": 15.0
+          },
+          "SCIENTEX": {
+            "shares": 300,
+            "cost": 3.73,
+            "price": 3.49,
+            "invested": 1119.0,
+            "current": 1047.0,
+            "pnl": -72.0,
+            "pnl_pct": -6.43,
+            "weight": 12.3,
+            "target_pct": 15.0
+          },
+          "SIME": {
+            "shares": 700,
+            "cost": 2.08,
+            "price": 2.04,
+            "invested": 1456.0,
+            "current": 1428.0,
+            "pnl": -28.0,
+            "pnl_pct": -1.92,
+            "weight": 14.4,
+            "target_pct": 15.0
+          }
         }
-      },
-      "trade_log": []
+      }
     },
-    "athena": {
-      "cash": 10000.0,
-      "holdings": {
-        "Malayan Banking": {
-          "shares": 200,
-          "cost": 9.85
-        },
-        "Magni-Tech Industries": {
-          "shares": 800,
-          "cost": 1.86
-        },
-        "AME Elite Consortium": {
-          "shares": 1000,
-          "cost": 1.5
-        },
-        "Axis REIT": {
-          "shares": 800,
-          "cost": 1.82
-        },
-        "Scientex Berhad": {
-          "shares": 300,
-          "cost": 4.15
-        },
-        "Sime Darby": {
-          "shares": 700,
-          "cost": 2.08
-        }
-      },
-      "trade_log": []
+    "prices": {
+      "MAYBANK": 10.58,
+      "AXREIT": 1.94,
+      "YTLPOWR": 4.18,
+      "INSAS": 0.885,
+      "LIIHEN": 0.285,
+      "SCIENTEX": 3.49,
+      "GENETEC": 0.325,
+      "KLK": 20.44,
+      "INARI": 2.32,
+      "SIME": 2.04,
+      "MAGNI": 1.88,
+      "MBMR": 5.05,
+      "AME": 1.51,
+      "DELEUM": 1.15,
+      "WASCO": 0.785,
+      "KIPREIT": 0.85,
+      "INTA": 0.38,
+      "RHB": 8.5,
+      "PADINI": 1.47,
+      "GAMUDA": 4.36,
+      "MATRIX": 1.23,
+      "PBBANK": 4.8,
+      "TIME": 6.02,
+      "SCICOM": 1.71,
+      "SEM": 1.98
+    },
+    "trades_today": {
+      "ares": {
+        "sells": [
+          {
+            "stock": "YTLPOWR",
+            "code": "6742.KL",
+            "shares": 300,
+            "cost": 3.95,
+            "sell_price": 4.18,
+            "pnl": 69.0
+          },
+          {
+            "stock": "SIME",
+            "code": "4197.KL",
+            "shares": 800,
+            "cost": 2.08,
+            "sell_price": 2.04,
+            "pnl": -32.0
+          },
+          {
+            "stock": "MAYBANK",
+            "code": "1155.KL",
+            "shares": 100,
+            "cost": 10.64,
+            "sell_price": 10.58,
+            "pnl": -6.0
+          }
+        ],
+        "buys": [
+          {
+            "stock": "WASCO",
+            "code": "5142.KL",
+            "shares": 1800,
+            "buy_price": 0.785
+          },
+          {
+            "stock": "MAGNI",
+            "code": "7087.KL",
+            "shares": 1400,
+            "buy_price": 1.88
+          },
+          {
+            "stock": "DELEUM",
+            "code": "5132.KL",
+            "shares": 300,
+            "buy_price": 1.15
+          }
+        ]
+      }
     }
   }
-}
+]
