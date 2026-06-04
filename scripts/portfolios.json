@@ -24,6 +24,12 @@
       "industry": "Construction",
       "initial": 1.5
     },
+    "4383": {
+      "code": "4383.KL",
+      "name": "Jaya Tiasa Holdings Berhad",
+      "industry": "Farm Products",
+      "initial": 1.0499999523162842
+    },
     "5139": {
       "code": "5139.KL",
       "name": "AEON Credit Service (M) Berhad",
@@ -48,17 +54,11 @@
       "industry": "Plantation",
       "initial": 20.5
     },
-    "WASCO": {
-      "code": "5142.KL",
-      "name": "Wasco Berhad",
-      "industry": "Energy",
-      "initial": 0.8
-    },
-    "RHB": {
-      "code": "1066.KL",
-      "name": "RHB Bank Berhad",
-      "industry": "Banking",
-      "initial": 8.21
+    "9598": {
+      "code": "9598.KL",
+      "name": "Pintaras Jaya Berhad",
+      "industry": "Engineering & Construction",
+      "initial": 1.2999999523162842
     },
     "MATRIX": {
       "code": "5236.KL",
@@ -66,11 +66,23 @@
       "industry": "Property",
       "initial": 1.25
     },
+    "WASCO": {
+      "code": "5142.KL",
+      "name": "Wasco Berhad",
+      "industry": "Energy",
+      "initial": 0.8
+    },
     "AXREIT": {
       "code": "5106.KL",
       "name": "Axis Real Estate Investment Trust",
       "industry": "REIT",
       "initial": 1.82
+    },
+    "RHB": {
+      "code": "1066.KL",
+      "name": "RHB Bank Berhad",
+      "industry": "Banking",
+      "initial": 8.21
     },
     "KIPREIT": {
       "code": "5280.KL",
@@ -161,6 +173,12 @@
       "name": "Alam Maritim Resources Berhad",
       "industry": "Oil & Gas Equipment & Services",
       "initial": 0.3199999928474426
+    },
+    "5401": {
+      "code": "5401.KL",
+      "name": "Tropicana Corporation Berhad",
+      "industry": "Real Estate - Development",
+      "initial": 1.0399999618530273
     },
     "SEM": {
       "code": "5250.KL",
