@@ -5,7 +5,7 @@ import type { Stock } from '../data/stocks'
 import { INDUSTRY_COLORS } from '../data/stocks'
 
 interface StockCardProps {
-  stock: Stock
+  stock: Stock & { _ticker?: string; _shortCode?: string }
   rank: number
 }
 
@@ -14,9 +14,13 @@ export default function StockCard({ stock, rank }: StockCardProps) {
   const changeColor = stock.priceChange >= 0 ? 'text-emerald-600' : 'text-red-500'
   const changeIcon = stock.priceChange >= 0 ? '▲' : '▼'
 
+  // Use ticker code for navigation (API expects ticker), display short code
+  const ticker = (stock as any)._ticker || stock.code
+  const displayCode = (stock as any)._shortCode || stock.code
+
   return (
     <Link
-      to={`/stock/${stock.code}`}
+      to={`/stock/${ticker}`}
       className="block p-4 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors"
     >
       <div className="flex items-start justify-between mb-3">
@@ -28,7 +32,7 @@ export default function StockCard({ stock, rank }: StockCardProps) {
             </span>
           </div>
           <h3 className="font-semibold text-gray-900 dark:text-gray-100 mt-1 truncate">{stock.name}</h3>
-          <p className="text-xs text-gray-500">{stock.code}</p>
+          <p className="text-xs text-gray-500">{displayCode}</p>
         </div>
         <ScoreBadge score={stock.score.composite} size="sm" />
       </div>

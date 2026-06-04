@@ -1,7 +1,8 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ScoreBadge from '../components/ScoreBadge'
-import { stocks as staticStocks, INDUSTRY_COLORS } from '../data/stocks'
+import { INDUSTRY_COLORS } from '../data/stocks'
+import type { Stock } from '../data/stocks'
 
 const API_URL = import.meta.env.VITE_API_URL || ''
 
@@ -30,74 +31,67 @@ const TICKER_MAP: Record<string, string> = {
   'SEM': '5250.KL',
 }
 
+// Reverse: ticker → short code
+const TICKER_TO_SHORT: Record<string, string> = {}
+for (const [short, ticker] of Object.entries(TICKER_MAP)) {
+  TICKER_TO_SHORT[ticker] = short
+}
+
+function apiStockToStock(s: WatchlistStock): Stock {
+  const shortCode = TICKER_TO_SHORT[s.code] || s.code
+  return {
+    code: s.code,  // keep ticker code for navigation
+    name: s.name,
+    industry: s.industry,
+    marketCap: 0,
+    lastPrice: s.lastPrice,
+    priceChange: 0,
+    dividendYield: 0,
+    score: { composite: s.compositeScore, dividend: 0, growth: 0, quality: 0, risk: 0 },
+    financials: [],
+    dividends: [],
+    status: s.compositeScore >= 70 ? 'active' : 'revisit',
+    addedAt: '',
+    revisitAt: null,
+    notes: '',
+    sparkline: [],
+    // Store short code for display
+    _shortCode: shortCode,
+  } as Stock & { _shortCode: string }
+}
+
+type ExtendedStock = ReturnType<typeof apiStockToStock>
+
 export default function Watchlist() {
   const [tab, setTab] = useState<Tab>('active')
-  const [dbStocks, setDbStocks] = useState<WatchlistStock[]>([])
+  const [dbStocks, setDbStocks] = useState<ExtendedStock[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (!API_URL) {
-      // Fallback to static data for local dev
       setLoading(false)
       return
     }
     fetch(`${API_URL}/watchlist`)
       .then(r => r.json())
       .then((data: WatchlistStock[]) => {
-        if (Array.isArray(data)) setDbStocks(data)
+        if (Array.isArray(data)) {
+          const stocks = data.map(apiStockToStock)
+          setDbStocks(stocks)
+        }
       })
       .catch(() => {})
       .finally(() => setLoading(false))
   }, [])
 
-  // Merge DB data with static data for missing fields (financials, sparkline, etc.)
-  const mergedStocks = useMemo(() => {
-    const base = !dbStocks.length ? staticStocks : (() => {
-      // Build reverse map: ticker → short code
-      const tickerToShort: Record<string, string> = {}
-      for (const [short, ticker] of Object.entries(TICKER_MAP)) {
-        tickerToShort[ticker] = short
-      }
-      
-      return dbStocks.map(dbs => {
-        // API returns ticker codes (1155.KL), static uses short codes (MAYBANK)
-        const shortCode = tickerToShort[dbs.code] || dbs.code
-        const existing = staticStocks.find(s => s.code === shortCode)
-        if (existing) {
-          return {
-            ...existing,
-            score: dbs.compositeScore > 0
-              ? { ...existing.score, composite: dbs.compositeScore }
-              : existing.score,
-          }
-        }
-        // New stock from DB not in static data — build minimal entry
-        return {
-          code: dbs.code,
-          name: dbs.name,
-          industry: dbs.industry,
-          marketCap: 0,
-          lastPrice: dbs.lastPrice,
-          priceChange: 0,
-          dividendYield: 0,
-          score: { composite: dbs.compositeScore, dividend: 0, growth: 0, quality: 0, risk: 0 },
-          financials: [],
-          dividends: [],
-          status: 'revisit' as const,
-          addedAt: '',
-          revisitAt: null,
-          notes: '',
-          sparkline: [],
-        }
-      })
-    })()
-    
-    // Derive status dynamically from score (≥70 = active)
-    return base.map(s => ({
+  // Derive status dynamically from score (≥70 = active)
+  const mergedStocks = useMemo(() =>
+    dbStocks.map(s => ({
       ...s,
       status: (s.score.composite >= 70 ? 'active' : 'revisit') as 'active' | 'revisit' | 'removed',
-    }))
-  }, [dbStocks])
+    })),
+    [dbStocks]
+  )
 
   const active = useMemo(() =>
     mergedStocks.filter((s) => s.status === 'active').sort((a, b) => b.score.composite - a.score.composite),
@@ -121,7 +115,7 @@ export default function Watchlist() {
         : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
     }`
 
-  function StockRow({ stock }: { stock: typeof mergedStocks[number] }) {
+  function StockRow({ stock }: { stock: ExtendedStock }) {
     const navigate = useNavigate()
     const indColor = INDUSTRY_COLORS[stock.industry] || 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
     const statusColor =
@@ -129,18 +123,18 @@ export default function Watchlist() {
       stock.status === 'revisit' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300' :
       'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
 
-    const ticker = TICKER_MAP[stock.code] || stock.code
+    const displayCode = (stock as any)._shortCode || stock.code
 
     return (
       <div
         className="flex items-center justify-between py-3 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors cursor-pointer"
-        onClick={() => navigate(`/stock/${ticker}`)}
+        onClick={() => navigate(`/stock/${stock.code}`)}
       >
         <div className="flex items-center gap-3 min-w-0">
           <ScoreBadge score={stock.score.composite} size="sm" />
           <div className="min-w-0">
             <p className="font-medium text-gray-900 dark:text-gray-100 truncate">{stock.name}</p>
-            <p className="text-xs text-gray-500">{stock.code} · {stock.industry}</p>
+            <p className="text-xs text-gray-500">{displayCode} · {stock.industry}</p>
           </div>
         </div>
         <div className="flex items-center gap-4 flex-shrink-0">
