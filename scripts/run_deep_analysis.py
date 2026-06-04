@@ -70,6 +70,7 @@ SHORT_TO_TICKER = {
     'RHB': '1066.KL', 'PADINI': '7052.KL',
     'GAMUDA': '5398.KL', 'MATRIX': '5236.KL',
     'PBBANK': '1295.KL', 'TIME': '5031.KL', 'SCICOM': '0099.KL',
+    'SEM': '5250.KL',
 }
 
 
@@ -83,37 +84,51 @@ def parse_stocks_ts() -> dict:
     ts_path = ROOT / "web" / "src" / "data" / "stocks.ts"
     content = ts_path.read_text()
     
-    # Extract each stock block
-    stock_pattern = re.compile(
-        r"code:\s*'(\w+)'.*?"
-        r"name:\s*'([^']+)'.*?"
-        r"industry:\s*'([^']+)'.*?"
-        r"lastPrice:\s*([\d.]+).*?"
-        r"dividendYield:\s*([\d.]+).*?"
-        r"score:\s*\{\s*composite:\s*(\d+).*?"
-        r"peRatio:\s*([\d.-]+).*?"
-        r"roe:\s*([\d.-]+).*?"
-        r"debtToEquity:\s*([\d.-]+).*?"
-        r"revenueGrowthYoY:\s*([\d.-]+)",
-        re.DOTALL
-    )
+    # Split by stock blocks (each starts with "code:" at line start)
+    # Skip the type definitions + array opening before the first stock block
+    blocks = re.split(r"\n  \{\s*\n\s*code:", content)
+    if len(blocks) > 1:
+        blocks = ["code:" + b for b in blocks[1:]]  # reattach "code:" prefix
+    
+    # Simple per-field regex for each block (no cross-block .*? backtracking)
+    field_patterns = {
+        "short_code": r"code:\s*'(\w+)'",
+        "name": r"name:\s*'([^']+)'",
+        "industry": r"industry:\s*'([^']+)'",
+        "price": r"lastPrice:\s*([\d.]+)",
+        "dy": r"dividendYield:\s*([\d.]+)",
+        "score_composite": r"score:\s*\{\s*composite:\s*(\d+)",
+        "pe": r"peRatio:\s*([\d.-]+)",
+        "roe": r"roe:\s*([\d.-]+)",
+        "de": r"debtToEquity:\s*([\d.-]+)",
+        "rev_growth": r"revenueGrowthYoY:\s*([\d.-]+)",
+    }
     
     result = {}
-    for m in stock_pattern.finditer(content):
-        short_code = m.group(1)
+    for block in blocks:
+        fields = {}
+        for key, pat in field_patterns.items():
+            m = re.search(pat, block)
+            if m:
+                fields[key] = m.group(1)
+        
+        if "short_code" not in fields:
+            continue
+        
+        short_code = fields["short_code"]
         ticker = SHORT_TO_TICKER.get(short_code, short_code + '.KL')
         
         result[ticker] = {
-            "name": m.group(2),
-            "industry": m.group(3),
-            "price": float(m.group(4)),
-            "dy": float(m.group(5)),
-            "score_composite": int(m.group(6)),
-            "pe": float(m.group(7)),
-            "roe": float(m.group(8)),
-            "de": float(m.group(9)),
-            "rev_growth": float(m.group(10)),
-            # Estimated/extracted from notes or reasonable defaults
+            "code": ticker,
+            "name": fields.get("name", short_code),
+            "industry": fields.get("industry", ""),
+            "price": _float(fields.get("price"), 0),
+            "dy": _float(fields.get("dy"), 0),
+            "score_composite": int(fields.get("score_composite", 0)),
+            "pe": _float(fields.get("pe"), 0),
+            "roe": _float(fields.get("roe"), 0),
+            "de": _float(fields.get("de"), 0),
+            "rev_growth": _float(fields.get("rev_growth"), 0),
             "eps_growth": 0.0,
             "beta": 0.5,
             "fcf": 0,
@@ -123,6 +138,13 @@ def parse_stocks_ts() -> dict:
         }
     
     return result
+
+
+def _float(val, default=0.0) -> float:
+    try:
+        return float(val)
+    except (TypeError, ValueError):
+        return default
 
 
 # ═══════════════════════════════════════════════════════════════
