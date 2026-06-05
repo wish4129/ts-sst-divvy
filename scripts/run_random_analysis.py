@@ -112,19 +112,21 @@ def run_analysis(count=3, process_pending=False):
                 continue
             
             price = float(hist['Close'].iloc[-1])
-            pe = info.get('trailingPE') or info.get('forwardPE') or 0
-            dy_pct = round((info.get('dividendYield') or 0) * 100, 2)
-            roe = round((info.get('returnOnEquity') or 0) * 100, 2)
-            de = info.get('debtToEquity') or 0
-            mcap = info.get('marketCap') or 0
+            pe = float(info.get('trailingPE') or info.get('forwardPE') or 0)
+            # yfinance dividendYield is ALREADY in percentage (e.g. 4.78 = 4.78%).
+            # Do NOT multiply by 100.
+            dy_pct = round(float(info.get('dividendYield') or 0), 2)
+            roe = round(float(info.get('returnOnEquity') or 0) * 100, 2)
+            de = float(info.get('debtToEquity') or 0)
+            mcap = float(info.get('marketCap') or 0)
             mcap_b = round(mcap / 1e9, 2)
-            rev_growth = round((info.get('revenueGrowth') or 0) * 100, 2)
+            rev_growth = round(float(info.get('revenueGrowth') or 0) * 100, 2)
             name = info.get('longName') or info.get('shortName') or short_name
             industry = info.get('industry') or ''
             
             # Normalize yfinance quirks
             if dy_pct > 100:
-                dy_pct = dy_pct / 100  # yfinance sometimes returns already-scaled
+                dy_pct = dy_pct / 100  # safety net — already scaled
             if pe > 1000:
                 pe = 0  # data error
             

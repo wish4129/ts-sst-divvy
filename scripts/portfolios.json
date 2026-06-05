@@ -1,16 +1,16 @@
 {
   "stocks": {
-    "MAGNI": {
-      "code": "7087.KL",
-      "name": "Magni-Tech Industries Berhad",
-      "industry": "Consumer Products & Services",
-      "initial": 1.86
-    },
     "MBMR": {
       "code": "5983.KL",
       "name": "MBM Resources Berhad",
       "industry": "Automotive",
       "initial": 5.07
+    },
+    "MAGNI": {
+      "code": "7087.KL",
+      "name": "Magni-Tech Industries Berhad",
+      "industry": "Consumer Products & Services",
+      "initial": 1.86
     },
     "SCICOM": {
       "code": "0099.KL",
@@ -48,23 +48,17 @@
       "industry": "Energy",
       "initial": 1.22
     },
-    "KLK": {
-      "code": "2445.KL",
-      "name": "KL Kepong",
-      "industry": "Plantation",
-      "initial": 20.5
-    },
     "9598": {
       "code": "9598.KL",
       "name": "Pintaras Jaya Berhad",
       "industry": "Engineering & Construction",
       "initial": 1.2999999523162842
     },
-    "MATRIX": {
-      "code": "5236.KL",
-      "name": "Matrix Concepts Holdings Berhad",
-      "industry": "Property",
-      "initial": 1.25
+    "KLK": {
+      "code": "2445.KL",
+      "name": "KL Kepong",
+      "industry": "Plantation",
+      "initial": 20.5
     },
     "WASCO": {
       "code": "5142.KL",
@@ -83,6 +77,12 @@
       "name": "RHB Bank Berhad",
       "industry": "Banking",
       "initial": 8.21
+    },
+    "MATRIX": {
+      "code": "5236.KL",
+      "name": "Matrix Concepts Holdings Berhad",
+      "industry": "Property",
+      "initial": 1.25
     },
     "KIPREIT": {
       "code": "5280.KL",
@@ -173,6 +173,12 @@
       "name": "Alam Maritim Resources Berhad",
       "industry": "Oil & Gas Equipment & Services",
       "initial": 0.3199999928474426
+    },
+    "9717": {
+      "code": "9717.KL",
+      "name": "Sycal Ventures Berhad",
+      "industry": "Engineering & Construction",
+      "initial": 0.17000000178813934
     },
     "5401": {
       "code": "5401.KL",
