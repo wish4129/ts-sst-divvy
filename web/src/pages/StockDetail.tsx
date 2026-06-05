@@ -331,19 +331,19 @@ export default function StockDetail() {
           <ArrowLeft className="w-4 h-4" /> Back to Battle
         </Link>
 
-        <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
+        <div className="flex flex-wrap items-start justify-between gap-3 md:gap-4 mb-4 md:mb-6">
           <div>
-            <div className="flex items-center gap-3 mb-1">
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{displayStock.name}</h1>
+            <div className="flex items-center gap-2 md:gap-3 mb-1">
+              <h1 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100">{displayStock.name}</h1>
               {displayStock.industry && (
                 <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${indColor}`}>{displayStock.industry}</span>
               )}
             </div>
-            <p className="text-sm text-gray-500">{displayStock.code} · MCap RM {displayStock.marketCap}B</p>
+            <p className="text-xs md:text-sm text-gray-500">{displayStock.code} · MCap RM {displayStock.marketCap}B</p>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 md:gap-4">
             <div className="text-right">
-              <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">RM {displayStock.lastPrice.toFixed(2)}</span>
+              <span className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">RM {displayStock.lastPrice.toFixed(2)}</span>
               <span className={`ml-2 text-sm font-medium ${changeColor}`}>{changeIcon} {Math.abs(displayStock.priceChange).toFixed(2)}%</span>
             </div>
             <ScoreBadge score={displayStock.score.composite} size="lg" />
@@ -509,17 +509,17 @@ function StockDetailSkeleton() {
         <div className={`h-4 w-24 mb-4 ${shimmer}`} />
 
         {/* Title + price + score */}
-        <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
+        <div className="flex flex-wrap items-start justify-between gap-3 md:gap-4 mb-4 md:mb-6">
           <div>
-            <div className="flex items-center gap-3 mb-1">
-              <div className={`h-8 w-48 ${shimmer}`} />
+            <div className="flex items-center gap-2 md:gap-3 mb-1">
+              <div className={`h-7 md:h-8 w-48 ${shimmer}`} />
               <div className={`h-5 w-20 rounded-full ${shimmer}`} />
             </div>
-            <div className={`h-4 w-40 mt-1 ${shimmer}`} />
+            <div className={`h-3 md:h-4 w-40 mt-1 ${shimmer}`} />
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 md:gap-4">
             <div className="text-right">
-              <div className={`h-9 w-28 mb-1 ${shimmer}`} />
+              <div className={`h-8 md:h-9 w-28 mb-1 ${shimmer}`} />
               <div className={`h-4 w-16 ml-auto ${shimmer}`} />
             </div>
             <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />

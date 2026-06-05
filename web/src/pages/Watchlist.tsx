@@ -128,18 +128,18 @@ export default function Watchlist() {
 
     return (
       <div
-        className="flex items-center justify-between py-3 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors cursor-pointer"
+        className="flex items-center justify-between py-3 px-3 md:px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors cursor-pointer gap-2"
         onClick={() => navigate(`/stock/${stock.code}`)}
       >
-        <div className="flex items-center gap-3 min-w-0">
+        <div className="flex items-center gap-2 md:gap-3 min-w-0 flex-1">
           <ScoreBadge score={stock.score.composite} size="sm" />
           <div className="min-w-0">
-            <p className="font-medium text-gray-900 dark:text-gray-100 truncate">{stock.name}</p>
-            <p className="text-xs text-gray-500">{displayCode} · {stock.industry}</p>
+            <p className="font-medium text-sm md:text-base text-gray-900 dark:text-gray-100 truncate">{stock.name}</p>
+            <p className="text-xs text-gray-500 truncate">{displayCode} · {stock.industry}</p>
           </div>
         </div>
-        <div className="flex items-center gap-4 flex-shrink-0">
-          <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${indColor}`}>{stock.industry}</span>
+        <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
+          <span className={`px-2 py-0.5 rounded-full text-[10px] md:text-xs font-medium hidden sm:inline ${indColor}`}>{stock.industry}</span>
           <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusColor}`}>
             {stock.status}
           </span>

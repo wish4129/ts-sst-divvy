@@ -124,14 +124,14 @@ export default function Battle() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-950 to-gray-900 text-gray-100">
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-amber-400 to-yellow-300 bg-clip-text text-transparent">
+        <div className="text-center mb-6 md:mb-10">
+          <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-amber-400 to-yellow-300 bg-clip-text text-transparent">
             ⚔️ Portfolio Battle
           </h1>
-          <p className="text-gray-400 mt-2">RM10,000 each · Hourly rebalance · Mon-Fri 9am-5pm</p>
+          <p className="text-gray-400 mt-2 text-xs md:text-base">RM10,000 each · Hourly rebalance · Mon-Fri 9am-5pm</p>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 mb-10">
           {ranked.map(([pid, snap], i) => {
             const p = PERSONAS[pid]
             const Icon = ICONS[pid]
@@ -151,8 +151,8 @@ export default function Battle() {
                   </div>
                   <Icon className={`w-6 h-6 ${isWinner ? 'text-yellow-400' : 'text-gray-500'}`} />
                 </div>
-                <div className="text-3xl font-mono font-bold">{formatRM(snap.total)}</div>
-                <div className={`flex items-center gap-1 mt-1 text-lg font-mono ${snap.pnl_pct >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                <div className="text-2xl md:text-3xl font-mono font-bold">{formatRM(snap.total)}</div>
+                <div className={`flex items-center gap-1 mt-1 text-base md:text-lg font-mono ${snap.pnl_pct >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                   {snap.pnl_pct >= 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
                   {pctStr(snap.pnl_pct)}
                 </div>
@@ -165,12 +165,13 @@ export default function Battle() {
           })}
         </div>
 
-        <div className="bg-gray-800/30 rounded-xl p-6 border border-gray-700 mb-10">
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+        <div className="bg-gray-800/30 rounded-xl p-4 md:p-6 border border-gray-700 mb-10">
+          <h2 className="text-base md:text-lg font-semibold mb-4 flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-emerald-400" />
             Portfolio Value Over Time
           </h2>
-          <ResponsiveContainer width="100%" height={350}>
+          <div className="h-[220px] sm:h-[300px] md:h-[350px]">
+          <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
               <XAxis dataKey="time" stroke="#6b7280" fontSize={12} />
@@ -186,15 +187,16 @@ export default function Battle() {
               ))}
             </LineChart>
           </ResponsiveContainer>
+          </div>
         </div>
 
         {ranked.map(([pid, snap]) => (
           <div key={pid} className="mb-8">
-            <h3 className="text-lg font-semibold mb-3 flex items-center gap-2" style={{ color: COLORS[pid] }}>
+            <h3 className="text-base md:text-lg font-semibold mb-3 flex items-center gap-2" style={{ color: COLORS[pid] }}>
               {PERSONAS[pid].name} — Holdings
             </h3>
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+              <table className="w-full text-sm min-w-[650px]">
                 <thead>
                   <tr className="text-left text-gray-400 border-b border-gray-700">
                     <th className="pb-2 font-medium">Stock</th>
@@ -269,7 +271,7 @@ function Loading() {
         </div>
 
         {/* Persona cards */}
-        <div className="grid grid-cols-3 gap-4 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 mb-10">
           {personas.map(pid => (
             <div key={pid}
               className="rounded-xl p-5 border-2 border-gray-700/40 bg-gray-800/50"
@@ -284,8 +286,8 @@ function Loading() {
                 </div>
                 <div className={`w-6 h-6 ${shimmer}`} />
               </div>
-              <div className={`h-9 w-36 mb-2 ${shimmer}`} />
-              <div className={`h-6 w-24 mb-1 ${shimmer}`} />
+              <div className={`h-8 md:h-9 w-36 mb-2 ${shimmer}`} />
+              <div className={`h-5 md:h-6 w-24 mb-1 ${shimmer}`} />
               <div className={`h-3 w-44 mt-1 ${shimmer}`} />
               <div className={`h-9 w-full mt-3 ${shimmer}`} />
             </div>
@@ -293,9 +295,9 @@ function Loading() {
         </div>
 
         {/* Chart skeleton */}
-        <div className="bg-gray-800/30 rounded-xl p-6 border border-gray-700 mb-10">
+        <div className="bg-gray-800/30 rounded-xl p-4 md:p-6 border border-gray-700 mb-10">
           <div className={`h-6 w-56 mb-4 ${shimmer}`} />
-          <div className={`h-[350px] w-full ${shimmer}`} />
+          <div className={`h-[220px] sm:h-[300px] md:h-[350px] w-full ${shimmer}`} />
         </div>
 
         {/* Holdings table skeletons */}
