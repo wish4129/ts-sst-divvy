@@ -11,3 +11,5 @@ __pycache__/
 web/dist/
 web/src/data/stocks.ts
 scripts/portfolios.json
+graphify-out/
+.codegraph/
