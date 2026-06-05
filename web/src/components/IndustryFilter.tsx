@@ -6,7 +6,7 @@ interface IndustryFilterProps {
 
 export default function IndustryFilter({ industries, selected, onChange }: IndustryFilterProps) {
   return (
-    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+    <div role="group" aria-label="Industry filter" className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
       <button
         onClick={() => onChange('')}
         className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${

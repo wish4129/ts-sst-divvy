@@ -98,18 +98,21 @@ export default function Universe() {
         </div>
 
         {message && (
-          <div className="mb-4 px-4 py-2 bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 rounded-lg text-sm flex items-center gap-2">
+          <div role="status" aria-live="polite" className="mb-4 px-4 py-2 bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 rounded-lg text-sm flex items-center gap-2">
             <CheckCircle2 className="h-4 w-4" />
             {message}
           </div>
         )}
 
-        <form onSubmit={handleSearch} className="mb-4 flex gap-2">
+        <form onSubmit={handleSearch} role="search" aria-label="Search Bursa stocks" className="mb-4 flex gap-2">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <label htmlFor="universe-search" className="sr-only">Search stocks</label>
             <input
+              id="universe-search"
               type="text"
               placeholder="Search by name or code..."
+              aria-label="Search Bursa stocks"
               value={search}
               onChange={e => setSearch(e.target.value)}
               className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
@@ -124,8 +127,9 @@ export default function Universe() {
         </form>
 
         {loading ? (
-          <div className="flex items-center justify-center py-20">
+          <div role="status" aria-live="polite" className="flex items-center justify-center py-20">
             <Loader2 className="h-6 w-6 animate-spin text-emerald-600" />
+            <span className="sr-only">Loading stocks...</span>
           </div>
         ) : (
           <>
@@ -167,6 +171,7 @@ export default function Universe() {
                         <td className="px-4 py-3 text-center">
                           <button
                             onClick={() => requestAnalysis(s.stock_code)}
+                            aria-label={`Request analysis for ${s.name}`}
                             disabled={s.has_analysis || queued.has(s.stock_code) || requesting.has(s.stock_code)}
                             className={`inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-medium transition-colors ${
                               s.has_analysis
@@ -198,16 +203,18 @@ export default function Universe() {
                 <button
                   onClick={() => setPage(p => Math.max(1, p - 1))}
                   disabled={page === 1}
+                  aria-label="Previous page"
                   className="px-3 py-1 rounded text-sm bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 disabled:opacity-50"
                 >
                   Prev
                 </button>
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-gray-500" aria-live="polite">
                   Page {page} of {totalPages}
                 </span>
                 <button
                   onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                   disabled={page === totalPages}
+                  aria-label="Next page"
                   className="px-3 py-1 rounded text-sm bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 disabled:opacity-50"
                 >
                   Next

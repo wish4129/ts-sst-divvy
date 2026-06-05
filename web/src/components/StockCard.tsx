@@ -21,6 +21,7 @@ export default function StockCard({ stock, rank }: StockCardProps) {
   return (
     <Link
       to={`/stock/${ticker}`}
+      aria-label={`${stock.name} — RM ${stock.lastPrice.toFixed(2)}, Score ${stock.score.composite}`}
       className="block p-4 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors"
     >
       <div className="flex items-start justify-between mb-3">

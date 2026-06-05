@@ -199,29 +199,71 @@ export default function Battle() {
               <table className="w-full text-sm min-w-[650px]">
                 <thead>
                   <tr className="text-left text-gray-400 border-b border-gray-700">
-                    <th className="pb-2 font-medium">Stock</th>
-                    <th className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
-                      onClick={() => toggleSort('shares')}>
+                    <th scope="col" className="pb-2 font-medium">Stock</th>
+                    <th
+                      scope="col"
+                      className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
+                      onClick={() => toggleSort('shares')}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleSort('shares'); }}}
+                      tabIndex={0}
+                      role="columnheader"
+                      aria-sort={sortCol === 'shares' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
+                    >
                       Shares{sortIcon('shares')}
                     </th>
-                    <th className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
-                      onClick={() => toggleSort('cost')}>
+                    <th
+                      scope="col"
+                      className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
+                      onClick={() => toggleSort('cost')}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleSort('cost'); }}}
+                      tabIndex={0}
+                      role="columnheader"
+                      aria-sort={sortCol === 'cost' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
+                    >
                       Cost{sortIcon('cost')}
                     </th>
-                    <th className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
-                      onClick={() => toggleSort('price')}>
+                    <th
+                      scope="col"
+                      className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
+                      onClick={() => toggleSort('price')}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleSort('price'); }}}
+                      tabIndex={0}
+                      role="columnheader"
+                      aria-sort={sortCol === 'price' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
+                    >
                       Price{sortIcon('price')}
                     </th>
-                    <th className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
-                      onClick={() => toggleSort('current')}>
+                    <th
+                      scope="col"
+                      className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
+                      onClick={() => toggleSort('current')}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleSort('current'); }}}
+                      tabIndex={0}
+                      role="columnheader"
+                      aria-sort={sortCol === 'current' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
+                    >
                       Value{sortIcon('current')}
                     </th>
-                    <th className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
-                      onClick={() => toggleSort('pnl_pct')}>
+                    <th
+                      scope="col"
+                      className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
+                      onClick={() => toggleSort('pnl_pct')}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleSort('pnl_pct'); }}}
+                      tabIndex={0}
+                      role="columnheader"
+                      aria-sort={sortCol === 'pnl_pct' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
+                    >
                       P&amp;L{sortIcon('pnl_pct')}
                     </th>
-                    <th className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
-                      onClick={() => toggleSort('weight')}>
+                    <th
+                      scope="col"
+                      className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
+                      onClick={() => toggleSort('weight')}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleSort('weight'); }}}
+                      tabIndex={0}
+                      role="columnheader"
+                      aria-sort={sortCol === 'weight' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
+                    >
                       Weight{sortIcon('weight')}
                     </th>
                   </tr>
@@ -230,7 +272,7 @@ export default function Battle() {
                   {sortHoldings(snap.holdings).map(([name, h]) => (
                     <tr key={name} className="border-b border-gray-800 hover:bg-gray-800/30 cursor-pointer transition-colors"
                       onClick={() => window.location.href = `/stock/${h.code}?persona=${pid}`}>
-                      <td className="py-2 font-medium text-emerald-400 hover:text-emerald-300">{name}</td>
+                      <td scope="row" className="py-2 font-medium text-emerald-400 hover:text-emerald-300">{name}</td>
                       <td className="py-2 text-right font-mono">{h.shares.toLocaleString()}</td>
                       <td className="py-2 text-right font-mono text-gray-400">RM {h.cost.toFixed(3)}</td>
                       <td className="py-2 text-right font-mono">RM {h.price.toFixed(3)}</td>
@@ -262,7 +304,7 @@ function Loading() {
   const headers = ['Stock', 'Shares', 'Cost', 'Price', 'Value', 'P&L', 'Weight']
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 to-gray-900 text-gray-100">
+    <div role="status" aria-live="polite" className="min-h-screen bg-gradient-to-b from-gray-950 to-gray-900 text-gray-100">
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Title */}
         <div className="text-center mb-10">
@@ -370,7 +412,7 @@ function Empty() {
 
 function ErrorMsg({ msg }: { msg: string }) {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-950">
+    <div role="alert" className="flex items-center justify-center min-h-screen bg-gray-950">
       <div className="text-center">
         <p className="text-red-400">Error loading data: {msg}</p>
       </div>

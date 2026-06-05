@@ -18,7 +18,7 @@ export default function ScoreBadge({ score, size = 'md' }: ScoreBadgeProps) {
     : 'stroke-red-500 text-red-700 dark:text-red-400'
 
   return (
-    <div className="relative inline-flex items-center justify-center">
+    <div className="relative inline-flex items-center justify-center" role="img" aria-label={`Score: ${score} out of 100`}>
       <svg width={d} height={d} className="-rotate-90">
         <circle cx={d / 2} cy={d / 2} r={r} fill="none" className="stroke-gray-200 dark:stroke-gray-700" strokeWidth="3" />
         <circle

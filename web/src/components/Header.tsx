@@ -17,34 +17,39 @@ export default function Header() {
     localStorage.setItem('theme', dark ? 'dark' : 'light')
   }, [dark])
 
-  const linkClass = (path: string) =>
-    `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-      location.pathname === path
-        ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300'
-        : 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100'
-    }`
+  const linkClass = (path: string) => {
+    const isActive = location.pathname === path
+    return {
+      className: `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+        isActive
+          ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300'
+          : 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100'
+      }`,
+      ...(isActive ? { 'aria-current': 'page' as const } : {}),
+    }
+  }
 
   return (
-    <header className="border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950">
+    <header role="banner" className="border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
         <div className="flex items-center gap-6">
-          <Link to="/" className="text-xl font-bold text-emerald-600 dark:text-emerald-400">
+          <Link to="/" aria-label="Divvy home" className="text-xl font-bold text-emerald-600 dark:text-emerald-400">
             Divvy
           </Link>
-          <nav className="flex items-center gap-1">
-            <Link to="/" className={linkClass('/')}>
+          <nav aria-label="Main navigation" className="flex items-center gap-1">
+            <Link to="/" {...linkClass('/')}>
               <LayoutDashboard className="w-4 h-4" />
               <span className="hidden sm:inline">Dashboard</span>
             </Link>
-            <Link to="/watchlist" className={linkClass('/watchlist')}>
+            <Link to="/watchlist" {...linkClass('/watchlist')}>
               <List className="w-4 h-4" />
               <span className="hidden sm:inline">Watchlist</span>
             </Link>
-            <Link to="/universe" className={linkClass('/universe')}>
+            <Link to="/universe" {...linkClass('/universe')}>
               <Globe className="w-4 h-4" />
               <span className="hidden sm:inline">Universe</span>
             </Link>
-            <Link to="/battle" className={linkClass('/battle')}>
+            <Link to="/battle" {...linkClass('/battle')}>
               <Swords className="w-4 h-4" />
               <span className="hidden sm:inline">Battle</span>
             </Link>
@@ -59,7 +64,7 @@ export default function Header() {
               {user.user_metadata?.avatar_url ? (
                 <img
                   src={user.user_metadata.avatar_url}
-                  alt=""
+                  alt={user.user_metadata?.full_name || 'User avatar'}
                   className="w-7 h-7 rounded-full"
                 />
               ) : (
@@ -72,6 +77,7 @@ export default function Header() {
               </span>
               <button
                 onClick={signOut}
+                aria-label="Sign out"
                 className="p-2 rounded-lg text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
                 title="Sign out"
               >
@@ -81,6 +87,7 @@ export default function Header() {
           ) : (
             <button
               onClick={signInWithGoogle}
+              aria-label="Sign in with Google"
               className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium bg-emerald-600 text-white hover:bg-emerald-700 transition-colors"
             >
               <LogIn className="w-4 h-4" />
@@ -89,6 +96,7 @@ export default function Header() {
           )}
           <button
             onClick={() => setDark(!dark)}
+            aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
             className="p-2 rounded-lg text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}

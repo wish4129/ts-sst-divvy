@@ -8,8 +8,8 @@ export default function LoginGate({ children }: { children: React.ReactNode }) {
 
   if (!user) {
     return (
-      <div className="flex items-center justify-center py-32">
-        <p className="text-gray-500 text-lg">Sign in to manage your portfolio</p>
+      <div role="alert" className="flex items-center justify-center py-32">
+        <h2 className="text-gray-500 text-lg">Sign in to manage your portfolio</h2>
       </div>
     )
   }

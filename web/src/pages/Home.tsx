@@ -100,11 +100,11 @@ export default function Home() {
         </div>
 
         {loading ? (
-          <div className="text-center py-20">
+          <div role="status" aria-live="polite" className="text-center py-20">
             <p className="text-gray-400 text-lg">Loading stocks...</p>
           </div>
         ) : allStocks.length === 0 ? (
-          <div className="text-center py-20">
+          <div role="status" className="text-center py-20">
             <p className="text-gray-400 text-lg">No stocks yet.</p>
             <p className="text-gray-500 text-sm mt-1">Pipeline runs Monday 9am to discover new stocks.</p>
           </div>
@@ -117,14 +117,17 @@ export default function Home() {
                 onChange={setSelectedIndustry}
               />
               <div className="flex items-center gap-2 flex-shrink-0">
-                <span className="text-xs text-gray-500">Min Score:</span>
+                <label htmlFor="min-score-filter" className="text-xs text-gray-500">Min Score:</label>
                 <input
+                  id="min-score-filter"
                   type="range"
                   min={0} max={100} value={minScore}
                   onChange={(e) => setMinScore(Number(e.target.value))}
                   className="w-24 accent-emerald-600"
+                  aria-valuemin={0} aria-valuemax={100} aria-valuenow={minScore}
+                  aria-label="Minimum composite score filter"
                 />
-                <span className="text-xs font-medium text-gray-700 dark:text-gray-300 w-8">{minScore}</span>
+                <span className="text-xs font-medium text-gray-700 dark:text-gray-300 w-8" aria-live="polite">{minScore}</span>
               </div>
             </div>
 
