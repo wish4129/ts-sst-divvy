@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
+import { Search, FolderOpen, ArrowRight } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import ScoreBadge from '../components/ScoreBadge'
 import { INDUSTRY_COLORS } from '../data/stocks'
@@ -182,7 +183,34 @@ export default function Watchlist() {
             ))}
           </div>
         ) : data.length === 0 ? (
-          <p className="text-gray-400 text-center py-10">No stocks in this list.</p>
+          <div className="text-center py-16">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gray-100 dark:bg-gray-800 mb-4">
+              {tab === 'active' ? (
+                <Search className="w-8 h-8 text-gray-400" />
+              ) : tab === 'revisit' ? (
+                <FolderOpen className="w-8 h-8 text-gray-400" />
+              ) : (
+                <FolderOpen className="w-8 h-8 text-gray-400" />
+              )}
+            </div>
+            <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              {tab === 'active' ? 'No active stocks yet' : tab === 'revisit' ? 'Nothing to revisit' : 'No removed stocks'}
+            </h3>
+            <p className="text-sm text-gray-500 mb-5 max-w-sm mx-auto">
+              {tab === 'active'
+                ? 'Stocks scoring 70+ will appear here. Run deep analysis on stocks from the universe to get started.'
+                : tab === 'revisit'
+                ? 'Stocks scoring below 70 land here for later review.'
+                : 'Removed stocks will show up here.'}
+            </p>
+            <a
+              href="/universe"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors"
+            >
+              Browse Universe
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
         ) : (
           <div className="divide-y divide-gray-100 dark:divide-gray-800">
             {data.map((stock) => (
