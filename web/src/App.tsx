@@ -1,7 +1,8 @@
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import Header from './components/Header'
 import Loading from './components/Loading'
+import NotFound from './components/NotFound'
 import { useAuth } from './lib/AuthContext'
 
 const Home = lazy(() => import('./pages/Home'))
@@ -10,18 +11,6 @@ const Watchlist = lazy(() => import('./pages/Watchlist'))
 const Universe = lazy(() => import('./pages/Universe'))
 const Battle = lazy(() => import('./pages/Battle'))
 const AuthCallback = lazy(() => import('./pages/AuthCallback'))
-
-function NotFound() {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-4">
-      <h1 className="text-4xl font-bold text-gray-300 dark:text-gray-700">404</h1>
-      <p className="text-gray-500">Page not found</p>
-      <Link to="/" className="text-emerald-600 hover:text-emerald-700 font-medium">
-        Back to Dashboard
-      </Link>
-    </div>
-  )
-}
 
 function LoginGate({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth()
