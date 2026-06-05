@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm';
 import {
   pgTable, uuid, text, numeric, integer, boolean, timestamp,
   date, serial, bigint, unique, index, jsonb,
