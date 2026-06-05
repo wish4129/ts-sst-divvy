@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Trophy, TrendingUp, TrendingDown, Shield, Zap, Scale, RefreshCw, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react'
+import { Trophy, TrendingUp, TrendingDown, Shield, Zap, Scale, RefreshCw, ArrowUpDown, ArrowUp, ArrowDown, ArrowRight } from 'lucide-react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
 
 const API_URL = import.meta.env.VITE_API_URL || ''
@@ -341,11 +341,26 @@ function Loading() {
 
 function Empty() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-950">
-      <div className="text-center">
-        <Trophy className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-        <p className="text-gray-400">No battle data yet</p>
-        <p className="text-gray-600 text-sm mt-1">First run starts at next market hour</p>
+    <div className="min-h-screen bg-gradient-to-b from-gray-950 to-gray-900 flex items-center justify-center">
+      <div className="text-center max-w-md mx-auto px-4">
+        <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-800 mb-5">
+          <Trophy className="w-10 h-10 text-gray-500" />
+        </div>
+        <h2 className="text-xl font-bold text-gray-300 mb-2">Portfolio Battle Starting Soon</h2>
+        <p className="text-gray-500 mb-1">
+          The three personas — Ares, Demeter, and Athena — are waiting for the first market cycle.
+        </p>
+        <p className="text-sm text-gray-600 mb-6">
+          Battles run every 30 minutes on Wed–Fri, 9am–5pm MYT.
+          Once trading begins, portfolio snapshots and live prices will appear here.
+        </p>
+        <a
+          href="/watchlist"
+          className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors"
+        >
+          Browse Watchlist
+          <ArrowRight className="w-4 h-4" />
+        </a>
       </div>
     </div>
   )
