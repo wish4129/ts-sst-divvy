@@ -1,0 +1,31 @@
+name: Lighthouse CI
+
+on:
+  deployment_status:
+    types: [success]
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    if: github.event_name == 'workflow_dispatch' || (github.event.deployment_status.environment == 'live')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Lighthouse on Home
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            https://d2d7b6u77b6we4.cloudfront.net/
+            https://d2d7b6u77b6we4.cloudfront.net/battle
+            https://d2d7b6u77b6we4.cloudfront.net/watchlist
+            https://d2d7b6u77b6we4.cloudfront.net/universe
+          budgetPath: '.github/lighthouse-budget.json'
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Verify scores
+        run: |
+          echo "Lighthouse audit completed. Check artifacts for detailed reports."

@@ -66,6 +66,9 @@ export default function Header() {
                   src={user.user_metadata.avatar_url}
                   alt={user.user_metadata?.full_name || 'User avatar'}
                   className="w-7 h-7 rounded-full"
+                  width="28"
+                  height="28"
+                  loading="lazy"
                 />
               ) : (
                 <div className="w-7 h-7 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center">
