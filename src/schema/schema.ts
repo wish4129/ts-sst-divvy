@@ -1,6 +1,6 @@
 import {
   pgTable, uuid, text, numeric, integer, boolean, timestamp,
-  date, serial, bigint, unique, index,
+  date, serial, bigint, unique, index, jsonb,
 } from 'drizzle-orm/pg-core';
 
 // ── Users (Supabase auth.users + this profile) ──
@@ -23,6 +23,21 @@ export const stocks = pgTable('stocks', {
   kronosWarning: text('kronos_warning'),
   addedAt: timestamp('added_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  // Expanded columns (migration 0001)
+  scoreComposite: integer('score_composite').default(50),
+  scoreSubs: jsonb('score_subs').default(sql`'{}'`),
+  financials: jsonb('financials').default(sql`'[]'`),
+  dividends: jsonb('dividends').default(sql`'[]'`),
+  lastPrice: numeric('last_price'),
+  priceChange: numeric('price_change').default('0'),
+  dividendYield: numeric('dividend_yield'),
+  peRatio: numeric('pe_ratio'),
+  roe: numeric('roe'),
+  debtToEquity: numeric('debt_to_equity'),
+  marketCap: numeric('market_cap'),
+  sparkline: jsonb('sparkline').default(sql`'[]'`),
+  notes: text('notes').default(''),
+  revisitAt: timestamp('revisit_at', { withTimezone: true }),
 });
 
 // ── OHLCV history (yfinance, daily) ──
