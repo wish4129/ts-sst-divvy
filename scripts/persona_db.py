@@ -106,6 +106,37 @@ def get_persona_holdings(persona_id: str):
     return result
 
 
+def get_kronos_forecasts():
+    """Get latest Kronos 30-day forecasts for all stocks.
+    
+    Returns {short_name: {pred_change_pct, pred_30d_close, pred_low, pred_high, pred_volatility}}.
+    Uses DISTINCT ON to get the latest forecast per stock from DB.
+    Portfolio Manager reads from this function instead of kronos_forecast.json.
+    """
+    db = get_db()
+    cur = db.cursor()
+    cur.execute("""
+        SELECT DISTINCT ON (kf.stock_id) kf.stock_id, kf.pred_change_pct, kf.pred_30d_close,
+              kf.pred_low, kf.pred_high, kf.pred_volatility
+        FROM kronos_forecasts kf
+        ORDER BY kf.stock_id, kf.generated_at DESC
+    """)
+    result = {}
+    for r in cur.fetchall():
+        sid = r[0]
+        short = ticker_to_short(sid)
+        result[short] = {
+            'pred_change_pct': float(r[1] or 0),
+            'pred_30d_close': float(r[2] or 0),
+            'pred_low': float(r[3] or 0),
+            'pred_high': float(r[4] or 0),
+            'pred_volatility': float(r[5] or 0),
+        }
+    cur.close()
+    db.close()
+    return result
+
+
 def save_persona_holdings(persona_id: str, holdings: dict, cash: float = None):
     """Save persona holdings and cash to DB."""
     db = get_db()

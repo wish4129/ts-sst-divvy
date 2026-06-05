@@ -27,7 +27,7 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
-from persona_db import get_all_stocks_dict, TICKER_TO_SHORT, save_persona_holdings
+from persona_db import get_all_stocks_dict, TICKER_TO_SHORT, save_persona_holdings, get_kronos_forecasts
 HISTORY_PATH = ROOT / "web" / "public" / "portfolio_history.json"
 LIVE_PRICES_PATH = ROOT / "data" / "live_prices.json"
 KRONOS_PATH = ROOT / "data" / "kronos_forecast.json"
@@ -220,6 +220,18 @@ def _persona_rules(pid):
 # ── Kronos forecast integration ────────────────────────────────────
 
 def load_kronos_forecasts():
+    """Load Kronos 30-day forecasts — DB-first with JSON file fallback."""
+    # Primary: read from kronos_forecasts DB table
+    try:
+        forecasts = get_kronos_forecasts()
+        if forecasts:
+            bulls = sum(1 for f in forecasts.values() if f.get("pred_change_pct", 0) > 0)
+            bears = len(forecasts) - bulls
+            print(f"  [Kronos] Loaded {len(forecasts)} forecasts from DB ({bulls}▲ {bears}▼)")
+            return forecasts
+    except Exception as e:
+        print(f"  [Kronos] DB read failed: {e} — falling back to JSON file")
+    # Fallback: read from kronos_forecast.json
     if not KRONOS_PATH.exists():
         print("  [Kronos] No forecast file — running without AI signals")
         return {}
@@ -228,7 +240,7 @@ def load_kronos_forecasts():
         forecasts = {k: v for k, v in data.items() if "error" not in v}
         bulls = sum(1 for f in forecasts.values() if f.get("pred_change_pct", 0) > 0)
         bears = len(forecasts) - bulls
-        print(f"  [Kronos] Loaded {len(forecasts)} forecasts ({bulls}▲ {bears}▼)")
+        print(f"  [Kronos] Loaded {len(forecasts)} forecasts from file ({bulls}▲ {bears}▼)")
         return forecasts
     except Exception as e:
         print(f"  [Kronos] Failed: {e}")
