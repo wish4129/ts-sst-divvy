@@ -236,9 +236,14 @@ export default function StockDetail() {
   const [searchParams] = useSearchParams()
   const persona = searchParams.get('persona')
   const [analysis, setAnalysis] = useState<PersonaAnalysis | null>(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (!API_URL || !code) return
+    if (!API_URL || !code) {
+      setLoading(false)
+      return
+    }
+    setLoading(true)
     const url = persona
       ? `${API_URL}/analysis/${code}?persona=${persona}`
       : `${API_URL}/analysis/${code}`
@@ -248,6 +253,7 @@ export default function StockDetail() {
         if (d) setAnalysis(d)
       })
       .catch(e => console.error('[StockDetail] fetch error:', e))
+      .finally(() => setLoading(false))
   }, [code, persona])
 
   // Build display stock from API analysis data (no static stocks.ts dependency)
@@ -307,6 +313,10 @@ export default function StockDetail() {
         </main>
       </div>
     )
+  }
+
+  if (loading) {
+    return <StockDetailSkeleton />
   }
 
   const indColor = INDUSTRY_COLORS[displayStock.industry] || 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
@@ -483,6 +493,99 @@ export default function StockDetail() {
               </BarChart>
             </ResponsiveContainer>
           )}
+        </div>
+      </main>
+    </div>
+  )
+}
+
+function StockDetailSkeleton() {
+  const shimmer = "bg-gray-200 dark:bg-gray-700 animate-pulse rounded"
+
+  return (
+    <div className="min-h-screen">
+      <main className="max-w-4xl mx-auto px-4 py-6">
+        {/* Back link */}
+        <div className={`h-4 w-24 mb-4 ${shimmer}`} />
+
+        {/* Title + price + score */}
+        <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
+          <div>
+            <div className="flex items-center gap-3 mb-1">
+              <div className={`h-8 w-48 ${shimmer}`} />
+              <div className={`h-5 w-20 rounded-full ${shimmer}`} />
+            </div>
+            <div className={`h-4 w-40 mt-1 ${shimmer}`} />
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="text-right">
+              <div className={`h-9 w-28 mb-1 ${shimmer}`} />
+              <div className={`h-4 w-16 ml-auto ${shimmer}`} />
+            </div>
+            <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
+          </div>
+        </div>
+
+        {/* Analysis banner skeleton */}
+        <div className="mb-6 rounded-xl border-2 border-emerald-500/20 bg-emerald-50/30 dark:bg-emerald-950/10 overflow-hidden">
+          <div className="p-5">
+            <div className="flex items-center gap-2">
+              <div className={`h-5 w-5 ${shimmer}`} />
+              <div className={`h-5 w-40 ${shimmer}`} />
+              <div className={`h-5 w-20 rounded-full ${shimmer}`} />
+            </div>
+          </div>
+          <div className="p-5 space-y-3">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i}>
+                <div className={`h-4 w-32 mb-1 ${shimmer}`} />
+                <div className={`h-4 w-full ${shimmer}`} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Score breakdown + chart */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+          <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800">
+            <div className={`h-5 w-32 mb-3 ${shimmer}`} />
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="flex items-center gap-3 mb-2">
+                <div className={`h-4 w-16 ${shimmer}`} />
+                <div className={`flex-1 h-2 ${shimmer}`} />
+                <div className={`h-4 w-8 ${shimmer}`} />
+              </div>
+            ))}
+          </div>
+          <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800">
+            <div className={`h-5 w-40 mb-3 ${shimmer}`} />
+            <div className={`h-[60px] w-full ${shimmer}`} />
+          </div>
+        </div>
+
+        {/* Financials table skeleton */}
+        <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800 mb-6">
+          <div className={`h-5 w-40 mb-3 ${shimmer}`} />
+          <div className="space-y-2">
+            <div className="flex gap-2">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className={`h-4 flex-1 ${shimmer}`} />
+              ))}
+            </div>
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="flex gap-2">
+                {Array.from({ length: 8 }).map((_, j) => (
+                  <div key={j} className={`h-4 flex-1 ${shimmer}`} />
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Dividend chart skeleton */}
+        <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800 mb-6">
+          <div className={`h-5 w-36 mb-3 ${shimmer}`} />
+          <div className={`h-[200px] w-full ${shimmer}`} />
         </div>
       </main>
     </div>
