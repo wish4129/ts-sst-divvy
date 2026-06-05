@@ -60,12 +60,6 @@
       "industry": "Plantation",
       "initial": 20.5
     },
-    "WASCO": {
-      "code": "5142.KL",
-      "name": "Wasco Berhad",
-      "industry": "Energy",
-      "initial": 0.8
-    },
     "AXREIT": {
       "code": "5106.KL",
       "name": "Axis Real Estate Investment Trust",
@@ -77,6 +71,12 @@
       "name": "RHB Bank Berhad",
       "industry": "Banking",
       "initial": 8.21
+    },
+    "WASCO": {
+      "code": "5142.KL",
+      "name": "Wasco Berhad",
+      "industry": "Energy",
+      "initial": 0.8
     },
     "MATRIX": {
       "code": "5236.KL",
@@ -138,29 +138,29 @@
       "industry": "Investment",
       "initial": 0.89
     },
-    "INARI": {
-      "code": "0166.KL",
-      "name": "Inari Amertron",
-      "industry": "Semiconductor",
-      "initial": 3.05
-    },
     "GAMUDA": {
       "code": "5398.KL",
       "name": "Gamuda Berhad",
       "industry": "Construction",
       "initial": 4.2
     },
-    "PADINI": {
-      "code": "7052.KL",
-      "name": "Padini Holdings Berhad",
-      "industry": "Consumer",
-      "initial": 1.43
+    "INARI": {
+      "code": "0166.KL",
+      "name": "Inari Amertron",
+      "industry": "Semiconductor",
+      "initial": 3.05
     },
     "GENETEC": {
       "code": "0104.KL",
       "name": "Genetec Technology",
       "industry": "Industrial",
       "initial": 1.52
+    },
+    "PADINI": {
+      "code": "7052.KL",
+      "name": "Padini Holdings Berhad",
+      "industry": "Consumer",
+      "initial": 1.43
     },
     "TIME": {
       "code": "5031.KL",
