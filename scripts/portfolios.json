@@ -48,23 +48,17 @@
       "industry": "Energy",
       "initial": 1.22
     },
-    "9598": {
-      "code": "9598.KL",
-      "name": "Pintaras Jaya Berhad",
-      "industry": "Engineering & Construction",
-      "initial": 1.2999999523162842
-    },
     "KLK": {
       "code": "2445.KL",
       "name": "KL Kepong",
       "industry": "Plantation",
       "initial": 20.5
     },
-    "AXREIT": {
-      "code": "5106.KL",
-      "name": "Axis Real Estate Investment Trust",
-      "industry": "REIT",
-      "initial": 1.82
+    "9598": {
+      "code": "9598.KL",
+      "name": "Pintaras Jaya Berhad",
+      "industry": "Engineering & Construction",
+      "initial": 1.2999999523162842
     },
     "RHB": {
       "code": "1066.KL",
@@ -72,17 +66,23 @@
       "industry": "Banking",
       "initial": 8.21
     },
-    "WASCO": {
-      "code": "5142.KL",
-      "name": "Wasco Berhad",
-      "industry": "Energy",
-      "initial": 0.8
-    },
     "MATRIX": {
       "code": "5236.KL",
       "name": "Matrix Concepts Holdings Berhad",
       "industry": "Property",
       "initial": 1.25
+    },
+    "AXREIT": {
+      "code": "5106.KL",
+      "name": "Axis Real Estate Investment Trust",
+      "industry": "REIT",
+      "initial": 1.82
+    },
+    "WASCO": {
+      "code": "5142.KL",
+      "name": "Wasco Berhad",
+      "industry": "Energy",
+      "initial": 0.8
     },
     "KIPREIT": {
       "code": "5280.KL",
@@ -150,17 +150,17 @@
       "industry": "Semiconductor",
       "initial": 3.05
     },
-    "GENETEC": {
-      "code": "0104.KL",
-      "name": "Genetec Technology",
-      "industry": "Industrial",
-      "initial": 1.52
-    },
     "PADINI": {
       "code": "7052.KL",
       "name": "Padini Holdings Berhad",
       "industry": "Consumer",
       "initial": 1.43
+    },
+    "GENETEC": {
+      "code": "0104.KL",
+      "name": "Genetec Technology",
+      "industry": "Industrial",
+      "initial": 1.52
     },
     "TIME": {
       "code": "5031.KL",
@@ -365,7 +365,7 @@
       "cash": 368.0
     }
   },
-  "initialized": "2026-06-05",
+  "initialized": "2026-06-06",
   "initial_capital": 10000,
-  "last_rebalance": "2026-06-05"
+  "last_rebalance": "2026-06-06"
 }
