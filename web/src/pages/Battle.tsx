@@ -255,11 +255,85 @@ export default function Battle() {
 }
 
 function Loading() {
+  const shimmer = "bg-gray-700/60 animate-pulse rounded"
+  const personas = ['ares', 'demeter', 'athena'] as const
+  const headers = ['Stock', 'Shares', 'Cost', 'Price', 'Value', 'P&L', 'Weight']
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-950">
-      <div className="text-center">
-        <Trophy className="w-12 h-12 text-yellow-500 mx-auto mb-4 animate-pulse" />
-        <p className="text-gray-400">Loading battle data...</p>
+    <div className="min-h-screen bg-gradient-to-b from-gray-950 to-gray-900 text-gray-100">
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        {/* Title */}
+        <div className="text-center mb-10">
+          <div className={`h-10 w-72 mx-auto mb-3 ${shimmer}`} />
+          <div className={`h-4 w-96 mx-auto ${shimmer}`} />
+        </div>
+
+        {/* Persona cards */}
+        <div className="grid grid-cols-3 gap-4 mb-10">
+          {personas.map(pid => (
+            <div key={pid}
+              className="rounded-xl p-5 border-2 border-gray-700/40 bg-gray-800/50"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className={`w-8 h-8 ${shimmer}`} />
+                    <div className={`h-6 w-20 ${shimmer}`} />
+                  </div>
+                  <div className={`h-3 w-32 ${shimmer}`} />
+                </div>
+                <div className={`w-6 h-6 ${shimmer}`} />
+              </div>
+              <div className={`h-9 w-36 mb-2 ${shimmer}`} />
+              <div className={`h-6 w-24 mb-1 ${shimmer}`} />
+              <div className={`h-3 w-44 mt-1 ${shimmer}`} />
+              <div className={`h-9 w-full mt-3 ${shimmer}`} />
+            </div>
+          ))}
+        </div>
+
+        {/* Chart skeleton */}
+        <div className="bg-gray-800/30 rounded-xl p-6 border border-gray-700 mb-10">
+          <div className={`h-6 w-56 mb-4 ${shimmer}`} />
+          <div className={`h-[350px] w-full ${shimmer}`} />
+        </div>
+
+        {/* Holdings table skeletons */}
+        {personas.map(pid => (
+          <div key={pid} className="mb-8">
+            <div className={`h-6 w-56 mb-3 ${shimmer}`} />
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left border-b border-gray-700">
+                    {headers.map(h => (
+                      <th key={h} className="pb-2 font-medium">
+                        <div className={`h-4 w-14 ${shimmer}`} />
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {Array.from({ length: 3 + Math.floor(Math.random() * 3) }).map((_, i) => (
+                    <tr key={i} className="border-b border-gray-800">
+                      <td className="py-2"><div className={`h-4 w-20 ${shimmer}`} /></td>
+                      <td className="py-2"><div className={`h-4 w-16 ml-auto ${shimmer}`} /></td>
+                      <td className="py-2"><div className={`h-4 w-20 ml-auto ${shimmer}`} /></td>
+                      <td className="py-2"><div className={`h-4 w-20 ml-auto ${shimmer}`} /></td>
+                      <td className="py-2"><div className={`h-4 w-24 ml-auto ${shimmer}`} /></td>
+                      <td className="py-2"><div className={`h-4 w-18 ml-auto ${shimmer}`} /></td>
+                      <td className="py-2"><div className={`h-4 w-12 ml-auto ${shimmer}`} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ))}
+
+        <div className="text-center mt-8">
+          <div className={`h-3 w-48 mx-auto ${shimmer}`} />
+        </div>
       </div>
     </div>
   )
