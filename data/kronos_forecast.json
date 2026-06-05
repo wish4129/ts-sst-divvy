@@ -1,4 +1,88 @@
 {
+  "0099": {
+    "pred_change_pct": -10.46,
+    "pred_30d_close": 1.5222,
+    "pred_low": 1.4746,
+    "pred_high": 1.7214,
+    "pred_volatility": 3.4
+  },
+  "0104": {
+    "pred_change_pct": -10.65,
+    "pred_30d_close": 0.2904,
+    "pred_low": 0.2904,
+    "pred_high": 0.3405,
+    "pred_volatility": 4.21
+  },
+  "0166": {
+    "pred_change_pct": -9.28,
+    "pred_30d_close": 2.1228,
+    "pred_low": 1.8888,
+    "pred_high": 2.3248,
+    "pred_volatility": 4.34
+  },
+  "1066": {
+    "pred_change_pct": -4.58,
+    "pred_30d_close": 8.0632,
+    "pred_low": 7.9635,
+    "pred_high": 8.4119,
+    "pred_volatility": 1.37
+  },
+  "1155": {
+    "pred_change_pct": -0.7,
+    "pred_30d_close": 10.4461,
+    "pred_low": 10.4364,
+    "pred_high": 10.6595,
+    "pred_volatility": 0.69
+  },
+  "1295": {
+    "pred_change_pct": 1.43,
+    "pred_30d_close": 4.8279,
+    "pred_low": 4.65,
+    "pred_high": 4.8513,
+    "pred_volatility": 0.89
+  },
+  "2445": {
+    "pred_change_pct": 7.19,
+    "pred_30d_close": 20.9879,
+    "pred_low": 19.0447,
+    "pred_high": 21.0911,
+    "pred_volatility": 3.4
+  },
+  "3379": {
+    "pred_change_pct": -1.6,
+    "pred_30d_close": 0.8708,
+    "pred_low": 0.8639,
+    "pred_high": 0.8962,
+    "pred_volatility": 1.08
+  },
+  "4197": {
+    "pred_change_pct": -6.35,
+    "pred_30d_close": 1.9011,
+    "pred_low": 1.8981,
+    "pred_high": 2.0441,
+    "pred_volatility": 1.85
+  },
+  "4731": {
+    "pred_change_pct": -3.5,
+    "pred_30d_close": 3.3967,
+    "pred_low": 3.3036,
+    "pred_high": 3.6047,
+    "pred_volatility": 2.45
+  },
+  "5031": {
+    "pred_change_pct": -1.12,
+    "pred_30d_close": 5.9723,
+    "pred_low": 5.7724,
+    "pred_high": 6.0676,
+    "pred_volatility": 1.2
+  },
+  "5106": {
+    "pred_change_pct": 3.33,
+    "pred_30d_close": 2.0252,
+    "pred_low": 1.9242,
+    "pred_high": 2.0252,
+    "pred_volatility": 1.47
+  },
   "5115": {
     "pred_change_pct": -24.74,
     "pred_30d_close": 0.2521,
@@ -6,12 +90,96 @@
     "pred_high": 0.3226,
     "pred_volatility": 6.34
   },
+  "5132": {
+    "pred_change_pct": 1.94,
+    "pred_30d_close": 1.1927,
+    "pred_low": 1.1744,
+    "pred_high": 1.2459,
+    "pred_volatility": 1.59
+  },
   "5139": {
     "pred_change_pct": -2.09,
     "pred_30d_close": 5.6691,
     "pred_low": 5.6294,
     "pred_high": 5.9455,
     "pred_volatility": 1.73
+  },
+  "5142": {
+    "pred_change_pct": 27.7,
+    "pred_30d_close": 1.0025,
+    "pred_low": 0.7941,
+    "pred_high": 1.0581,
+    "pred_volatility": 8.51
+  },
+  "5236": {
+    "pred_change_pct": 11.73,
+    "pred_30d_close": 1.3854,
+    "pred_low": 1.2497,
+    "pred_high": 1.3854,
+    "pred_volatility": 2.93
+  },
+  "5250": {
+    "pred_change_pct": -0.11,
+    "pred_30d_close": 1.9778,
+    "pred_low": 1.9761,
+    "pred_high": 1.9811,
+    "pred_volatility": 0.07
+  },
+  "5280": {
+    "pred_change_pct": -0.53,
+    "pred_30d_close": 0.8455,
+    "pred_low": 0.8424,
+    "pred_high": 0.8516,
+    "pred_volatility": 0.32
+  },
+  "5293": {
+    "pred_change_pct": -3.75,
+    "pred_30d_close": 1.463,
+    "pred_low": 1.463,
+    "pred_high": 1.5089,
+    "pred_volatility": 0.79
+  },
+  "5398": {
+    "pred_change_pct": -2.95,
+    "pred_30d_close": 4.2118,
+    "pred_low": 4.1837,
+    "pred_high": 4.6701,
+    "pred_volatility": 3.54
+  },
+  "5983": {
+    "pred_change_pct": 1.73,
+    "pred_30d_close": 5.1576,
+    "pred_low": 5.0253,
+    "pred_high": 5.173,
+    "pred_volatility": 0.79
+  },
+  "6742": {
+    "pred_change_pct": -4.12,
+    "pred_30d_close": 3.9597,
+    "pred_low": 3.7241,
+    "pred_high": 4.1693,
+    "pred_volatility": 3.04
+  },
+  "7052": {
+    "pred_change_pct": 19.69,
+    "pred_30d_close": 1.7714,
+    "pred_low": 1.4547,
+    "pred_high": 1.7907,
+    "pred_volatility": 7.1
+  },
+  "7087": {
+    "pred_change_pct": 6.07,
+    "pred_30d_close": 1.9942,
+    "pred_low": 1.8787,
+    "pred_high": 2.0388,
+    "pred_volatility": 2.32
+  },
+  "7089": {
+    "pred_change_pct": 9.58,
+    "pred_30d_close": 0.3178,
+    "pred_low": 0.2794,
+    "pred_high": 0.3238,
+    "pred_volatility": 4.27
   },
   "7091": {
     "pred_change_pct": -2.05,
