@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Trophy, TrendingUp, TrendingDown, Shield, Zap, Scale, RefreshCw } from 'lucide-react'
+import { Trophy, TrendingUp, TrendingDown, Shield, Zap, Scale, RefreshCw, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
 
 const API_URL = import.meta.env.VITE_API_URL || ''
@@ -60,6 +60,8 @@ export default function Battle() {
   const [data, setData] = useState<BattleData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [sortCol, setSortCol] = useState<string>('weight')
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc')
 
   useEffect(() => {
     const fetchBattle = async () => {
@@ -76,6 +78,33 @@ export default function Battle() {
     }
     fetchBattle()
   }, [])
+
+  const toggleSort = (col: string) => {
+    if (sortCol === col) {
+      setSortDir(d => d === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortCol(col)
+      setSortDir('desc')
+    }
+  }
+
+  const sortIcon = (col: string) => {
+    if (sortCol !== col) return <ArrowUpDown className="w-3 h-3 inline ml-1 opacity-40" />
+    return sortDir === 'asc'
+      ? <ArrowUp className="w-3 h-3 inline ml-1" />
+      : <ArrowDown className="w-3 h-3 inline ml-1" />
+  }
+
+  // Sort holdings helper
+  const sortHoldings = (holdings: Record<string, StockHolding>) => {
+    const entries = Object.entries(holdings)
+    entries.sort((a, b) => {
+      const va = a[1][sortCol as keyof StockHolding] as number
+      const vb = b[1][sortCol as keyof StockHolding] as number
+      return sortDir === 'asc' ? va - vb : vb - va
+    })
+    return entries
+  }
 
   if (loading) return <Loading />
   if (error && !data) return <ErrorMsg msg={error} />
@@ -169,16 +198,34 @@ export default function Battle() {
                 <thead>
                   <tr className="text-left text-gray-400 border-b border-gray-700">
                     <th className="pb-2 font-medium">Stock</th>
-                    <th className="pb-2 font-medium text-right">Shares</th>
-                    <th className="pb-2 font-medium text-right">Cost</th>
-                    <th className="pb-2 font-medium text-right">Price</th>
-                    <th className="pb-2 font-medium text-right">Value</th>
-                    <th className="pb-2 font-medium text-right">P&L</th>
-                    <th className="pb-2 font-medium text-right">Weight</th>
+                    <th className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
+                      onClick={() => toggleSort('shares')}>
+                      Shares{sortIcon('shares')}
+                    </th>
+                    <th className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
+                      onClick={() => toggleSort('cost')}>
+                      Cost{sortIcon('cost')}
+                    </th>
+                    <th className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
+                      onClick={() => toggleSort('price')}>
+                      Price{sortIcon('price')}
+                    </th>
+                    <th className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
+                      onClick={() => toggleSort('current')}>
+                      Value{sortIcon('current')}
+                    </th>
+                    <th className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
+                      onClick={() => toggleSort('pnl_pct')}>
+                      P&amp;L{sortIcon('pnl_pct')}
+                    </th>
+                    <th className="pb-2 font-medium text-right cursor-pointer select-none hover:text-gray-200 transition-colors"
+                      onClick={() => toggleSort('weight')}>
+                      Weight{sortIcon('weight')}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {Object.entries(snap.holdings).map(([name, h]) => (
+                  {sortHoldings(snap.holdings).map(([name, h]) => (
                     <tr key={name} className="border-b border-gray-800 hover:bg-gray-800/30 cursor-pointer transition-colors"
                       onClick={() => window.location.href = `/stock/${h.code}?persona=${pid}`}>
                       <td className="py-2 font-medium text-emerald-400 hover:text-emerald-300">{name}</td>
