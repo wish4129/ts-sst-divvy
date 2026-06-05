@@ -306,8 +306,25 @@ export default function StockDetail() {
   }, [analysis, code])
 
   if (!code) {
+    return (
+      <div className="min-h-screen">
+        <main className="max-w-3xl mx-auto px-4 py-20 text-center">
+          <h1 className="text-2xl font-bold text-gray-400 mb-2">Stock not found</h1>
+          <Link to="/" className="text-emerald-600 hover:text-emerald-700">Back to Dashboard</Link>
+        </main>
+      </div>
+    )
+  }
+
+  if (loading) return <StockDetailSkeleton />
+
+  const indColor = INDUSTRY_COLORS[displayStock.industry] || 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
+  const changeColor = displayStock.priceChange >= 0 ? 'text-emerald-600' : 'text-red-500'
+  const changeIcon = displayStock.priceChange >= 0 ? '▲' : '▼'
+  const divData = displayStock.dividends.map((d) => ({ date: d.exDate.slice(0, 7), amount: d.amount, yield: d.yield }))
+
   return (
-    <div role="status" aria-live="polite" className="min-h-screen">
+    <div className="min-h-screen">
       <main className="max-w-4xl mx-auto px-4 py-6">
         <Link to="/battle" aria-label="Back to Battle" className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 mb-4">
           <ArrowLeft className="w-4 h-4" /> Back to Battle
@@ -485,7 +502,7 @@ function StockDetailSkeleton() {
   const shimmer = "bg-gray-200 dark:bg-gray-700 animate-pulse rounded"
 
   return (
-    <div className="min-h-screen">
+    <div role="status" aria-live="polite" className="min-h-screen">
       <main className="max-w-4xl mx-auto px-4 py-6">
         {/* Back link */}
         <div className={`h-4 w-24 mb-4 ${shimmer}`} />
