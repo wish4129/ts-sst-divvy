@@ -41,7 +41,16 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
       .leftJoin(stocks, eq(portfolioHoldings.stockId, stocks.id));
 
     const latestSnapshots = await db
-      .select()
+      .select({
+        portfolioId: portfolioSnapshots.portfolioId,
+        snapshotAt: portfolioSnapshots.snapshotAt,
+        totalValue: portfolioSnapshots.totalValue,
+        invested: portfolioSnapshots.invested,
+        cash: portfolioSnapshots.cash,
+        pnl: portfolioSnapshots.pnl,
+        pnlPct: portfolioSnapshots.pnlPct,
+        holdingsJson: portfolioSnapshots.holdingsJson,
+      })
       .from(portfolioSnapshots)
       .orderBy(desc(portfolioSnapshots.snapshotAt))
       .limit(50);
@@ -69,6 +78,25 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
       };
     }
 
+    // Find the LATEST snapshot per persona (for live-priced holdings)
+    const latestPerPersona: Record<string, Record<string, any>> = {};
+    for (const s of latestSnapshots) {
+      const pid = s.portfolioId;
+      if (!latestPerPersona[pid] && s.holdingsJson) {
+        try {
+          latestPerPersona[pid] = JSON.parse(s.holdingsJson);
+        } catch {
+          latestPerPersona[pid] = personaHoldings[pid] || {};
+        }
+      }
+    }
+    // Fallback: if no holdingsJson, use static portfolioHoldings
+    for (const pid of Object.keys(personaHoldings)) {
+      if (!latestPerPersona[pid]) {
+        latestPerPersona[pid] = personaHoldings[pid];
+      }
+    }
+
     const snapByTime: Record<string, any> = {};
     for (const s of latestSnapshots) {
       const ts = s.snapshotAt?.toISOString() || "";
@@ -82,7 +110,7 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
         cash: Number(s.cash),
         pnl: Number(s.pnl),
         pnl_pct: Number(s.pnlPct),
-        holdings: personaHoldings[s.portfolioId] || {},
+        holdings: latestPerPersona[s.portfolioId] || {},
         trades_this_run: 0,
       };
     }
@@ -96,7 +124,7 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
       personaDefs[pf.persona] = {
         name: pf.name,
         cash: Number(pf.cash),
-        holdings: personaHoldings[pf.id] || {},
+        holdings: latestPerPersona[pf.id] || personaHoldings[pf.id] || {},
       };
     }
 
