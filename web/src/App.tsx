@@ -1,6 +1,7 @@
 import { Routes, Route, Link } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import Header from './components/Header'
+import Loading from './components/Loading'
 import { useAuth } from './lib/AuthContext'
 
 const Home = lazy(() => import('./pages/Home'))
@@ -9,14 +10,6 @@ const Watchlist = lazy(() => import('./pages/Watchlist'))
 const Universe = lazy(() => import('./pages/Universe'))
 const Battle = lazy(() => import('./pages/Battle'))
 const AuthCallback = lazy(() => import('./pages/AuthCallback'))
-
-function Loading() {
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600" />
-    </div>
-  )
-}
 
 function NotFound() {
   return (
