@@ -11,6 +11,7 @@ const StockDetail = lazy(() => import('./pages/StockDetail'))
 const Watchlist = lazy(() => import('./pages/Watchlist'))
 const Universe = lazy(() => import('./pages/Universe'))
 const Battle = lazy(() => import('./pages/Battle'))
+const Compare = lazy(() => import('./pages/Compare'))
 const AuthCallback = lazy(() => import('./pages/AuthCallback'))
 
 function Page({ children }: { children: React.ReactNode }) {
@@ -36,6 +37,7 @@ export default function App() {
                   <Route path="/watchlist" element={<Page><Watchlist /></Page>} />
                   <Route path="/universe" element={<Page><Universe /></Page>} />
                   <Route path="/battle" element={<Page><Battle /></Page>} />
+                  <Route path="/compare" element={<Page><Compare /></Page>} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </LoginGate>

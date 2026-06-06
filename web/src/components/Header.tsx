@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { LayoutDashboard, List, Swords, Sun, Moon, LogIn, LogOut, User, Globe } from 'lucide-react'
+import { LayoutDashboard, List, Swords, Sun, Moon, LogIn, LogOut, User, Globe, GitCompare } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { useAuth } from '../lib/AuthContext'
 
@@ -52,6 +52,10 @@ export default function Header() {
             <Link to="/battle" {...linkClass('/battle')}>
               <Swords className="w-4 h-4" />
               <span className="hidden sm:inline">Battle</span>
+            </Link>
+            <Link to="/compare" {...linkClass('/compare')}>
+              <GitCompare className="w-4 h-4" />
+              <span className="hidden sm:inline">Compare</span>
             </Link>
           </nav>
         </div>
