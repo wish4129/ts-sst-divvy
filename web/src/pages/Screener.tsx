@@ -216,7 +216,7 @@ export default function Screener() {
                 filtered.map(c => (
                   <tr
                     key={c.id}
-                    className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors"
+                    className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/30 hover:border-l-2 hover:border-l-emerald-400 transition-all duration-150"
                   >
                     <td className="px-4 py-3">
                       <div className="font-medium text-gray-900 dark:text-gray-100">{c.stockName}</div>

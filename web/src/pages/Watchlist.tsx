@@ -116,7 +116,7 @@ export default function Watchlist() {
 
     return (
       <div
-        className="flex items-center justify-between py-3 px-3 md:px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors cursor-pointer gap-2"
+        className="flex items-center justify-between py-3 px-3 md:px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 hover:shadow-sm hover:scale-[1.005] transition-all duration-150 cursor-pointer gap-2"
         onClick={() => navigate(`/stock/${stock.code}`)}
       >
         <div className="flex items-center gap-2 md:gap-3 min-w-0 flex-1">
