@@ -1,0 +1,384 @@
+{
+  "generated_at": "2026-06-07T07:11:41.732537+08:00",
+  "method": "Half-Kelly",
+  "half_kelly": true,
+  "all_stocks_ranked": [
+    {
+      "stock": "RHB",
+      "ticker": "1066.KL",
+      "sector": "Financials",
+      "kelly_fraction_pct": 1.2,
+      "win_rate_pct": 50.9,
+      "win_loss_ratio": 1.01,
+      "edge_pct": 2.49,
+      "recommendation": "Small position \u2014 marginal edge",
+      "data_points": 511
+    },
+    {
+      "stock": "GAMUDA",
+      "ticker": "5398.KL",
+      "sector": "Construction & Engineering",
+      "kelly_fraction_pct": 0.4,
+      "win_rate_pct": 47.7,
+      "win_loss_ratio": 1.11,
+      "edge_pct": 0.93,
+      "recommendation": "Small position \u2014 marginal edge",
+      "data_points": 511
+    },
+    {
+      "stock": "SCICOM",
+      "ticker": "0099.KL",
+      "sector": "Technology",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 38.7,
+      "win_loss_ratio": 1.23,
+      "edge_pct": -13.47,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "GENETEC",
+      "ticker": "0104.KL",
+      "sector": "Industrials",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 35.4,
+      "win_loss_ratio": 1.29,
+      "edge_pct": -18.71,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "INARI",
+      "ticker": "0166.KL",
+      "sector": "Technology",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 43.6,
+      "win_loss_ratio": 1.04,
+      "edge_pct": -11.03,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "MAYBANK",
+      "ticker": "1155.KL",
+      "sector": "Financials",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 43.2,
+      "win_loss_ratio": 1.14,
+      "edge_pct": -7.65,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "PBBANK",
+      "ticker": "1295.KL",
+      "sector": "Financials",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 44.2,
+      "win_loss_ratio": 1.1,
+      "edge_pct": -6.93,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "KLK",
+      "ticker": "2445.KL",
+      "sector": "Agriculture",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 46.2,
+      "win_loss_ratio": 0.99,
+      "edge_pct": -7.95,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "INSAS",
+      "ticker": "3379.KL",
+      "sector": "Financials",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 34.2,
+      "win_loss_ratio": 1.07,
+      "edge_pct": -29.09,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "SIME",
+      "ticker": "4197.KL",
+      "sector": "Conglomerate",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 41.1,
+      "win_loss_ratio": 1.07,
+      "edge_pct": -14.92,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "4383",
+      "ticker": "4383.KL",
+      "sector": "Agriculture",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 40.9,
+      "win_loss_ratio": 0.98,
+      "edge_pct": -19.12,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "SCIENTEX",
+      "ticker": "4731.KL",
+      "sector": "Industrials",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 42.5,
+      "win_loss_ratio": 1.05,
+      "edge_pct": -12.79,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "TIME",
+      "ticker": "5031.KL",
+      "sector": "Telecommunications",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 44.4,
+      "win_loss_ratio": 1.15,
+      "edge_pct": -4.56,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "AXREIT",
+      "ticker": "5106.KL",
+      "sector": "REITs",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 39.5,
+      "win_loss_ratio": 0.93,
+      "edge_pct": -23.8,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "5115",
+      "ticker": "5115.KL",
+      "sector": "Energy",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 25.6,
+      "win_loss_ratio": 1.08,
+      "edge_pct": -46.72,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "DELEUM",
+      "ticker": "5132.KL",
+      "sector": "Energy",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 36.6,
+      "win_loss_ratio": 1.22,
+      "edge_pct": -18.71,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "5139",
+      "ticker": "5139.KL",
+      "sector": "Financials",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 42.9,
+      "win_loss_ratio": 1.1,
+      "edge_pct": -9.98,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "WASCO",
+      "ticker": "5142.KL",
+      "sector": "Energy",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 41.1,
+      "win_loss_ratio": 0.94,
+      "edge_pct": -20.13,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "MATRIX",
+      "ticker": "5236.KL",
+      "sector": "Property",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 36.4,
+      "win_loss_ratio": 1.05,
+      "edge_pct": -25.42,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "SEM",
+      "ticker": "5250.KL",
+      "sector": "Diversified",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 16.4,
+      "win_loss_ratio": 1.18,
+      "edge_pct": -64.15,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "KIPREIT",
+      "ticker": "5280.KL",
+      "sector": "REITs",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 31.1,
+      "win_loss_ratio": 0.96,
+      "edge_pct": -39.15,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "AME",
+      "ticker": "5293.KL",
+      "sector": "Construction & Engineering",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 41.3,
+      "win_loss_ratio": 0.83,
+      "edge_pct": -24.45,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "5401",
+      "ticker": "5401.KL",
+      "sector": "Property",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 37.8,
+      "win_loss_ratio": 0.96,
+      "edge_pct": -26.08,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "MBMR",
+      "ticker": "5983.KL",
+      "sector": "Consumer",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 43.8,
+      "win_loss_ratio": 1.1,
+      "edge_pct": -7.85,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "YTLPOWR",
+      "ticker": "6742.KL",
+      "sector": "Utilities",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 47.7,
+      "win_loss_ratio": 0.91,
+      "edge_pct": -8.88,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "PADINI",
+      "ticker": "7052.KL",
+      "sector": "Consumer",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 40.1,
+      "win_loss_ratio": 0.94,
+      "edge_pct": -22.01,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "MAGNI",
+      "ticker": "7087.KL",
+      "sector": "Consumer",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 36.0,
+      "win_loss_ratio": 1.19,
+      "edge_pct": -21.12,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "LIIHEN",
+      "ticker": "7089.KL",
+      "sector": "Consumer",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 29.2,
+      "win_loss_ratio": 0.94,
+      "edge_pct": -43.54,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "7091",
+      "ticker": "7091.KL",
+      "sector": "Industrials",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 23.7,
+      "win_loss_ratio": 1.08,
+      "edge_pct": -50.7,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "9598",
+      "ticker": "9598.KL",
+      "sector": "Construction & Engineering",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 27.2,
+      "win_loss_ratio": 1.05,
+      "edge_pct": -44.32,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 511
+    },
+    {
+      "stock": "9717",
+      "ticker": "9717.KL",
+      "sector": "Construction & Engineering",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 19.5,
+      "win_loss_ratio": 1.1,
+      "edge_pct": -58.91,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 512
+    },
+    {
+      "stock": "INTA",
+      "ticker": "INTA.KL",
+      "sector": "Construction & Engineering",
+      "kelly_fraction_pct": 0.0,
+      "win_rate_pct": 34.8,
+      "win_loss_ratio": 1.16,
+      "edge_pct": -24.86,
+      "recommendation": "No edge \u2014 avoid",
+      "data_points": 488
+    }
+  ],
+  "personas": {
+    "ares": {
+      "persona": "ares",
+      "half_kelly": true,
+      "max_single_position_pct": 25.0,
+      "allocations": {},
+      "n_positive_edge": 0
+    },
+    "demeter": {
+      "persona": "demeter",
+      "half_kelly": true,
+      "max_single_position_pct": 35.0,
+      "allocations": {},
+      "n_positive_edge": 0
+    },
+    "athena": {
+      "persona": "athena",
+      "half_kelly": true,
+      "max_single_position_pct": 30.0,
+      "allocations": {},
+      "n_positive_edge": 0
+    }
+  },
+  "n_stocks_with_edge": 2,
+  "n_stocks_no_edge": 30
+}
