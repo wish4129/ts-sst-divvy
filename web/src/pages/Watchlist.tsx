@@ -1,9 +1,10 @@
 import { useState, useMemo } from 'react'
-import { Search, FolderOpen, ArrowRight } from 'lucide-react'
+import { Search, FolderOpen, ArrowRight, Download } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import ScoreBadge from '../components/ScoreBadge'
 import { INDUSTRY_COLORS } from '../data/stocks'
 import { useApi } from '../hooks/useApi'
+import { downloadCsv, type CsvRow } from '../lib/export-csv'
 import type { Stock } from '../data/stocks'
 
 interface WatchlistStock {
@@ -57,7 +58,8 @@ function apiStockToStock(s: WatchlistStock): Stock {
     sparkline: [],
     // Store short code for display
     _shortCode: shortCode,
-  } as Stock & { _shortCode: string }
+    hasAiReport: s.hasAiReport,
+  } as Stock & { _shortCode: string; hasAiReport: boolean }
 }
 
 type ExtendedStock = ReturnType<typeof apiStockToStock>
@@ -137,7 +139,32 @@ export default function Watchlist() {
   return (
     <div className="min-h-screen">
       <main className="max-w-3xl mx-auto px-4 py-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Watchlist</h1>
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Watchlist</h1>
+          {mergedStocks.length > 0 && (
+            <button
+              onClick={() => {
+                const rows: CsvRow[] = mergedStocks.map(s => ({
+                  code: (s as any)._shortCode || s.code,
+                  name: s.name,
+                  industry: s.industry,
+                  lastPrice: s.lastPrice,
+                  dividendYield: s.dividendYield,
+                  pe: s.financials?.[0]?.peRatio ?? 0,
+                  score: s.score.composite,
+                  status: s.status,
+                  hasAiReport: (s as any).hasAiReport ?? false,
+                }))
+                downloadCsv(rows)
+              }}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-950 dark:hover:bg-emerald-900 rounded-lg transition-colors"
+              title="Export watchlist to CSV"
+            >
+              <Download className="w-3.5 h-3.5" />
+              Export CSV
+            </button>
+          )}
+        </div>
 
         <div className="flex border-b border-gray-200 dark:border-gray-800 mb-4">
           {(['active', 'revisit', 'removed'] as Tab[]).map((t) => (
