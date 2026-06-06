@@ -31,6 +31,7 @@ from persona_db import get_all_stocks_dict, TICKER_TO_SHORT, save_persona_holdin
 from strategies.ares import check_trailing_stop, update_high_water_marks, TRAILING_STOP_PCT
 from strategies.rsi import cached_rsi_check, clear_cache as rsi_clear_cache, RSI_OVERBOUGHT
 from strategies.volume import cached_volume_check, clear_cache as volume_clear_cache, VOLUME_CONFIRM_RATIO
+from strategies.sector_limits import check_sector_exposure, get_sector, SECTOR_LIMIT
 HISTORY_PATH = ROOT / "web" / "public" / "portfolio_history.json"
 LIVE_PRICES_PATH = ROOT / "data" / "live_prices.json"
 KRONOS_PATH = ROOT / "data" / "kronos_forecast.json"
@@ -686,6 +687,13 @@ def main():
                     executed.append({**t, "proceeds": round(proceeds, 2), "shares": sell_shares, "trade_id": trade_id})
 
                 elif t["action"] == "BUY":
+                    # Sector exposure limit check
+                    proposed_val = t["shares"] * t["price"]
+                    if not check_sector_exposure(pid, t["stock"], proposed_val,
+                                                  state["holdings"], prices, state["cash"]):
+                        target_sector = get_sector(t["stock"])
+                        print(f"  [{pid}] Sector limit ({SECTOR_LIMIT*100:.0f}%): skipping BUY {t['stock']} ({target_sector})")
+                        continue
                     cost = t["shares"] * t["price"]
                     if cost <= state["cash"] * 1.05:
                         actual_shares = round_lot(min(t["shares"], int(state["cash"] / t["price"])))
