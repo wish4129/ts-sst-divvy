@@ -5,3 +5,51 @@
 body {
   @apply bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased;
 }
+
+/* Page transition animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.page-enter {
+  animation: fadeInUp 0.3s ease-out both;
+}
+
+.page-enter-fade {
+  animation: fadeIn 0.25s ease-out both;
+}
+
+/* Stagger children for card grids */
+.page-enter > * {
+  animation: fadeInUp 0.3s ease-out both;
+}
+
+.page-enter > *:nth-child(1)  { animation-delay: 0.05s; }
+.page-enter > *:nth-child(2)  { animation-delay: 0.10s; }
+.page-enter > *:nth-child(3)  { animation-delay: 0.15s; }
+.page-enter > *:nth-child(4)  { animation-delay: 0.20s; }
+.page-enter > *:nth-child(5)  { animation-delay: 0.25s; }
+.page-enter > *:nth-child(n+6) { animation-delay: 0.30s; }
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .page-enter,
+  .page-enter-fade,
+  .page-enter > * {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

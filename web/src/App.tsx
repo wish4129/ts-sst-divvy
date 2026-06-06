@@ -17,7 +17,11 @@ const Screener = lazy(() => import('./pages/Screener'))
 const AuthCallback = lazy(() => import('./pages/AuthCallback'))
 
 function Page({ children }: { children: React.ReactNode }) {
-  return <ErrorBoundary>{children}</ErrorBoundary>
+  return (
+    <ErrorBoundary>
+      <div className="page-enter">{children}</div>
+    </ErrorBoundary>
+  )
 }
 
 export default function App() {
