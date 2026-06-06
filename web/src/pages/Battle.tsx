@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Trophy, TrendingUp, TrendingDown, Shield, Zap, Scale, RefreshCw, ArrowUpDown, ArrowUp, ArrowDown, ArrowRight } from 'lucide-react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell } from 'recharts'
+import confetti from 'canvas-confetti'
 import { useApi } from '../hooks/useApi'
 
 interface StockHolding {
@@ -86,6 +87,33 @@ export default function Battle() {
     })
     return entries
   }
+
+  // Confetti on positive PnL milestones (10%, 20%, etc.)
+  const celebrated = useRef<Set<string>>(new Set())
+  useEffect(() => {
+    if (!api.data?.runs?.length) return
+    const latest = api.data.runs[api.data.runs.length - 1]
+    Object.entries(latest.personas).forEach(([pid, snap]) => {
+      if (snap.pnl_pct < 10) return // no milestone below 10%
+      const milestone = Math.floor(snap.pnl_pct / 10) * 10
+      const key = `${pid}-${milestone}`
+      if (celebrated.current.has(key)) return // already fired this session
+      // Check localStorage for persistence across page loads
+      const storedKey = `divvy_confetti_${pid}`
+      const stored = parseInt(localStorage.getItem(storedKey) || '0', 10)
+      if (milestone <= stored) return // already celebrated this or higher milestone
+      celebrated.current.add(key)
+      localStorage.setItem(storedKey, String(milestone))
+      const color = COLORS[pid] || '#fbbf24'
+      confetti({
+        particleCount: 100 + milestone * 2,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: [color, '#fbbf24', '#ffffff', '#22c55e'],
+        zIndex: 9999,
+      })
+    })
+  }, [api.data])
 
   if (api.loading) return <Loading />
   if (api.error && !api.data) return <ErrorMsg msg={api.error} />
