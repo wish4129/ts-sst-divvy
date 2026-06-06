@@ -13,6 +13,7 @@ const Universe = lazy(() => import('./pages/Universe'))
 const Battle = lazy(() => import('./pages/Battle'))
 const Compare = lazy(() => import('./pages/Compare'))
 const DividendCalendar = lazy(() => import('./pages/DividendCalendar'))
+const Screener = lazy(() => import('./pages/Screener'))
 const AuthCallback = lazy(() => import('./pages/AuthCallback'))
 
 function Page({ children }: { children: React.ReactNode }) {
@@ -40,6 +41,7 @@ export default function App() {
                   <Route path="/battle" element={<Page><Battle /></Page>} />
                   <Route path="/compare" element={<Page><Compare /></Page>} />
                   <Route path="/dividends" element={<Page><DividendCalendar /></Page>} />
+                  <Route path="/screener" element={<Page><Screener /></Page>} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </LoginGate>

@@ -19,7 +19,9 @@
         "quality": 23,
         "risk": 10
       },
-      "notes": "High dividend yield (18.7%). Low debt. Low P/E (6.4x)"
+      "notes": "High dividend yield (18.7%). Low debt. Low P/E (6.4x)",
+      "dedup_status": "in_watchlist",
+      "ticker": "7087.KL"
     },
     {
       "code": "MBMR",
@@ -39,7 +41,9 @@
         "quality": 21,
         "risk": 10
       },
-      "notes": "High dividend yield (11.8%). Low P/E (6.0x)"
+      "notes": "High dividend yield (11.8%). Low P/E (6.0x)",
+      "dedup_status": "in_watchlist",
+      "ticker": "5983.KL"
     },
     {
       "code": "MHC",
@@ -59,7 +63,9 @@
         "quality": 15,
         "risk": 10
       },
-      "notes": "High dividend yield (15.8%). Strong ROE (15.3%). Low P/E (6.2x)"
+      "notes": "High dividend yield (15.8%). Strong ROE (15.3%). Low P/E (6.2x)",
+      "dedup_status": "new",
+      "ticker": "MHC.KL"
     },
     {
       "code": "AJI",
@@ -79,7 +85,9 @@
         "quality": 21,
         "risk": 10
       },
-      "notes": "High dividend yield (18.2%). Low debt"
+      "notes": "High dividend yield (18.2%). Low debt",
+      "dedup_status": "new",
+      "ticker": "AJI.KL"
     },
     {
       "code": "CVIEW",
@@ -99,7 +107,9 @@
         "quality": 9,
         "risk": 7
       },
-      "notes": "High dividend yield (16.7%). Strong ROE (15.5%). Undervalued P/B (0.68). Low P/E (4.4x)"
+      "notes": "High dividend yield (16.7%). Strong ROE (15.5%). Undervalued P/B (0.68). Low P/E (4.4x)",
+      "dedup_status": "new",
+      "ticker": "CVIEW.KL"
     },
     {
       "code": "AME",
@@ -119,7 +129,9 @@
         "quality": 5,
         "risk": 7
       },
-      "notes": "High dividend yield (8.7%). Strong ROE (24.8%). High leverage (D/E: 40.1). Low P/E (3.4x)"
+      "notes": "High dividend yield (8.7%). Strong ROE (24.8%). High leverage (D/E: 40.1). Low P/E (3.4x)",
+      "dedup_status": "in_watchlist",
+      "ticker": "5293.KL"
     },
     {
       "code": "DELEUM",
@@ -139,7 +151,9 @@
         "quality": 10,
         "risk": 10
       },
-      "notes": "Low P/E (7.2x)"
+      "notes": "Low P/E (7.2x)",
+      "dedup_status": "in_watchlist",
+      "ticker": "5132.KL"
     },
     {
       "code": "WASCO",
@@ -159,7 +173,9 @@
         "quality": 6,
         "risk": 7
       },
-      "notes": "High dividend yield (8.8%). Undervalued P/B (0.61). High leverage (D/E: 47.5). Low P/E (4.5x)"
+      "notes": "High dividend yield (8.8%). Undervalued P/B (0.61). High leverage (D/E: 47.5). Low P/E (4.5x)",
+      "dedup_status": "in_watchlist",
+      "ticker": "5142.KL"
     },
     {
       "code": "SKBSHUT",
@@ -179,7 +195,9 @@
         "quality": 5,
         "risk": 10
       },
-      "notes": "Strong ROE (17.9%). High leverage (D/E: 55.4). Low P/E (5.2x)"
+      "notes": "Strong ROE (17.9%). High leverage (D/E: 55.4). Low P/E (5.2x)",
+      "dedup_status": "new",
+      "ticker": "SKBSHUT.KL"
     },
     {
       "code": "PGLOBAL",
@@ -199,7 +217,9 @@
         "quality": 6,
         "risk": 10
       },
-      "notes": "High dividend yield (10.8%). Undervalued P/B (0.75). High leverage (D/E: 26.3)"
+      "notes": "High dividend yield (10.8%). Undervalued P/B (0.75). High leverage (D/E: 26.3)",
+      "dedup_status": "new",
+      "ticker": "PGLOBAL.KL"
     },
     {
       "code": "TAANN",
@@ -219,7 +239,9 @@
         "quality": 9,
         "risk": 10
       },
-      "notes": "Moderate value play in Plantation"
+      "notes": "Moderate value play in Plantation",
+      "dedup_status": "new",
+      "ticker": "TAANN.KL"
     },
     {
       "code": "KIPREIT",
@@ -239,7 +261,9 @@
         "quality": 6,
         "risk": 10
       },
-      "notes": "Undervalued P/B (0.79). High leverage (D/E: 65.1). Low P/E (6.2x)"
+      "notes": "Undervalued P/B (0.79). High leverage (D/E: 65.1). Low P/E (6.2x)",
+      "dedup_status": "in_watchlist",
+      "ticker": "5280.KL"
     },
     {
       "code": "INTA",
@@ -259,7 +283,9 @@
         "quality": 5,
         "risk": 10
       },
-      "notes": "Strong ROE (15.7%). High leverage (D/E: 58.9). Low P/E (5.8x)"
+      "notes": "Strong ROE (15.7%). High leverage (D/E: 58.9). Low P/E (5.8x)",
+      "dedup_status": "in_watchlist",
+      "ticker": "INTA.KL"
     },
     {
       "code": "AMEREIT",
@@ -279,7 +305,9 @@
         "quality": 3,
         "risk": 10
       },
-      "notes": "Strong ROE (17.4%). High leverage (D/E: 43.7). Low P/E (7.3x)"
+      "notes": "Strong ROE (17.4%). High leverage (D/E: 43.7). Low P/E (7.3x)",
+      "dedup_status": "new",
+      "ticker": "AMEREIT.KL"
     },
     {
       "code": "HARNLEN",
@@ -299,7 +327,9 @@
         "quality": 4,
         "risk": 10
       },
-      "notes": "High leverage (D/E: 31.4)"
+      "notes": "High leverage (D/E: 31.4)",
+      "dedup_status": "new",
+      "ticker": "HARNLEN.KL"
     },
     {
       "code": "PARAMON",
@@ -319,7 +349,9 @@
         "quality": 7,
         "risk": 10
       },
-      "notes": "Undervalued P/B (0.43). High leverage (D/E: 84.2). Low P/E (5.3x)"
+      "notes": "Undervalued P/B (0.43). High leverage (D/E: 84.2). Low P/E (5.3x)",
+      "dedup_status": "new",
+      "ticker": "PARAMON.KL"
     },
     {
       "code": "NADIBHD",
@@ -339,7 +371,9 @@
         "quality": 7,
         "risk": 7
       },
-      "notes": "Undervalued P/B (0.51). High leverage (D/E: 59.7). Low P/E (3.5x)"
+      "notes": "Undervalued P/B (0.51). High leverage (D/E: 59.7). Low P/E (3.5x)",
+      "dedup_status": "new",
+      "ticker": "NADIBHD.KL"
     },
     {
       "code": "PTRANS",
@@ -359,7 +393,9 @@
         "quality": 7,
         "risk": 7
       },
-      "notes": "Undervalued P/B (0.27). High leverage (D/E: 85.0). Low P/E (3.3x)"
+      "notes": "Undervalued P/B (0.27). High leverage (D/E: 85.0). Low P/E (3.3x)",
+      "dedup_status": "new",
+      "ticker": "PTRANS.KL"
     },
     {
       "code": "MFLOUR",
@@ -379,7 +415,9 @@
         "quality": 7,
         "risk": 7
       },
-      "notes": "Undervalued P/B (0.52). High leverage (D/E: 65.8). Low P/E (4.8x)"
+      "notes": "Undervalued P/B (0.52). High leverage (D/E: 65.8). Low P/E (4.8x)",
+      "dedup_status": "new",
+      "ticker": "MFLOUR.KL"
     },
     {
       "code": "LBALUM",
@@ -399,7 +437,16 @@
         "quality": 7,
         "risk": 7
       },
-      "notes": "Undervalued P/B (0.44). High leverage (D/E: 45.2). Low P/E (3.5x)"
+      "notes": "Undervalued P/B (0.44). High leverage (D/E: 45.2). Low P/E (3.5x)",
+      "dedup_status": "new",
+      "ticker": "LBALUM.KL"
     }
-  ]
+  ],
+  "dedup_checked_at": "2026-06-06T17:27:36.172435+00:00",
+  "dedup_summary": {
+    "total": 20,
+    "in_watchlist": 7,
+    "in_universe": 0,
+    "new": 13
+  }
 }

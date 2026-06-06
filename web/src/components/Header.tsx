@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { LayoutDashboard, List, Swords, Sun, Moon, LogIn, LogOut, User, Globe, GitCompare, CalendarDays } from 'lucide-react'
+import { LayoutDashboard, List, Swords, Sun, Moon, LogIn, LogOut, User, Globe, GitCompare, CalendarDays, TrendingUp } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { useAuth } from '../lib/AuthContext'
 
@@ -60,6 +60,10 @@ export default function Header() {
             <Link to="/dividends" {...linkClass('/dividends')}>
               <CalendarDays className="w-4 h-4" />
               <span className="hidden sm:inline">Dividends</span>
+            </Link>
+            <Link to="/screener" {...linkClass('/screener')}>
+              <TrendingUp className="w-4 h-4" />
+              <span className="hidden sm:inline">Screener</span>
             </Link>
           </nav>
         </div>
