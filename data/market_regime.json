@@ -1,0 +1,24 @@
+{
+  "detected_at": "2026-06-07T07:14:23.380168+08:00",
+  "regime": "SIDEWAYS",
+  "confidence": 0.5,
+  "description": "Pullback in uptrend \u2014 cautious entries",
+  "position_multiplier": 0.8,
+  "signals": {
+    "klci_latest": 1693.43,
+    "ma_50": 1709.92,
+    "ma_200": 1667.78,
+    "above_ma50": false,
+    "above_ma200": true,
+    "momentum_50d_pct": -1.02,
+    "momentum_200d_pct": 8.01,
+    "volatility_20d_annualized_pct": 6.5,
+    "ma_crossover": "golden",
+    "volatility_regime": "NORMAL"
+  },
+  "strategy_implications": {
+    "ares": "Selective \u2014 only enter on strong volume confirmation",
+    "demeter": "Maintain 10% buffer, reinvest dividends",
+    "athena": "Standard GARP \u2014 take profit 25%, dip buy -10%"
+  }
+}
