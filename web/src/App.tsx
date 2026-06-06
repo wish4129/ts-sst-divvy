@@ -2,6 +2,9 @@ import { Routes, Route } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import Header from './components/Header'
 import Loading from './components/Loading'
+import ProgressBar from './components/ProgressBar'
+import ToastContainer from './components/Toast'
+import { ToastProvider } from './contexts/ToastContext'
 import LoginGate from './components/LoginGate'
 import NotFound from './components/NotFound'
 import ErrorBoundary from './components/ErrorBoundary'
@@ -26,7 +29,8 @@ function Page({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <Suspense fallback={<Loading />}>
+    <ToastProvider>
+    <Suspense fallback={<><ProgressBar /><Loading /></>}>
       <Routes>
         <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="*" element={
@@ -50,9 +54,11 @@ export default function App() {
                 </Routes>
               </LoginGate>
             </main>
+            <ToastContainer />
           </div>
         } />
       </Routes>
     </Suspense>
+    </ToastProvider>
   )
 }

@@ -28,6 +28,9 @@ except ImportError:
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 from persona_db import get_all_stocks_dict, TICKER_TO_SHORT, save_persona_holdings, get_kronos_forecasts
+from strategies.ares import check_trailing_stop, update_high_water_marks, TRAILING_STOP_PCT
+from strategies.rsi import cached_rsi_check, clear_cache as rsi_clear_cache, RSI_OVERBOUGHT
+from strategies.volume import cached_volume_check, clear_cache as volume_clear_cache, VOLUME_CONFIRM_RATIO
 HISTORY_PATH = ROOT / "web" / "public" / "portfolio_history.json"
 LIVE_PRICES_PATH = ROOT / "data" / "live_prices.json"
 KRONOS_PATH = ROOT / "data" / "kronos_forecast.json"
@@ -205,14 +208,21 @@ def _persona_rules(pid):
     rules = {
         "ares": {"stop_loss": -0.12, "take_profit": None, "max_single_position": 0.25, "min_stocks": 4,
                  "rebalance_drift": 0.07, "cash_buffer": 0.0, "dividend_reinvest": True,
-                 "momentum_cooling_threshold": -0.05, "momentum_cooling_trim": 0.25},
+                 "momentum_cooling_threshold": -0.05, "momentum_cooling_trim": 0.25,
+                 "trailing_stop_loss": -0.15, "use_trailing_stop": True,
+                 "rsi_overbought": 70, "rsi_filter_entries": True,
+                 "volume_confirmation_entries": True, "volume_confirmation_ratio": 1.5},
         "demeter": {"stop_loss": None, "take_profit": None, "max_single_position": 0.35, "min_stocks": 4,
                     "rebalance_drift": 0.10, "cash_buffer": 0.10, "dividend_reinvest": True,
-                    "fd_rate": 0.03, "min_dividend_yield": 0.03},
+                    "fd_rate": 0.03, "min_dividend_yield": 0.03,
+                    "rsi_overbought": 70, "rsi_filter_entries": True,
+                    "volume_confirmation_entries": True, "volume_confirmation_ratio": 1.5},
         "athena": {"stop_loss": -0.10, "take_profit": 0.25, "take_profit_sell_pct": 0.50,
                    "max_single_position": 0.30, "min_stocks": 5, "rebalance_drift": 0.10,
                    "dip_buy_threshold": -0.10, "dip_buy_pct": 0.50, "cash_buffer": 0.0,
-                   "dividend_reinvest": True, "full_exit_threshold": 0.40, "dip_buy_cooldown_days": 30},
+                   "dividend_reinvest": True, "full_exit_threshold": 0.40, "dip_buy_cooldown_days": 30,
+                   "rsi_overbought": 70, "rsi_filter_entries": True,
+                   "volume_confirmation_entries": True, "volume_confirmation_ratio": 1.5},
     }
     return rules.get(pid, {})
 
@@ -355,6 +365,21 @@ def ares_trade(persona, prices, snapshot, stock_map, prev_prices=None, forecasts
                                "shares": trim_shares, "price": s["price"],
                                "source": "kronos_bearish_trim", "signal": ksig})
 
+        # Trailing stop: exit when drawdown from peak exceeds threshold
+        if rules.get("use_trailing_stop"):
+            trailing_pct = abs(rules.get("trailing_stop_loss", -0.15))
+            peak = s.get("peak_price", s["price"])
+            if peak > 0:
+                drawdown = (s["price"] - peak) / peak
+                if drawdown <= -trailing_pct:
+                    trades.append({
+                        "action": "SELL_ALL", "stock": name,
+                        "reason": f"Trailing stop: {drawdown*100:.1f}% from peak RM{peak:.3f} (≥{trailing_pct*100:.0f}%)",
+                        "shares": s["shares"], "price": s["price"],
+                        "source": "trailing_stop", "signal": ksig,
+                    })
+                    continue  # Skip fixed stop-loss check if trailing stop triggered
+
         if pnl_pct <= rules["stop_loss"]:
             trades.append({"action": "SELL_ALL", "stock": name, "reason": f"Stop loss ({s['pnl_pct']:.1f}%)",
                            "shares": s["shares"], "price": s["price"], "source": "stop_loss", "signal": ksig})
@@ -375,6 +400,26 @@ def ares_trade(persona, prices, snapshot, stock_map, prev_prices=None, forecasts
             elif ksig["direction"] == "bearish" and current_weight > h["target_pct"] / 100:
                 multiplier = 1.5; ksig_note = ", Kronos ▼"
             direction = "BUY" if current_weight < h["target_pct"] / 100 else "SELL"
+            # RSI filter: skip BUY when RSI is overbought
+            if direction == "BUY" and rules.get("rsi_filter_entries"):
+                stock_info = stock_map.get(name, {})
+                ticker = stock_info.get("code", "")
+                if ticker:
+                    skip, rsi = cached_rsi_check(ticker)
+                    if skip:
+                        print(f"  [Ares] Skipping BUY {name}: RSI {rsi:.0f} ≥ {rules['rsi_overbought']} (overbought)")
+                        continue
+            # Volume confirmation: skip BUY when volume < 1.5x 20-day avg
+            if direction == "BUY" and rules.get("volume_confirmation_entries"):
+                stock_info = stock_map.get(name, {})
+                ticker = stock_info.get("code", "")
+                if ticker:
+                    confirmed, latest_vol, avg_vol = cached_volume_check(ticker)
+                    if not confirmed:
+                        vol_msg = f"vol {latest_vol:.0f}" if latest_vol else "no data"
+                        avg_msg = f"avg {avg_vol:.0f}" if avg_vol else "N/A"
+                        print(f"  [Ares] Skipping BUY {name}: low volume ({vol_msg} vs {avg_msg})")
+                        continue
             trades.append({"action": direction, "stock": name,
                            "reason": f"Rebalance drift {drift*100:.1f}% (target {h['target_pct']}%{ksig_note})",
                            "shares": int(s["shares"] * drift * 0.5 * multiplier), "price": s["price"],
@@ -408,11 +453,32 @@ def demeter_trade(persona, prices, snapshot, stock_map, prev_prices=None, foreca
             s = snapshot["stocks"][best_name]
             shares = int(excess * 0.5 / s["price"])
             if shares > 0:
-                ksig = kronos_signal(forecasts, best_name)
-                kronos_note = f" (Kronos {ksig['change_pct']:+.1f}%)" if forecasts else ""
-                trades.append({"action": "BUY", "stock": best_name,
-                               "reason": f"Deploy excess cash ({cash_pct*100:.1f}% > {rules['cash_buffer']*100:.0f}%) → {best_name}{kronos_note}",
-                               "shares": shares, "price": s["price"], "source": "excess_cash_deployment", "signal": ksig})
+                # RSI filter: skip BUY when RSI is overbought
+                if rules.get("rsi_filter_entries"):
+                    stock_info = stock_map.get(best_name, {})
+                    ticker = stock_info.get("code", "")
+                    if ticker:
+                        skip, rsi = cached_rsi_check(ticker)
+                        if skip:
+                            print(f"  [Demeter] Skipping BUY {best_name}: RSI {rsi:.0f} ≥ {rules['rsi_overbought']} (overbought)")
+                            shares = 0  # suppress trade
+                # Volume confirmation: skip BUY when volume < 1.5x 20-day avg
+                if shares > 0 and rules.get("volume_confirmation_entries"):
+                    stock_info = stock_map.get(best_name, {})
+                    ticker = stock_info.get("code", "")
+                    if ticker:
+                        confirmed, latest_vol, avg_vol = cached_volume_check(ticker)
+                        if not confirmed:
+                            vol_msg = f"vol {latest_vol:.0f}" if latest_vol else "no data"
+                            avg_msg = f"avg {avg_vol:.0f}" if avg_vol else "N/A"
+                            print(f"  [Demeter] Skipping BUY {best_name}: low volume ({vol_msg} vs {avg_msg})")
+                            shares = 0  # suppress trade
+                if shares > 0:
+                    ksig = kronos_signal(forecasts, best_name)
+                    kronos_note = f" (Kronos {ksig['change_pct']:+.1f}%)" if forecasts else ""
+                    trades.append({"action": "BUY", "stock": best_name,
+                                   "reason": f"Deploy excess cash ({cash_pct*100:.1f}% > {rules['cash_buffer']*100:.0f}%) → {best_name}{kronos_note}",
+                                   "shares": shares, "price": s["price"], "source": "excess_cash_deployment", "signal": ksig})
 
     for name, s in snapshot["stocks"].items():
         stock_info = stock_map.get(name, {})
@@ -462,9 +528,30 @@ def athena_trade(persona, prices, snapshot, stock_map, prev_prices=None, forecas
                 continue
             buy_shares = int(s["shares"] * rules["dip_buy_pct"])
             if buy_shares > 0:
-                kronos_note = f" (Kronos {ksig['change_pct']:+.1f}% — recovery signal)" if forecasts and ksig["change_pct"] > 0 else ""
-                trades.append({"action": "BUY", "stock": name, "reason": f"Dip buy at {s['pnl_pct']:.1f}%{kronos_note}",
-                               "shares": buy_shares, "price": s["price"], "source": "dip_buy", "signal": ksig})
+                # RSI filter: skip BUY when RSI is overbought
+                if rules.get("rsi_filter_entries"):
+                    stock_info = stock_map.get(name, {})
+                    ticker = stock_info.get("code", "")
+                    if ticker:
+                        skip, rsi = cached_rsi_check(ticker)
+                        if skip:
+                            print(f"  [Athena] Skipping dip buy {name}: RSI {rsi:.0f} ≥ {rules['rsi_overbought']} (overbought)")
+                            buy_shares = 0  # suppress trade
+                # Volume confirmation: skip BUY when volume < 1.5x 20-day avg
+                if buy_shares > 0 and rules.get("volume_confirmation_entries"):
+                    stock_info = stock_map.get(name, {})
+                    ticker = stock_info.get("code", "")
+                    if ticker:
+                        confirmed, latest_vol, avg_vol = cached_volume_check(ticker)
+                        if not confirmed:
+                            vol_msg = f"vol {latest_vol:.0f}" if latest_vol else "no data"
+                            avg_msg = f"avg {avg_vol:.0f}" if avg_vol else "N/A"
+                            print(f"  [Athena] Skipping dip buy {name}: low volume ({vol_msg} vs {avg_msg})")
+                            buy_shares = 0  # suppress trade
+                if buy_shares > 0:
+                    kronos_note = f" (Kronos {ksig['change_pct']:+.1f}% — recovery signal)" if forecasts and ksig["change_pct"] > 0 else ""
+                    trades.append({"action": "BUY", "stock": name, "reason": f"Dip buy at {s['pnl_pct']:.1f}%{kronos_note}",
+                                   "shares": buy_shares, "price": s["price"], "source": "dip_buy", "signal": ksig})
 
     triggered = {t["stock"] for t in trades if t["action"].startswith("SELL")}
     for name, h in persona["holdings"].items():
@@ -522,6 +609,10 @@ def main():
             except Exception:
                 pass
 
+        # Clear RSI and volume caches for this run
+        rsi_clear_cache()
+        volume_clear_cache()
+
         run_record = {"timestamp": timestamp, "personas": {}, "prices": prices, "kronos": bool(forecasts)}
 
         for pid, persona in portfolios.items():
@@ -530,6 +621,17 @@ def main():
                      "trade_log": []}
 
             snapshot = calc_portfolio_value(state["holdings"], prices, state["cash"], persona["initial_capital"])
+
+            # Inject trailing stop peak prices for Ares
+            if pid == "ares" and persona["rules"].get("use_trailing_stop"):
+                try:
+                    hwm = update_high_water_marks(pid, state["holdings"], prices)
+                    for name in snapshot["stocks"]:
+                        if name in hwm:
+                            snapshot["stocks"][name]["peak_price"] = hwm[name]
+                except Exception as e:
+                    print(f"  [Ares] High water mark update failed: {e}")
+
             engine = TRADE_ENGINES.get(pid)
             trades = engine(persona, prices, snapshot, stock_map, prev_prices, forecasts) if engine else []
 
