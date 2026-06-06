@@ -48,23 +48,23 @@
       "industry": "Energy",
       "initial": 1.22
     },
-    "KLK": {
-      "code": "2445.KL",
-      "name": "KL Kepong",
-      "industry": "Plantation",
-      "initial": 20.5
-    },
     "9598": {
       "code": "9598.KL",
       "name": "Pintaras Jaya Berhad",
       "industry": "Engineering & Construction",
       "initial": 1.2999999523162842
     },
-    "RHB": {
-      "code": "1066.KL",
-      "name": "RHB Bank Berhad",
-      "industry": "Banking",
-      "initial": 8.21
+    "KLK": {
+      "code": "2445.KL",
+      "name": "KL Kepong",
+      "industry": "Plantation",
+      "initial": 20.5
+    },
+    "WASCO": {
+      "code": "5142.KL",
+      "name": "Wasco Berhad",
+      "industry": "Energy",
+      "initial": 0.8
     },
     "MATRIX": {
       "code": "5236.KL",
@@ -78,11 +78,11 @@
       "industry": "REIT",
       "initial": 1.82
     },
-    "WASCO": {
-      "code": "5142.KL",
-      "name": "Wasco Berhad",
-      "industry": "Energy",
-      "initial": 0.8
+    "RHB": {
+      "code": "1066.KL",
+      "name": "RHB Bank Berhad",
+      "industry": "Banking",
+      "initial": 8.21
     },
     "KIPREIT": {
       "code": "5280.KL",
@@ -90,29 +90,29 @@
       "industry": "REIT",
       "initial": 0.85
     },
-    "SCIENTEX": {
-      "code": "4731.KL",
-      "name": "Scientex Berhad",
-      "industry": "Packaging",
-      "initial": 4.15
-    },
     "PBBANK": {
       "code": "1295.KL",
       "name": "Public Bank Berhad",
       "industry": "Banking",
       "initial": 4.71
     },
-    "YTLPOWR": {
-      "code": "6742.KL",
-      "name": "YTL Power International",
-      "industry": "Utilities",
-      "initial": 3.95
+    "SCIENTEX": {
+      "code": "4731.KL",
+      "name": "Scientex Berhad",
+      "industry": "Packaging",
+      "initial": 4.15
     },
     "INTA": {
       "code": "INTA.KL",
       "name": "INTA Berhad",
       "industry": "Construction",
       "initial": 0.38
+    },
+    "YTLPOWR": {
+      "code": "6742.KL",
+      "name": "YTL Power International",
+      "industry": "Utilities",
+      "initial": 3.95
     },
     "SIME": {
       "code": "4197.KL",
@@ -138,17 +138,17 @@
       "industry": "Investment",
       "initial": 0.89
     },
-    "GAMUDA": {
-      "code": "5398.KL",
-      "name": "Gamuda Berhad",
-      "industry": "Construction",
-      "initial": 4.2
-    },
     "INARI": {
       "code": "0166.KL",
       "name": "Inari Amertron",
       "industry": "Semiconductor",
       "initial": 3.05
+    },
+    "GAMUDA": {
+      "code": "5398.KL",
+      "name": "Gamuda Berhad",
+      "industry": "Construction",
+      "initial": 4.2
     },
     "PADINI": {
       "code": "7052.KL",
