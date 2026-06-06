@@ -1,9 +1,8 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import StockCard from '../components/StockCard'
 import IndustryFilter from '../components/IndustryFilter'
+import { useApi } from '../hooks/useApi'
 import type { Stock } from '../data/stocks'
-
-const API_URL = import.meta.env.VITE_API_URL || ''
 
 interface WatchlistStock {
   code: string
@@ -55,24 +54,12 @@ function apiStockToStock(s: WatchlistStock): Stock & { _ticker: string; _shortCo
 export default function Home() {
   const [selectedIndustry, setSelectedIndustry] = useState('')
   const [minScore, setMinScore] = useState(0)
-  const [allStocks, setAllStocks] = useState<Stock[]>([])
-  const [loading, setLoading] = useState(true)
+  const api = useApi<WatchlistStock[]>('/watchlist')
 
-  useEffect(() => {
-    if (!API_URL) {
-      setLoading(false)
-      return
-    }
-    fetch(`${API_URL}/watchlist`)
-      .then(r => r.json())
-      .then((data: WatchlistStock[]) => {
-        if (Array.isArray(data)) {
-          setAllStocks(data.map(apiStockToStock))
-        }
-      })
-      .catch(() => {})
-      .finally(() => setLoading(false))
-  }, [])
+  const allStocks: (Stock & { _ticker: string; _shortCode: string })[] = useMemo(() => {
+    if (!api.data || !Array.isArray(api.data)) return []
+    return api.data.map(apiStockToStock)
+  }, [api.data])
 
   const industries = useMemo(() =>
     [...new Set(allStocks.map((s) => s.industry))].sort(),
@@ -99,7 +86,7 @@ export default function Home() {
           </p>
         </div>
 
-        {loading ? (
+        {api.loading ? (
           <div role="status" aria-live="polite" className="text-center py-20">
             <p className="text-gray-400 text-lg">Loading stocks...</p>
           </div>

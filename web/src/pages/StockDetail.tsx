@@ -1,13 +1,12 @@
 import { useParams, useSearchParams, Link } from 'react-router-dom'
-import { useEffect, useState, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { ArrowLeft, Brain, ChevronDown, ChevronRight, ExternalLink, CheckSquare, Square } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import ScoreBadge from '../components/ScoreBadge'
 import SparklineChart from '../components/SparklineChart'
 import { INDUSTRY_COLORS } from '../data/stocks'
+import { useApi } from '../hooks/useApi'
 import type { Stock } from '../data/stocks'
-
-const API_URL = import.meta.env.VITE_API_URL || ''
 
 // Ticker → short code reverse map (same as Watchlist)
 const TICKER_TO_SHORT: Record<string, string> = {
@@ -236,41 +235,30 @@ export default function StockDetail() {
   const { code } = useParams<{ code: string }>()
   const [searchParams] = useSearchParams()
   const persona = searchParams.get('persona')
-  const [analysis, setAnalysis] = useState<PersonaAnalysis | null>(null)
-  const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    if (!API_URL || !code) {
-      setLoading(false)
-      return
-    }
-    setLoading(true)
-    const url = persona
-      ? `${API_URL}/analysis/${code}?persona=${persona}`
-      : `${API_URL}/analysis/${code}`
-    fetch(url)
-      .then(r => r.json())
-      .then(d => {
-        if (d) setAnalysis(d)
-      })
-      .catch(e => console.error('[StockDetail] fetch error:', e))
-      .finally(() => setLoading(false))
+  const url = useMemo(() => {
+    if (!code) return null
+    return persona
+      ? `/analysis/${code}?persona=${persona}`
+      : `/analysis/${code}`
   }, [code, persona])
+
+  const api = useApi<PersonaAnalysis>(url)
 
   // Build display stock from API analysis data (no static stocks.ts dependency)
   const displayStock: Stock = useMemo(() => {
     const shortCode = code ? (TICKER_TO_SHORT[code] || code.toUpperCase()) : ''
-    if (analysis) {
+    if (api.data) {
       return {
         code: shortCode,
-        name: analysis.stock_name || code || '',
-        industry: analysis.industry || '',
+        name: api.data.stock_name || code || '',
+        industry: api.data.industry || '',
         marketCap: 0,
         lastPrice: 0,
         priceChange: 0,
         dividendYield: 0,
         score: {
-          composite: analysis.score_composite || 0,
+          composite: api.data.score_composite || 0,
           dividend: 0,
           growth: 0,
           quality: 0,
@@ -278,11 +266,11 @@ export default function StockDetail() {
         },
         financials: [],
         dividends: [],
-        status: 'revisit',
+        sparkline: [],
+        status: (api.data.score_composite || 0) >= 70 ? 'active' as const : 'revisit' as const,
         addedAt: '',
         revisitAt: null,
         notes: '',
-        sparkline: [],
       }
     }
     // Before analysis loads — minimal placeholder
@@ -303,7 +291,7 @@ export default function StockDetail() {
       notes: '',
       sparkline: [],
     }
-  }, [analysis, code])
+  }, [api.data, code])
 
   if (!code) {
     return (
@@ -316,7 +304,7 @@ export default function StockDetail() {
     )
   }
 
-  if (loading) return <StockDetailSkeleton />
+  if (api.loading) return <StockDetailSkeleton />
 
   const indColor = INDUSTRY_COLORS[displayStock.industry] || 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
   const changeColor = displayStock.priceChange >= 0 ? 'text-emerald-600' : 'text-red-500'
@@ -350,39 +338,39 @@ export default function StockDetail() {
         </div>
 
         {/* Persona Analysis Banner — AI Report right after stock title */}
-        {analysis && (
+        {api.data && (
           <div className="mb-6 rounded-xl border-2 border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 dark:border-emerald-500/20 overflow-hidden">
             <div className="p-5 border-b border-emerald-200 dark:border-emerald-800">
               <div className="flex items-center gap-2">
                 <Brain className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-                <h2 className="font-bold text-emerald-800 dark:text-emerald-300 capitalize">{analysis.persona}'s Deep Analysis</h2>
+                <h2 className="font-bold text-emerald-800 dark:text-emerald-300 capitalize">{api.data.persona}'s Deep Analysis</h2>
                 <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300">
-                  Score {analysis.score_composite}/100
+                  Score {api.data.score_composite}/100
                 </span>
                 <span className="text-xs text-gray-400 ml-auto">
-                  {analysis.generated_at ? new Date(analysis.generated_at).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' }) : ''}
+                  {api.data.generated_at ? new Date(api.data.generated_at).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' }) : ''}
                 </span>
               </div>
             </div>
 
-            <AnalysisSections analysis={analysis} />
+            <AnalysisSections analysis={api.data} />
 
             {/* AI Analysis Report */}
-            {analysis.ai_report && (
+            {api.data.ai_report && (
               <div className="divide-y divide-emerald-200/50 dark:divide-emerald-800/50 border-t border-emerald-200 dark:border-emerald-800">
-                <AiReportSection report={analysis.ai_report} model={analysis.ai_model} />
+                <AiReportSection report={api.data.ai_report} model={api.data.ai_model} />
               </div>
             )}
 
             {/* Factor breakdown */}
-            {analysis.score_breakdown && (
+            {api.data.score_breakdown && (
               <div className="p-5 border-t border-emerald-200 dark:border-emerald-800">
                 <h3 className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide mb-2">
                   Factor Score Breakdown
                   <span className="text-[10px] text-gray-400 ml-2 font-normal normal-case">Source: Quarterly financials (yfinance)</span>
                 </h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  {Object.entries(analysis.score_breakdown).map(([factor, b]: [string, any]) => (
+                  {Object.entries(api.data.score_breakdown).map(([factor, b]: [string, any]) => (
                     <div key={factor} className="flex items-center justify-between text-xs bg-white/50 dark:bg-black/20 rounded px-2 py-1">
                       <span className="text-gray-500 capitalize truncate mr-2">{factor.replace(/_/g, ' ')}</span>
                       <span className="font-mono text-gray-700 dark:text-gray-300 flex-shrink-0">

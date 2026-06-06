@@ -1,7 +1,6 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useMemo } from 'react'
 import { Search, Beaker, Loader2, CheckCircle2, Clock } from 'lucide-react'
-
-const API_URL = import.meta.env.VITE_API_URL || ''
+import { useApi } from '../hooks/useApi'
 
 interface UniverseStock {
   stock_code: string
@@ -16,46 +15,38 @@ interface UniverseStock {
   added_at: string
 }
 
+interface UniverseResponse {
+  data: UniverseStock[]
+  pagination: { total: number }
+}
+
 export default function Universe() {
-  const [stocks, setStocks] = useState<UniverseStock[]>([])
-  const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
-  const [total, setTotal] = useState(0)
+  const [submittedSearch, setSubmittedSearch] = useState('')
   const [requesting, setRequesting] = useState<Set<string>>(new Set())
   const [queued, setQueued] = useState<Set<string>>(new Set())
   const [message, setMessage] = useState('')
 
-  const fetchStocks = useCallback(async (p: number, s: string) => {
-    if (!API_URL) {
-      setLoading(false)
-      return
-    }
-    setLoading(true)
-    try {
-      const params = new URLSearchParams({ page: String(p), limit: '50' })
-      if (s) params.set('search', s)
-      const res = await fetch(`${API_URL}/universe?${params}`)
-      const json = await res.json()
-      setStocks(json.data || [])
-      setTotal(json.pagination?.total || 0)
-    } catch (e) {
-      console.error(e)
-    }
-    setLoading(false)
-  }, [])
+  const url = useMemo(() => {
+    const params = new URLSearchParams({ page: String(page), limit: '50' })
+    if (submittedSearch) params.set('search', submittedSearch)
+    return `/universe?${params}`
+  }, [page, submittedSearch])
 
-  useEffect(() => {
-    fetchStocks(page, search)
-  }, [page, fetchStocks])
+  const api = useApi<UniverseResponse>(url)
+
+  const stocks = api.data?.data || []
+  const total = api.data?.pagination?.total || 0
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     setPage(1)
-    fetchStocks(1, search)
+    setSubmittedSearch(search)
   }
 
   const requestAnalysis = async (stockCode: string) => {
+    const API_URL = import.meta.env.VITE_API_URL || ''
     if (!API_URL || requesting.has(stockCode) || queued.has(stockCode)) return
     setRequesting(prev => new Set(prev).add(stockCode))
     try {
@@ -126,7 +117,7 @@ export default function Universe() {
           </button>
         </form>
 
-        {loading ? (
+        {api.loading ? (
           <div role="status" aria-live="polite" className="flex items-center justify-center py-20">
             <Loader2 className="h-6 w-6 animate-spin text-emerald-600" />
             <span className="sr-only">Loading stocks...</span>

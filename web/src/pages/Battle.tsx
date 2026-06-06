@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Trophy, TrendingUp, TrendingDown, Shield, Zap, Scale, RefreshCw, ArrowUpDown, ArrowUp, ArrowDown, ArrowRight } from 'lucide-react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
-
-const API_URL = import.meta.env.VITE_API_URL || ''
+import { useApi } from '../hooks/useApi'
 
 interface StockHolding {
   code: string
@@ -57,27 +56,9 @@ function formatRM(n: number) { return `RM ${n.toLocaleString('en-MY', { minimumF
 function pctStr(n: number) { return `${n >= 0 ? '+' : ''}${n.toFixed(2)}%` }
 
 export default function Battle() {
-  const [data, setData] = useState<BattleData | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const api = useApi<BattleData>('/battle')
   const [sortCol, setSortCol] = useState<string>('weight')
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc')
-
-  useEffect(() => {
-    const fetchBattle = async () => {
-      try {
-        const url = API_URL ? `${API_URL}/battle` : '/battle'
-        const res = await fetch(url)
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        setData(await res.json())
-      } catch (e: any) {
-        setError(e?.message || 'Failed to load battle data')
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchBattle()
-  }, [])
 
   const toggleSort = (col: string) => {
     if (sortCol === col) {
@@ -106,12 +87,12 @@ export default function Battle() {
     return entries
   }
 
-  if (loading) return <Loading />
-  if (error && !data) return <ErrorMsg msg={error} />
-  if (!data || !data.runs.length) return <Empty />
+  if (api.loading) return <Loading />
+  if (api.error && !api.data) return <ErrorMsg msg={api.error} />
+  if (!api.data || !api.data.runs.length) return <Empty />
 
-  const latest = data.runs[data.runs.length - 1]
-  const chartData = data.runs.map(r => ({
+  const latest = api.data.runs[api.data.runs.length - 1]
+  const chartData = api.data.runs.map(r => ({
     time: new Date(r.timestamp).toLocaleTimeString('en-MY', { hour: '2-digit', minute: '2-digit', hour12: false }),
     ...Object.fromEntries(Object.entries(r.personas).map(([k, v]) => [k, v.total])),
   }))

@@ -1,11 +1,10 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { Search, FolderOpen, ArrowRight } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import ScoreBadge from '../components/ScoreBadge'
 import { INDUSTRY_COLORS } from '../data/stocks'
+import { useApi } from '../hooks/useApi'
 import type { Stock } from '../data/stocks'
-
-const API_URL = import.meta.env.VITE_API_URL || ''
 
 interface WatchlistStock {
   code: string
@@ -65,25 +64,12 @@ type ExtendedStock = ReturnType<typeof apiStockToStock>
 
 export default function Watchlist() {
   const [tab, setTab] = useState<Tab>('active')
-  const [dbStocks, setDbStocks] = useState<ExtendedStock[]>([])
-  const [loading, setLoading] = useState(true)
+  const api = useApi<WatchlistStock[]>('/watchlist')
 
-  useEffect(() => {
-    if (!API_URL) {
-      setLoading(false)
-      return
-    }
-    fetch(`${API_URL}/watchlist`)
-      .then(r => r.json())
-      .then((data: WatchlistStock[]) => {
-        if (Array.isArray(data)) {
-          const stocks = data.map(apiStockToStock)
-          setDbStocks(stocks)
-        }
-      })
-      .catch(() => {})
-      .finally(() => setLoading(false))
-  }, [])
+  const dbStocks: ExtendedStock[] = useMemo(() => {
+    if (!api.data || !Array.isArray(api.data)) return []
+    return api.data.map(apiStockToStock)
+  }, [api.data])
 
   // Derive status dynamically from score (≥70 = active)
   const mergedStocks = useMemo(() =>
@@ -164,7 +150,7 @@ export default function Watchlist() {
           ))}
         </div>
 
-        {loading ? (
+        {api.loading ? (
           <div className="divide-y divide-gray-100 dark:divide-gray-800">
             {Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="flex items-center justify-between py-3 px-4">
