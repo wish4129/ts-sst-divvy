@@ -1,0 +1,31 @@
+{
+  "personas": {
+    "ares": {
+      "peak_value": 9920.0,
+      "peak_date": "2026-06-07T07:08:46.542848+08:00",
+      "tripped_count": 0,
+      "tripped_at": null,
+      "last_updated": "2026-06-07T07:08:46.542888+08:00",
+      "last_checked": "2026-06-07T07:08:46.544793+08:00",
+      "current_drawdown": 0.0
+    },
+    "demeter": {
+      "peak_value": 9971.0,
+      "peak_date": "2026-06-07T07:08:46.545929+08:00",
+      "tripped_count": 0,
+      "tripped_at": null,
+      "last_updated": "2026-06-07T07:08:46.545945+08:00",
+      "last_checked": "2026-06-07T07:08:46.546672+08:00",
+      "current_drawdown": 0.0
+    },
+    "athena": {
+      "peak_value": 9968.0,
+      "peak_date": "2026-06-07T07:08:46.547465+08:00",
+      "tripped_count": 0,
+      "tripped_at": null,
+      "last_updated": "2026-06-07T07:08:46.547478+08:00",
+      "last_checked": "2026-06-07T07:08:46.548064+08:00",
+      "current_drawdown": 0.0
+    }
+  }
+}
