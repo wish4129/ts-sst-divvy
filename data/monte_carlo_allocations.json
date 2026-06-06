@@ -1,0 +1,1069 @@
+{
+  "generated_at": "2026-06-07T07:06:34.725740+08:00",
+  "n_simulations": 1000,
+  "years": 2.0,
+  "personas": {
+    "ares": {
+      "persona": "ares",
+      "constraints": {
+        "max_single_position_pct": 25.0,
+        "min_stocks": 4
+      },
+      "optimal_portfolio": {
+        "weights": [
+          0.07974590758507906,
+          0.0016510780530836933,
+          0.007980627998414667,
+          0.08716132606796172,
+          0.01082017604746779,
+          0.004318676035130962,
+          0.008123437590336105,
+          0.08091310149947185,
+          0.007062146143432808,
+          0.028479260993316623,
+          0.006054191898319787,
+          0.01933255018620862,
+          0.0828027259490244,
+          0.08637787671197211,
+          0.006901108521800216,
+          0.006824233517666478,
+          0.01886345399266124,
+          0.02028291893858937,
+          0.04029306877449695,
+          0.029734033104923573,
+          0.00010331099050235068,
+          0.1322198711546041,
+          0.014519606672888838,
+          0.008591618728064703,
+          0.006537766319718166,
+          0.02659944671722961,
+          0.01600987383408819,
+          0.009349897206194146,
+          0.07073649562939101,
+          0.016280269771850795,
+          0.003125260204469341,
+          0.062204683161640774
+        ],
+        "expected_return_pct": 19.85,
+        "volatility_pct": 15.86,
+        "sharpe_ratio": 1.062,
+        "allocations": [
+          {
+            "stock": "GAMUDA",
+            "ticker": "5398.KL",
+            "weight_pct": 13.2,
+            "suggestion": "Major position (10-20%)"
+          },
+          {
+            "stock": "RHB",
+            "ticker": "1066.KL",
+            "weight_pct": 8.7,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "5115",
+            "ticker": "5115.KL",
+            "weight_pct": 8.6,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "AXREIT",
+            "ticker": "5106.KL",
+            "weight_pct": 8.3,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "INSAS",
+            "ticker": "3379.KL",
+            "weight_pct": 8.1,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "SCICOM",
+            "ticker": "0099.KL",
+            "weight_pct": 8.0,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "7091",
+            "ticker": "7091.KL",
+            "weight_pct": 7.1,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "INTA",
+            "ticker": "INTA.KL",
+            "weight_pct": 6.2,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "SEM",
+            "ticker": "5250.KL",
+            "weight_pct": 4.0,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "KIPREIT",
+            "ticker": "5280.KL",
+            "weight_pct": 3.0,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "4383",
+            "ticker": "4383.KL",
+            "weight_pct": 2.8,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "PADINI",
+            "ticker": "7052.KL",
+            "weight_pct": 2.7,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "MATRIX",
+            "ticker": "5236.KL",
+            "weight_pct": 2.0,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "TIME",
+            "ticker": "5031.KL",
+            "weight_pct": 1.9,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "WASCO",
+            "ticker": "5142.KL",
+            "weight_pct": 1.9,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "MAGNI",
+            "ticker": "7087.KL",
+            "weight_pct": 1.6,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "9598",
+            "ticker": "9598.KL",
+            "weight_pct": 1.6,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "5401",
+            "ticker": "5401.KL",
+            "weight_pct": 1.5,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "MAYBANK",
+            "ticker": "1155.KL",
+            "weight_pct": 1.1,
+            "suggestion": "Minimal position (<2%)"
+          }
+        ]
+      },
+      "min_variance_portfolio": {
+        "weights": [
+          0.028106491041924243,
+          0.001099248720581752,
+          0.01814440163941957,
+          0.008892214304326925,
+          0.019050730707926358,
+          0.06992451486230454,
+          0.01388217209763595,
+          0.039749013930021754,
+          0.011012297671592062,
+          0.042626609111683526,
+          0.005293074111660237,
+          0.04137265777029987,
+          0.04597630199960911,
+          0.0016129797069071167,
+          0.0011609000854441067,
+          0.034604423899679,
+          0.013931607560368205,
+          0.06887276859225008,
+          0.16774978790511952,
+          0.026774189669685478,
+          0.03267583603515785,
+          0.011125440201345716,
+          0.11911691812469456,
+          0.033074054563604925,
+          0.024099215204093073,
+          0.021983718704514415,
+          0.0030503280748606534,
+          0.038611514842708146,
+          0.0063832612123641335,
+          0.0068837051030764445,
+          0.04074216048123972,
+          0.002417462063900922
+        ],
+        "expected_return_pct": 3.03,
+        "volatility_pct": 9.33,
+        "sharpe_ratio": 0.003,
+        "allocations": [
+          {
+            "stock": "SEM",
+            "ticker": "5250.KL",
+            "weight_pct": 16.8,
+            "suggestion": "Major position (10-20%)"
+          },
+          {
+            "stock": "5401",
+            "ticker": "5401.KL",
+            "weight_pct": 11.9,
+            "suggestion": "Major position (10-20%)"
+          },
+          {
+            "stock": "PBBANK",
+            "ticker": "1295.KL",
+            "weight_pct": 7.0,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "MATRIX",
+            "ticker": "5236.KL",
+            "weight_pct": 6.9,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "AXREIT",
+            "ticker": "5106.KL",
+            "weight_pct": 4.6,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "4383",
+            "ticker": "4383.KL",
+            "weight_pct": 4.3,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "TIME",
+            "ticker": "5031.KL",
+            "weight_pct": 4.1,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "9717",
+            "ticker": "9717.KL",
+            "weight_pct": 4.1,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "INSAS",
+            "ticker": "3379.KL",
+            "weight_pct": 4.0,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "LIIHEN",
+            "ticker": "7089.KL",
+            "weight_pct": 3.9,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "5139",
+            "ticker": "5139.KL",
+            "weight_pct": 3.5,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "AME",
+            "ticker": "5293.KL",
+            "weight_pct": 3.3,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "MBMR",
+            "ticker": "5983.KL",
+            "weight_pct": 3.3,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "SCICOM",
+            "ticker": "0099.KL",
+            "weight_pct": 2.8,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "KIPREIT",
+            "ticker": "5280.KL",
+            "weight_pct": 2.7,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "YTLPOWR",
+            "ticker": "6742.KL",
+            "weight_pct": 2.4,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "PADINI",
+            "ticker": "7052.KL",
+            "weight_pct": 2.2,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "MAYBANK",
+            "ticker": "1155.KL",
+            "weight_pct": 1.9,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "INARI",
+            "ticker": "0166.KL",
+            "weight_pct": 1.8,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "KLK",
+            "ticker": "2445.KL",
+            "weight_pct": 1.4,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "WASCO",
+            "ticker": "5142.KL",
+            "weight_pct": 1.4,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "SIME",
+            "ticker": "4197.KL",
+            "weight_pct": 1.1,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "GAMUDA",
+            "ticker": "5398.KL",
+            "weight_pct": 1.1,
+            "suggestion": "Minimal position (<2%)"
+          }
+        ]
+      },
+      "sharpe_distribution": {
+        "pctiles": {
+          "p25": -0.137,
+          "p50": 0.118,
+          "p75": 0.354,
+          "p90": 0.567
+        },
+        "mean": 0.106,
+        "pct_positive": 62.3
+      },
+      "n_simulations": 1000,
+      "n_stocks": 32,
+      "data_years": 2.0
+    },
+    "demeter": {
+      "persona": "demeter",
+      "constraints": {
+        "max_single_position_pct": 35.0,
+        "min_stocks": 4
+      },
+      "optimal_portfolio": {
+        "weights": [
+          0.07974590758507906,
+          0.0016510780530836933,
+          0.007980627998414667,
+          0.08716132606796172,
+          0.01082017604746779,
+          0.004318676035130962,
+          0.008123437590336105,
+          0.08091310149947185,
+          0.007062146143432808,
+          0.028479260993316623,
+          0.006054191898319787,
+          0.01933255018620862,
+          0.0828027259490244,
+          0.08637787671197211,
+          0.006901108521800216,
+          0.006824233517666478,
+          0.01886345399266124,
+          0.02028291893858937,
+          0.04029306877449695,
+          0.029734033104923573,
+          0.00010331099050235068,
+          0.1322198711546041,
+          0.014519606672888838,
+          0.008591618728064703,
+          0.006537766319718166,
+          0.02659944671722961,
+          0.01600987383408819,
+          0.009349897206194146,
+          0.07073649562939101,
+          0.016280269771850795,
+          0.003125260204469341,
+          0.062204683161640774
+        ],
+        "expected_return_pct": 19.85,
+        "volatility_pct": 15.86,
+        "sharpe_ratio": 1.062,
+        "allocations": [
+          {
+            "stock": "GAMUDA",
+            "ticker": "5398.KL",
+            "weight_pct": 13.2,
+            "suggestion": "Major position (10-20%)"
+          },
+          {
+            "stock": "RHB",
+            "ticker": "1066.KL",
+            "weight_pct": 8.7,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "5115",
+            "ticker": "5115.KL",
+            "weight_pct": 8.6,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "AXREIT",
+            "ticker": "5106.KL",
+            "weight_pct": 8.3,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "INSAS",
+            "ticker": "3379.KL",
+            "weight_pct": 8.1,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "SCICOM",
+            "ticker": "0099.KL",
+            "weight_pct": 8.0,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "7091",
+            "ticker": "7091.KL",
+            "weight_pct": 7.1,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "INTA",
+            "ticker": "INTA.KL",
+            "weight_pct": 6.2,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "SEM",
+            "ticker": "5250.KL",
+            "weight_pct": 4.0,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "KIPREIT",
+            "ticker": "5280.KL",
+            "weight_pct": 3.0,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "4383",
+            "ticker": "4383.KL",
+            "weight_pct": 2.8,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "PADINI",
+            "ticker": "7052.KL",
+            "weight_pct": 2.7,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "MATRIX",
+            "ticker": "5236.KL",
+            "weight_pct": 2.0,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "TIME",
+            "ticker": "5031.KL",
+            "weight_pct": 1.9,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "WASCO",
+            "ticker": "5142.KL",
+            "weight_pct": 1.9,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "MAGNI",
+            "ticker": "7087.KL",
+            "weight_pct": 1.6,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "9598",
+            "ticker": "9598.KL",
+            "weight_pct": 1.6,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "5401",
+            "ticker": "5401.KL",
+            "weight_pct": 1.5,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "MAYBANK",
+            "ticker": "1155.KL",
+            "weight_pct": 1.1,
+            "suggestion": "Minimal position (<2%)"
+          }
+        ]
+      },
+      "min_variance_portfolio": {
+        "weights": [
+          0.028106491041924243,
+          0.001099248720581752,
+          0.01814440163941957,
+          0.008892214304326925,
+          0.019050730707926358,
+          0.06992451486230454,
+          0.01388217209763595,
+          0.039749013930021754,
+          0.011012297671592062,
+          0.042626609111683526,
+          0.005293074111660237,
+          0.04137265777029987,
+          0.04597630199960911,
+          0.0016129797069071167,
+          0.0011609000854441067,
+          0.034604423899679,
+          0.013931607560368205,
+          0.06887276859225008,
+          0.16774978790511952,
+          0.026774189669685478,
+          0.03267583603515785,
+          0.011125440201345716,
+          0.11911691812469456,
+          0.033074054563604925,
+          0.024099215204093073,
+          0.021983718704514415,
+          0.0030503280748606534,
+          0.038611514842708146,
+          0.0063832612123641335,
+          0.0068837051030764445,
+          0.04074216048123972,
+          0.002417462063900922
+        ],
+        "expected_return_pct": 3.03,
+        "volatility_pct": 9.33,
+        "sharpe_ratio": 0.003,
+        "allocations": [
+          {
+            "stock": "SEM",
+            "ticker": "5250.KL",
+            "weight_pct": 16.8,
+            "suggestion": "Major position (10-20%)"
+          },
+          {
+            "stock": "5401",
+            "ticker": "5401.KL",
+            "weight_pct": 11.9,
+            "suggestion": "Major position (10-20%)"
+          },
+          {
+            "stock": "PBBANK",
+            "ticker": "1295.KL",
+            "weight_pct": 7.0,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "MATRIX",
+            "ticker": "5236.KL",
+            "weight_pct": 6.9,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "AXREIT",
+            "ticker": "5106.KL",
+            "weight_pct": 4.6,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "4383",
+            "ticker": "4383.KL",
+            "weight_pct": 4.3,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "TIME",
+            "ticker": "5031.KL",
+            "weight_pct": 4.1,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "9717",
+            "ticker": "9717.KL",
+            "weight_pct": 4.1,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "INSAS",
+            "ticker": "3379.KL",
+            "weight_pct": 4.0,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "LIIHEN",
+            "ticker": "7089.KL",
+            "weight_pct": 3.9,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "5139",
+            "ticker": "5139.KL",
+            "weight_pct": 3.5,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "AME",
+            "ticker": "5293.KL",
+            "weight_pct": 3.3,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "MBMR",
+            "ticker": "5983.KL",
+            "weight_pct": 3.3,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "SCICOM",
+            "ticker": "0099.KL",
+            "weight_pct": 2.8,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "KIPREIT",
+            "ticker": "5280.KL",
+            "weight_pct": 2.7,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "YTLPOWR",
+            "ticker": "6742.KL",
+            "weight_pct": 2.4,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "PADINI",
+            "ticker": "7052.KL",
+            "weight_pct": 2.2,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "MAYBANK",
+            "ticker": "1155.KL",
+            "weight_pct": 1.9,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "INARI",
+            "ticker": "0166.KL",
+            "weight_pct": 1.8,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "KLK",
+            "ticker": "2445.KL",
+            "weight_pct": 1.4,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "WASCO",
+            "ticker": "5142.KL",
+            "weight_pct": 1.4,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "SIME",
+            "ticker": "4197.KL",
+            "weight_pct": 1.1,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "GAMUDA",
+            "ticker": "5398.KL",
+            "weight_pct": 1.1,
+            "suggestion": "Minimal position (<2%)"
+          }
+        ]
+      },
+      "sharpe_distribution": {
+        "pctiles": {
+          "p25": -0.137,
+          "p50": 0.118,
+          "p75": 0.354,
+          "p90": 0.567
+        },
+        "mean": 0.106,
+        "pct_positive": 62.3
+      },
+      "n_simulations": 1000,
+      "n_stocks": 32,
+      "data_years": 2.0
+    },
+    "athena": {
+      "persona": "athena",
+      "constraints": {
+        "max_single_position_pct": 30.0,
+        "min_stocks": 5
+      },
+      "optimal_portfolio": {
+        "weights": [
+          0.07974590758507906,
+          0.0016510780530836933,
+          0.007980627998414667,
+          0.08716132606796172,
+          0.01082017604746779,
+          0.004318676035130962,
+          0.008123437590336105,
+          0.08091310149947185,
+          0.007062146143432808,
+          0.028479260993316623,
+          0.006054191898319787,
+          0.01933255018620862,
+          0.0828027259490244,
+          0.08637787671197211,
+          0.006901108521800216,
+          0.006824233517666478,
+          0.01886345399266124,
+          0.02028291893858937,
+          0.04029306877449695,
+          0.029734033104923573,
+          0.00010331099050235068,
+          0.1322198711546041,
+          0.014519606672888838,
+          0.008591618728064703,
+          0.006537766319718166,
+          0.02659944671722961,
+          0.01600987383408819,
+          0.009349897206194146,
+          0.07073649562939101,
+          0.016280269771850795,
+          0.003125260204469341,
+          0.062204683161640774
+        ],
+        "expected_return_pct": 19.85,
+        "volatility_pct": 15.86,
+        "sharpe_ratio": 1.062,
+        "allocations": [
+          {
+            "stock": "GAMUDA",
+            "ticker": "5398.KL",
+            "weight_pct": 13.2,
+            "suggestion": "Major position (10-20%)"
+          },
+          {
+            "stock": "RHB",
+            "ticker": "1066.KL",
+            "weight_pct": 8.7,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "5115",
+            "ticker": "5115.KL",
+            "weight_pct": 8.6,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "AXREIT",
+            "ticker": "5106.KL",
+            "weight_pct": 8.3,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "INSAS",
+            "ticker": "3379.KL",
+            "weight_pct": 8.1,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "SCICOM",
+            "ticker": "0099.KL",
+            "weight_pct": 8.0,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "7091",
+            "ticker": "7091.KL",
+            "weight_pct": 7.1,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "INTA",
+            "ticker": "INTA.KL",
+            "weight_pct": 6.2,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "SEM",
+            "ticker": "5250.KL",
+            "weight_pct": 4.0,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "KIPREIT",
+            "ticker": "5280.KL",
+            "weight_pct": 3.0,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "4383",
+            "ticker": "4383.KL",
+            "weight_pct": 2.8,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "PADINI",
+            "ticker": "7052.KL",
+            "weight_pct": 2.7,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "MATRIX",
+            "ticker": "5236.KL",
+            "weight_pct": 2.0,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "TIME",
+            "ticker": "5031.KL",
+            "weight_pct": 1.9,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "WASCO",
+            "ticker": "5142.KL",
+            "weight_pct": 1.9,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "MAGNI",
+            "ticker": "7087.KL",
+            "weight_pct": 1.6,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "9598",
+            "ticker": "9598.KL",
+            "weight_pct": 1.6,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "5401",
+            "ticker": "5401.KL",
+            "weight_pct": 1.5,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "MAYBANK",
+            "ticker": "1155.KL",
+            "weight_pct": 1.1,
+            "suggestion": "Minimal position (<2%)"
+          }
+        ]
+      },
+      "min_variance_portfolio": {
+        "weights": [
+          0.028106491041924243,
+          0.001099248720581752,
+          0.01814440163941957,
+          0.008892214304326925,
+          0.019050730707926358,
+          0.06992451486230454,
+          0.01388217209763595,
+          0.039749013930021754,
+          0.011012297671592062,
+          0.042626609111683526,
+          0.005293074111660237,
+          0.04137265777029987,
+          0.04597630199960911,
+          0.0016129797069071167,
+          0.0011609000854441067,
+          0.034604423899679,
+          0.013931607560368205,
+          0.06887276859225008,
+          0.16774978790511952,
+          0.026774189669685478,
+          0.03267583603515785,
+          0.011125440201345716,
+          0.11911691812469456,
+          0.033074054563604925,
+          0.024099215204093073,
+          0.021983718704514415,
+          0.0030503280748606534,
+          0.038611514842708146,
+          0.0063832612123641335,
+          0.0068837051030764445,
+          0.04074216048123972,
+          0.002417462063900922
+        ],
+        "expected_return_pct": 3.03,
+        "volatility_pct": 9.33,
+        "sharpe_ratio": 0.003,
+        "allocations": [
+          {
+            "stock": "SEM",
+            "ticker": "5250.KL",
+            "weight_pct": 16.8,
+            "suggestion": "Major position (10-20%)"
+          },
+          {
+            "stock": "5401",
+            "ticker": "5401.KL",
+            "weight_pct": 11.9,
+            "suggestion": "Major position (10-20%)"
+          },
+          {
+            "stock": "PBBANK",
+            "ticker": "1295.KL",
+            "weight_pct": 7.0,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "MATRIX",
+            "ticker": "5236.KL",
+            "weight_pct": 6.9,
+            "suggestion": "Standard position (5-10%)"
+          },
+          {
+            "stock": "AXREIT",
+            "ticker": "5106.KL",
+            "weight_pct": 4.6,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "4383",
+            "ticker": "4383.KL",
+            "weight_pct": 4.3,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "TIME",
+            "ticker": "5031.KL",
+            "weight_pct": 4.1,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "9717",
+            "ticker": "9717.KL",
+            "weight_pct": 4.1,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "INSAS",
+            "ticker": "3379.KL",
+            "weight_pct": 4.0,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "LIIHEN",
+            "ticker": "7089.KL",
+            "weight_pct": 3.9,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "5139",
+            "ticker": "5139.KL",
+            "weight_pct": 3.5,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "AME",
+            "ticker": "5293.KL",
+            "weight_pct": 3.3,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "MBMR",
+            "ticker": "5983.KL",
+            "weight_pct": 3.3,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "SCICOM",
+            "ticker": "0099.KL",
+            "weight_pct": 2.8,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "KIPREIT",
+            "ticker": "5280.KL",
+            "weight_pct": 2.7,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "YTLPOWR",
+            "ticker": "6742.KL",
+            "weight_pct": 2.4,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "PADINI",
+            "ticker": "7052.KL",
+            "weight_pct": 2.2,
+            "suggestion": "Small position (2-5%)"
+          },
+          {
+            "stock": "MAYBANK",
+            "ticker": "1155.KL",
+            "weight_pct": 1.9,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "INARI",
+            "ticker": "0166.KL",
+            "weight_pct": 1.8,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "KLK",
+            "ticker": "2445.KL",
+            "weight_pct": 1.4,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "WASCO",
+            "ticker": "5142.KL",
+            "weight_pct": 1.4,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "SIME",
+            "ticker": "4197.KL",
+            "weight_pct": 1.1,
+            "suggestion": "Minimal position (<2%)"
+          },
+          {
+            "stock": "GAMUDA",
+            "ticker": "5398.KL",
+            "weight_pct": 1.1,
+            "suggestion": "Minimal position (<2%)"
+          }
+        ]
+      },
+      "sharpe_distribution": {
+        "pctiles": {
+          "p25": -0.137,
+          "p50": 0.118,
+          "p75": 0.354,
+          "p90": 0.567
+        },
+        "mean": 0.106,
+        "pct_positive": 62.3
+      },
+      "n_simulations": 1000,
+      "n_stocks": 32,
+      "data_years": 2.0
+    }
+  }
+}
