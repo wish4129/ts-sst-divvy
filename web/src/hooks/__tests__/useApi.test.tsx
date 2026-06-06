@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { renderHook, waitFor } from '@testing-library/react'
+import { renderHook, waitFor, act } from '@testing-library/react'
 import { useApi, useApiPost } from '../useApi'
 
 // Mock fetch globally
@@ -70,7 +70,7 @@ describe('useApi', () => {
     await waitFor(() => expect(result.current.loading).toBe(false))
     expect(result.current.data).toEqual({ first: true })
 
-    result.current.refetch()
+    act(() => { result.current.refetch() })
     await waitFor(() => expect(result.current.loading).toBe(false))
     expect(result.current.data).toEqual({ second: true })
   })
