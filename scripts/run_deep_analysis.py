@@ -70,7 +70,7 @@ def get_stocks_from_db(db_conn=None) -> dict:
 
     cur.execute("""
         SELECT s.id, s.name, s.industry,
-               COALESCE(sa.max_score, 0) as score_composite
+               GREATEST(s.score_composite, COALESCE(sa.max_score, 0)) as score_composite
         FROM stocks s
         LEFT JOIN LATERAL (
             SELECT MAX(score_composite) as max_score FROM stock_analyses
