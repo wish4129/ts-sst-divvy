@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Trophy, TrendingUp, TrendingDown, Shield, Zap, Scale, RefreshCw, ArrowUpDown, ArrowUp, ArrowDown, ArrowRight } from 'lucide-react'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell } from 'recharts'
 import { useApi } from '../hooks/useApi'
 
 interface StockHolding {
@@ -144,6 +144,65 @@ export default function Battle() {
               </div>
             )
           })}
+        </div>
+
+        {/* Portfolio Allocation Pies */}
+        <div className="mb-10">
+          <h2 className="text-base md:text-lg font-semibold mb-4 flex items-center gap-2">
+            <svg className="w-5 h-5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 1 0 0 16V4z"/>
+            </svg>
+            Portfolio Allocation
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {ranked.map(([pid, snap]) => {
+              const pieData = Object.entries(snap.holdings)
+                .map(([name, h]) => ({ name, value: h.weight }))
+                .sort((a, b) => b.value - a.value)
+              const baseColor = COLORS[pid]
+              // Generate shades: lighten/darken base color for 5+ holdings
+              const STOCK_COLORS: Record<string, string[]> = {
+                ares: ['#f87171', '#ef4444', '#dc2626', '#b91c1c', '#991b1b', '#7f1d1d'],
+                demeter: ['#4ade80', '#22c55e', '#16a34a', '#15803d', '#166534', '#14532d'],
+                athena: ['#a78bfa', '#8b5cf6', '#7c3aed', '#6d28d9', '#5b21b6', '#4c1d95'],
+              }
+              const colors = STOCK_COLORS[pid] || [baseColor]
+              return (
+                <div key={pid} className="bg-gray-800/30 rounded-xl p-4 border border-gray-700">
+                  <h3 className="text-sm font-semibold mb-3 text-center" style={{ color: baseColor }}>
+                    {PERSONAS[pid].name} — {formatRM(snap.total - snap.cash)} deployed
+                  </h3>
+                  <div className="h-[220px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={pieData}
+                          dataKey="value"
+                          nameKey="name"
+                          cx="50%"
+                          cy="50%"
+                          outerRadius={80}
+                          label={({ name, value }) => `${name} ${value}%`}
+                          labelLine={{ stroke: '#6b7280', strokeWidth: 1 }}
+                        >
+                          {pieData.map((_, i) => (
+                            <Cell key={i} fill={colors[i % colors.length]} stroke="#1f2937" strokeWidth={2} />
+                          ))}
+                        </Pie>
+                        <Tooltip
+                          contentStyle={{ background: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
+                          formatter={(value: number) => [`${value}%`, 'Allocation']}
+                        />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                  {pieData.length === 0 && (
+                    <p className="text-xs text-gray-500 text-center mt-2">No holdings yet</p>
+                  )}
+                </div>
+              )
+            })}
+          </div>
         </div>
 
         <div className="bg-gray-800/30 rounded-xl p-4 md:p-6 border border-gray-700 mb-10">
@@ -321,6 +380,19 @@ function Loading() {
         <div className="bg-gray-800/30 rounded-xl p-4 md:p-6 border border-gray-700 mb-10">
           <div className={`h-6 w-56 mb-4 ${shimmer}`} />
           <div className={`h-[220px] sm:h-[300px] md:h-[350px] w-full ${shimmer}`} />
+        </div>
+
+        {/* Allocation pies skeleton */}
+        <div className="mb-10">
+          <div className={`h-6 w-48 mb-4 ${shimmer}`} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {personas.map(pid => (
+              <div key={pid} className="bg-gray-800/30 rounded-xl p-4 border border-gray-700">
+                <div className={`h-4 w-40 mx-auto mb-3 ${shimmer}`} />
+                <div className={`h-[220px] w-[220px] mx-auto rounded-full ${shimmer}`} />
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Holdings table skeletons */}
