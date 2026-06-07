@@ -14,3 +14,4 @@ scripts/portfolios.json
 graphify-out/
 .codegraph/
 web/coverage/
+scripts/gen_ai_batch.py
