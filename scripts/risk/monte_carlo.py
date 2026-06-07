@@ -164,10 +164,25 @@ def simulate_portfolios(
             threshold = np.partition(weights, -min_stocks)[-min_stocks]
             weights[weights < threshold] = 0
 
-        # Renormalize
+        # Renormalize iteratively, clipping to max_weight each pass.
+        # Without iteration, renorm can push clipped weights back above max_weight
+        # because the sum of clipped weights is < 1, and dividing inflates them.
         total = weights.sum()
         if total > 0:
-            weights = weights / total
+            for _ in range(10):  # converge: clip → normalize → repeat
+                weights = weights / max(total, 1e-10)
+                weights = np.clip(weights, 0, max_weight)
+                total = weights.sum()
+                if total <= 0:
+                    weights = np.ones(n_stocks) / n_stocks
+                    break
+            # Final normalize after clipping
+            total = weights.sum()
+            weights = weights / total if total > 0 else np.ones(n_stocks) / n_stocks
+            # One last clip as safety net
+            weights = np.clip(weights, 0, max_weight)
+            total = weights.sum()
+            weights = weights / total if total > 0 else np.ones(n_stocks) / n_stocks
         else:
             weights = np.ones(n_stocks) / n_stocks
 

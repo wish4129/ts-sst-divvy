@@ -109,6 +109,10 @@ def compute_correlation(
     n = returns.shape[1]
     corr_matrix = np.corrcoef(returns, rowvar=False)
 
+    # Handle single stock: np.corrcoef returns a scalar 1.0
+    if n == 1:
+        corr_matrix = np.array([[1.0]])
+
     # Extract upper triangle (excluding diagonal)
     high_pairs = []
     for i in range(n):
@@ -125,11 +129,17 @@ def compute_correlation(
     high_pairs.sort(key=lambda p: abs(p["correlation"]), reverse=True)
 
     # Statistics
-    upper_tri = corr_matrix[np.triu_indices(n, k=1)]
-    mean_corr = float(np.mean(upper_tri))
-    median_corr = float(np.median(upper_tri))
-    min_corr = float(np.min(upper_tri))
-    max_corr = float(np.max(upper_tri))
+    if n > 1:
+        upper_tri = corr_matrix[np.triu_indices(n, k=1)]
+        mean_corr = float(np.mean(upper_tri))
+        median_corr = float(np.median(upper_tri))
+        min_corr = float(np.min(upper_tri))
+        max_corr = float(np.max(upper_tri))
+    else:
+        mean_corr = 0.0
+        median_corr = 0.0
+        min_corr = 0.0
+        max_corr = 0.0
 
     # Build full matrix as nested dict for JSON
     matrix_json = {}
