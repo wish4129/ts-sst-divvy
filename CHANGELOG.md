@@ -80,11 +80,9 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 - StockDetail early-return guards restored (removed by opencode)
 - All scripts read from DB instead of stale files (`stocks.ts` no longer parsed)
 
-### Testing (253 tests, 25 files)
-- All pages: Battle, Watchlist, StockDetail, Home, Universe, Compare, DividendCalendar, Screener, AuthCallback
-- All components: Header, StockCard, ScoreBadge, SparklineChart, IndustryFilter, ErrorBoundary, Loading, LoginGate, NotFound, ProgressBar, Toast
-- Hooks + Context: `useApi` (8), `AuthContext` (18), `ToastContext`
-- Libraries: `strategies` (37), `export-csv` (4)
+### Testing (618 tests, 41 files)
+- **Vitest (web):** 273 tests, 26 files — all pages (Battle, Watchlist, StockDetail, Home, Universe, Compare, DividendCalendar, Screener, AuthCallback, CronStatus), all components (Header, StockCard, ScoreBadge, SparklineChart, IndustryFilter, ErrorBoundary, Loading, LoginGate, NotFound, ProgressBar, Toast), hooks (useApi, AuthContext, ToastContext), libraries (strategies, export-csv)
+- **Pytest (Python):** 345 tests, 15 files — market_data (15), persona_db ticker mapping (16), portfolio_history (78), risk modules batch 1 (87: backtesting, Monte Carlo, correlation, drawdown, sector limits, Kelly, regime, transaction costs, attribution), risk modules batch 2 (93: Kelly edge cases, market regime, transaction costs, sector exposure), backtest metrics (39: CAGR, Sharpe, max drawdown, win rate, profit factor, Calmar, Sortino), portfolio manager (17: core buy/sell execution)
 
 ### DB-First Pipeline (v4+)
 - Stocks table JSONB columns expansion + Drizzle schema sync
