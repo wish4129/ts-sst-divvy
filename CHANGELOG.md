@@ -6,6 +6,15 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 
 ## [Unreleased]
 
+### 2026-06-07
+- **np.float64 → float() cast fix** — Kronos predictions now cast to native Python before psycopg2 INSERT; refreshed all 37 forecasts (262f0fa0)
+- **Financial metrics on Compare page** — P/E, DY, ROE, D/E, Market Cap added via watchlist API (b6c86d44)
+- **Pre-Monday Portfolio Risk Review** — YTL Power flagged for Ares SELL (Kronos -26.5%), SIME improved to -3.5%
+- **Score Alert cron investigation** — root cause: transient Broken pipe to Supabase; script works, self-healed
+- **pytest coverage** — 109 Python tests total: market_data (15) + persona_db ticker mapping (16) + history (78) (e97bedf9)
+- **Fragment key warning** — React keys added to CronStatus job rows + test files excluded from tsc build
+- **All 107 kanban tasks complete** — board fully done; 108/108 AI reports generated
+
 ### Phase 10 — Risk Management Engine
 - **Backtesting engine** — historical replay of persona strategies with CAGR, Sharpe ratio, max drawdown metrics
 - **Monte Carlo position sizing** — simulation-based optimal position sizing with confidence intervals
