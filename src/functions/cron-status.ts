@@ -54,7 +54,7 @@ function tryReadLocalCron(): Record<string, { lastRun: string; status: string; e
   }
 }
 
-export async function handler(): Promise<Response> {
+export async function handler(): Promise<{statusCode: number; body: string; headers: Record<string,string>}> {
   const liveData = tryReadLocalCron()
 
   const jobs: CronJobStatus[] = DIVVY_JOBS.map(def => {
@@ -71,12 +71,13 @@ export async function handler(): Promise<Response> {
     }
   })
 
-  return new Response(JSON.stringify({
-    jobs,
-    source: liveData ? 'local' : 'static',
-    updatedAt: new Date().toISOString(),
-  }), {
-    status: 200,
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      jobs,
+      source: liveData ? 'local' : 'static',
+      updatedAt: new Date().toISOString(),
+    }),
     headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-  })
+  }
 }
