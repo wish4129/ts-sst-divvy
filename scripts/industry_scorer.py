@@ -239,9 +239,17 @@ for code, old in [
     OLD_SCORES[code] = old
 
 results = []
+skipped = 0
 for name, info in ALL_STOCKS.items():
-    r = score_stock(info["code"], info["name"], info.get("industry", ""))
+    code = info["code"]
+    if code not in FINANCIALS:
+        print(f"  SKIP {name} ({code}): not in stock_financials.json — no data to score")
+        skipped += 1
+        continue
+    r = score_stock(code, info["name"], info.get("industry", ""))
     results.append(r)
+
+print(f"\nScored {len(results)} stocks, skipped {skipped} (missing financial data)")
 
 results.sort(key=lambda x: x["composite"], reverse=True)
 
@@ -259,19 +267,25 @@ for r in results:
 db = get_db()
 cur = db.cursor()
 inserted = 0
+updated = 0
 PERSONAS = ['ares', 'demeter', 'athena']
 for r in results:
     for pid in PERSONAS:
         cur.execute("""
             INSERT INTO stock_analyses (stock_id, persona, score_composite)
             VALUES (%s, %s, %s)
-            ON CONFLICT DO NOTHING
+            ON CONFLICT (stock_id, persona) DO UPDATE
+            SET score_composite = EXCLUDED.score_composite,
+                generated_at = NOW()
         """, (r['code'], pid, r['composite']))
-        inserted += cur.rowcount
+        if cur.rowcount == 1:
+            inserted += 1
+        else:
+            updated += 1
 db.commit()
 cur.close()
 db.close()
-print(f"\n✓ Wrote {inserted} scores to stock_analyses DB table — {len(results)} stocks × 3 personas")
+print(f"\n✓ Wrote {inserted} new + {updated} updated scores to stock_analyses DB table — {len(results)} stocks × 3 personas")
 
 # Top 5 breakdown
 print(f"\n{'─'*50}")
