@@ -6,6 +6,9 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 
 ## [Unreleased]
 
+### 2026-06-08
+- **pytest for risk modules batch 1** — 87 tests: backtesting, Monte Carlo, correlation, drawdown, sector limits, Kelly criterion, regime detection, transaction costs, performance attribution (d5cd4610) [Internal]
+
 ### 2026-06-07
 - **np.float64 → float() cast fix** — Kronos predictions now cast to native Python before psycopg2 INSERT; refreshed all 37 forecasts (262f0fa0)
 - **Financial metrics on Compare page** — P/E, DY, ROE, D/E, Market Cap added via watchlist API (b6c86d44)
