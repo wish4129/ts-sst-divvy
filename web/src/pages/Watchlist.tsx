@@ -15,6 +15,11 @@ interface WatchlistStock {
   status: 'active' | 'revisit' | 'removed'
   compositeScore: number
   hasAiReport: boolean
+  peRatio: number | null
+  dividendYield: number | null
+  roe: number | null
+  debtToEquity: number | null
+  marketCap: number | null
 }
 
 type Tab = 'active' | 'revisit' | 'removed'

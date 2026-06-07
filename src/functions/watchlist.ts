@@ -21,7 +21,12 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
         s.initial_price as last_price,
         s.status,
         GREATEST(s.score_composite, COALESCE(sa.score_composite, 0)) as composite_score,
-        CASE WHEN sa.ai_report IS NOT NULL THEN true ELSE false END as has_ai_report
+        CASE WHEN sa.ai_report IS NOT NULL THEN true ELSE false END as has_ai_report,
+        s.pe_ratio,
+        s.dividend_yield,
+        s.roe,
+        s.debt_to_equity,
+        s.market_cap
       FROM stocks s
       LEFT JOIN LATERAL (
         SELECT score_composite, ai_report
@@ -42,6 +47,11 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
       status: r.status,
       compositeScore: Number(r.composite_score || 0),
       hasAiReport: r.has_ai_report,
+      peRatio: r.pe_ratio ? Number(r.pe_ratio) : null,
+      dividendYield: r.dividend_yield ? Number(r.dividend_yield) : null,
+      roe: r.roe ? Number(r.roe) : null,
+      debtToEquity: r.debt_to_equity ? Number(r.debt_to_equity) : null,
+      marketCap: r.market_cap ? Number(r.market_cap) : null,
     }));
 
     return {

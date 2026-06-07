@@ -13,6 +13,11 @@ interface WatchlistStock {
   status: 'active' | 'revisit' | 'removed'
   compositeScore: number
   hasAiReport: boolean
+  peRatio: number | null
+  dividendYield: number | null
+  roe: number | null
+  debtToEquity: number | null
+  marketCap: number | null
 }
 
 interface AnalysisData {
@@ -95,7 +100,7 @@ export default function Compare() {
     return selectedCodes.map(code => {
       const stock = stocks.find(s => s.code === code)
       const analysis = analyses[code] || undefined
-      return { ...(stock || { code, name: code, industry: '', lastPrice: 0, status: 'revisit' as const, compositeScore: 0, hasAiReport: false }), analysis }
+      return { ...(stock || { code, name: code, industry: '', lastPrice: 0, status: 'revisit' as const, compositeScore: 0, hasAiReport: false, peRatio: null, dividendYield: null, roe: null, debtToEquity: null, marketCap: null }), analysis }
     })
   }, [selectedCodes, stocks, analyses])
 
@@ -119,6 +124,21 @@ export default function Compare() {
   const formatScore = (v: string | number) => {
     const n = typeof v === 'string' ? parseFloat(v) : v
     return isNaN(n) ? '-' : `${Math.round(n)}/100`
+  }
+
+  const formatNum = (v: number | null | undefined, suffix = '', decimals = 1) => {
+    if (v == null || isNaN(v)) return '-'
+    if (suffix === 'x') return `${v.toFixed(decimals)}x`
+    if (suffix === '%') return `${v.toFixed(decimals)}%`
+    return `${v.toFixed(decimals)}${suffix}`
+  }
+
+  const formatMarketCap = (v: number | null | undefined) => {
+    if (v == null || isNaN(v)) return '-'
+    if (v >= 1e12) return `RM ${(v / 1e12).toFixed(2)}T`
+    if (v >= 1e9) return `RM ${(v / 1e9).toFixed(1)}B`
+    if (v >= 1e6) return `RM ${(v / 1e6).toFixed(0)}M`
+    return `RM ${v.toFixed(0)}`
   }
 
   // Extract score breakdown from analysis
@@ -261,6 +281,26 @@ export default function Compare() {
                   <MetricRow
                     label="Status"
                     values={selectedStocks.map(s => s.status.charAt(0).toUpperCase() + s.status.slice(1))}
+                  />
+                  <MetricRow
+                    label="P/E Ratio"
+                    values={selectedStocks.map(s => formatNum(s.peRatio, 'x', 1))}
+                  />
+                  <MetricRow
+                    label="Div Yield"
+                    values={selectedStocks.map(s => formatNum(s.dividendYield, '%', 1))}
+                  />
+                  <MetricRow
+                    label="ROE"
+                    values={selectedStocks.map(s => formatNum(s.roe, '%', 1))}
+                  />
+                  <MetricRow
+                    label="D/E Ratio"
+                    values={selectedStocks.map(s => formatNum(s.debtToEquity, '', 2))}
+                  />
+                  <MetricRow
+                    label="Market Cap"
+                    values={selectedStocks.map(s => formatMarketCap(s.marketCap))}
                   />
                 </tbody>
               </table>
