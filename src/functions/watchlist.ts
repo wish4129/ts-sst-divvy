@@ -20,7 +20,7 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
         s.industry,
         s.initial_price as last_price,
         s.status,
-        COALESCE(sa.score_composite, 0) as composite_score,
+        GREATEST(s.score_composite, COALESCE(sa.score_composite, 0)) as composite_score,
         CASE WHEN sa.ai_report IS NOT NULL THEN true ELSE false END as has_ai_report
       FROM stocks s
       LEFT JOIN LATERAL (
@@ -31,7 +31,7 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
         LIMIT 1
       ) sa ON true
       WHERE s.status != 'removed'
-      ORDER BY COALESCE(sa.score_composite, 0) DESC
+      ORDER BY GREATEST(s.score_composite, COALESCE(sa.score_composite, 0)) DESC
     `;
 
     const stocks = rows.map((r: any) => ({
