@@ -6,6 +6,17 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 
 ## [Unreleased]
 
+### Phase 10 — Risk Management Engine
+- **Backtesting engine** — historical replay of persona strategies with CAGR, Sharpe ratio, max drawdown metrics
+- **Monte Carlo position sizing** — simulation-based optimal position sizing with confidence intervals
+- **Correlation matrix** — concentration risk detection across portfolio holdings
+- **Maximum drawdown circuit breaker** — persistent state, auto-halts trading at -20% drawdown
+- **Sector exposure limits** — 50% cap per sector, enforced at rebalance
+- **Kelly criterion** — risk-adjusted position sizing for optimal bet size
+- **Market regime detection** — bull/bear/sideways classification for strategy switching
+- **Transaction cost modeling** — brokerage (0.1%) + stamp duty (RM1/RM1000) baked into trade PnL
+- **Performance attribution report** — factor-level PnL breakdown (momentum, dividend, sector, macro)
+
 ### Phase 6 — UI Polish
 - **Dark mode toggle persistence** — localStorage + system preference detection in Header
 - **NProgress-style loading bar** — animated progress bar during lazy route transitions
@@ -40,6 +51,7 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 - **Stock Comparison** — side-by-side metric table, score breakdown bars, Kronos signals
 - **CSV Export** — watchlist export with all columns
 - **Screener Deduplication** — unique candidate tracking across runs
+- **Strategy modules** — modular `ares.py` (trailing stop-loss), `rsi.py` (RSI-14 filter), `volume.py` (1.5x confirmation)
 
 ### Portfolio Engine
 - **Portfolio Manager** now reads Kronos from DB directly (was file-only, fix for empty-file bug)
@@ -54,11 +66,11 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 - StockDetail early-return guards restored (removed by opencode)
 - All scripts read from DB instead of stale files (`stocks.ts` no longer parsed)
 
-### Testing (148 tests, 12 files)
-- `AuthContext` (18), `Header` (24), `Battle` (27), `ErrorBoundary` (7)
-- `SparklineChart` (12), `ScoreBadge` (9), `StockCard` (15), `IndustryFilter` (16)
-- `Loading` (5), `LoginGate` (3), `NotFound` (4), `useApi` (8)
-- Vitest + coverage config, path aliases
+### Testing (253 tests, 25 files)
+- All pages: Battle, Watchlist, StockDetail, Home, Universe, Compare, DividendCalendar, Screener, AuthCallback
+- All components: Header, StockCard, ScoreBadge, SparklineChart, IndustryFilter, ErrorBoundary, Loading, LoginGate, NotFound, ProgressBar, Toast
+- Hooks + Context: `useApi` (8), `AuthContext` (18), `ToastContext`
+- Libraries: `strategies` (37), `export-csv` (4)
 
 ### DB-First Pipeline (v4+)
 - Stocks table JSONB columns expansion + Drizzle schema sync
