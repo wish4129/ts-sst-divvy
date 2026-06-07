@@ -143,8 +143,8 @@ try:
             """INSERT INTO kronos_forecasts (stock_id, pred_30d_close, pred_change_pct,
                pred_low, pred_high, pred_volatility)
                VALUES (%s,%s,%s,%s,%s,%s)""",
-            (r['ticker'], r['pred_30d_close'], r['pred_change_pct'],
-             r['pred_low'], r['pred_high'], r['pred_volatility']))
+            (r['ticker'], float(r['pred_30d_close']), float(r['pred_change_pct']),
+             float(r['pred_low']), float(r['pred_high']), float(r['pred_volatility'])))
         inserted += 1
     db.commit()
     cur.close()

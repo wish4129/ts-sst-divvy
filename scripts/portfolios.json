@@ -168,17 +168,17 @@
       "industry": "Construction",
       "initial": 4.2
     },
-    "PADINI": {
-      "code": "7052.KL",
-      "name": "Padini Holdings Berhad",
-      "industry": "Consumer",
-      "initial": 1.43
-    },
     "GENETEC": {
       "code": "0104.KL",
       "name": "Genetec Technology",
       "industry": "Industrial",
       "initial": 1.52
+    },
+    "PADINI": {
+      "code": "7052.KL",
+      "name": "Padini Holdings Berhad",
+      "industry": "Consumer",
+      "initial": 1.43
     },
     "5211": {
       "code": "5211.KL",
@@ -203,6 +203,12 @@
       "name": "Sycal Ventures Berhad",
       "industry": "Engineering & Construction",
       "initial": 0.17000000178813934
+    },
+    "5040": {
+      "code": "5040.KL",
+      "name": "Meridian Berhad",
+      "industry": "Real Estate Services",
+      "initial": 0.009999999776482582
     },
     "5401": {
       "code": "5401.KL",
