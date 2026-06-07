@@ -72,6 +72,12 @@
       "industry": "REIT",
       "initial": 1.82
     },
+    "WASCO": {
+      "code": "5142.KL",
+      "name": "Wasco Berhad",
+      "industry": "Energy",
+      "initial": 0.8
+    },
     "RHB": {
       "code": "1066.KL",
       "name": "RHB Bank Berhad",
@@ -84,23 +90,11 @@
       "industry": "Property",
       "initial": 1.25
     },
-    "WASCO": {
-      "code": "5142.KL",
-      "name": "Wasco Berhad",
-      "industry": "Energy",
-      "initial": 0.8
-    },
     "KIPREIT": {
       "code": "5280.KL",
       "name": "KIP Real Estate Investment Trust",
       "industry": "REIT",
       "initial": 0.85
-    },
-    "PBBANK": {
-      "code": "1295.KL",
-      "name": "Public Bank Berhad",
-      "industry": "Banking",
-      "initial": 4.71
     },
     "SCIENTEX": {
       "code": "4731.KL",
@@ -108,17 +102,23 @@
       "industry": "Packaging",
       "initial": 4.15
     },
-    "INTA": {
-      "code": "INTA.KL",
-      "name": "INTA Berhad",
-      "industry": "Construction",
-      "initial": 0.38
+    "PBBANK": {
+      "code": "1295.KL",
+      "name": "Public Bank Berhad",
+      "industry": "Banking",
+      "initial": 4.71
     },
     "YTLPOWR": {
       "code": "6742.KL",
       "name": "YTL Power International",
       "industry": "Utilities",
       "initial": 3.95
+    },
+    "INTA": {
+      "code": "INTA.KL",
+      "name": "INTA Berhad",
+      "industry": "Construction",
+      "initial": 0.38
     },
     "SIME": {
       "code": "4197.KL",
@@ -132,17 +132,17 @@
       "industry": "Furniture",
       "initial": 0.95
     },
-    "7091": {
-      "code": "7091.KL",
-      "name": "Unimech Group Berhad",
-      "industry": "Metal Fabrication",
-      "initial": 1.3600000143051147
-    },
     "5263": {
       "code": "5263.KL",
       "name": "Sunway Construction Group Berhad",
       "industry": "Engineering & Construction",
       "initial": 7.25
+    },
+    "7091": {
+      "code": "7091.KL",
+      "name": "Unimech Group Berhad",
+      "industry": "Metal Fabrication",
+      "initial": 1.3600000143051147
     },
     "INSAS": {
       "code": "3379.KL",
@@ -150,17 +150,17 @@
       "industry": "Investment",
       "initial": 0.89
     },
-    "INARI": {
-      "code": "0166.KL",
-      "name": "Inari Amertron",
-      "industry": "Semiconductor",
-      "initial": 3.05
-    },
     "2658": {
       "code": "2658.KL",
       "name": "Ajinomoto (Malaysia) Berhad",
       "industry": "Packaged Foods",
       "initial": 14.5
+    },
+    "INARI": {
+      "code": "0166.KL",
+      "name": "Inari Amertron",
+      "industry": "Semiconductor",
+      "initial": 3.05
     },
     "GAMUDA": {
       "code": "5398.KL",
@@ -215,6 +215,12 @@
       "name": "Tropicana Corporation Berhad",
       "industry": "Real Estate - Development",
       "initial": 1.0399999618530273
+    },
+    "5062": {
+      "code": "5062.KL",
+      "name": "Hua Yang Berhad",
+      "industry": "Real Estate - Development",
+      "initial": 0.1899999976158142
     },
     "SEM": {
       "code": "5250.KL",
