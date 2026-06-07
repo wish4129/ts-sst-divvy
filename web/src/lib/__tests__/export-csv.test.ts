@@ -4,8 +4,8 @@ import { downloadCsv, type CsvRow } from '../export-csv'
 describe('export-csv', () => {
   beforeEach(() => {
     // Mock URL.createObjectURL and anchor click
-    global.URL.createObjectURL = vi.fn(() => 'blob:test')
-    global.URL.revokeObjectURL = vi.fn()
+    globalThis.URL.createObjectURL = vi.fn(() => 'blob:test')
+    globalThis.URL.revokeObjectURL = vi.fn()
   })
 
   it('generates CSV with headers', () => {

@@ -27,6 +27,7 @@ export default $config({
     api.route("GET /notes/{code}", "src/functions/notes.handler");
     api.route("POST /notes/{code}", "src/functions/notes.handler");
     api.route("GET /screener", "src/functions/screener.handler");
+    api.route("GET /cron/status", "src/functions/cron-status.handler");
 
     new sst.aws.StaticSite("WebApp", {
       path: "web/",
