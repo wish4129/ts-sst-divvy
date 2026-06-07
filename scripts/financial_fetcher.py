@@ -21,14 +21,14 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
-from persona_db import get_stock_list
+from persona_db import get_all_stocks_dict
 OUTPUT_PATH = ROOT / "data" / "stock_financials.json"
 
 MALAYSIA_TZ = timezone(timedelta(hours=8))
 
 # ── Load stocks from DB ──
-stocks = get_stock_list()
-tickers = [code for name, code in stocks]
+stocks = get_all_stocks_dict()  # {short_name: {code, name, industry, initial}}
+tickers = [info["code"] for info in stocks.values()]
 
 print(f"[{datetime.now(MALAYSIA_TZ).isoformat()}] Fetching financials for {len(stocks)} stocks...")
 
@@ -133,7 +133,7 @@ def extract_financials(ticker, info):
 
 # ── Fetch all ──
 results = {}
-for name, info in stocks:
+for name, info in stocks.items():
     code = info["code"]
     print(f"  {name:10s} ({code})...", end=" ", flush=True)
     try:
