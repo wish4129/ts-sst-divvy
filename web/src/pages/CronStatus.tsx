@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 import { Clock, CheckCircle2, XCircle, AlertTriangle, RefreshCw } from 'lucide-react'
 
 interface CronJob {
@@ -108,7 +108,7 @@ export default function CronStatus() {
                 const Icon = statusInfo.icon
                 const isExpanded = expandedId === job.id
                 return (
-                  <>
+                  <Fragment key={job.id}>
                     <tr
                       key={job.id}
                       onClick={() => job.error && setExpandedId(isExpanded ? null : job.id)}
@@ -144,7 +144,7 @@ export default function CronStatus() {
                         </td>
                       </tr>
                     )}
-                  </>
+                  </Fragment>
                 )
               })}
             </tbody>
