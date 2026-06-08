@@ -1,10 +1,15 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import CronStatus from '../CronStatus'
 
 // Mock global fetch via stubGlobal (sandboxed — auto-cleaned between test files)
 const mockFetch = vi.fn()
 vi.stubGlobal('fetch', mockFetch)
+
+// Restore stubbed globals after all tests to prevent cross-file pollution [source: divvy/web/src/pages/__tests__/CronStatus.test.tsx]
+afterAll(() => {
+  vi.unstubAllGlobals()
+})
 
 // Mock setInterval/clearInterval to capture callbacks
 let intervalCallback: (() => void) | null = null

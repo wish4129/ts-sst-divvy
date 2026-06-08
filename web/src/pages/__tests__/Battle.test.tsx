@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from 'vitest'
 import { render, screen, fireEvent, within } from '@testing-library/react'
 import Battle from '../Battle'
 
@@ -9,6 +9,11 @@ class ResizeObserverMock {
   disconnect() {}
 }
 vi.stubGlobal('ResizeObserver', ResizeObserverMock)
+
+// Restore stubbed globals after all tests to prevent polluting other test files [source: divvy/web/src/pages/__tests__/Battle.test.tsx]
+afterAll(() => {
+  vi.unstubAllGlobals()
+})
 
 // Mock useApi hook
 const { mockUseApi } = vi.hoisted(() => ({

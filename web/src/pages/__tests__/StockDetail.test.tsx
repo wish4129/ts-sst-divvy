@@ -1,9 +1,14 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 
 class ResizeObserverMock { observe() {} unobserve() {} disconnect() {} }
 vi.stubGlobal('ResizeObserver', ResizeObserverMock)
+
+// Restore stubbed globals after all tests to prevent cross-file pollution [source: divvy/web/src/pages/__tests__/StockDetail.test.tsx]
+afterAll(() => {
+  vi.unstubAllGlobals()
+})
 
 const { mockUseApi } = vi.hoisted(() => ({ mockUseApi: vi.fn() }))
 vi.mock('../../hooks/useApi', () => ({ useApi: mockUseApi }))

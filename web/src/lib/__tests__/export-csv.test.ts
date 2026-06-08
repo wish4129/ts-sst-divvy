@@ -1,11 +1,21 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest'
 import { downloadCsv, type CsvRow } from '../export-csv'
+
+// Save originals before mocking to restore after tests
+const _createObjectURL = globalThis.URL.createObjectURL
+const _revokeObjectURL = globalThis.URL.revokeObjectURL
 
 describe('export-csv', () => {
   beforeEach(() => {
     // Mock URL.createObjectURL and anchor click
     globalThis.URL.createObjectURL = vi.fn(() => 'blob:test')
     globalThis.URL.revokeObjectURL = vi.fn()
+  })
+
+  afterAll(() => {
+    // Restore globals to prevent polluting other test files [source: divvy/web/src/lib/__tests__/export-csv.test.ts]
+    globalThis.URL.createObjectURL = _createObjectURL
+    globalThis.URL.revokeObjectURL = _revokeObjectURL
   })
 
   it('generates CSV with headers', () => {

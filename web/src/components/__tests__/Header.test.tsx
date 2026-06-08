@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
@@ -23,6 +23,7 @@ const localStorageMock = (() => {
 
 // Use vi.stubGlobal for proper sandboxing (vitest auto-cleans)
 // localStorage needs Object.defineProperty pair for jsdom accessor properties
+const _origLocalStorage = window.localStorage
 Object.defineProperty(window, 'localStorage', { value: localStorageMock })
 vi.stubGlobal('localStorage', localStorageMock)
 
@@ -37,6 +38,13 @@ const matchMediaMock = vi.fn().mockImplementation((query: string) => ({
   dispatchEvent: vi.fn(),
 }))
 vi.stubGlobal('matchMedia', matchMediaMock)
+
+// Restore stubbed globals after all tests to prevent cross-file pollution [source: divvy/web/src/components/__tests__/Header.test.tsx]
+afterAll(() => {
+  vi.unstubAllGlobals()
+  // Also restore window.localStorage if it was redefined
+  try { Object.defineProperty(window, 'localStorage', { value: _origLocalStorage, writable: true, configurable: true }) } catch {}
+})
 
 import Header from '../Header'
 

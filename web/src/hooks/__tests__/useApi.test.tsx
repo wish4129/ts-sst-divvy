@@ -1,10 +1,15 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach, afterAll } from 'vitest'
 import { renderHook, waitFor, act } from '@testing-library/react'
 import { useApi, useApiPost } from '../useApi'
 
 // Mock fetch globally
 const mockFetch = vi.fn()
 vi.stubGlobal('fetch', mockFetch)
+
+// Restore stubbed globals after all tests to prevent cross-file pollution [source: divvy/web/src/hooks/__tests__/useApi.test.tsx]
+afterAll(() => {
+  vi.unstubAllGlobals()
+})
 
 const BASE = 'https://api.example.com'
 
