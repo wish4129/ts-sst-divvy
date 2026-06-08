@@ -12,6 +12,7 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 - **pytest for backtest metrics** — 39 tests: CAGR, Sharpe ratio, max drawdown, win rate, profit factor, Calmar ratio, Sortino ratio (363f613f) [Internal]
 - **pytest for risk modules batch 2** — 93 tests: Kelly criterion edge cases, market regime detection, transaction cost modeling, sector exposure limits (bcab903b) [Internal]
 - **pytest for risk modules batch 1** — 87 tests: backtesting, Monte Carlo, correlation, drawdown, sector limits, Kelly criterion, regime detection, transaction costs, performance attribution (d5cd4610) [Internal]
+- **pytest for industry_scorer** — 21 tests: linear interpolation, macro adjustment, composite cap, fallback handler, data mapping (6a713d15) [Internal]
 
 ### 2026-06-07
 - **np.float64 → float() cast fix** — Kronos predictions now cast to native Python before psycopg2 INSERT; refreshed all 37 forecasts (262f0fa0)
