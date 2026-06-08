@@ -7,6 +7,7 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 ## [Unreleased]
 
 ### 2026-06-08
+- **Fleet-wide vitest isolation + pollution fixes** (a7d9dae9) [PANGU] [Internal]
 - **Automated portfolio data updates** — chore commit updating portfolio data files (6a636ee0) [Internal]
 - **Kronos forecast regeneration** — refreshed 44 forecasts from DB with np.float64 → float casting (2a21c460) [Internal]
 - **Updated CONTEXT.md and kronos_forecast.json** — committed regenerated data files (dec86304) [Internal]
