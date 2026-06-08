@@ -15,6 +15,8 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 - **pytest for risk modules batch 2** — 93 tests: Kelly criterion edge cases, market regime detection, transaction cost modeling, sector exposure limits (bcab903b) [Internal]
 - **pytest for risk modules batch 1** — 87 tests: backtesting, Monte Carlo, correlation, drawdown, sector limits, Kelly criterion, regime detection, transaction costs, performance attribution (d5cd4610) [Internal]
 - **pytest for industry_scorer** — 21 tests: linear interpolation, macro adjustment, composite cap, fallback handler, data mapping (6a713d15) [Internal]
+- **pytest for portfolio manager** — 17 tests: core buy/sell execution, trade logging, cash sync (076dd74a) [Internal]
+- **Generated data files** — committed financials, portfolios, stocks.ts (4e639568) [Internal]
 
 ### 2026-06-07
 - **np.float64 → float() cast fix** — Kronos predictions now cast to native Python before psycopg2 INSERT; refreshed all 37 forecasts (262f0fa0)
