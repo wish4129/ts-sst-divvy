@@ -7,6 +7,7 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 ## [Unreleased]
 
 ### 2026-06-08
+- **Kronos forecast regeneration** — refreshed 44 forecasts from DB with np.float64 → float casting (2a21c460) [Internal]
 - **Updated CONTEXT.md and kronos_forecast.json** — committed regenerated data files (dec86304) [Internal]
 - **og-image.png for social sharing** — added missing 1200×630 OG image for link previews on WhatsApp/Telegram/Twitter (d7fdd805)
 - **pytest for backtest metrics** — 39 tests: CAGR, Sharpe ratio, max drawdown, win rate, profit factor, Calmar ratio, Sortino ratio (363f613f) [Internal]
