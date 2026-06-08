@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import AuthCallback from '../AuthCallback'
@@ -7,6 +7,10 @@ const { mockUseAuth } = vi.hoisted(() => ({ mockUseAuth: vi.fn() }))
 vi.mock('../../lib/AuthContext', () => ({ useAuth: mockUseAuth }))
 
 describe('AuthCallback page', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
   it('shows spinner while loading', () => {
     mockUseAuth.mockReturnValue({ user: null, loading: true })
     render(

@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import DividendCalendar from '../DividendCalendar'
@@ -7,6 +7,10 @@ const { mockUseApi } = vi.hoisted(() => ({ mockUseApi: vi.fn() }))
 vi.mock('../../hooks/useApi', () => ({ useApi: mockUseApi }))
 
 describe('DividendCalendar page', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
   it('renders page title', () => {
     mockUseApi.mockReturnValue({ data: [], loading: false, error: null, refetch: vi.fn() })
     render(<MemoryRouter><DividendCalendar /></MemoryRouter>)

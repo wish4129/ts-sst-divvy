@@ -21,20 +21,22 @@ const localStorageMock = (() => {
   }
 })()
 
+// Use vi.stubGlobal for proper sandboxing (vitest auto-cleans)
+// localStorage needs Object.defineProperty pair for jsdom accessor properties
 Object.defineProperty(window, 'localStorage', { value: localStorageMock })
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: vi.fn().mockImplementation((query: string) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: vi.fn(),
-    removeListener: vi.fn(),
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  })),
-})
+vi.stubGlobal('localStorage', localStorageMock)
+
+const matchMediaMock = vi.fn().mockImplementation((query: string) => ({
+  matches: false,
+  media: query,
+  onchange: null,
+  addListener: vi.fn(),
+  removeListener: vi.fn(),
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
+  dispatchEvent: vi.fn(),
+}))
+vi.stubGlobal('matchMedia', matchMediaMock)
 
 import Header from '../Header'
 

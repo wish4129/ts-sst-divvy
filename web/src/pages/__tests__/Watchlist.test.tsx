@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import Watchlist from '../Watchlist'
@@ -11,6 +11,10 @@ function mockApiResponse(data: any = null, loading = false, error: string | null
 }
 
 describe('Watchlist page', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
   it('renders page title', () => {
     mockApiResponse([])
     render(<MemoryRouter><Watchlist /></MemoryRouter>)

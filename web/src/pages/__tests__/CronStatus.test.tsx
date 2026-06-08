@@ -2,9 +2,9 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import CronStatus from '../CronStatus'
 
-// Mock global fetch
+// Mock global fetch via stubGlobal (sandboxed — auto-cleaned between test files)
 const mockFetch = vi.fn()
-global.fetch = mockFetch
+vi.stubGlobal('fetch', mockFetch)
 
 // Mock setInterval/clearInterval to capture callbacks
 let intervalCallback: (() => void) | null = null

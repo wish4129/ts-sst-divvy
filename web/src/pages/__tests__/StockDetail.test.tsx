@@ -1,9 +1,9 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 
 class ResizeObserverMock { observe() {} unobserve() {} disconnect() {} }
-window.ResizeObserver = ResizeObserverMock as any
+vi.stubGlobal('ResizeObserver', ResizeObserverMock)
 
 const { mockUseApi } = vi.hoisted(() => ({ mockUseApi: vi.fn() }))
 vi.mock('../../hooks/useApi', () => ({ useApi: mockUseApi }))
@@ -26,6 +26,10 @@ function renderStockDetail(route: string = '/stock/MAYBANK') {
 }
 
 describe('StockDetail page', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
   it('shows skeleton during loading (no text back link)', () => {
     mockApi(null, true)
     renderStockDetail('/stock/MAYBANK')

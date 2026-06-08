@@ -8,7 +8,7 @@ class ResizeObserverMock {
   unobserve() {}
   disconnect() {}
 }
-window.ResizeObserver = ResizeObserverMock as any
+vi.stubGlobal('ResizeObserver', ResizeObserverMock)
 
 // Mock useApi hook
 const { mockUseApi } = vi.hoisted(() => ({
