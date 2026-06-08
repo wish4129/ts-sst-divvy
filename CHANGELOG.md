@@ -7,6 +7,8 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 ## [Unreleased]
 
 ### 2026-06-08
+- **Updated CONTEXT.md and kronos_forecast.json** — committed regenerated data files (dec86304) [Internal]
+- **og-image.png for social sharing** — added missing 1200×630 OG image for link previews on WhatsApp/Telegram/Twitter (d7fdd805)
 - **pytest for backtest metrics** — 39 tests: CAGR, Sharpe ratio, max drawdown, win rate, profit factor, Calmar ratio, Sortino ratio (363f613f) [Internal]
 - **pytest for risk modules batch 2** — 93 tests: Kelly criterion edge cases, market regime detection, transaction cost modeling, sector exposure limits (bcab903b) [Internal]
 - **pytest for risk modules batch 1** — 87 tests: backtesting, Monte Carlo, correlation, drawdown, sector limits, Kelly criterion, regime detection, transaction costs, performance attribution (d5cd4610) [Internal]
