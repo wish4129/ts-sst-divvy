@@ -13,7 +13,7 @@
 - Screener: Mon 9am (new Bursa candidates)
 - Deep Dive: Mon 10am (weekly analysis)
 - Random Analysis: Weekdays 2pm (3 unanalyzed stocks)
-- Pending Analysis: Every 60min (queue-first, random fallback)
+- **Pending Analysis**: Every 30min during trading hours (9am-5pm MYT, Mon-Fri) — queue-first, random fallback
 - Kronos Forecast: via run_kronos.py
 
 ## Data Sources
