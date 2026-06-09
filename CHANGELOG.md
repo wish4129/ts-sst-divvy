@@ -7,6 +7,8 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 ## [Unreleased]
 
 ### 2026-06-09
+- **Random analysis: SOLID AUTOMOTIVE (5242.KL)** — score=40 revisit + 53 Kronos forecasts (551be91d)
+- **Add target_price and cut_loss_price columns to stocks table** — backfill active stocks with score>70 (3300560f)
 - **Pending-analysis: +8079.KL (Lee Swee Kiat, score 59)** — added to pipeline with Kronos forecast regeneration (fcd7b9dc)
 
 ### 2026-06-08
