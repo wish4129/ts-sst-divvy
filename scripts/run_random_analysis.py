@@ -3,7 +3,7 @@
 
 Usage: python3 scripts/run_random_analysis.py [--count N]
 """
-import sys, json, time, random
+import sys, json, time, random, os, signal
 import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta, timezone
@@ -23,6 +23,38 @@ TICKER_TO_SHORT = {v: k for k, v in _ST.items()}
 MYT = timezone(timedelta(hours=8))
 PRED_LEN = 30
 LOOKBACK = 200
+
+# ── Timeout guard for HuggingFace model loading ──
+# from_pretrained() hangs when HF Hub API is unreachable (DNS, network, rate-limit).
+# SIGALRM gives us a hard 30-second fence that works even inside C extensions.
+class KronosLoadTimeout(Exception):
+    pass
+
+def _timeout_handler(signum, frame):
+    raise KronosLoadTimeout("Kronos model loading timed out after 30s")
+
+def load_kronos_with_timeout(timeout_sec=30):
+    """Load Kronos model + tokenizer + predictor with a hard timeout.
+    
+    Falls back gracefully: if Kronos can't load within the timeout window,
+    the caller handles it and proceeds without Kronos analysis.
+    """
+    # Set HF offline to skip Hub API validation — models are cached locally.
+    # This prevents HTTP hangs (DNS timeout, rate-limiting, network outage)
+    # from blocking the entire cron job.
+    os.environ.setdefault("HF_HUB_OFFLINE", "1")
+    os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
+    
+    signal.signal(signal.SIGALRM, _timeout_handler)
+    signal.alarm(timeout_sec)
+    try:
+        from model import Kronos, KronosTokenizer, KronosPredictor
+        tokenizer = KronosTokenizer.from_pretrained("NeoQuasar/Kronos-Tokenizer-base")
+        model = Kronos.from_pretrained("NeoQuasar/Kronos-small")
+        predictor = KronosPredictor(model, tokenizer, device="cpu", max_context=512)
+        return predictor
+    finally:
+        signal.alarm(0)  # cancel alarm
 
 
 def get_short_code(ticker):
@@ -70,16 +102,22 @@ def score_stock(dy_pct, pe, roe, de, rev_growth, mcap_b, kronos_pct):
 
 def run_analysis(count=3, process_pending=False):
     """Run deep analysis on random unanalyzed stocks (or pending queue)."""
-    from model import Kronos, KronosTokenizer, KronosPredictor
     
     db = get_db()
     cur = db.cursor()
     
-    # Load Kronos
+    # Load Kronos with timeout guard — prevents indefinite hang
     print("Loading Kronos...", flush=True)
-    tokenizer = KronosTokenizer.from_pretrained("NeoQuasar/Kronos-Tokenizer-base")
-    model = Kronos.from_pretrained("NeoQuasar/Kronos-small")
-    predictor = KronosPredictor(model, tokenizer, device="cpu", max_context=512)
+    try:
+        predictor = load_kronos_with_timeout(timeout_sec=30)
+    except KronosLoadTimeout:
+        print("WARNING: Kronos model loading timed out. Skipping analysis.", flush=True)
+        cur.close(); db.close()
+        return []
+    except Exception as e:
+        print(f"WARNING: Kronos model loading failed: {e}. Skipping analysis.", flush=True)
+        cur.close(); db.close()
+        return []
     
     # Get targets
     if process_pending:

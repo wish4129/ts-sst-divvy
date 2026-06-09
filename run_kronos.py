@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import sys, json, time
+import sys, json, time, os, signal
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -11,11 +11,26 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "scripts"))
 from db import get_db, dict_cursor
 
-# --- Load model ---
+# ── Prevent HuggingFace Hub API hangs ──
+os.environ.setdefault("HF_HUB_OFFLINE", "1")
+os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
+
+class KronosLoadTimeout(Exception):
+    pass
+
+def _on_alarm(signum, frame):
+    raise KronosLoadTimeout("Kronos loading timed out")
+
+# --- Load model with 30s timeout ---
 print("Loading Kronos-small...", flush=True)
 t0 = time.time()
-tokenizer = KronosTokenizer.from_pretrained("NeoQuasar/Kronos-Tokenizer-base")
-model = Kronos.from_pretrained("NeoQuasar/Kronos-small")
+signal.signal(signal.SIGALRM, _on_alarm)
+signal.alarm(30)
+try:
+    tokenizer = KronosTokenizer.from_pretrained("NeoQuasar/Kronos-Tokenizer-base")
+    model = Kronos.from_pretrained("NeoQuasar/Kronos-small")
+finally:
+    signal.alarm(0)
 print(f"  Model loaded in {time.time()-t0:.1f}s", flush=True)
 
 predictor = KronosPredictor(model, tokenizer, device="cpu", max_context=512)
@@ -62,6 +77,12 @@ for stock_name, ticker in stocks:
         })
     df = pd.DataFrame(records)
     df['date'] = pd.to_datetime(df['date'])
+    df = df.dropna(subset=['open', 'high', 'low', 'close'])  # drop incomplete intraday rows
+    
+    # Re-check after dropna — some stocks may only have today's NaN row
+    if len(df) < LOOKBACK:
+        print(f"  SKIP: only {len(df)} clean rows (need {LOOKBACK})")
+        continue
     
     # Use last LOOKBACK days as input
     x_df = df.iloc[-LOOKBACK:][['open', 'high', 'low', 'close']].reset_index(drop=True)
