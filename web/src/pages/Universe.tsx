@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { Search, Beaker, Loader2, CheckCircle2, Clock } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
 
@@ -80,6 +81,14 @@ export default function Universe() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <Helmet>
+        <title>Bursa Universe — Divvy Bursa Tracker</title>
+        <meta name="description" content={`Browse the full Bursa Malaysia universe. ${total} stocks with search, analysis status, and AI-powered scoring. Discover, analyze, and track KLSE stocks.`} />
+        <meta property="og:title" content="Bursa Universe — Divvy Bursa Tracker" />
+        <meta property="og:description" content={`Browse ${total} Bursa Malaysia stocks. AI-powered analysis, scoring, and watchlist integration.`} />
+        <meta name="twitter:title" content="Bursa Universe — Divvy Bursa Tracker" />
+        <meta name="twitter:description" content={`Browse ${total} Bursa Malaysia stocks with AI analysis.`} />
+      </Helmet>
       <main className="max-w-5xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
           <div>

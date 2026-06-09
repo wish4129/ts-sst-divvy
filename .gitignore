@@ -16,3 +16,6 @@ graphify-out/
 web/coverage/
 scripts/gen_ai_batch.py
 web/public/sitemap.xml
+web/tsconfig.tsbuildinfo
+# test scripts
+vitest.workspace.ts

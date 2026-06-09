@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { Trophy, TrendingUp, TrendingDown, Shield, Zap, Scale, RefreshCw, ArrowUpDown, ArrowUp, ArrowDown, ArrowRight } from 'lucide-react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell } from 'recharts'
 import confetti from 'canvas-confetti'
@@ -132,6 +133,14 @@ export default function Battle() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-950 to-gray-900 text-gray-100">
+      <Helmet>
+        <title>Portfolio Battle — Divvy Bursa Tracker</title>
+        <meta name="description" content="AI-powered Bursa Malaysia portfolio battle. 3 personas (Athena, Ares, Hermes) managing RM10,000 each with distinct investment strategies. Live P&L tracking and performance comparison." />
+        <meta property="og:title" content="Portfolio Battle — Divvy Bursa Tracker" />
+        <meta property="og:description" content="3 AI personas battle with RM10,000 each on Bursa Malaysia stocks. Athena (dividend), Ares (growth), Hermes (balanced). Live portfolio performance." />
+        <meta name="twitter:title" content="Portfolio Battle — Divvy Bursa Tracker" />
+        <meta name="twitter:description" content="AI portfolio battle: 3 personas, RM10k each, Bursa Malaysia. Live P&L." />
+      </Helmet>
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="text-center mb-6 md:mb-10">
           <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-amber-400 to-yellow-300 bg-clip-text text-transparent">

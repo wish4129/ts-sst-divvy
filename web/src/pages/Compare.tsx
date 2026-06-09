@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
 import { GitCompare, X, Plus, ArrowRight, DollarSign, BarChart3 } from 'lucide-react'
 import ScoreBadge from '../components/ScoreBadge'
@@ -167,6 +168,14 @@ export default function Compare() {
 
   return (
     <div className="min-h-screen">
+      <Helmet>
+        <title>Compare Stocks — Divvy Bursa Tracker</title>
+        <meta name="description" content="Side-by-side comparison of Bursa Malaysia stocks. Compare composite scores, financials, dividends, valuations, and AI analysis across 2-3 stocks at once." />
+        <meta property="og:title" content="Compare Stocks — Divvy Bursa Tracker" />
+        <meta property="og:description" content="Compare 2-3 Bursa Malaysia stocks side-by-side: scores, financials, dividends, valuations." />
+        <meta name="twitter:title" content="Compare Stocks — Divvy Bursa Tracker" />
+        <meta name="twitter:description" content="Compare 2-3 Bursa Malaysia stocks side-by-side." />
+      </Helmet>
       <main className="max-w-5xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
