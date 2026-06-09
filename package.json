@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "sst dev",
-    "deploy": "sst deploy --stage live"
+    "deploy": "sst deploy --stage live",
+    "test": "cd web && npx vitest run",
+    "test:watch": "cd web && npx vitest",
+    "test:coverage": "cd web && npx vitest run --coverage"
   },
   "devDependencies": {
     "@tsconfig/node18": "^18.2.6",
