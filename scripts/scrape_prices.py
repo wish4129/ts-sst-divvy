@@ -35,7 +35,7 @@ STOCK_CODES = {
     'RHB': '1066', 'PADINI': '7052',
     'GAMUDA': '5398', 'MATRIX': '5236',
     'PBBANK': '1295', 'TIME': '5031', 'SCICOM': '0099',
-    'SEM': '5250',
+    'SEM': '5250', 'HEINEKEN': '3255',
 }
 
 BASE_URL = 'https://www.klsescreener.com/v2/stocks/view'

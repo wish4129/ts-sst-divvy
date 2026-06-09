@@ -7,6 +7,10 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 ## [Unreleased]
 
 ### 2026-06-09
+- **pytest for run_deep_analysis.py** — 26 tests across parse_markdown_report, get_stocks_from_db, generate_ai_report, PERSONAS/SECTION_MAP validation (0c3fb073) [PANGU]
+- **Auto sync persona_config cash after portfolio_manager cash update** — eliminates drift between user_portfolios.cash and persona_config.cash (6f37423c) [PANGU]
+- **Consolidate TICKER_MAP** — add missing SEM+HEINEKEN to screener.py and backfill_stocks_from_ts.py; all 6 files now consistent (a576390d) [PANGU]
+- **Random analysis: Bina Darulaman (6173.KL)** — score=37 revisit (f9ef0a7e)
 - **Random analysis: SOLID AUTOMOTIVE (5242.KL)** — score=40 revisit + 53 Kronos forecasts (551be91d)
 - **Add target_price and cut_loss_price columns to stocks table** — backfill active stocks with score>70 (3300560f)
 - **Pending-analysis: +8079.KL (Lee Swee Kiat, score 59)** — added to pipeline with Kronos forecast regeneration (fcd7b9dc)
@@ -94,9 +98,9 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 - StockDetail early-return guards restored (removed by opencode)
 - All scripts read from DB instead of stale files (`stocks.ts` no longer parsed)
 
-### Testing (570 tests, 42 files)
-- **Vitest (web):** 204 tests, 26 files — all pages (Battle, Watchlist, StockDetail, Home, Universe, Compare, DividendCalendar, Screener, AuthCallback, CronStatus), all components (Header, StockCard, ScoreBadge, SparklineChart, IndustryFilter, ErrorBoundary, Loading, LoginGate, NotFound, ProgressBar, Toast), hooks (useApi, AuthContext, ToastContext), libraries (strategies, export-csv)
-- **Pytest (Python):** 366 tests, 16 files — market_data (15), persona_db ticker mapping (16), portfolio_history (78), risk modules batch 1 (87: backtesting, Monte Carlo, correlation, drawdown, sector limits, Kelly, regime, transaction costs, attribution), risk modules batch 2 (93: Kelly edge cases, market regime, transaction costs, sector exposure), backtest metrics (39: CAGR, Sharpe, max drawdown, win rate, profit factor, Calmar, Sortino), portfolio manager (17: core buy/sell execution)
+### Testing (687 tests, 44 files)
+- **Vitest (web):** 273 tests, 26 files — all pages (Battle, Watchlist, StockDetail, Home, Universe, Compare, DividendCalendar, Screener, AuthCallback, CronStatus), all components (Header, StockCard, ScoreBadge, SparklineChart, IndustryFilter, ErrorBoundary, Loading, LoginGate, NotFound, ProgressBar, Toast), hooks (useApi, AuthContext, ToastContext), libraries (strategies, export-csv)
+- **Pytest (Python):** 414 tests, 18 files — market_data (15), persona_db ticker mapping (16), portfolio_history (78), risk modules batch 1 (87: backtesting, Monte Carlo, correlation, drawdown, sector limits, Kelly, regime, transaction costs, attribution), risk modules batch 2 (93: Kelly edge cases, market regime, transaction costs, sector exposure), backtest metrics (39: CAGR, Sharpe, max drawdown, win rate, profit factor, Calmar, Sortino), portfolio manager (17: core buy/sell execution), run_deep_analysis (26: parse_markdown_report, get_stocks_from_db, generate_ai_report, const validation)
 
 ### DB-First Pipeline (v4+)
 - Stocks table JSONB columns expansion + Drizzle schema sync

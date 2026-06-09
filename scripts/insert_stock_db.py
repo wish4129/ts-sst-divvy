@@ -24,6 +24,7 @@ TICKER_TO_SHORT = {
     '1066.KL': 'RHB', '7052.KL': 'PADINI',
     '5398.KL': 'GAMUDA', '5236.KL': 'MATRIX',
     '1295.KL': 'PBBANK', '5031.KL': 'TIME', '0099.KL': 'SCICOM',
+    '5250.KL': 'SEM', '3255.KL': 'HEINEKEN',
 }
 
 SHORT_TO_TICKER = {v: k for k, v in TICKER_TO_SHORT.items()}
