@@ -39,6 +39,8 @@ export const stocks = pgTable('stocks', {
   sparkline: jsonb('sparkline').default(sql`'[]'`),
   notes: text('notes').default(''),
   revisitAt: timestamp('revisit_at', { withTimezone: true }),
+  targetPrice: numeric('target_price'),
+  cutLossPrice: numeric('cut_loss_price'),
 });
 
 // ── OHLCV history (yfinance, daily) ──
