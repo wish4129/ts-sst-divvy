@@ -6,6 +6,9 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 
 ## [Unreleased]
 
+### 2026-06-09
+- **Pending-analysis: +8079.KL (Lee Swee Kiat, score 59)** — added to pipeline with Kronos forecast regeneration (fcd7b9dc)
+
 ### 2026-06-08
 - **Vitest isolation fix — add vi.unstubAllGlobals() cleanup** to prevent cross-file vitest pollution (ee65dcbb) [PANGU] [Internal]
 - **Fleet-wide vitest isolation + pollution fixes** (a7d9dae9) [PANGU] [Internal]
