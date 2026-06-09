@@ -42,23 +42,29 @@
       "industry": "Farm Products",
       "initial": 3.799999952316284
     },
-    "5212": {
-      "code": "5212.KL",
-      "name": "Pavilion Real Estate Investment Trust",
-      "industry": "REIT - Retail",
-      "initial": 1.7000000476837158
-    },
     "5180": {
       "code": "5180.KL",
       "name": "CapitaLand Malaysia Trust",
       "industry": "REIT - Retail",
       "initial": 0.6100000143051147
     },
+    "5212": {
+      "code": "5212.KL",
+      "name": "Pavilion Real Estate Investment Trust",
+      "industry": "REIT - Retail",
+      "initial": 1.7000000476837158
+    },
     "5176": {
       "code": "5176.KL",
       "name": "Sunway Real Estate Investment Trust",
       "industry": "REIT - Retail",
       "initial": 2.240000009536743
+    },
+    "1023": {
+      "code": "1023.KL",
+      "name": "CIMB Group Holdings Berhad",
+      "industry": "Banks - Regional",
+      "initial": 7.389999866485596
     },
     "1015": {
       "code": "1015.KL",
@@ -71,12 +77,6 @@
       "name": "AME Elite Consortium Berhad",
       "industry": "Construction",
       "initial": 1.5
-    },
-    "1023": {
-      "code": "1023.KL",
-      "name": "CIMB Group Holdings Berhad",
-      "industry": "Banks - Regional",
-      "initial": 7.389999866485596
     },
     "4383": {
       "code": "4383.KL",
@@ -108,35 +108,35 @@
       "industry": "Energy",
       "initial": 1.22
     },
-    "KLK": {
-      "code": "2445.KL",
-      "name": "KL Kepong",
-      "industry": "Plantation",
-      "initial": 20.5
-    },
     "9598": {
       "code": "9598.KL",
       "name": "Pintaras Jaya Berhad",
       "industry": "Engineering & Construction",
       "initial": 1.2999999523162842
     },
-    "WASCO": {
-      "code": "5142.KL",
-      "name": "Wasco Berhad",
-      "industry": "Energy",
-      "initial": 0.8
-    },
-    "8621": {
-      "code": "8621.KL",
-      "name": "LPI Capital Bhd",
-      "industry": "Insurance - Property & Casualty",
-      "initial": 15.140000343322754
+    "KLK": {
+      "code": "2445.KL",
+      "name": "KL Kepong",
+      "industry": "Plantation",
+      "initial": 20.5
     },
     "2488": {
       "code": "2488.KL",
       "name": "Alliance Bank Malaysia Berhad",
       "industry": "Banks - Regional",
       "initial": 4.670000076293945
+    },
+    "MATRIX": {
+      "code": "5236.KL",
+      "name": "Matrix Concepts Holdings Berhad",
+      "industry": "Property",
+      "initial": 1.25
+    },
+    "8621": {
+      "code": "8621.KL",
+      "name": "LPI Capital Bhd",
+      "industry": "Insurance - Property & Casualty",
+      "initial": 15.140000343322754
     },
     "RHB": {
       "code": "1066.KL",
@@ -150,11 +150,11 @@
       "industry": "REIT",
       "initial": 1.82
     },
-    "MATRIX": {
-      "code": "5236.KL",
-      "name": "Matrix Concepts Holdings Berhad",
-      "industry": "Property",
-      "initial": 1.25
+    "WASCO": {
+      "code": "5142.KL",
+      "name": "Wasco Berhad",
+      "industry": "Energy",
+      "initial": 0.8
     },
     "KIPREIT": {
       "code": "5280.KL",
@@ -180,11 +180,11 @@
       "industry": "Packaging",
       "initial": 4.15
     },
-    "YTLPOWR": {
-      "code": "6742.KL",
-      "name": "YTL Power International",
-      "industry": "Utilities",
-      "initial": 3.95
+    "INTA": {
+      "code": "INTA.KL",
+      "name": "INTA Berhad",
+      "industry": "Construction",
+      "initial": 0.38
     },
     "5126": {
       "code": "5126.KL",
@@ -192,11 +192,11 @@
       "industry": "Farm Products",
       "initial": 4.619999885559082
     },
-    "INTA": {
-      "code": "INTA.KL",
-      "name": "INTA Berhad",
-      "industry": "Construction",
-      "initial": 0.38
+    "YTLPOWR": {
+      "code": "6742.KL",
+      "name": "YTL Power International",
+      "industry": "Utilities",
+      "initial": 3.95
     },
     "8206": {
       "code": "8206.KL",
@@ -210,17 +210,17 @@
       "industry": "Conglomerate",
       "initial": 2.38
     },
-    "LIIHEN": {
-      "code": "7089.KL",
-      "name": "Lii Hen Industries",
-      "industry": "Furniture",
-      "initial": 0.95
-    },
     "0083": {
       "code": "0083.KL",
       "name": "Notion VTec Berhad",
       "industry": "Electronic Components",
       "initial": 0.41499999165534973
+    },
+    "LIIHEN": {
+      "code": "7089.KL",
+      "name": "Lii Hen Industries",
+      "industry": "Furniture",
+      "initial": 0.95
     },
     "6599": {
       "code": "6599.KL",
@@ -228,17 +228,17 @@
       "industry": "Department Stores",
       "initial": 1.059999942779541
     },
-    "7091": {
-      "code": "7091.KL",
-      "name": "Unimech Group Berhad",
-      "industry": "Metal Fabrication",
-      "initial": 1.3600000143051147
-    },
     "5263": {
       "code": "5263.KL",
       "name": "Sunway Construction Group Berhad",
       "industry": "Engineering & Construction",
       "initial": 7.25
+    },
+    "7091": {
+      "code": "7091.KL",
+      "name": "Unimech Group Berhad",
+      "industry": "Metal Fabrication",
+      "initial": 1.3600000143051147
     },
     "INSAS": {
       "code": "3379.KL",
@@ -258,12 +258,6 @@
       "industry": "Furnishings, Fixtures & Appliances",
       "initial": 0.3100000023841858
     },
-    "GAMUDA": {
-      "code": "5398.KL",
-      "name": "Gamuda Berhad",
-      "industry": "Construction",
-      "initial": 4.2
-    },
     "INARI": {
       "code": "0166.KL",
       "name": "Inari Amertron",
@@ -276,23 +270,29 @@
       "industry": "Packaged Foods",
       "initial": 14.5
     },
+    "GAMUDA": {
+      "code": "5398.KL",
+      "name": "Gamuda Berhad",
+      "industry": "Construction",
+      "initial": 4.2
+    },
     "5209": {
       "code": "5209.KL",
       "name": "Gas Malaysia Berhad",
       "industry": "Utilities - Regulated Gas",
       "initial": 5.340000152587891
     },
-    "GENETEC": {
-      "code": "0104.KL",
-      "name": "Genetec Technology",
-      "industry": "Industrial",
-      "initial": 1.52
-    },
     "PADINI": {
       "code": "7052.KL",
       "name": "Padini Holdings Berhad",
       "industry": "Consumer",
       "initial": 1.43
+    },
+    "GENETEC": {
+      "code": "0104.KL",
+      "name": "Genetec Technology",
+      "industry": "Industrial",
+      "initial": 1.52
     },
     "5211": {
       "code": "5211.KL",
@@ -311,6 +311,12 @@
       "name": "TIME dotCom Berhad",
       "industry": "Telco",
       "initial": 6.03
+    },
+    "7722": {
+      "code": "7722.KL",
+      "name": "Asia Brands Berhad",
+      "industry": "Apparel Retail",
+      "initial": 0.48500001430511475
     },
     "5115": {
       "code": "5115.KL",
@@ -354,17 +360,41 @@
       "industry": "Auto Parts",
       "initial": 0.12999999523162842
     },
+    "5239": {
+      "code": "5239.KL",
+      "name": "Titijaya Land Berhad",
+      "industry": "Real Estate - Development",
+      "initial": 0.20999999344348907
+    },
     "9717": {
       "code": "9717.KL",
       "name": "Sycal Ventures Berhad",
       "industry": "Engineering & Construction",
       "initial": 0.17000000178813934
     },
-    "5239": {
-      "code": "5239.KL",
-      "name": "Titijaya Land Berhad",
-      "industry": "Real Estate - Development",
-      "initial": 0.20999999344348907
+    "6173": {
+      "code": "6173.KL",
+      "name": "Bina Darulaman Berhad",
+      "industry": "Engineering & Construction",
+      "initial": 0.20000000298023224
+    },
+    "8044": {
+      "code": "8044.KL",
+      "name": "Computer Forms (Malaysia) Berhad",
+      "industry": "Specialty Business Services",
+      "initial": 0.07000000029802322
+    },
+    "5010": {
+      "code": "5010.KL",
+      "name": "Tong Herr Resources Berhad",
+      "industry": "Tools & Accessories",
+      "initial": 1.6200000047683716
+    },
+    "7226": {
+      "code": "7226.KL",
+      "name": "Watta Holding Berhad",
+      "industry": "Communication Equipment",
+      "initial": 0.3700000047683716
     },
     "0091": {
       "code": "0091.KL",
@@ -378,41 +408,23 @@
       "industry": "Lodging",
       "initial": 0.3199999928474426
     },
-    "5010": {
-      "code": "5010.KL",
-      "name": "Tong Herr Resources Berhad",
-      "industry": "Tools & Accessories",
-      "initial": 1.6200000047683716
-    },
-    "8044": {
-      "code": "8044.KL",
-      "name": "Computer Forms (Malaysia) Berhad",
-      "industry": "Specialty Business Services",
-      "initial": 0.07000000029802322
-    },
-    "7226": {
-      "code": "7226.KL",
-      "name": "Watta Holding Berhad",
-      "industry": "Communication Equipment",
-      "initial": 0.3700000047683716
-    },
     "3948": {
       "code": "3948.KL",
       "name": "DutaLand Berhad",
       "industry": "Food Distribution",
       "initial": 0.30000001192092896
     },
-    "1589": {
-      "code": "1589.KL",
-      "name": "Iskandar Waterfront City Berhad",
-      "industry": "Real Estate - Development",
-      "initial": 0.22499999403953552
-    },
     "5040": {
       "code": "5040.KL",
       "name": "Meridian Berhad",
       "industry": "Real Estate Services",
       "initial": 0.009999999776482582
+    },
+    "1589": {
+      "code": "1589.KL",
+      "name": "Iskandar Waterfront City Berhad",
+      "industry": "Real Estate - Development",
+      "initial": 0.22499999403953552
     },
     "8745": {
       "code": "8745.KL",
