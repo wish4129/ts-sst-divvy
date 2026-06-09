@@ -129,4 +129,4 @@ class TestTickerMaps:
         """Verify we have the expected number of mappings (25 stocks)."""
         from persona_db import SHORT_TO_TICKER
 
-        assert len(SHORT_TO_TICKER) == 25
+        assert len(SHORT_TO_TICKER) == 26
