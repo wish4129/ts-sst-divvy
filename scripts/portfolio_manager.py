@@ -136,6 +136,19 @@ def update_portfolio_cash(db, cur, portfolio_id, cash):
                 (cash, datetime.now(MALAYSIA_TZ).isoformat(), portfolio_id))
 
 
+def sync_persona_config_cash(db, cur, portfolio_id, cash):
+    """Mirror cash update to persona_config so both tables stay in sync.
+
+    persona_config.cash is used by persona_db functions but only
+    user_portfolios.cash is updated during portfolio_manager runs.
+    """
+    cur.execute("SELECT persona FROM user_portfolios WHERE id=%s", (portfolio_id,))
+    row = cur.fetchone()
+    if row:
+        cur.execute("UPDATE persona_config SET cash=%s, updated_at=NOW() WHERE persona_id=%s",
+                    (cash, row['persona']))
+
+
 def update_holding(db, cur, portfolio_id, stock_id, shares, avg_cost, target_pct):
     if shares <= 0:
         cur.execute("DELETE FROM portfolio_holdings WHERE portfolio_id=%s AND stock_id=%s",
@@ -717,6 +730,7 @@ def main():
                     print(f"  [{pid}] WOULD {t['action']} {t['stock']}: {t['reason']}")
             else:
                 update_portfolio_cash(db, cur, persona["id"], state["cash"])
+                sync_persona_config_cash(db, cur, persona["id"], state["cash"])
                 for name, h in state["holdings"].items():
                     stock_code = stock_map.get(name, {}).get("code", name)
                     update_holding(db, cur, persona["id"], stock_code, h["shares"], h["cost"], h.get("target_pct", 0))
