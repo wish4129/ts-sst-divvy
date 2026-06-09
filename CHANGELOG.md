@@ -6,6 +6,18 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 
 ## [Unreleased]
 
+### 2026-06-10
+- **SEO integration — react-helmet-async + dynamic sitemap Lambda** — per-page meta tags via react-helmet-async, dynamic sitemap generation Lambda endpoint serving all stock pages (6638fd82) [FUXI]
+- **Remove static sitemap.xml** — was overriding dynamic Lambda (only 5 URLs, missing 50+ stock pages) (f57fff4d) [FUXI]
+- **Update robots.txt sitemap URL** — point to dynamic Lambda endpoint (b5e7888f)
+- **Vitest tests for sitemap Lambda handler** — (b8751434) [PANGU]
+- **Complete HEINEKEN TICKER_MAP** — across all 4 remaining scripts (d708ea0d) [PANGU]
+- **Root-level npm test scripts** — add for vitest CWD sensitivity fix (8eb8de89) [PANGU] [Internal]
+- **Untrack tsconfig.tsbuildinfo** — add to .gitignore (44c4e527) [PANGU] [Internal]
+- **Sync generated data files** — HEINEKEN added, stock data updates (d08e7d37) [Internal]
+- **Sync generated data files** — date rollover to June 10 (e63df2f6) [Internal]
+- **Add untracked scripts** — scrape_prices tests + targeted Kronos runner (4a721981) [Internal]
+
 ### 2026-06-09
 - **pytest for run_deep_analysis.py** — 26 tests across parse_markdown_report, get_stocks_from_db, generate_ai_report, PERSONAS/SECTION_MAP validation (0c3fb073) [PANGU]
 - **Auto sync persona_config cash after portfolio_manager cash update** — eliminates drift between user_portfolios.cash and persona_config.cash (6f37423c) [PANGU]
