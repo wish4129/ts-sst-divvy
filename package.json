@@ -8,13 +8,15 @@
     "deploy": "sst deploy --stage live",
     "test": "cd web && npx vitest run",
     "test:watch": "cd web && npx vitest",
-    "test:coverage": "cd web && npx vitest run --coverage"
+    "test:coverage": "cd web && npx vitest run --coverage",
+    "test:src": "vitest run --config vitest.config.src.ts"
   },
   "devDependencies": {
     "@tsconfig/node18": "^18.2.6",
     "@types/aws-lambda": "^8.10.161",
     "sst": "^3.17.38",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^4.1.8"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",
