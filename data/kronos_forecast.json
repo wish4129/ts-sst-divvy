@@ -1,1 +1,72 @@
-{}
+{
+  "Pintaras Jaya Berhad": {
+    "ticker": "9598.KL",
+    "last_close": 1.32,
+    "pred_30d_close": 1.402,
+    "pred_change_pct": 6.21,
+    "pred_low": 1.3177,
+    "pred_high": 1.4211,
+    "pred_volatility": 1.95,
+    "time_s": 0.7
+  },
+  "INTA Berhad": {
+    "ticker": "INTA.KL",
+    "last_close": 0.4,
+    "pred_30d_close": 0.3998,
+    "pred_change_pct": -0.04,
+    "pred_low": 0.3833,
+    "pred_high": 0.4063,
+    "pred_volatility": 1.56,
+    "time_s": 0.7
+  },
+  "LPI Capital Bhd": {
+    "ticker": "8621.KL",
+    "last_close": 15.1,
+    "pred_30d_close": 14.4198,
+    "pred_change_pct": -4.5,
+    "pred_low": 14.3406,
+    "pred_high": 15.1007,
+    "pred_volatility": 1.24,
+    "time_s": 0.7
+  },
+  "Texchem Resources Bhd": {
+    "ticker": "8702.KL",
+    "last_close": 0.775,
+    "pred_30d_close": 0.7893,
+    "pred_change_pct": 1.84,
+    "pred_low": 0.764,
+    "pred_high": 0.8054,
+    "pred_volatility": 1.29,
+    "time_s": 0.7
+  },
+  "Sycal Ventures Berhad": {
+    "ticker": "9717.KL",
+    "last_close": 0.17,
+    "pred_30d_close": 0.1697,
+    "pred_change_pct": -0.17,
+    "pred_low": 0.1602,
+    "pred_high": 0.1707,
+    "pred_volatility": 1.41,
+    "time_s": 0.7
+  },
+  "Mah Sing Group Berhad": {
+    "ticker": "8583.KL",
+    "last_close": 0.955,
+    "pred_30d_close": 1.0368,
+    "pred_change_pct": 8.56,
+    "pred_low": 0.9332,
+    "pred_high": 1.049,
+    "pred_volatility": 3.63,
+    "time_s": 0.7
+  },
+  "S & F Capital Berhad": {
+    "ticker": "8745.KL",
+    "last_close": 0.06,
+    "pred_30d_close": 0.0624,
+    "pred_change_pct": 3.96,
+    "pred_low": 0.0595,
+    "pred_high": 0.063,
+    "pred_volatility": 1.72,
+    "time_s": 0.7
+  }
+}
