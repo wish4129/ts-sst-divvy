@@ -95,6 +95,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
         ai_model: latest?.ai_model || null,
         score_composite: latest ? Number(latest.score_composite) : 0,
         score_breakdown: latest?.score_breakdown || null,
+        financials: latest?.financials || null,
         rationale: latest?.decision_rationale || null,
         kronos_signal: latest?.kronos_signal || null,
         macro_context: latest?.macro_context || null,
