@@ -59,7 +59,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
       SELECT sa.*, s.name as stock_name, s.industry, s.financials
       FROM stock_analyses sa
       JOIN stocks s ON sa.stock_id = s.id
-      WHERE sa.stock_id = ${code} AND sa.ai_report IS NOT NULL
+      WHERE sa.stock_id = ${code}
       ORDER BY sa.generated_at DESC LIMIT 1
     `;
 
