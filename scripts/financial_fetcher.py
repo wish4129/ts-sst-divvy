@@ -108,9 +108,9 @@ def extract_quarterly(ticker_code):
         ti = t.info
         pe = safe_float(ti.get("trailingPE"), 0)
         dy = safe_float(ti.get("dividendYield"), 0)
-        if dy and dy < 0.05:
-            dy = dy * 100  # true decimal (e.g., 0.0084 → 0.84%). yfinance sometimes
-                           # returns percentage-form (0.84 for 0.84%) — those ≥0.05 stay.
+        # yfinance returns dividendYield as percentage already
+        # (e.g., 0.84 = 0.84%, 16.57 = 16.57%), NOT decimal fraction.
+        # No multiplication needed.
         mcap = safe_float(ti.get("marketCap"), 0)
         price = safe_float(ti.get("currentPrice") or ti.get("regularMarketPrice"), 0)
         roe_val = safe_float(ti.get("returnOnEquity"), 0)
