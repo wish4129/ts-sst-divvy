@@ -7,6 +7,7 @@ Batches to max_reports per run to stay within cron time limits.
 import sys, json, os, time, re
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+from typing import Optional
 
 sys.stdout.reconfigure(line_buffering=True)
 
@@ -44,7 +45,7 @@ SECTION_MAP = {
 }
 
 
-def parse_markdown_report(content: str) -> dict | None:
+def parse_markdown_report(content: str) -> Optional[dict]:
     """Parse ## header sections from DeepSeek markdown response."""
     blocks = re.split(r'\n(?=##\s)', content)
     sections = {}
@@ -103,7 +104,7 @@ def get_api_key() -> str:
     return key
 
 
-def generate_ai_report(stock_data: dict, macro_str: str, persona: str, max_retries: int = 2) -> dict | None:
+def generate_ai_report(stock_data: dict, macro_str: str, persona: str, max_retries: int = 2) -> Optional[dict]:
     api_key = get_api_key()
     if not api_key:
         return None
