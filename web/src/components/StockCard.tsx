@@ -49,8 +49,16 @@ export default function StockCard({ stock, rank }: StockCardProps) {
       </div>
 
       <div className="flex items-center gap-4 text-xs text-gray-500">
-        <span>DY <strong className="text-gray-700 dark:text-gray-300">{stock.dividendYield}%</strong></span>
-        <span>MCap <strong className="text-gray-700 dark:text-gray-300">RM {stock.marketCap}B</strong></span>
+        {stock.dividendYield > 0 && (
+          <span>DY <strong className="text-gray-700 dark:text-gray-300">{stock.dividendYield.toFixed(2)}%</strong></span>
+        )}
+        {stock.marketCap > 0 && (
+          <span>MCap <strong className="text-gray-700 dark:text-gray-300">
+            {stock.marketCap >= 1000 
+              ? `RM ${(stock.marketCap / 1000).toFixed(2)}B`
+              : `RM ${stock.marketCap.toFixed(0)}M`}
+          </strong></span>
+        )}
       </div>
     </Link>
   )
