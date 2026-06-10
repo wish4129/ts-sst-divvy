@@ -9,18 +9,18 @@ vi.mock('postgres', () => {
   const sqlTag = vi.fn()
   sqlTag.mockImplementation(async (strings: TemplateStringsArray, ...values: any[]) => {
     const query = strings.join('?')
-    if (query.includes('FROM stocks')) {
-      return [
-        { id: 'AAPL', name: 'Apple Inc.', updated_at: '2026-06-10T00:00:00Z' },
-        { id: 'GOOGL', name: 'Alphabet Inc.', updated_at: '2026-06-09T00:00:00Z' },
-        { id: 'MAYBANK', name: 'Malayan Banking Bhd', updated_at: '2026-06-08T00:00:00Z' },
-      ]
-    }
     if (query.includes('FROM bursa_universe')) {
       return [
         { stock_code: 'TENAGA', name: 'Tenaga Nasional Bhd' },
         { stock_code: 'PUBM', name: 'Public Bank Bhd' },
         { stock_code: 'CIMB', name: 'CIMB Group Holdings Bhd' },
+      ]
+    }
+    if (query.includes('FROM stocks')) {
+      return [
+        { id: 'AAPL', name: 'Apple Inc.', updated_at: '2026-06-10T00:00:00Z' },
+        { id: 'GOOGL', name: 'Alphabet Inc.', updated_at: '2026-06-09T00:00:00Z' },
+        { id: 'MAYBANK', name: 'Malayan Banking Bhd', updated_at: '2026-06-08T00:00:00Z' },
       ]
     }
     return []

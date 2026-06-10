@@ -52,10 +52,11 @@ export async function handler(
         ORDER BY score_composite DESC NULLS LAST
       `;
 
-    // Fetch all analyzed universe stocks (for discoverability)
+    // Fetch all analyzed universe stocks — exclude those already in stocks to avoid duplicates
     const universe: { stock_code: string; name: string }[] = await sql`
       SELECT stock_code, name
       FROM bursa_universe
+      WHERE stock_code NOT IN (SELECT id FROM stocks WHERE status != 'removed')
       ORDER BY name ASC
     `;
 
