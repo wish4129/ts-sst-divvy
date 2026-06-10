@@ -102,20 +102,20 @@ class TestMacroAdjustment:
     def test_unknown_industry_returns_zero(self):
         """Unknown industry gets 0 macro adjustment."""
         from industry_scorer import macro_adjustment
-        adj = macro_adjustment("NonExistentIndustry", "1155.KL")
+        adj = macro_adjustment("NonExistentIndustry")
         assert adj == 0, f"Expected 0 for unknown industry, got {adj}"
 
     def test_banking_macro_adjustment(self):
         """Banking industry: known to have macro_sensitivity."""
         from industry_scorer import macro_adjustment
-        adj = macro_adjustment("Banking", "1155.KL")
+        adj = macro_adjustment("Banking")
         # Adjustment should be within -15 to +15 range
         assert -15 <= adj <= 15, f"Adjustment out of range: {adj}"
 
     def test_reit_macro_adjustment(self):
         """REIT industry gets macro adjustment."""
         from industry_scorer import macro_adjustment
-        adj = macro_adjustment("REIT", "5127.KL")
+        adj = macro_adjustment("REIT")
         assert -15 <= adj <= 15, f"Adjustment out of range: {adj}"
 
 
@@ -125,35 +125,38 @@ class TestCompositeCap:
     def test_composite_capped_at_100(self):
         """Composite cannot exceed 100."""
         from industry_scorer import score_stock
-        # This test depends on FINANCIALS containing real data for 1155.KL
-        # We test the cap logic by checking score_stock's clamp
-        result = score_stock("1155.KL", "Maybank", "Banking")
+        row = {"id": "1155.KL", "name": "Maybank", "industry": "Banking",
+               "ind_code": "", "status": "active", "ticker": "1155.KL",
+               "exchange": "KLS", "cusip": "", "isin": ""}
+        result = score_stock(row)
         assert 0 <= result["composite"] <= 100, \
             f"Composite {result['composite']} outside 0-100 range"
 
 
 class TestGetFinancial:
-    """Test get_financial() data mapping."""
+    """Test get_financial_from_db() data mapping."""
 
     def test_dividend_yield_mapping(self):
         """dividend_yield maps to dividend_yield_pct."""
-        from industry_scorer import get_financial
-        # When financial data exists, it returns the value
-        # When it doesn't, it returns None
-        result = get_financial("NONEXISTENT", "dividend_yield")
+        from industry_scorer import get_financial_from_db
+        # When financial data doesn't exist, it returns None
+        row = {"id": "NONEXISTENT", "name": "Test"}
+        result = get_financial_from_db(row, "dividend_yield")
         assert result is None, f"Expected None for missing stock, got {result}"
 
     def test_roe_mapping(self):
         """roe maps to roe_pct."""
-        from industry_scorer import get_financial
-        result = get_financial("NONEXISTENT", "roe")
+        from industry_scorer import get_financial_from_db
+        row = {"id": "NONEXISTENT", "name": "Test"}
+        result = get_financial_from_db(row, "roe")
         assert result is None
 
     def test_banking_factor_mapping(self):
         """Banking-specific factors map correctly."""
-        from industry_scorer import get_financial
+        from industry_scorer import get_financial_from_db
+        row = {"id": "NONEXISTENT", "name": "Test"}
         for factor in ["nim", "casa_ratio", "car", "npl_ratio", "cost_income"]:
-            result = get_financial("NONEXISTENT", factor)
+            result = get_financial_from_db(row, factor)
             assert result is None, f"{factor}: expected None for missing stock"
 
 
@@ -164,7 +167,9 @@ class TestFallbackIndustry:
         """Unknown industry uses generic 4-pillar (dividend, growth, quality, risk)."""
         from industry_scorer import score_stock
         # Use a stock that has financial data to avoid None scores
-        result = score_stock("1155.KL", "Maybank", "UnknownIndustry")
+        row = {"id": "1155.KL", "name": "Maybank", "industry": "UnknownIndustry",
+               "status": "active"}
+        result = score_stock(row)
         assert "composite" in result
         assert "breakdown" in result
         # Should have 4 factors from generic fallback
@@ -178,7 +183,9 @@ class TestScoreStructure:
     def test_result_keys(self):
         """Score result has all required keys."""
         from industry_scorer import score_stock
-        result = score_stock("1155.KL", "Maybank", "Banking")
+        row = {"id": "1155.KL", "name": "Maybank", "industry": "Banking",
+               "status": "active"}
+        result = score_stock(row)
         assert "code" in result
         assert "name" in result
         assert "industry" in result
@@ -189,7 +196,9 @@ class TestScoreStructure:
     def test_breakdown_structure(self):
         """Breakdown entries have value, raw, weighted."""
         from industry_scorer import score_stock
-        result = score_stock("1155.KL", "Maybank", "Banking")
+        row = {"id": "1155.KL", "name": "Maybank", "industry": "Banking",
+               "status": "active"}
+        result = score_stock(row)
         for factor_name, b in result["breakdown"].items():
             assert "value" in b, f"{factor_name}: missing 'value'"
             assert "raw" in b, f"{factor_name}: missing 'raw'"
