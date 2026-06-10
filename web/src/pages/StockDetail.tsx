@@ -10,22 +10,13 @@ import { INDUSTRY_COLORS, TICKER_TO_SHORT } from '../data/stocks'
 import { useApi } from '../hooks/useApi'
 import type { Stock } from '../data/stocks'
 
-interface TriggerItem {
-  text: string
-  active: boolean
-  source_url?: string
-}
-
-interface PersonaAnalysis {
+interface PersonaDetail {
   persona: string
   stock_name: string
   industry: string
   score_composite: number
   score_breakdown: Record<string, { value: number | null; raw: number; weighted: number }>
-  rationale: {
-    sections: Record<string, any>
-    sources: Record<string, string>
-  }
+  rationale: { sections: Record<string, any>; sources: Record<string, string> }
   kronos_signal: any
   ai_report: Record<string, string> | null
   ai_model: string | null
@@ -36,6 +27,19 @@ interface PersonaAnalysis {
   market_cap?: number
   dividend_yield?: number
   sparkline?: number[]
+}
+
+interface AllPersonasResponse {
+  stock_name: string
+  industry: string
+  personas: Record<string, PersonaDetail>
+  last_price: number
+  price_change: number
+  market_cap: number
+  dividend_yield: number
+  sparkline: number[]
+  financials: any[]
+  generated_at: string | null
 }
 
 // ── Default source labels ──
@@ -228,40 +232,41 @@ function AnalysisSections({ analysis }: { analysis: PersonaAnalysis }) {
 export default function StockDetail() {
   const { code } = useParams<{ code: string }>()
   const [searchParams] = useSearchParams()
-  const persona = searchParams.get('persona')
+  const initialPersona = searchParams.get('persona') || 'ares'
+  const [selectedPersona, setSelectedPersona] = useState(initialPersona)
 
   const url = useMemo(() => {
     if (!code) return null
-    return persona
-      ? `/analysis/${code}?persona=${persona}`
-      : `/analysis/${code}`
-  }, [code, persona])
+    return `/analysis/${code}?persona=all`
+  }, [code])
 
-  const api = useApi<PersonaAnalysis>(url)
+  const api = useApi<AllPersonasResponse>(url)
+  const currentPersona: PersonaDetail | null = api.data?.personas?.[selectedPersona] || null
 
-  // Build display stock from API analysis data (no static stocks.ts dependency)
+  // Build display stock from API analysis data (first persona for header)
   const displayStock: Stock = useMemo(() => {
     const shortCode = code ? (TICKER_TO_SHORT[code] || code.toUpperCase()) : ''
-    if (api.data) {
+    const pdata = currentPersona || (api.data?.personas && Object.values(api.data.personas)[0]) || null
+    if (pdata) {
       return {
         code: shortCode,
-        name: api.data.stock_name || code || '',
-        industry: api.data.industry || '',
-        marketCap: api.data.market_cap || 0,
-        lastPrice: api.data.last_price || 0,
-        priceChange: api.data.price_change || 0,
-        dividendYield: api.data.dividend_yield || 0,
+        name: pdata.stock_name || code || '',
+        industry: pdata.industry || '',
+        marketCap: pdata.market_cap || 0,
+        lastPrice: pdata.last_price || 0,
+        priceChange: pdata.price_change || 0,
+        dividendYield: pdata.dividend_yield || 0,
         score: {
-          composite: api.data.score_composite || 0,
-          dividend: api.data.score_breakdown?.dividend_yield?.raw || 0,
-          growth: api.data.score_breakdown?.revenue_growth_yoy?.raw || 0,
-          quality: api.data.score_breakdown?.roe?.raw || 0,
-          risk: api.data.score_breakdown?.de_ratio?.raw || 0,
+          composite: pdata.score_composite || 0,
+          dividend: pdata.score_breakdown?.dividend_yield?.raw || 0,
+          growth: pdata.score_breakdown?.revenue_growth_yoy?.raw || 0,
+          quality: pdata.score_breakdown?.roe?.raw || 0,
+          risk: pdata.score_breakdown?.de_ratio?.raw || 0,
         },
-        financials: api.data.financials || [],
+        financials: pdata.financials || [],
         dividends: [],
-        sparkline: api.data.sparkline || [],
-        status: (api.data.score_composite || 0) >= 70 ? 'active' as const : 'revisit' as const,
+        sparkline: pdata.sparkline || [],
+        status: (pdata.score_composite || 0) >= 70 ? 'active' as const : 'revisit' as const,
         addedAt: '',
         revisitAt: null,
         notes: '',
@@ -285,7 +290,7 @@ export default function StockDetail() {
       notes: '',
       sparkline: [],
     }
-  }, [api.data, code])
+  }, [api.data, currentPersona, code])
 
   if (!code) {
     return (
@@ -341,49 +346,80 @@ export default function StockDetail() {
           </div>
         </div>
 
-        {/* Persona Analysis Banner — AI Report right after stock title */}
-        {api.data && (
+        {/* Persona Tabs + Analysis */}
+        {api.data && Object.keys(api.data.personas).length > 0 && (
           <div className="mb-6 rounded-xl border-2 border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 dark:border-emerald-500/20 overflow-hidden">
-            <div className="p-5 border-b border-emerald-200 dark:border-emerald-800">
-              <div className="flex items-center gap-2">
-                <Brain className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-                <h2 className="font-bold text-emerald-800 dark:text-emerald-300 capitalize">{api.data.persona}'s Deep Analysis</h2>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300">
-                  Score {api.data.score_composite}/100
-                </span>
-                <span className="text-xs text-gray-400 ml-auto">
-                  {api.data.generated_at ? new Date(api.data.generated_at).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' }) : ''}
-                </span>
-              </div>
+            {/* Persona Tab Bar */}
+            <div className="flex border-b border-emerald-200 dark:border-emerald-800">
+              {(['ares', 'demeter', 'athena'] as const).map(p => {
+                const pd = api.data?.personas?.[p]
+                const score = pd?.score_composite || 0
+                const hasReport = pd?.ai_report && Object.keys(pd.ai_report).length > 0
+                return (
+                  <button key={p} onClick={() => setSelectedPersona(p)}
+                    className={`flex-1 px-4 py-3 text-sm font-medium capitalize transition-colors border-b-2 ${
+                      selectedPersona === p
+                        ? 'border-emerald-500 text-emerald-700 dark:text-emerald-300 bg-emerald-100/50 dark:bg-emerald-900/30'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                    }`}
+                  >
+                    <span>{p}</span>
+                    <span className="ml-1.5 text-xs text-gray-400">({score})</span>
+                    {hasReport && <span className="ml-1 text-[10px] text-emerald-500">✓</span>}
+                  </button>
+                )
+              })}
             </div>
 
-            <AnalysisSections analysis={api.data} />
-
-            {/* AI Analysis Report */}
-            {api.data.ai_report && (
-              <div className="divide-y divide-emerald-200/50 dark:divide-emerald-800/50 border-t border-emerald-200 dark:border-emerald-800">
-                <AiReportSection report={api.data.ai_report} model={api.data.ai_model} />
-              </div>
-            )}
-
-            {/* Factor breakdown */}
-            {api.data.score_breakdown && (
-              <div className="p-5 border-t border-emerald-200 dark:border-emerald-800">
-                <h3 className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide mb-2">
-                  Factor Score Breakdown
-                  <span className="text-[10px] text-gray-400 ml-2 font-normal normal-case">Source: Quarterly financials (yfinance)</span>
-                </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  {Object.entries(api.data.score_breakdown).map(([factor, b]: [string, any]) => (
-                    <div key={factor} className="flex items-center justify-between text-xs bg-white/50 dark:bg-black/20 rounded px-2 py-1">
-                      <span className="text-gray-500 capitalize truncate mr-2">{factor.replace(/_/g, ' ')}</span>
-                      <span className="font-mono text-gray-700 dark:text-gray-300 flex-shrink-0">
-                        {b.weighted?.toFixed(1) || '—'}
-                      </span>
-                    </div>
-                  ))}
+            {/* Selected Persona Analysis */}
+            {currentPersona && (
+              <>
+                <div className="p-5 border-b border-emerald-200 dark:border-emerald-800">
+                  <div className="flex items-center gap-2">
+                    <Brain className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                    <h2 className="font-bold text-emerald-800 dark:text-emerald-300 capitalize">{currentPersona.persona}'s Deep Analysis</h2>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300">
+                      Score {currentPersona.score_composite}/100
+                    </span>
+                    <span className="text-xs text-gray-400 ml-auto">
+                      {currentPersona.generated_at ? new Date(currentPersona.generated_at).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' }) : ''}
+                    </span>
+                  </div>
                 </div>
-              </div>
+
+                <AnalysisSections analysis={currentPersona} />
+
+                {currentPersona.ai_report && Object.keys(currentPersona.ai_report).length > 0 && (
+                  <div className="divide-y divide-emerald-200/50 dark:divide-emerald-800/50 border-t border-emerald-200 dark:border-emerald-800">
+                    <AiReportSection report={currentPersona.ai_report} model={currentPersona.ai_model} />
+                  </div>
+                )}
+
+                {!currentPersona.ai_report || Object.keys(currentPersona.ai_report).length === 0 && (
+                  <div className="p-5 border-t border-emerald-200 dark:border-emerald-800 text-center">
+                    <p className="text-sm text-gray-400">AI analysis report pending — scheduled at 7am daily</p>
+                  </div>
+                )}
+
+                {currentPersona.score_breakdown && (
+                  <div className="p-5 border-t border-emerald-200 dark:border-emerald-800">
+                    <h3 className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide mb-2">
+                      Factor Score Breakdown
+                      <span className="text-[10px] text-gray-400 ml-2 font-normal normal-case">Source: Quarterly financials (yfinance)</span>
+                    </h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                      {Object.entries(currentPersona.score_breakdown).map(([factor, b]: [string, any]) => (
+                        <div key={factor} className="flex items-center justify-between text-xs bg-white/50 dark:bg-black/20 rounded px-2 py-1">
+                          <span className="text-gray-500 capitalize truncate mr-2">{factor.replace(/_/g, ' ')}</span>
+                          <span className="font-mono text-gray-700 dark:text-gray-300 flex-shrink-0">
+                            {b.weighted?.toFixed(1) || '—'}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
             )}
           </div>
         )}

@@ -22,6 +22,59 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 
   try {
     if (persona) {
+      // Specific persona or "all" — return all 3 full analyses
+      if (persona === "all") {
+        const allRows = await sql`
+          SELECT DISTINCT ON (sa.persona) sa.*, s.name as stock_name, s.industry, s.financials,
+                 s.last_price, s.price_change, s.market_cap, s.dividend_yield, s.sparkline
+          FROM stock_analyses sa
+          JOIN stocks s ON sa.stock_id = s.id
+          WHERE sa.stock_id = ${code}
+          ORDER BY sa.persona, sa.generated_at DESC
+        `;
+
+        const analyses: Record<string, any> = {};
+        for (const r of allRows) {
+          analyses[r.persona] = {
+            persona: r.persona,
+            stock_name: r.stock_name,
+            industry: r.industry,
+            score_composite: Number(r.score_composite),
+            score_breakdown: r.score_breakdown,
+            financials: r.financials,
+            last_price: Number(r.last_price || 0),
+            price_change: Number(r.price_change || 0),
+            market_cap: Number(r.market_cap || 0),
+            dividend_yield: Number(r.dividend_yield || 0),
+            sparkline: r.sparkline || [],
+            rationale: r.decision_rationale,
+            kronos_signal: r.kronos_signal,
+            macro_context: r.macro_context,
+            ai_report: r.ai_report,
+            ai_model: r.ai_model,
+            generated_at: r.generated_at,
+          };
+        }
+
+        const first = allRows[0];
+        return {
+          statusCode: 200,
+          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+          body: JSON.stringify({
+            stock_name: first?.stock_name || "",
+            industry: first?.industry || "",
+            personas: analyses,
+            last_price: first ? Number(first.last_price || 0) : 0,
+            price_change: first ? Number(first.price_change || 0) : 0,
+            market_cap: first ? Number(first.market_cap || 0) : 0,
+            dividend_yield: first ? Number(first.dividend_yield || 0) : 0,
+            sparkline: first?.sparkline || [],
+            financials: first?.financials || null,
+            generated_at: first?.generated_at || null,
+          }),
+        };
+      }
+
       const rows = await sql`
         SELECT sa.*, s.name as stock_name, s.industry, s.financials,
                s.last_price, s.price_change, s.market_cap, s.dividend_yield, s.sparkline
