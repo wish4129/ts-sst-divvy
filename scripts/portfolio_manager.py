@@ -384,6 +384,10 @@ def ares_trade(persona, prices, snapshot, stock_map, prev_prices=None, forecasts
             else:
                 reason = f"Momentum cool {change_pct*100:.1f}% (trim {rules['momentum_cooling_trim']*100:.0f}%)"
             trim_shares = int(s["shares"] * trim_pct)
+            # Floor at 1 lot: Kronos-bullish can reduce below 100
+            if trim_shares < LOT_SIZE and trim_shares > 0:
+                trim_shares = LOT_SIZE
+                reason += " (floored to 1 lot)"
             if trim_shares > 0:
                 trades.append({"action": "SELL", "stock": name, "reason": reason, "shares": trim_shares, "price": s["price"],
                                "source": "momentum_cooling", "signal": ksig})
@@ -629,17 +633,6 @@ def main():
         prices = fetch_prices(stock_map)
         print(f"  Prices: {json.dumps({k: round(v, 4) for k, v in prices.items()})}")
 
-        # Previous prices (from last snapshot)
-        prev_prices = {}
-        cur.execute("SELECT holdings_json FROM portfolio_snapshots ORDER BY snapshot_at DESC LIMIT 1")
-        prev_snap = cur.fetchone()
-        if prev_snap and prev_snap['holdings_json']:
-            try:
-                prev_holdings = json.loads(prev_snap['holdings_json'])
-                prev_prices = {name: h.get('price', 0) for name, h in prev_holdings.items()}
-            except Exception:
-                pass
-
         # Clear RSI and volume caches for this run
         rsi_clear_cache()
         volume_clear_cache()
@@ -647,6 +640,21 @@ def main():
         run_record = {"timestamp": timestamp, "personas": {}, "prices": prices, "kronos": bool(forecasts)}
 
         for pid, persona in portfolios.items():
+            # Previous prices (from last snapshot of THIS persona)
+            prev_prices = {}
+            cur.execute(
+                "SELECT holdings_json FROM portfolio_snapshots WHERE portfolio_id=%s "
+                "ORDER BY snapshot_at DESC LIMIT 1",
+                (persona["id"],)
+            )
+            prev_snap = cur.fetchone()
+            if prev_snap and prev_snap['holdings_json']:
+                try:
+                    prev_holdings = json.loads(prev_snap['holdings_json'])
+                    prev_prices = {name: h.get('price', 0) for name, h in prev_holdings.items()}
+                except Exception:
+                    pass
+
             state = {"cash": persona["cash"],
                      "holdings": {k: v.copy() for k, v in persona["holdings"].items()},
                      "trade_log": []}
@@ -676,7 +684,9 @@ def main():
                 normalized.append(t)
             trades = normalized
 
-            pre_snap_id = save_snapshot(db, cur, persona["id"], timestamp,
+            pre_snap_id = None
+            if not dry_run:
+                pre_snap_id = save_snapshot(db, cur, persona["id"], timestamp,
                                         snapshot["total"], snapshot["invested"], snapshot["cash"],
                                         snapshot["pnl"], snapshot["pnl_pct"], snapshot["stocks"])
 

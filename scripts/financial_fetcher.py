@@ -1,162 +1,198 @@
-"""Quarterly financial data fetcher — yfinance (free).
+"""Quarterly financial data fetcher — yfinance (free) → Supabase DB.
 
-Extracts key metrics for industry scoring from quarterly financials.
-Output: data/stock_financials.json
-
-Usage: python3 scripts/financial_fetcher.py
-Cron: 0 8 * * 1  (weekly Monday morning)
+Extracts multi-quarter financials and writes directly to stocks.financials JSONB.
+Usage: python3 scripts/financial_fetcher.py [stock_codes...]
+Cron: weekly Monday morning
 """
 import json
 import sys
+import time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 try:
     import yfinance as yf
     import pandas as pd
+    import psycopg2
+    import psycopg2.extras
 except ImportError:
-    import os; os.system(f"{sys.executable} -m pip install yfinance --quiet")
+    import os
+    os.system(f"{sys.executable} -m pip install yfinance pandas psycopg2-binary --quiet")
     import yfinance as yf
     import pandas as pd
+    import psycopg2
+    import psycopg2.extras
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 from persona_db import get_all_stocks_dict
-OUTPUT_PATH = ROOT / "data" / "stock_financials.json"
+from db import get_db
 
 MALAYSIA_TZ = timezone(timedelta(hours=8))
 
-# ── Load stocks from DB ──
-stocks = get_all_stocks_dict()  # {short_name: {code, name, industry, initial}}
-tickers = [info["code"] for info in stocks.values()]
-
-print(f"[{datetime.now(MALAYSIA_TZ).isoformat()}] Fetching financials for {len(stocks)} stocks...")
-
 
 def safe_float(val, default=None):
-    """Safely convert to float, handling NaN."""
     try:
         v = float(val)
-        return v if not pd.isna(v) else default
+        return v if not (pd.isna(v) if isinstance(v, float) else False) else default
     except (ValueError, TypeError):
         return default
 
 
-def extract_financials(ticker, info):
-    """Extract key financial metrics from yfinance quarterly data."""
+def extract_quarterly(ticker_code):
+    """Extract all available quarters as array for DB storage."""
     try:
-        t = yf.Ticker(info["code"])
-        qi = t.quarterly_financials  # Most recent 4 quarters
+        t = yf.Ticker(ticker_code)
+        qi = t.quarterly_financials
         bs = t.quarterly_balance_sheet
         cf = t.quarterly_cashflow
     except Exception as e:
-        return {"error": str(e), "code": info["code"]}
+        return None, {"error": str(e), "code": ticker_code}
 
     if qi is None or qi.empty:
-        return {"error": "No quarterly data", "code": info["code"]}
+        return None, {"error": "No quarterly data", "code": ticker_code}
 
-    # Latest quarter
-    latest = qi.columns[0]  # Most recent quarter date
-    q_latest = latest.strftime("%Y-%m-%d") if hasattr(latest, 'strftime') else str(latest)
+    quarters = []
+    for col_idx in range(min(len(qi.columns), 8)):  # up to 8 quarters
+        col = qi.columns[col_idx]
+        q_date = col.strftime("%Y-%m-%d") if hasattr(col, 'strftime') else str(col)
 
-    # ── Income Statement ──
-    revenue = safe_float(qi.loc["Total Revenue", latest] if "Total Revenue" in qi.index else 0, 0)
-    net_income = safe_float(qi.loc["Net Income", latest] if "Net Income" in qi.index else 0, 0)
-    gross_profit = safe_float(qi.loc["Gross Profit", latest] if "Gross Profit" in qi.index else 0, 0)
-    operating_income = safe_float(qi.loc["Operating Income", latest] if "Operating Income" in qi.index else 0, 0)
+        revenue = safe_float(
+            qi.loc["Total Revenue", col] if "Total Revenue" in qi.index else 0, 0
+        )
+        net_income = safe_float(
+            qi.loc["Net Income", col] if "Net Income" in qi.index else 0, 0
+        )
+        free_cash_flow = safe_float(
+            cf.loc["Free Cash Flow", cf.columns[min(col_idx, len(cf.columns)-1)]]
+            if cf is not None and "Free Cash Flow" in cf.index
+            else 0, 0
+        )
 
-    # Gross margin
-    gross_margin = (gross_profit / revenue * 100) if revenue and revenue > 0 else None
+        total_equity = safe_float(
+            bs.loc["Stockholders Equity", bs.columns[min(col_idx, len(bs.columns)-1)]]
+            if bs is not None and "Stockholders Equity" in bs.index
+            else 0, 0
+        )
+        total_debt = safe_float(
+            bs.loc["Total Debt", bs.columns[min(col_idx, len(bs.columns)-1)]]
+            if bs is not None and "Total Debt" in bs.index
+            else 0, 0
+        )
 
-    # Revenue growth YoY
-    if len(qi.columns) >= 5:
-        revenue_4q_ago = safe_float(qi.loc["Total Revenue", qi.columns[4]] if "Total Revenue" in qi.index else 0, 0)
-        revenue_growth_yoy = ((revenue - revenue_4q_ago) / revenue_4q_ago * 100) if revenue_4q_ago and revenue_4q_ago > 0 else None
-    else:
-        revenue_growth_yoy = None
+        roe = (net_income / total_equity * 100) if total_equity and total_equity > 0 else 0
 
-    # ── Balance Sheet ──
-    total_assets = safe_float(bs.loc["Total Assets", bs.columns[0]] if bs is not None and "Total Assets" in bs.index else 0, 0)
-    total_debt = safe_float(bs.loc["Total Debt", bs.columns[0]] if bs is not None and "Total Debt" in bs.index else 0, 0)
-    total_equity = safe_float(bs.loc["Stockholders Equity", bs.columns[0]] if bs is not None and "Stockholders Equity" in bs.index else 0, 0)
-    cash = safe_float(bs.loc["Cash And Cash Equivalents", bs.columns[0]] if bs is not None and "Cash And Cash Equivalents" in bs.index else 0, 0)
+        # Revenue growth YoY (compare to same quarter last year)
+        rev_growth = 0
+        if col_idx + 4 < len(qi.columns):
+            rev_4q_ago = safe_float(
+                qi.loc["Total Revenue", qi.columns[col_idx + 4]]
+                if "Total Revenue" in qi.index else 0, 0
+            )
+            if rev_4q_ago and rev_4q_ago > 0 and revenue:
+                rev_growth = round((revenue - rev_4q_ago) / rev_4q_ago * 100, 1)
 
-    de_ratio = (total_debt / total_equity) if total_equity and total_equity > 0 else None
-    cash_per_share = cash / info.get("shares_outstanding", 1) if cash else None
+        quarters.append({
+            "quarter": q_date,
+            "revenue": round(revenue, 0),
+            "netIncome": round(net_income, 0),
+            "freeCashFlow": round(free_cash_flow, 0),
+            "peRatio": 0,  # filled below from ticker info
+            "roe": round(roe, 1),
+            "debtToEquity": round(total_debt / total_equity, 1) if total_equity and total_equity > 0 else 0,
+            "revenueGrowthYoY": rev_growth,
+        })
 
-    # ── Cash Flow ──
-    free_cash_flow = safe_float(cf.loc["Free Cash Flow", cf.columns[0]] if cf is not None and "Free Cash Flow" in cf.index else 0, 0)
-
-    # ── ROE ──
-    roe = (net_income / total_equity * 100) if total_equity and total_equity > 0 else None
-
-    # ── Valuation (from ticker.info) ──
+    # Get valuation from ticker.info
     try:
         ti = t.info
-        pe_ratio = safe_float(ti.get("trailingPE"), None)
-        pb_ratio = safe_float(ti.get("priceToBook"), None)
-        dividend_yield = safe_float(ti.get("dividendYield"), None)
-        # yfinance gives dividend yield as decimal (0.05 = 5%), convert to %
-        if dividend_yield and dividend_yield < 1:
-            dividend_yield = dividend_yield * 100
-        market_cap = safe_float(ti.get("marketCap"), None)
-        current_price = safe_float(ti.get("currentPrice") or ti.get("regularMarketPrice"), None)
-    except Exception:
-        pe_ratio = pb_ratio = dividend_yield = market_cap = current_price = None
+        pe = safe_float(ti.get("trailingPE"), 0)
+        dy = safe_float(ti.get("dividendYield"), 0)
+        if dy and dy < 1:
+            dy = dy * 100  # decimal to %
+        mcap = safe_float(ti.get("marketCap"), 0)
+        price = safe_float(ti.get("currentPrice") or ti.get("regularMarketPrice"), 0)
+        roe_val = safe_float(ti.get("returnOnEquity"), 0)
+        if roe_val and roe_val < 1:
+            roe_val = roe_val * 100
+        de_val = safe_float(ti.get("debtToEquity"), 0)
 
-    return {
-        "code": info["code"],
-        "name": info["name"],
-        "industry": info.get("industry", ""),
-        "quarter": q_latest,
-        "current_price": round(current_price, 4) if current_price else None,
-        "market_cap_m": round(market_cap / 1_000_000, 2) if market_cap else None,
-        # Income
-        "revenue_m": round(revenue / 1_000_000, 2) if revenue else 0,
-        "net_income_m": round(net_income / 1_000_000, 2) if net_income else 0,
-        "gross_margin_pct": round(gross_margin, 2) if gross_margin else None,
-        "revenue_growth_yoy_pct": round(revenue_growth_yoy, 2) if revenue_growth_yoy is not None else None,
-        # Balance sheet
-        "de_ratio": round(de_ratio, 4) if de_ratio is not None else None,
-        "total_debt_m": round(total_debt / 1_000_000, 2) if total_debt else 0,
-        "total_equity_m": round(total_equity / 1_000_000, 2) if total_equity else 0,
-        "cash_per_share": round(cash_per_share, 4) if cash_per_share else None,
-        # Cash flow
-        "free_cash_flow_m": round(free_cash_flow / 1_000_000, 2) if free_cash_flow else 0,
-        # Ratios
-        "roe_pct": round(roe, 2) if roe else None,
-        "pe_ratio": round(pe_ratio, 2) if pe_ratio else None,
-        "pb_ratio": round(pb_ratio, 4) if pb_ratio else None,
-        "dividend_yield_pct": round(dividend_yield, 2) if dividend_yield else None,
+        # Fill PE into latest quarter
+        if quarters and pe:
+            quarters[0]["peRatio"] = round(pe, 1)
+    except Exception:
+        pe = dy = mcap = price = roe_val = de_val = 0
+
+    summary = {
+        "pe": round(pe, 1) if pe else None,
+        "roe": round(roe_val, 1) if roe_val else None,
+        "dy": round(dy, 2) if dy else None,
+        "mcap": round(mcap / 1_000_000, 2) if mcap else None,
+        "de": round(de_val, 1) if de_val else None,
+        "price": round(price, 2) if price else None,
     }
 
+    return quarters, summary
 
-# ── Fetch all ──
-results = {}
-for name, info in stocks.items():
-    code = info["code"]
-    print(f"  {name:10s} ({code})...", end=" ", flush=True)
-    try:
-        data = extract_financials(info["code"], info)
-        if "error" in data:
-            print(f"⚠ {data['error']}")
-        else:
-            print(f"✓ Q={data['quarter']} PE={data['pe_ratio']} DY={data['dividend_yield_pct']}% ROE={data['roe_pct']}%")
-        results[name] = data
-    except Exception as e:
-        print(f"✗ {e}")
-        results[name] = {"code": code, "error": str(e)}
 
-# ── Summary ──
-success = sum(1 for r in results.values() if "error" not in r)
-errors = sum(1 for r in results.values() if "error" in r)
-print(f"\n✓ {success} fetched, {errors} errors")
+def main():
+    stocks = get_all_stocks_dict()
+    target_codes = sys.argv[1:] if len(sys.argv) > 1 else [
+        info["code"] for info in stocks.values()
+    ]
 
-# ── Save ──
-output = {
-    "date": datetime.now(MALAYSIA_TZ).strftime("%Y-%m-%d"),
-    "stocks": results,
-}
-OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-OUTPUT_PATH.write_text(json.dumps(output, indent=2))
-print(f"✓ Saved to {OUTPUT_PATH}")
+    print(f"[{datetime.now(MALAYSIA_TZ).isoformat()}] Fetching financials for {len(target_codes)} stocks...")
+
+    conn = get_db()
+    cur = conn.cursor()
+    success = 0
+    errors = 0
+
+    for code in target_codes:
+        print(f"  {code}...", end=" ", flush=True)
+        try:
+            quarters, summary = extract_quarterly(code)
+
+            if quarters is None:
+                print(f"⚠ {summary.get('error', 'unknown')}")
+                errors += 1
+                continue
+
+            cur.execute(
+                """UPDATE stocks SET
+                    financials = %s,
+                    pe_ratio = %s,
+                    roe = %s,
+                    dividend_yield = %s,
+                    market_cap = %s,
+                    debt_to_equity = %s,
+                    last_price = COALESCE(%s, last_price),
+                    updated_at = now()
+                WHERE id = %s""",
+                (
+                    json.dumps(quarters),
+                    summary["pe"],
+                    summary["roe"],
+                    summary["dy"],
+                    summary["mcap"],
+                    summary["de"],
+                    summary["price"],
+                    code + ".KL" if not code.endswith(".KL") else code,
+                ),
+            )
+            conn.commit()
+            print(f"✓ {len(quarters)}q PE={summary['pe']} ROE={summary['roe']}% DY={summary['dy']}%")
+            success += 1
+        except Exception as e:
+            conn.rollback()
+            print(f"✗ {e}")
+            errors += 1
+        time.sleep(0.3)  # rate limit
+
+    cur.close()
+    conn.close()
+    print(f"\n✓ {success} fetched, {errors} errors")
+
+
+if __name__ == "__main__":
+    main()

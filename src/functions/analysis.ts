@@ -24,7 +24,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     if (persona) {
       // Latest analysis for specific persona
       const rows = await sql`
-        SELECT sa.*, s.name as stock_name, s.industry
+        SELECT sa.*, s.name as stock_name, s.industry, s.financials
         FROM stock_analyses sa
         JOIN stocks s ON sa.stock_id = s.id
         WHERE sa.stock_id = ${code} AND sa.persona = ${persona}
@@ -42,6 +42,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
           industry: row.industry,
           score_composite: Number(row.score_composite),
           score_breakdown: row.score_breakdown,
+          financials: row.financials,
           rationale: row.decision_rationale,
           kronos_signal: row.kronos_signal,
           macro_context: row.macro_context,
@@ -55,7 +56,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     // No persona — return the latest analysis (any persona) with full AI report,
     // plus a summary of all personas
     const latestRow = await sql`
-      SELECT sa.*, s.name as stock_name, s.industry
+      SELECT sa.*, s.name as stock_name, s.industry, s.financials
       FROM stock_analyses sa
       JOIN stocks s ON sa.stock_id = s.id
       WHERE sa.stock_id = ${code} AND sa.ai_report IS NOT NULL
