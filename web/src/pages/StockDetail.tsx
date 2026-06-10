@@ -44,6 +44,7 @@ interface PersonaAnalysis {
   ai_report: Record<string, string> | null
   ai_model: string | null
   generated_at: string
+  financials?: any[]
 }
 
 // ── Default source labels ──
