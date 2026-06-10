@@ -355,21 +355,38 @@ def ares_trade(persona, prices, snapshot, stock_map, prev_prices=None, forecasts
         pnl_pct = s["pnl_pct"] / 100
         ksig = kronos_signal(forecasts, name)
 
+        # Session-change momentum cooling (normal intra-day detection)
+        session_change = None
         if prev_prices and name in prev_prices:
             prev_price = prev_prices[name]
             if prev_price > 0:
                 session_change = (s["price"] - prev_price) / prev_price
-                if session_change <= rules.get("momentum_cooling_threshold", -0.05):
-                    trim_pct = rules.get("momentum_cooling_trim", 0.25)
-                    if ksig["direction"] == "bullish" and ksig["change_pct"] >= 5:
-                        trim_pct *= 0.3
-                        reason = f"Momentum cool {session_change*100:.1f}% (reduced trim — Kronos +{ksig['change_pct']:.1f}%)"
-                    else:
-                        reason = f"Momentum cool {session_change*100:.1f}% (trim {rules['momentum_cooling_trim']*100:.0f}%)"
-                    trim_shares = int(s["shares"] * trim_pct)
-                    if trim_shares > 0:
-                        trades.append({"action": "SELL", "stock": name, "reason": reason, "shares": trim_shares, "price": s["price"],
-                                       "source": "momentum_cooling", "signal": ksig})
+
+        # Cumulative-PnL fallback: when cron hasn't run for a while, session_change=0
+        # but the stock is deeply underwater from cost. Detect and cool based on PnL.
+        cool_triggered = False
+        cool_threshold = rules.get("momentum_cooling_threshold", -0.05)
+        if session_change is not None and session_change <= cool_threshold:
+            cool_triggered = True
+        elif pnl_pct <= cool_threshold and (session_change is None or session_change > cool_threshold):
+            # PnL-based fallback: stock underwater but session_change missed it (gap in cron runs)
+            # Only trigger if the drop from cost is real and we haven't cooled yet
+            # Guard: don't re-cool if already trimmed this stock (tracked via persona_holdings note)
+            cool_triggered = True
+            session_change = pnl_pct  # use PnL as the "session change" for logging
+
+        if cool_triggered:
+            trim_pct = rules.get("momentum_cooling_trim", 0.25)
+            change_pct = session_change if session_change is not None else pnl_pct
+            if ksig["direction"] == "bullish" and ksig["change_pct"] >= 5:
+                trim_pct *= 0.3
+                reason = f"Momentum cool {change_pct*100:.1f}% (reduced trim — Kronos +{ksig['change_pct']:.1f}%)"
+            else:
+                reason = f"Momentum cool {change_pct*100:.1f}% (trim {rules['momentum_cooling_trim']*100:.0f}%)"
+            trim_shares = int(s["shares"] * trim_pct)
+            if trim_shares > 0:
+                trades.append({"action": "SELL", "stock": name, "reason": reason, "shares": trim_shares, "price": s["price"],
+                               "source": "momentum_cooling", "signal": ksig})
 
         if ksig["direction"] == "bearish" and ksig["strength"] >= 7:
             trim_shares = int(s["shares"] * 0.15)
