@@ -11,6 +11,10 @@ const sql = postgres({
     max: 1, idle_timeout: 10, connect_timeout: 30, prepare: false,
 });
 
+const STOCK_COLS = `s.name as stock_name, s.industry, s.financials,
+  s.last_price, s.price_change, s.market_cap, s.dividend_yield,
+  s.sparkline`;
+
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {
   const code = event.pathParameters?.code;
   const persona = event.queryStringParameters?.persona;
@@ -24,7 +28,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     if (persona) {
       // Latest analysis for specific persona
       const rows = await sql`
-        SELECT sa.*, s.name as stock_name, s.industry, s.financials
+        SELECT sa.*, ${sql(STOCK_COLS)}
         FROM stock_analyses sa
         JOIN stocks s ON sa.stock_id = s.id
         WHERE sa.stock_id = ${code} AND sa.persona = ${persona}
@@ -36,27 +40,14 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
       return {
         statusCode: 200,
         headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-        body: JSON.stringify({
-          persona: row.persona,
-          stock_name: row.stock_name,
-          industry: row.industry,
-          score_composite: Number(row.score_composite),
-          score_breakdown: row.score_breakdown,
-          financials: row.financials,
-          rationale: row.decision_rationale,
-          kronos_signal: row.kronos_signal,
-          macro_context: row.macro_context,
-          ai_report: row.ai_report,
-          ai_model: row.ai_model,
-          generated_at: row.generated_at,
-        }),
+        body: JSON.stringify(buildResponse(row, true)),
       };
     }
 
-    // No persona — return the latest analysis (any persona) with full AI report,
+    // No persona — return the latest analysis (any persona),
     // plus a summary of all personas
     const latestRow = await sql`
-      SELECT sa.*, s.name as stock_name, s.industry, s.financials
+      SELECT sa.*, ${sql(STOCK_COLS)}
       FROM stock_analyses sa
       JOIN stocks s ON sa.stock_id = s.id
       WHERE sa.stock_id = ${code}
@@ -90,17 +81,9 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
         stock_name: latest?.stock_name || personaRows[0]?.stock_name || "",
         industry: latest?.industry || personaRows[0]?.industry || "",
         personas: byPersona,
-        // Include latest AI report from any persona for watchlist view
         ai_report: latest?.ai_report || null,
         ai_model: latest?.ai_model || null,
-        score_composite: latest ? Number(latest.score_composite) : 0,
-        score_breakdown: latest?.score_breakdown || null,
-        financials: latest?.financials || null,
-        rationale: latest?.decision_rationale || null,
-        kronos_signal: latest?.kronos_signal || null,
-        macro_context: latest?.macro_context || null,
-        generated_at: latest?.generated_at || null,
-        persona: latest?.persona || null,
+        ...buildResponse(latest, false),
       }),
     };
   } catch (error: any) {
@@ -111,3 +94,24 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     };
   }
 };
+
+function buildResponse(row: any, includePersona: boolean) {
+  const base = {
+    score_composite: row ? Number(row.score_composite) : 0,
+    score_breakdown: row?.score_breakdown || null,
+    financials: row?.financials || null,
+    last_price: row ? Number(row.last_price || 0) : 0,
+    price_change: row ? Number(row.price_change || 0) : 0,
+    market_cap: row ? Number(row.market_cap || 0) : 0,
+    dividend_yield: row ? Number(row.dividend_yield || 0) : 0,
+    sparkline: row?.sparkline || [],
+    rationale: row?.decision_rationale || null,
+    kronos_signal: row?.kronos_signal || null,
+    macro_context: row?.macro_context || null,
+    generated_at: row?.generated_at || null,
+  };
+  if (includePersona) {
+    return { persona: row.persona, stock_name: row.stock_name, industry: row.industry, ...base };
+  }
+  return { ...base, persona: row?.persona || null };
+}

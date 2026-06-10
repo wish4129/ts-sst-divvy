@@ -45,6 +45,11 @@ interface PersonaAnalysis {
   ai_model: string | null
   generated_at: string
   financials?: any[]
+  last_price?: number
+  price_change?: number
+  market_cap?: number
+  dividend_yield?: number
+  sparkline?: number[]
 }
 
 // ── Default source labels ──
@@ -256,10 +261,10 @@ export default function StockDetail() {
         code: shortCode,
         name: api.data.stock_name || code || '',
         industry: api.data.industry || '',
-        marketCap: 0,
-        lastPrice: 0,
-        priceChange: 0,
-        dividendYield: 0,
+        marketCap: api.data.market_cap || 0,
+        lastPrice: api.data.last_price || 0,
+        priceChange: api.data.price_change || 0,
+        dividendYield: api.data.dividend_yield || 0,
         score: {
           composite: api.data.score_composite || 0,
           dividend: api.data.score_breakdown?.dividend?.raw || 0,
@@ -269,7 +274,7 @@ export default function StockDetail() {
         },
         financials: api.data.financials || [],
         dividends: [],
-        sparkline: [],
+        sparkline: api.data.sparkline || [],
         status: (api.data.score_composite || 0) >= 70 ? 'active' as const : 'revisit' as const,
         addedAt: '',
         revisitAt: null,
