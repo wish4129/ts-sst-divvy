@@ -7,6 +7,31 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 ## [Unreleased]
 
 ### 2026-06-10
+- **PANGU: test_sync_from_db.py** — 38 assertions covering null handling, TS output, ticker maps, edge cases (fef990d0) [PANGU]
+- **Rebalance: pillar weights** — quality 35, dividend 25, growth 25, risk 15 (0925356f)
+- **Refactor: uniform 4-pillar scoring** — for all industries, defer industry-specific factors (131f1fea)
+- **Fix: Banking industry matrix** — use generic factors instead of unfetchable banking metrics (d8c6eebb)
+- **Fix: yfinance DY is already percentage** — remove multiplication in financial_fetcher.py (19392ab7)
+- **Fix: market cap formatting + DY data quality** — yfinance percentage bug (890bc6bf)
+- **Fix: Home page MCap and DY** — read from API instead of hardcoded 0 (20ca28c3)
+- **Fix: sitemap include all non-removed stocks** — remove dead /cron/status route (52498a9d)
+- **Fix: remove /cron entirely** — not public-facing, use GSC instead (d0cc18ad)
+- **Fix: remove Cron tab from public header nav** — not public-facing (3f98bb19)
+- **Fix: TS errors** — PersonaAnalysis to PersonaDetail, restore TriggerItem interface (60fcf2a5)
+- **Fix: yfinance D/E is percentage not ratio** — divide by 100, fallback to quarterly BS (53338d39)
+- **Fix: Python 3.9 compat** — dict|None to Optional[dict] (43d330f1)
+- **Fix: eliminate stock_analyses gaps** — scorer never skips, API fallback, random analysis writes analyses (6b66fde3)
+- **Simplify: reset stock page** — single deep analysis, no personas, no triggers (1d8bfe89)
+- **Feat: persona tabs on stock detail** (27bed782)
+- **Feat: DB-driven AI report generator** — for all missing reports (5e6506f6)
+- **Refactor: remove dead code and consolidate TICKER_TO_SHORT** (552146cc)
+- **Portfolio battle 2026-06-10_1816** (3a48b404) [Internal]
+- **Portfolio battle 2026-06-10_1532** (dd8430ef) [Internal]
+- **Portfolio battle 2026-06-10_1502** (e458ac66) [Internal]
+- **Portfolio battle 2026-06-10_1446** (81a206a0) [Internal]
+- **Portfolio battle 2026-06-10_1416** (5eb46b85) [Internal]
+- **Portfolio battle 2026-06-10_1403** (24c8ef36) [Internal]
+- **Portfolio battle 2026-06-10_1346** (34e6908e) [Internal]
 - **Portfolio battle snapshot** — June 10, 2026 13:32 (1160b010) [Internal]
 - **Portfolio battle snapshot** — June 10, 2026 13:17 (5c0e03de) [Internal]
 - **Fix: map score_breakdown factor names to categories, generate decision_rationale in scorer** (0a5050a4) [PANGU]

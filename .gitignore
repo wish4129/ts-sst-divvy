@@ -19,3 +19,4 @@ web/public/sitemap.xml
 web/tsconfig.tsbuildinfo
 # test scripts
 vitest.workspace.ts
+hermes/
