@@ -1,6 +1,6 @@
 {
-  "_version": 1,
-  "_description": "Industry-specific scoring factors. Each industry has factors with weights summing to 100. Generic 4-pillar is the fallback.",
+  "_version": 2,
+  "_description": "Generic 4-pillar scoring for all industries. Industry-specific factors deferred — see kanban.",
   "_fallback": {
     "dividend": 40,
     "growth": 30,
@@ -15,262 +15,124 @@
         {"name": "roe", "label": "Return on Equity", "weight": 20, "higher_better": true, "source": "quarterly"},
         {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 10, "higher_better": false, "source": "quarterly"}
       ],
-      "macro_sensitivity": {
-        "brent_crude": 0.0,
-        "cpo": 0.0,
-        "usd_myr": 0.1,
-        "fb_klci": 0.9,
-        "fed_rate": 0.7,
-        "gdp_growth": 0.8,
-        "opr": 1.0
-      }
+      "macro_sensitivity": {"brent_crude":0.0,"cpo":0.0,"usd_myr":0.1,"fb_klci":0.9,"fed_rate":0.7,"gdp_growth":0.8,"opr":1.0}
     },
     "REIT": {
       "factors": [
-        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 25, "higher_better": true, "source": "market"},
-        {"name": "occupancy", "label": "Occupancy Rate", "weight": 20, "higher_better": true, "source": "quarterly"},
-        {"name": "npi_yield", "label": "NPI Yield", "weight": 18, "higher_better": true, "source": "quarterly"},
-        {"name": "gearing", "label": "Gearing Ratio", "weight": 15, "higher_better": false, "source": "quarterly"},
-        {"name": "wale", "label": "Weighted Avg Lease Expiry (years)", "weight": 12, "higher_better": true, "source": "quarterly"},
-        {"name": "property_diversity", "label": "Property Type Diversity", "weight": 10, "higher_better": true, "source": "quarterly"}
+        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 40, "higher_better": true, "source": "market"},
+        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 30, "higher_better": true, "source": "quarterly"},
+        {"name": "roe", "label": "Return on Equity", "weight": 20, "higher_better": true, "source": "quarterly"},
+        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 10, "higher_better": false, "source": "quarterly"}
       ],
-      "macro_sensitivity": {
-        "brent_crude": 0.0,
-        "cpo": 0.0,
-        "usd_myr": 0.2,
-        "fb_klci": 0.6,
-        "fed_rate": 0.8,
-        "gdp_growth": 0.5,
-        "opr": 0.7
-      }
+      "macro_sensitivity": {"brent_crude":0.0,"cpo":0.0,"usd_myr":0.2,"fb_klci":0.6,"fed_rate":0.8,"gdp_growth":0.5,"opr":0.7}
     },
     "Plantation": {
       "factors": [
-        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 18, "higher_better": true, "source": "market"},
-        {"name": "ffb_yield", "label": "FFB Yield (tonnes/ha)", "weight": 22, "higher_better": true, "source": "quarterly"},
-        {"name": "production_cost", "label": "Production Cost/tonne", "weight": 18, "higher_better": false, "source": "quarterly"},
-        {"name": "replanting_pct", "label": "Replanting Rate %", "weight": 15, "higher_better": true, "source": "annual"},
-        {"name": "landbank_age", "label": "Landbank Age Profile", "weight": 15, "higher_better": true, "source": "annual"},
-        {"name": "downstream_pct", "label": "Downstream % of Revenue", "weight": 12, "higher_better": true, "source": "quarterly"}
+        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 40, "higher_better": true, "source": "market"},
+        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 30, "higher_better": true, "source": "quarterly"},
+        {"name": "roe", "label": "Return on Equity", "weight": 20, "higher_better": true, "source": "quarterly"},
+        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 10, "higher_better": false, "source": "quarterly"}
       ],
-      "macro_sensitivity": {
-        "brent_crude": 0.4,
-        "cpo": 1.0,
-        "usd_myr": 0.5,
-        "fb_klci": 0.5,
-        "fed_rate": 0.1,
-        "gdp_growth": 0.4,
-        "chin_pmi": 0.6
-      }
+      "macro_sensitivity": {"brent_crude":0.4,"cpo":1.0,"usd_myr":0.5,"fb_klci":0.5,"fed_rate":0.1,"gdp_growth":0.4,"chin_pmi":0.6}
     },
     "Energy": {
       "factors": [
-        {"name": "order_book", "label": "Order Book (RM)", "weight": 25, "higher_better": true, "source": "quarterly"},
-        {"name": "utilization", "label": "Fleet/Asset Utilization %", "weight": 20, "higher_better": true, "source": "quarterly"},
-        {"name": "dcr", "label": "Debt Coverage Ratio", "weight": 18, "higher_better": true, "source": "quarterly"},
-        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 15, "higher_better": true, "source": "market"},
-        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 12, "higher_better": false, "source": "quarterly"},
-        {"name": "revenue_visibility", "label": "Revenue Visibility (months)", "weight": 10, "higher_better": true, "source": "quarterly"}
+        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 40, "higher_better": true, "source": "market"},
+        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 30, "higher_better": true, "source": "quarterly"},
+        {"name": "roe", "label": "Return on Equity", "weight": 20, "higher_better": true, "source": "quarterly"},
+        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 10, "higher_better": false, "source": "quarterly"}
       ],
-      "macro_sensitivity": {
-        "brent_crude": 1.0,
-        "cpo": 0.0,
-        "usd_myr": 0.3,
-        "fb_klci": 0.4,
-        "fed_rate": 0.2,
-        "gdp_growth": 0.5,
-        "petronas_capex": 0.8
-      }
+      "macro_sensitivity": {"brent_crude":1.0,"cpo":0.0,"usd_myr":0.3,"fb_klci":0.4,"fed_rate":0.2,"gdp_growth":0.5,"petronas_capex":0.8}
     },
     "Semiconductor": {
       "factors": [
-        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 22, "higher_better": true, "source": "quarterly"},
-        {"name": "gross_margin", "label": "Gross Margin %", "weight": 20, "higher_better": true, "source": "quarterly"},
-        {"name": "roe", "label": "Return on Equity", "weight": 18, "higher_better": true, "source": "quarterly"},
-        {"name": "pe_ratio", "label": "P/E Ratio", "weight": 15, "higher_better": false, "source": "market"},
-        {"name": "customer_conc", "label": "Customer Concentration Risk", "weight": 15, "higher_better": false, "source": "quarterly"},
-        {"name": "capex_revenue", "label": "CapEx / Revenue", "weight": 10, "higher_better": true, "source": "quarterly"}
+        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 40, "higher_better": true, "source": "market"},
+        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 30, "higher_better": true, "source": "quarterly"},
+        {"name": "roe", "label": "Return on Equity", "weight": 20, "higher_better": true, "source": "quarterly"},
+        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 10, "higher_better": false, "source": "quarterly"}
       ],
-      "macro_sensitivity": {
-        "brent_crude": 0.1,
-        "cpo": 0.0,
-        "usd_myr": 0.7,
-        "sox_index": 1.0,
-        "fb_klci": 0.3,
-        "fed_rate": 0.5,
-        "chin_pmi": 0.8,
-        "global_semi_capex": 0.9
-      }
+      "macro_sensitivity": {"brent_crude":0.1,"cpo":0.0,"usd_myr":0.7,"sox_index":1.0,"fb_klci":0.3,"fed_rate":0.5,"chin_pmi":0.8,"global_semi_capex":0.9}
     },
     "Construction": {
       "factors": [
-        {"name": "order_book", "label": "Order Book (RM)", "weight": 28, "higher_better": true, "source": "quarterly"},
-        {"name": "roe", "label": "Return on Equity", "weight": 18, "higher_better": true, "source": "quarterly"},
-        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 16, "higher_better": false, "source": "quarterly"},
-        {"name": "tender_win_rate", "label": "Tender Win Rate", "weight": 14, "higher_better": true, "source": "quarterly"},
-        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 14, "higher_better": true, "source": "quarterly"},
-        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 10, "higher_better": true, "source": "market"}
+        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 40, "higher_better": true, "source": "market"},
+        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 30, "higher_better": true, "source": "quarterly"},
+        {"name": "roe", "label": "Return on Equity", "weight": 20, "higher_better": true, "source": "quarterly"},
+        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 10, "higher_better": false, "source": "quarterly"}
       ],
-      "macro_sensitivity": {
-        "brent_crude": 0.2,
-        "cpo": 0.0,
-        "usd_myr": 0.3,
-        "fb_klci": 0.6,
-        "fed_rate": 0.3,
-        "gdp_growth": 0.7,
-        "steel_price": 0.5,
-        "govt_infra_budget": 0.9
-      }
+      "macro_sensitivity": {"brent_crude":0.2,"cpo":0.0,"usd_myr":0.3,"fb_klci":0.6,"fed_rate":0.3,"gdp_growth":0.7,"steel_price":0.5,"govt_infra_budget":0.9}
     },
     "Automotive": {
       "factors": [
-        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 22, "higher_better": true, "source": "market"},
+        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 40, "higher_better": true, "source": "market"},
+        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 30, "higher_better": true, "source": "quarterly"},
         {"name": "roe", "label": "Return on Equity", "weight": 20, "higher_better": true, "source": "quarterly"},
-        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 18, "higher_better": true, "source": "quarterly"},
-        {"name": "pe_ratio", "label": "P/E Ratio", "weight": 15, "higher_better": false, "source": "market"},
-        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 13, "higher_better": false, "source": "quarterly"},
-        {"name": "model_cycle", "label": "Model Cycle Position", "weight": 12, "higher_better": true, "source": "analyst"}
+        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 10, "higher_better": false, "source": "quarterly"}
       ],
-      "macro_sensitivity": {
-        "brent_crude": 0.3,
-        "cpo": 0.1,
-        "usd_myr": 0.6,
-        "fb_klci": 0.5,
-        "fed_rate": 0.4,
-        "gdp_growth": 0.7,
-        "maa_tiv": 1.0
-      }
+      "macro_sensitivity": {"brent_crude":0.3,"cpo":0.1,"usd_myr":0.6,"fb_klci":0.5,"fed_rate":0.4,"gdp_growth":0.7,"maa_tiv":1.0}
     },
     "Consumer Products & Services": {
       "factors": [
-        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 22, "higher_better": true, "source": "market"},
-        {"name": "gross_margin", "label": "Gross Margin %", "weight": 20, "higher_better": true, "source": "quarterly"},
-        {"name": "roe", "label": "Return on Equity", "weight": 18, "higher_better": true, "source": "quarterly"},
-        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 16, "higher_better": false, "source": "quarterly"},
-        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 14, "higher_better": true, "source": "quarterly"},
-        {"name": "pe_ratio", "label": "P/E Ratio", "weight": 10, "higher_better": false, "source": "market"}
+        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 40, "higher_better": true, "source": "market"},
+        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 30, "higher_better": true, "source": "quarterly"},
+        {"name": "roe", "label": "Return on Equity", "weight": 20, "higher_better": true, "source": "quarterly"},
+        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 10, "higher_better": false, "source": "quarterly"}
       ],
-      "macro_sensitivity": {
-        "brent_crude": 0.3,
-        "cpo": 0.5,
-        "usd_myr": 0.4,
-        "fb_klci": 0.5,
-        "fed_rate": 0.3,
-        "gdp_growth": 0.6,
-        "inflation": 0.7
-      }
+      "macro_sensitivity": {"brent_crude":0.3,"cpo":0.5,"usd_myr":0.4,"fb_klci":0.5,"fed_rate":0.3,"gdp_growth":0.6,"inflation":0.7}
     },
     "Conglomerate": {
       "factors": [
-        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 22, "higher_better": true, "source": "market"},
+        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 40, "higher_better": true, "source": "market"},
+        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 30, "higher_better": true, "source": "quarterly"},
         {"name": "roe", "label": "Return on Equity", "weight": 20, "higher_better": true, "source": "quarterly"},
-        {"name": "sop_discount", "label": "Sum-of-Parts Discount", "weight": 18, "higher_better": false, "source": "analyst"},
-        {"name": "capital_allocation", "label": "Capital Allocation Track Record", "weight": 16, "higher_better": true, "source": "annual"},
-        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 14, "higher_better": false, "source": "quarterly"},
-        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 10, "higher_better": true, "source": "quarterly"}
+        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 10, "higher_better": false, "source": "quarterly"}
       ],
-      "macro_sensitivity": {
-        "brent_crude": 0.5,
-        "cpo": 0.6,
-        "usd_myr": 0.5,
-        "fb_klci": 0.8,
-        "fed_rate": 0.4,
-        "gdp_growth": 0.7
-      }
+      "macro_sensitivity": {"brent_crude":0.5,"cpo":0.6,"usd_myr":0.5,"fb_klci":0.8,"fed_rate":0.4,"gdp_growth":0.7}
     },
     "Furniture": {
       "factors": [
-        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 20, "higher_better": true, "source": "market"},
-        {"name": "export_pct", "label": "Export % of Revenue", "weight": 20, "higher_better": true, "source": "quarterly"},
-        {"name": "gross_margin", "label": "Gross Margin %", "weight": 18, "higher_better": true, "source": "quarterly"},
-        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 15, "higher_better": false, "source": "quarterly"},
-        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 15, "higher_better": true, "source": "quarterly"},
-        {"name": "pe_ratio", "label": "P/E Ratio", "weight": 12, "higher_better": false, "source": "market"}
+        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 40, "higher_better": true, "source": "market"},
+        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 30, "higher_better": true, "source": "quarterly"},
+        {"name": "roe", "label": "Return on Equity", "weight": 20, "higher_better": true, "source": "quarterly"},
+        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 10, "higher_better": false, "source": "quarterly"}
       ],
-      "macro_sensitivity": {
-        "brent_crude": 0.2,
-        "cpo": 0.0,
-        "usd_myr": 1.0,
-        "fb_klci": 0.3,
-        "fed_rate": 0.3,
-        "gdp_growth": 0.4,
-        "us_housing": 0.8,
-        "shipping_cost": 0.6
-      }
+      "macro_sensitivity": {"brent_crude":0.2,"cpo":0.0,"usd_myr":1.0,"fb_klci":0.3,"fed_rate":0.3,"gdp_growth":0.4,"us_housing":0.8,"shipping_cost":0.6}
     },
     "Industrial": {
       "factors": [
-        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 24, "higher_better": true, "source": "quarterly"},
-        {"name": "gross_margin", "label": "Gross Margin %", "weight": 20, "higher_better": true, "source": "quarterly"},
-        {"name": "roe", "label": "Return on Equity", "weight": 18, "higher_better": true, "source": "quarterly"},
-        {"name": "pe_ratio", "label": "P/E Ratio", "weight": 15, "higher_better": false, "source": "market"},
-        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 13, "higher_better": false, "source": "quarterly"},
-        {"name": "order_book", "label": "Order Book Growth", "weight": 10, "higher_better": true, "source": "quarterly"}
+        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 40, "higher_better": true, "source": "market"},
+        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 30, "higher_better": true, "source": "quarterly"},
+        {"name": "roe", "label": "Return on Equity", "weight": 20, "higher_better": true, "source": "quarterly"},
+        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 10, "higher_better": false, "source": "quarterly"}
       ],
-      "macro_sensitivity": {
-        "brent_crude": 0.3,
-        "cpo": 0.1,
-        "usd_myr": 0.5,
-        "fb_klci": 0.5,
-        "fed_rate": 0.4,
-        "gdp_growth": 0.6,
-        "chin_pmi": 0.7
-      }
+      "macro_sensitivity": {"brent_crude":0.3,"cpo":0.1,"usd_myr":0.5,"fb_klci":0.5,"fed_rate":0.4,"gdp_growth":0.6,"chin_pmi":0.7}
     },
     "Investment": {
       "factors": [
-        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 22, "higher_better": true, "source": "market"},
-        {"name": "nav_discount", "label": "NAV Discount %", "weight": 22, "higher_better": false, "source": "analyst"},
-        {"name": "cash_per_share", "label": "Cash per Share", "weight": 18, "higher_better": true, "source": "quarterly"},
-        {"name": "pb_ratio", "label": "P/B Ratio", "weight": 15, "higher_better": false, "source": "market"},
-        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 13, "higher_better": false, "source": "quarterly"},
-        {"name": "portfolio_quality", "label": "Portfolio Company Quality", "weight": 10, "higher_better": true, "source": "analyst"}
+        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 40, "higher_better": true, "source": "market"},
+        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 30, "higher_better": true, "source": "quarterly"},
+        {"name": "roe", "label": "Return on Equity", "weight": 20, "higher_better": true, "source": "quarterly"},
+        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 10, "higher_better": false, "source": "quarterly"}
       ],
-      "macro_sensitivity": {
-        "brent_crude": 0.2,
-        "cpo": 0.1,
-        "usd_myr": 0.3,
-        "fb_klci": 0.7,
-        "fed_rate": 0.3,
-        "gdp_growth": 0.5
-      }
+      "macro_sensitivity": {"brent_crude":0.2,"cpo":0.1,"usd_myr":0.3,"fb_klci":0.7,"fed_rate":0.3,"gdp_growth":0.5}
     },
     "Packaging": {
       "factors": [
-        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 22, "higher_better": true, "source": "market"},
+        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 40, "higher_better": true, "source": "market"},
+        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 30, "higher_better": true, "source": "quarterly"},
         {"name": "roe", "label": "Return on Equity", "weight": 20, "higher_better": true, "source": "quarterly"},
-        {"name": "gross_margin", "label": "Gross Margin %", "weight": 18, "higher_better": true, "source": "quarterly"},
-        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 16, "higher_better": true, "source": "quarterly"},
-        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 14, "higher_better": false, "source": "quarterly"},
-        {"name": "pe_ratio", "label": "P/E Ratio", "weight": 10, "higher_better": false, "source": "market"}
+        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 10, "higher_better": false, "source": "quarterly"}
       ],
-      "macro_sensitivity": {
-        "brent_crude": 0.4,
-        "cpo": 0.2,
-        "usd_myr": 0.4,
-        "fb_klci": 0.5,
-        "fed_rate": 0.3,
-        "gdp_growth": 0.6,
-        "resin_cost": 0.7
-      }
+      "macro_sensitivity": {"brent_crude":0.4,"cpo":0.2,"usd_myr":0.4,"fb_klci":0.5,"fed_rate":0.3,"gdp_growth":0.6,"resin_cost":0.7}
     },
     "Utilities": {
       "factors": [
-        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 24, "higher_better": true, "source": "market"},
-        {"name": "regulated_return", "label": "Regulated Return %", "weight": 22, "higher_better": true, "source": "regulatory"},
-        {"name": "capacity_growth", "label": "Capacity Growth %", "weight": 18, "higher_better": true, "source": "quarterly"},
-        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 16, "higher_better": false, "source": "quarterly"},
-        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 12, "higher_better": true, "source": "quarterly"},
-        {"name": "pe_ratio", "label": "P/E Ratio", "weight": 8, "higher_better": false, "source": "market"}
+        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 40, "higher_better": true, "source": "market"},
+        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 30, "higher_better": true, "source": "quarterly"},
+        {"name": "roe", "label": "Return on Equity", "weight": 20, "higher_better": true, "source": "quarterly"},
+        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 10, "higher_better": false, "source": "quarterly"}
       ],
-      "macro_sensitivity": {
-        "brent_crude": 0.3,
-        "cpo": 0.1,
-        "usd_myr": 0.2,
-        "fb_klci": 0.6,
-        "fed_rate": 0.5,
-        "gdp_growth": 0.6
-      }
+      "macro_sensitivity": {"brent_crude":0.3,"cpo":0.1,"usd_myr":0.2,"fb_klci":0.6,"fed_rate":0.5,"gdp_growth":0.6}
     }
   }
 }
