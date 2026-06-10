@@ -7,6 +7,20 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 ## [Unreleased]
 
 ### 2026-06-10
+- **Portfolio battle snapshot** — June 10, 2026 12:31 (92442f13) [Internal]
+- **Portfolio battle snapshot** — June 10, 2026 12:16 (afdb679b) [Internal]
+- **Portfolio battle snapshot** — June 10, 2026 12:01 (829a8686) [Internal]
+- **Portfolio battle snapshot** — June 10, 2026 11:46 (ddf4192e) [Internal]
+- **Portfolio battle snapshot** — June 10, 2026 11:31 (3b82a1fc) [Internal]
+- **Portfolio battle snapshot** — June 10, 2026 11:16 (212a0478) [Internal]
+- **Portfolio battle snapshot** — June 10, 2026 11:04 (1bf6cf1f) [Internal]
+- **Portfolio battle snapshot** — June 10, 2026 10:46 (7f649633) [Internal]
+- **Portfolio battle snapshot** — June 10, 2026 10:31 (7cd04756) [Internal]
+- **Portfolio battle snapshot** — June 10, 2026 09:59 (1748c3b0) [Internal]
+- **Fix robots.txt sitemap URL** — point to API Gateway (was CloudFront SPA) (036a7424) [FUXI]
+- **Fix: DB-driven pipeline** — financial_fetcher→DB, industry_scorer reads DB, frontend reads score_breakdown (3cbe2b41) [PANGU]
+- **Fix: pbRatio optional** in sync_from_db + type errors (224ea2c7, 0a4799ed) [PANGU]
+- **Fix: remove ai_report IS NOT NULL filter** — breaks stocks without AI report (fe7acde6) [PANGU]
 - **SEO integration — react-helmet-async + dynamic sitemap Lambda** — per-page meta tags via react-helmet-async, dynamic sitemap generation Lambda endpoint serving all stock pages (6638fd82) [FUXI]
 - **Remove static sitemap.xml** — was overriding dynamic Lambda (only 5 URLs, missing 50+ stock pages) (f57fff4d) [FUXI]
 - **Update robots.txt sitemap URL** — point to dynamic Lambda endpoint (b5e7888f)
