@@ -221,6 +221,29 @@ inserted = 0
 updated = 0
 
 for r in results:
+    # Build rationale from score breakdown
+    rationale = {
+        "sections": {
+            "Score Analysis": [
+                f"{'🟢' if r['composite'] >= 70 else '🟡' if r['composite'] >= 50 else '🔴'} Composite Score: {r['composite']}/100",
+                f"Industry: {r['industry']}",
+                *[f"{'✅' if b['raw'] >= 70 else '⚠️' if b['raw'] >= 40 else '❌'} {fn.replace('_', ' ').title()}: {b['raw']:.0f}/100 (weight: {b['weighted']:.0f}%)" 
+                  for fn, b in r['breakdown'].items() if b['value'] is not None],
+                f"Macro Adjustment: {r['macro_adjustment']:+.1f}",
+            ],
+            "Action Triggers": [
+                {"text": f"Score {r['composite']:.0f}/100 — {'Promote to active' if r['composite'] >= 70 else 'Revisit later'}", "active": r['composite'] >= 70},
+                {"text": "Generate AI deep analysis report (decision_rationale populated)", "active": True},
+                {"text": "Run Kronos 30-day forecast for price target", "active": True},
+            ],
+        },
+        "sources": {
+            "Score Analysis": "Industry matrix + quarterly financials (yfinance via DB)",
+            "Action Triggers": "Persona trading rules (persona_config.rules)",
+        },
+    }
+    rationale_json = json.dumps(rationale)
+
     # Update stocks table
     cur.execute("""
         UPDATE stocks SET
@@ -230,16 +253,17 @@ for r in results:
         WHERE id = %s
     """, (r["composite"], json.dumps(r["subs"]), r["code"]))
 
-    # Update stock_analyses (all 3 personas)
+    # Update stock_analyses (all 3 personas) — now includes decision_rationale
     for pid in PERSONAS:
         cur.execute("""
-            INSERT INTO stock_analyses (stock_id, persona, score_composite, score_breakdown, generated_at)
-            VALUES (%s, %s, %s, %s, NOW())
+            INSERT INTO stock_analyses (stock_id, persona, score_composite, score_breakdown, decision_rationale, generated_at)
+            VALUES (%s, %s, %s, %s, %s, NOW())
             ON CONFLICT (stock_id, persona) DO UPDATE
             SET score_composite = EXCLUDED.score_composite,
                 score_breakdown = EXCLUDED.score_breakdown,
+                decision_rationale = EXCLUDED.decision_rationale,
                 generated_at = NOW()
-        """, (r["code"], pid, r["composite"], json.dumps(r["breakdown"])))
+        """, (r["code"], pid, r["composite"], json.dumps(r["breakdown"]), rationale_json))
         if cur.rowcount == 1:
             inserted += 1
         else:
