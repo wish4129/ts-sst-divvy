@@ -4,7 +4,7 @@ import { Search, FolderOpen, ArrowRight, Download } from 'lucide-react'
 import { seo } from '../lib/seo'
 import { useNavigate } from 'react-router-dom'
 import ScoreBadge from '../components/ScoreBadge'
-import { INDUSTRY_COLORS } from '../data/stocks'
+import { INDUSTRY_COLORS, TICKER_TO_SHORT } from '../data/stocks'
 import { useApi } from '../hooks/useApi'
 import { downloadCsv, type CsvRow } from '../lib/export-csv'
 import type { Stock } from '../data/stocks'
@@ -25,25 +25,6 @@ interface WatchlistStock {
 }
 
 type Tab = 'active' | 'revisit' | 'removed'
-
-const TICKER_MAP: Record<string, string> = {
-  'MAYBANK': '1155.KL', 'YTLPOWR': '6742.KL', 'AXREIT': '5106.KL',
-  'INSAS': '3379.KL', 'LIIHEN': '7089.KL', 'SCIENTEX': '4731.KL',
-  'GENETEC': '0104.KL', 'KLK': '2445.KL', 'INARI': '0166.KL',
-  'SIME': '4197.KL', 'MAGNI': '7087.KL', 'MBMR': '5983.KL',
-  'AME': '5293.KL', 'DELEUM': '5132.KL', 'WASCO': '5142.KL',
-  'KIPREIT': '5280.KL', 'INTA': 'INTA.KL',
-  'RHB': '1066.KL', 'PADINI': '7052.KL',
-  'GAMUDA': '5398.KL', 'MATRIX': '5236.KL',
-  'PBBANK': '1295.KL', 'TIME': '5031.KL', 'SCICOM': '0099.KL',
-  'SEM': '5250.KL', 'HEINEKEN': '3255.KL',
-}
-
-// Reverse: ticker → short code
-const TICKER_TO_SHORT: Record<string, string> = {}
-for (const [short, ticker] of Object.entries(TICKER_MAP)) {
-  TICKER_TO_SHORT[ticker] = short
-}
 
 function apiStockToStock(s: WatchlistStock): Stock {
   const shortCode = TICKER_TO_SHORT[s.code] || s.code

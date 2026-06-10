@@ -4,6 +4,7 @@ import { seo } from '../lib/seo'
 import StockCard from '../components/StockCard'
 import IndustryFilter from '../components/IndustryFilter'
 import { useApi } from '../hooks/useApi'
+import { TICKER_TO_SHORT } from '../data/stocks'
 import type { Stock } from '../data/stocks'
 
 interface WatchlistStock {
@@ -14,20 +15,6 @@ interface WatchlistStock {
   status: 'active' | 'revisit' | 'removed'
   compositeScore: number
   hasAiReport: boolean
-}
-
-// Ticker → short code map for display (same as Watchlist)
-const TICKER_TO_SHORT: Record<string, string> = {
-  '1155.KL': 'MAYBANK', '6742.KL': 'YTLPOWR', '5106.KL': 'AXREIT',
-  '3379.KL': 'INSAS', '7089.KL': 'LIIHEN', '4731.KL': 'SCIENTEX',
-  '0104.KL': 'GENETEC', '2445.KL': 'KLK', '0166.KL': 'INARI',
-  '4197.KL': 'SIME', '7087.KL': 'MAGNI', '5983.KL': 'MBMR',
-  '5293.KL': 'AME', '5132.KL': 'DELEUM', '5142.KL': 'WASCO',
-  '5280.KL': 'KIPREIT', 'INTA.KL': 'INTA',
-  '1066.KL': 'RHB', '7052.KL': 'PADINI',
-  '5398.KL': 'GAMUDA', '5236.KL': 'MATRIX',
-  '1295.KL': 'PBBANK', '5031.KL': 'TIME', '0099.KL': 'SCICOM',
-  '5250.KL': 'SEM',
 }
 
 function apiStockToStock(s: WatchlistStock): Stock & { _ticker: string; _shortCode: string } {

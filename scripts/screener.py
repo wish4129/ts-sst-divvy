@@ -19,23 +19,7 @@ from pathlib import Path
 # Add scripts dir to path for db import
 sys.path.insert(0, str(Path(__file__).parent))
 from db import get_db
-
-# ── Ticker map (shared with persona_db.py) ──
-SHORT_TO_TICKER = {
-    'MAYBANK': '1155.KL', 'AXREIT': '5106.KL', 'YTLPOWR': '6742.KL',
-    'INSAS': '3379.KL', 'LIIHEN': '7089.KL', 'SCIENTEX': '4731.KL',
-    'GENETEC': '0104.KL', 'KLK': '2445.KL', 'INARI': '0166.KL',
-    'SIME': '4197.KL', 'MAGNI': '7087.KL', 'MBMR': '5983.KL',
-    'AME': '5293.KL', 'DELEUM': '5132.KL', 'WASCO': '5142.KL',
-    'KIPREIT': '5280.KL', 'INTA': 'INTA.KL',
-    'RHB': '1066.KL', 'PADINI': '7052.KL',
-    'GAMUDA': '5398.KL', 'MATRIX': '5236.KL',
-    'PBBANK': '1295.KL', 'TIME': '5031.KL', 'SCICOM': '0099.KL',
-    'SEM': '5250.KL', 'HEINEKEN': '3255.KL',
-}
-
-TICKER_TO_SHORT = {v: k for k, v in SHORT_TO_TICKER.items()}
-
+from persona_db import SHORT_TO_TICKER, TICKER_TO_SHORT
 
 def resolve_ticker(code: str) -> str:
     """Convert short code to ticker (e.g., MAGNI → 7087.KL)."""

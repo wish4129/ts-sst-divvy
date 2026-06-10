@@ -13,21 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 from db import get_db
-
-TICKER_TO_SHORT = {
-    '1155.KL': 'MAYBANK', '5106.KL': 'AXREIT', '6742.KL': 'YTLPOWR',
-    '3379.KL': 'INSAS', '7089.KL': 'LIIHEN', '4731.KL': 'SCIENTEX',
-    '0104.KL': 'GENETEC', '2445.KL': 'KLK', '0166.KL': 'INARI',
-    '4197.KL': 'SIME', '7087.KL': 'MAGNI', '5983.KL': 'MBMR',
-    '5293.KL': 'AME', '5132.KL': 'DELEUM', '5142.KL': 'WASCO',
-    '5280.KL': 'KIPREIT', 'INTA.KL': 'INTA',
-    '1066.KL': 'RHB', '7052.KL': 'PADINI',
-    '5398.KL': 'GAMUDA', '5236.KL': 'MATRIX',
-    '1295.KL': 'PBBANK', '5031.KL': 'TIME', '0099.KL': 'SCICOM',
-    '5250.KL': 'SEM', '3255.KL': 'HEINEKEN',
-}
-
-SHORT_TO_TICKER = {v: k for k, v in TICKER_TO_SHORT.items()}
+from persona_db import TICKER_TO_SHORT, SHORT_TO_TICKER
 
 def main():
     sync = False

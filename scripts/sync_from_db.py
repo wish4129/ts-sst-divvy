@@ -11,23 +11,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 from db import get_db
+from persona_db import TICKER_TO_SHORT, SHORT_TO_TICKER
 
 MYT = timezone(timedelta(hours=8))
 NOW = datetime.now(MYT).strftime("%Y-%m-%d")
-
-# Ticker → short code reverse map
-TICKER_TO_SHORT = {
-    '1155.KL': 'MAYBANK', '5106.KL': 'AXREIT', '6742.KL': 'YTLPOWR',
-    '3379.KL': 'INSAS', '7089.KL': 'LIIHEN', '4731.KL': 'SCIENTEX',
-    '0104.KL': 'GENETEC', '2445.KL': 'KLK', '0166.KL': 'INARI',
-    '4197.KL': 'SIME', '7087.KL': 'MAGNI', '5983.KL': 'MBMR',
-    '5293.KL': 'AME', '5132.KL': 'DELEUM', '5142.KL': 'WASCO',
-    '5280.KL': 'KIPREIT', 'INTA.KL': 'INTA',
-    '1066.KL': 'RHB', '7052.KL': 'PADINI',
-    '5398.KL': 'GAMUDA', '5236.KL': 'MATRIX',
-    '1295.KL': 'PBBANK', '5031.KL': 'TIME', '0099.KL': 'SCICOM',
-    '5250.KL': 'SEM', '3255.KL': 'HEINEKEN',
-}
 
 # ── Fetch from DB ──
 
@@ -46,12 +33,14 @@ cur.execute("""
 """)
 
 stocks = []
+_ticker_short_map = {}  # ticker → short_code for TS exports
 for row in cur.fetchall():
     (ticker, name, industry, status, composite, score_subs_raw,
      price, price_change, dy, mcap, sparkline_raw, notes,
      kronos_warning, revisit_at, fin_json, div_json) = row
     
     short_code = TICKER_TO_SHORT.get(ticker, ticker.replace('.KL', ''))
+    _ticker_short_map[ticker] = short_code
     
     scores = json.loads(score_subs_raw) if isinstance(score_subs_raw, str) else (score_subs_raw or {})
     financials = json.loads(fin_json) if isinstance(fin_json, str) else (fin_json or [])
@@ -161,8 +150,23 @@ for i, s in enumerate(stocks):
     lines.append(f"    sparkline: {spark_str},")
     lines.append(f"  }}{comma}")
 
+# Build SHORT_TO_TICKER TS lines
 lines.append("""
 ]
+
+// Auto-generated ticker maps from DB sync
+export const SHORT_TO_TICKER: Record<string, string> = {
+""")
+ticker_items = sorted(SHORT_TO_TICKER.items())
+for i, (short_code, t) in enumerate(ticker_items):
+    comma = ',' if i < len(ticker_items) - 1 else ''
+    lines.append(f"  '{short_code}': '{t}'{comma}")
+lines.append("""}
+
+export const TICKER_TO_SHORT: Record<string, string> = {}
+for (const [short, ticker] of Object.entries(SHORT_TO_TICKER)) {
+  TICKER_TO_SHORT[ticker] = short
+}
 
 export const INDUSTRY_COLORS: Record<string, string> = {
   Banking: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
@@ -193,59 +197,4 @@ ts_path = ROOT / 'web' / 'src' / 'data' / 'stocks.ts'
 ts_path.write_text(ts_output)
 print(f"  Wrote {ts_path} ({len(ts_output)} bytes)")
 
-# ── Generate portfolios.json from DB ──
-
-from persona_db import get_persona_configs, get_persona_holdings
-
-pf_path = ROOT / 'scripts' / 'portfolios.json'
-
-pf_stocks = {}
-for s in stocks:
-    ticker = next((k for k, v in TICKER_TO_SHORT.items() if v == s['code']), s['code'] + '.KL')
-    entry = {
-        'code': ticker,
-        'name': s['name'],
-        'industry': s['industry'],
-        'initial': s['lastPrice'],
-    }
-    # Preserve kronos fields if they existed
-    pf_stocks[s['code']] = entry
-
-# Load persona data from DB
-personas = get_persona_configs()
-pf_personas = {}
-for pid, config in personas.items():
-    holdings = get_persona_holdings(pid)
-    pf_personas[pid] = {
-        'name': config.get('name', pid),
-        'god': config.get('god', ''),
-        'style': config.get('style', ''),
-        'strategy': config.get('strategy', ''),
-        'holdings': holdings,
-        'rules': config.get('rules', {}),
-        'initial_capital': config.get('initial_capital', 10000),
-        'cash': config.get('cash', 10000),
-    }
-
-pf = {
-    'stocks': pf_stocks,
-    'personas': pf_personas,
-    'initialized': NOW,
-    'initial_capital': 10000,
-    'last_rebalance': NOW,
-}
-pf_path.write_text(json.dumps(pf, indent=2) + '\n')
-print(f"  Wrote {pf_path} ({len(pf_stocks)} stocks, {len(pf_personas)} personas)")
-
-# ── Update kronos_forecast.json stock list ──
-kf_path = ROOT / 'data' / 'kronos_forecast.json'
-if kf_path.exists():
-    kf = json.loads(kf_path.read_text())
-    db_codes = set(s['code'] for s in stocks)
-    for k in list(kf.keys()):
-        if k not in db_codes:
-            del kf[k]
-    kf_path.write_text(json.dumps(kf, indent=2) + '\n')
-    print(f"  Synced kronos_forecast.json ({len(kf)} forecasts)")
-
-print(f"\nSync complete — {len(stocks)} stocks in DB → stocks.ts + portfolios.json")
+print(f"\nSync complete — {len(stocks)} stocks in DB → stocks.ts")
