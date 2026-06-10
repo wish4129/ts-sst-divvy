@@ -15,18 +15,23 @@ interface WatchlistStock {
   status: 'active' | 'revisit' | 'removed'
   compositeScore: number
   hasAiReport: boolean
+  peRatio: number | null
+  dividendYield: number | null
+  roe: number | null
+  debtToEquity: number | null
+  marketCap: number | null
 }
 
 function apiStockToStock(s: WatchlistStock): Stock & { _ticker: string; _shortCode: string } {
   const shortCode = TICKER_TO_SHORT[s.code] || s.code
   return {
-    code: s.code,  // ticker code for API/navigation (e.g., 1155.KL)
+    code: s.code,
     name: s.name,
     industry: s.industry,
-    marketCap: 0,
+    marketCap: s.marketCap || 0,
     lastPrice: s.lastPrice,
     priceChange: 0,
-    dividendYield: 0,
+    dividendYield: s.dividendYield || 0,
     score: { composite: s.compositeScore, dividend: 0, growth: 0, quality: 0, risk: 0 },
     financials: [],
     dividends: [],
