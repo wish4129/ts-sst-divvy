@@ -1,72 +1,541 @@
 {
-  "Pintaras Jaya Berhad": {
-    "ticker": "9598.KL",
-    "last_close": 1.32,
-    "pred_30d_close": 1.402,
-    "pred_change_pct": 6.21,
-    "pred_low": 1.3177,
-    "pred_high": 1.4211,
-    "pred_volatility": 1.95,
-    "time_s": 0.7
+  "0083": {
+    "pred_change_pct": 9.53,
+    "pred_30d_close": 0.46,
+    "pred_low": 0.4085,
+    "pred_high": 0.4906,
+    "pred_volatility": 6.02
   },
-  "INTA Berhad": {
-    "ticker": "INTA.KL",
-    "last_close": 0.4,
-    "pred_30d_close": 0.3998,
-    "pred_change_pct": -0.04,
-    "pred_low": 0.3833,
-    "pred_high": 0.4063,
-    "pred_volatility": 1.56,
-    "time_s": 0.7
+  "0091": {
+    "pred_change_pct": 11.27,
+    "pred_30d_close": 0.0723,
+    "pred_low": 0.0619,
+    "pred_high": 0.0733,
+    "pred_volatility": 3.52
   },
-  "LPI Capital Bhd": {
-    "ticker": "8621.KL",
-    "last_close": 15.1,
-    "pred_30d_close": 14.4198,
-    "pred_change_pct": -4.5,
-    "pred_low": 14.3406,
-    "pred_high": 15.1007,
-    "pred_volatility": 1.24,
-    "time_s": 0.7
+  "0099": {
+    "pred_change_pct": -16.45,
+    "pred_30d_close": 1.4036,
+    "pred_low": 1.3967,
+    "pred_high": 1.6799,
+    "pred_volatility": 5.65
   },
-  "Texchem Resources Bhd": {
-    "ticker": "8702.KL",
-    "last_close": 0.775,
-    "pred_30d_close": 0.7893,
-    "pred_change_pct": 1.84,
-    "pred_low": 0.764,
-    "pred_high": 0.8054,
-    "pred_volatility": 1.29,
-    "time_s": 0.7
+  "0104": {
+    "pred_change_pct": -17.21,
+    "pred_30d_close": 0.2608,
+    "pred_low": 0.2531,
+    "pred_high": 0.3038,
+    "pred_volatility": 4.59
   },
-  "Sycal Ventures Berhad": {
-    "ticker": "9717.KL",
-    "last_close": 0.17,
-    "pred_30d_close": 0.1697,
-    "pred_change_pct": -0.17,
-    "pred_low": 0.1602,
-    "pred_high": 0.1707,
-    "pred_volatility": 1.41,
-    "time_s": 0.7
+  "0128": {
+    "pred_change_pct": -6.74,
+    "pred_30d_close": 4.4483,
+    "pred_low": 4.3376,
+    "pred_high": 4.7905,
+    "pred_volatility": 2.18
   },
-  "Mah Sing Group Berhad": {
-    "ticker": "8583.KL",
-    "last_close": 0.955,
-    "pred_30d_close": 1.0368,
+  "0166": {
+    "pred_change_pct": -23.2,
+    "pred_30d_close": 1.7433,
+    "pred_low": 1.7267,
+    "pred_high": 2.2522,
+    "pred_volatility": 5.83
+  },
+  "1015": {
+    "pred_change_pct": 0.28,
+    "pred_30d_close": 6.4981,
+    "pred_low": 6.4233,
+    "pred_high": 6.5913,
+    "pred_volatility": 0.59
+  },
+  "1023": {
+    "pred_change_pct": 0.37,
+    "pred_30d_close": 7.3971,
+    "pred_low": 6.9715,
+    "pred_high": 7.5398,
+    "pred_volatility": 2.47
+  },
+  "1066": {
+    "pred_change_pct": -1.93,
+    "pred_30d_close": 8.2285,
+    "pred_low": 8.1706,
+    "pred_high": 8.373,
+    "pred_volatility": 0.67
+  },
+  "1155": {
+    "pred_change_pct": -6.09,
+    "pred_30d_close": 9.9733,
+    "pred_low": 9.9733,
+    "pred_high": 10.6786,
+    "pred_volatility": 2.1
+  },
+  "1295": {
+    "pred_change_pct": -0.69,
+    "pred_30d_close": 4.7369,
+    "pred_low": 4.6969,
+    "pred_high": 4.833,
+    "pred_volatility": 0.7
+  },
+  "1589": {
+    "pred_change_pct": 10.44,
+    "pred_30d_close": 0.2485,
+    "pred_low": 0.2186,
+    "pred_high": 0.2485,
+    "pred_volatility": 4.34
+  },
+  "2291": {
+    "pred_change_pct": -0.29,
+    "pred_30d_close": 5.1449,
+    "pred_low": 5.0042,
+    "pred_high": 5.2226,
+    "pred_volatility": 1.19
+  },
+  "2445": {
+    "pred_change_pct": -0.3,
+    "pred_30d_close": 20.06,
+    "pred_low": 20.0432,
+    "pred_high": 21.2086,
+    "pred_volatility": 1.83
+  },
+  "2488": {
+    "pred_change_pct": -1.75,
+    "pred_30d_close": 4.5784,
+    "pred_low": 4.408,
+    "pred_high": 4.7581,
+    "pred_volatility": 2.56
+  },
+  "2658": {
+    "pred_change_pct": -18.65,
+    "pred_30d_close": 12.5928,
+    "pred_low": 12.5551,
+    "pred_high": 14.916,
+    "pred_volatility": 4.99
+  },
+  "2836": {
+    "pred_change_pct": 4.53,
+    "pred_30d_close": 16.9544,
+    "pred_low": 15.9546,
+    "pred_high": 17.0914,
+    "pred_volatility": 2.3
+  },
+  "3255": {
+    "pred_change_pct": 16.46,
+    "pred_30d_close": 22.1733,
+    "pred_low": 18.7453,
+    "pred_high": 22.2382,
+    "pred_volatility": 5.84
+  },
+  "3379": {
+    "pred_change_pct": 1.24,
+    "pred_30d_close": 0.8858,
+    "pred_low": 0.8646,
+    "pred_high": 0.8911,
+    "pred_volatility": 0.8
+  },
+  "3476": {
+    "pred_change_pct": -2.08,
+    "pred_30d_close": 5.1895,
+    "pred_low": 5.184,
+    "pred_high": 5.2855,
+    "pred_volatility": 0.47
+  },
+  "3948": {
+    "pred_change_pct": -3.29,
+    "pred_30d_close": 0.2901,
+    "pred_low": 0.2892,
+    "pred_high": 0.3054,
+    "pred_volatility": 1.61
+  },
+  "4197": {
+    "pred_change_pct": 4.48,
+    "pred_30d_close": 2.1418,
+    "pred_low": 2.059,
+    "pred_high": 2.1418,
+    "pred_volatility": 0.93
+  },
+  "4383": {
+    "pred_change_pct": -1.3,
+    "pred_30d_close": 1.0265,
+    "pred_low": 1.0265,
+    "pred_high": 1.0767,
+    "pred_volatility": 1.16
+  },
+  "4731": {
+    "pred_change_pct": -5.6,
+    "pred_30d_close": 3.351,
+    "pred_low": 3.351,
+    "pred_high": 3.6074,
+    "pred_volatility": 2.05
+  },
+  "5010": {
+    "pred_change_pct": -23.75,
+    "pred_30d_close": 1.2352,
+    "pred_low": 1.2211,
+    "pred_high": 1.5856,
+    "pred_volatility": 5.78
+  },
+  "5031": {
+    "pred_change_pct": -2.33,
+    "pred_30d_close": 5.8995,
+    "pred_low": 5.7195,
+    "pred_high": 6.1212,
+    "pred_volatility": 1.8
+  },
+  "5040": {
+    "pred_change_pct": 70.74,
+    "pred_30d_close": 0.0171,
+    "pred_low": 0.0113,
+    "pred_high": 0.0262,
+    "pred_volatility": 37.88
+  },
+  "5062": {
+    "pred_change_pct": 1.12,
+    "pred_30d_close": 0.1921,
+    "pred_low": 0.1846,
+    "pred_high": 0.1963,
+    "pred_volatility": 1.92
+  },
+  "5106": {
+    "pred_change_pct": 6.38,
+    "pred_30d_close": 2.0318,
+    "pred_low": 1.9187,
+    "pred_high": 2.041,
+    "pred_volatility": 1.75
+  },
+  "5108": {
+    "pred_change_pct": 3.02,
+    "pred_30d_close": 2.6271,
+    "pred_low": 2.5556,
+    "pred_high": 2.6601,
+    "pred_volatility": 0.98
+  },
+  "5115": {
+    "pred_change_pct": -11.45,
+    "pred_30d_close": 0.2656,
+    "pred_low": 0.2605,
+    "pred_high": 0.3087,
+    "pred_volatility": 5.36
+  },
+  "5126": {
+    "pred_change_pct": -9.52,
+    "pred_30d_close": 4.2075,
+    "pred_low": 4.1101,
+    "pred_high": 4.6444,
+    "pred_volatility": 2.98
+  },
+  "5132": {
+    "pred_change_pct": 11.65,
+    "pred_30d_close": 1.2504,
+    "pred_low": 1.1289,
+    "pred_high": 1.2754,
+    "pred_volatility": 4.24
+  },
+  "5135": {
+    "pred_change_pct": -8.32,
+    "pred_30d_close": 3.502,
+    "pred_low": 3.3422,
+    "pred_high": 3.7949,
+    "pred_volatility": 3.29
+  },
+  "5139": {
+    "pred_change_pct": -0.31,
+    "pred_30d_close": 5.8417,
+    "pred_low": 5.6921,
+    "pred_high": 5.9136,
+    "pred_volatility": 0.87
+  },
+  "5142": {
+    "pred_change_pct": 33.84,
+    "pred_30d_close": 1.044,
+    "pred_low": 0.7808,
+    "pred_high": 1.044,
+    "pred_volatility": 10.22
+  },
+  "5176": {
+    "pred_change_pct": -3.78,
+    "pred_30d_close": 2.136,
+    "pred_low": 2.136,
+    "pred_high": 2.2777,
+    "pred_volatility": 1.51
+  },
+  "5180": {
+    "pred_change_pct": 1.22,
+    "pred_30d_close": 0.6124,
+    "pred_low": 0.6055,
+    "pred_high": 0.6203,
+    "pred_volatility": 0.64
+  },
+  "5186": {
+    "pred_change_pct": 6.09,
+    "pred_30d_close": 0.3766,
+    "pred_low": 0.3402,
+    "pred_high": 0.3847,
+    "pred_volatility": 3.79
+  },
+  "5209": {
+    "pred_change_pct": -6.51,
+    "pred_30d_close": 4.9831,
+    "pred_low": 4.8336,
+    "pred_high": 5.2594,
+    "pred_volatility": 2.25
+  },
+  "5211": {
+    "pred_change_pct": 5.58,
+    "pred_30d_close": 5.416,
+    "pred_low": 5.0348,
+    "pred_high": 5.4723,
+    "pred_volatility": 2.01
+  },
+  "5212": {
+    "pred_change_pct": -0.09,
+    "pred_30d_close": 1.7185,
+    "pred_low": 1.716,
+    "pred_high": 1.7784,
+    "pred_volatility": 1.08
+  },
+  "5236": {
+    "pred_change_pct": 14.09,
+    "pred_30d_close": 1.3918,
+    "pred_low": 1.2547,
+    "pred_high": 1.4134,
+    "pred_volatility": 4.37
+  },
+  "5239": {
+    "pred_change_pct": 2.82,
+    "pred_30d_close": 0.2159,
+    "pred_low": 0.2084,
+    "pred_high": 0.2159,
+    "pred_volatility": 1.1
+  },
+  "5242": {
+    "pred_change_pct": -4.66,
+    "pred_30d_close": 0.1192,
+    "pred_low": 0.1192,
+    "pred_high": 0.1308,
+    "pred_volatility": 1.93
+  },
+  "5250": {
+    "pred_change_pct": -0.15,
+    "pred_30d_close": 1.9769,
+    "pred_low": 1.9718,
+    "pred_high": 1.982,
+    "pred_volatility": 0.12
+  },
+  "5258": {
+    "pred_change_pct": 0.9,
+    "pred_30d_close": 2.2098,
+    "pred_low": 2.1548,
+    "pred_high": 2.2206,
+    "pred_volatility": 0.85
+  },
+  "5263": {
+    "pred_change_pct": -7.94,
+    "pred_30d_close": 6.3708,
+    "pred_low": 6.1905,
+    "pred_high": 6.7646,
+    "pred_volatility": 1.81
+  },
+  "5280": {
+    "pred_change_pct": -0.26,
+    "pred_30d_close": 0.8428,
+    "pred_low": 0.8392,
+    "pred_high": 0.8499,
+    "pred_volatility": 0.29
+  },
+  "5293": {
+    "pred_change_pct": 3.38,
+    "pred_30d_close": 1.5403,
+    "pred_low": 1.4859,
+    "pred_high": 1.5702,
+    "pred_volatility": 1.61
+  },
+  "5398": {
+    "pred_change_pct": -1.12,
+    "pred_30d_close": 4.2519,
+    "pred_low": 4.0708,
+    "pred_high": 4.3288,
+    "pred_volatility": 1.78
+  },
+  "5401": {
+    "pred_change_pct": 10.98,
+    "pred_30d_close": 1.1653,
+    "pred_low": 1.0743,
+    "pred_high": 1.1875,
+    "pred_volatility": 2.51
+  },
+  "5592": {
+    "pred_change_pct": 16.78,
+    "pred_30d_close": 0.397,
+    "pred_low": 0.3308,
+    "pred_high": 0.397,
+    "pred_volatility": 6.8
+  },
+  "5819": {
+    "pred_change_pct": 0.05,
+    "pred_30d_close": 20.89,
+    "pred_low": 20.7498,
+    "pred_high": 21.4366,
+    "pred_volatility": 0.83
+  },
+  "5983": {
+    "pred_change_pct": -5.4,
+    "pred_30d_close": 4.7961,
+    "pred_low": 4.7961,
+    "pred_high": 5.0806,
+    "pred_volatility": 1.17
+  },
+  "6173": {
+    "pred_change_pct": 21.13,
+    "pred_30d_close": 0.2423,
+    "pred_low": 0.2018,
+    "pred_high": 0.2462,
+    "pred_volatility": 8.41
+  },
+  "6599": {
+    "pred_change_pct": 0.77,
+    "pred_30d_close": 1.0581,
+    "pred_low": 1.0486,
+    "pred_high": 1.0969,
+    "pred_volatility": 1.27
+  },
+  "6742": {
+    "pred_change_pct": -6.91,
+    "pred_30d_close": 3.7609,
+    "pred_low": 3.7609,
+    "pred_high": 4.1251,
+    "pred_volatility": 2.5
+  },
+  "6769": {
+    "pred_change_pct": -1.13,
+    "pred_30d_close": 0.1038,
+    "pred_low": 0.0993,
+    "pred_high": 0.1103,
+    "pred_volatility": 2.35
+  },
+  "7006": {
+    "pred_change_pct": -1.04,
+    "pred_30d_close": 1.0391,
+    "pred_low": 1.0368,
+    "pred_high": 1.0841,
+    "pred_volatility": 1.37
+  },
+  "7052": {
+    "pred_change_pct": 14.45,
+    "pred_30d_close": 1.6938,
+    "pred_low": 1.5421,
+    "pred_high": 1.7389,
+    "pred_volatility": 4.21
+  },
+  "7087": {
+    "pred_change_pct": 5.22,
+    "pred_30d_close": 1.9886,
+    "pred_low": 1.8669,
+    "pred_high": 2.0373,
+    "pred_volatility": 2.45
+  },
+  "7089": {
+    "pred_change_pct": 9.27,
+    "pred_30d_close": 0.3059,
+    "pred_low": 0.283,
+    "pred_high": 0.3209,
+    "pred_volatility": 3.82
+  },
+  "7091": {
+    "pred_change_pct": 1.31,
+    "pred_30d_close": 1.3677,
+    "pred_low": 1.2992,
+    "pred_high": 1.3677,
+    "pred_volatility": 1.0
+  },
+  "7100": {
+    "pred_change_pct": -1.2,
+    "pred_30d_close": 2.7764,
+    "pred_low": 2.6143,
+    "pred_high": 2.8649,
+    "pred_volatility": 2.9
+  },
+  "7226": {
+    "pred_change_pct": 4.46,
+    "pred_30d_close": 0.3865,
+    "pred_low": 0.3713,
+    "pred_high": 0.3883,
+    "pred_volatility": 1.35
+  },
+  "7722": {
+    "pred_change_pct": 2.8,
+    "pred_30d_close": 0.4986,
+    "pred_low": 0.492,
+    "pred_high": 0.5051,
+    "pred_volatility": 0.59
+  },
+  "8044": {
+    "pred_change_pct": 8.13,
+    "pred_30d_close": 0.0757,
+    "pred_low": 0.0692,
+    "pred_high": 0.0757,
+    "pred_volatility": 2.34
+  },
+  "8079": {
+    "pred_change_pct": 38.35,
+    "pred_30d_close": 0.4151,
+    "pred_low": 0.3007,
+    "pred_high": 0.4151,
+    "pred_volatility": 15.46
+  },
+  "8206": {
+    "pred_change_pct": 5.38,
+    "pred_30d_close": 2.1919,
+    "pred_low": 2.1161,
+    "pred_high": 2.1919,
+    "pred_volatility": 0.95
+  },
+  "8583": {
     "pred_change_pct": 8.56,
+    "pred_30d_close": 1.0368,
     "pred_low": 0.9332,
     "pred_high": 1.049,
-    "pred_volatility": 3.63,
-    "time_s": 0.7
+    "pred_volatility": 3.63
   },
-  "S & F Capital Berhad": {
-    "ticker": "8745.KL",
-    "last_close": 0.06,
-    "pred_30d_close": 0.0624,
+  "8621": {
+    "pred_change_pct": -4.5,
+    "pred_30d_close": 14.4198,
+    "pred_low": 14.3406,
+    "pred_high": 15.1007,
+    "pred_volatility": 1.24
+  },
+  "8702": {
+    "pred_change_pct": 1.84,
+    "pred_30d_close": 0.7893,
+    "pred_low": 0.764,
+    "pred_high": 0.8054,
+    "pred_volatility": 1.29
+  },
+  "8745": {
     "pred_change_pct": 3.96,
+    "pred_30d_close": 0.0624,
     "pred_low": 0.0595,
     "pred_high": 0.063,
-    "pred_volatility": 1.72,
-    "time_s": 0.7
+    "pred_volatility": 1.72
+  },
+  "9598": {
+    "pred_change_pct": 6.21,
+    "pred_30d_close": 1.402,
+    "pred_low": 1.3177,
+    "pred_high": 1.4211,
+    "pred_volatility": 1.95
+  },
+  "9717": {
+    "pred_change_pct": -0.17,
+    "pred_30d_close": 0.1697,
+    "pred_low": 0.1602,
+    "pred_high": 0.1707,
+    "pred_volatility": 1.41
+  },
+  "INTA": {
+    "pred_change_pct": -0.04,
+    "pred_30d_close": 0.3998,
+    "pred_low": 0.3833,
+    "pred_high": 0.4063,
+    "pred_volatility": 1.56
   }
 }

@@ -1,5 +1,10 @@
 {
   "ares": {
-    "MAYBANK": 11.2
+    "MAYBANK": 11.2,
+    "SIME": 2.05,
+    "YTLPOWR": 4.02,
+    "INSAS": 0.87,
+    "WASCO": 0.78,
+    "DELEUM": 1.12
   }
 }
