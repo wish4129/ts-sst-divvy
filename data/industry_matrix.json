@@ -10,13 +10,10 @@
   "industries": {
     "Banking": {
       "factors": [
-        {"name": "nim", "label": "Net Interest Margin", "weight": 20, "higher_better": true, "source": "quarterly"},
-        {"name": "loan_growth_yoy", "label": "Loan Growth YoY", "weight": 18, "higher_better": true, "source": "quarterly"},
-        {"name": "casa_ratio", "label": "CASA Ratio", "weight": 15, "higher_better": true, "source": "quarterly"},
-        {"name": "npl_ratio", "label": "NPL Ratio", "weight": 15, "higher_better": false, "source": "quarterly"},
-        {"name": "car", "label": "Capital Adequacy Ratio", "weight": 12, "higher_better": true, "source": "quarterly"},
-        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 12, "higher_better": true, "source": "market"},
-        {"name": "cost_income", "label": "Cost-to-Income Ratio", "weight": 8, "higher_better": false, "source": "quarterly"}
+        {"name": "dividend_yield", "label": "Dividend Yield", "weight": 40, "higher_better": true, "source": "market"},
+        {"name": "revenue_growth_yoy", "label": "Revenue Growth YoY", "weight": 30, "higher_better": true, "source": "quarterly"},
+        {"name": "roe", "label": "Return on Equity", "weight": 20, "higher_better": true, "source": "quarterly"},
+        {"name": "de_ratio", "label": "Debt-to-Equity", "weight": 10, "higher_better": false, "source": "quarterly"}
       ],
       "macro_sensitivity": {
         "brent_crude": 0.0,
