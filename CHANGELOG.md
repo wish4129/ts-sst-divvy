@@ -15,8 +15,9 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 - **Root-level npm test scripts** — add for vitest CWD sensitivity fix (8eb8de89) [PANGU] [Internal]
 - **Untrack tsconfig.tsbuildinfo** — add to .gitignore (44c4e527) [PANGU] [Internal]
 - **Sync generated data files** — HEINEKEN added, stock data updates (d08e7d37) [Internal]
-- **Sync generated data files** — date rollover to June 10 (e63df2f6) [Internal]
+- **Sync generated data files from DB** — date rollover to June 10 (e63df2f6) [Internal]
 - **Add untracked scripts** — scrape_prices tests + targeted Kronos runner (4a721981) [Internal]
+- **gen_missing_ai_reports.py** — universe stock AI report backfill script for non-portfolio scored stocks (5b6f64bb) [PANGU]
 
 ### 2026-06-09
 - **pytest for run_deep_analysis.py** — 26 tests across parse_markdown_report, get_stocks_from_db, generate_ai_report, PERSONAS/SECTION_MAP validation (0c3fb073) [PANGU]
