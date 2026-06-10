@@ -42,7 +42,7 @@ interface AllPersonasResponse {
   generated_at: string | null
 }
 
-// ── Default source labels ──
+interface TriggerItem { text: string; active: boolean; source_url?: string }
 const DEFAULT_SOURCES: Record<string, string> = {
   'Strategic Fit': 'Portfolio strategy rules + Kronos forecast',
   'Score Analysis': 'Industry matrix + quarterly financials (yfinance)',
@@ -138,7 +138,7 @@ function RenderLine({ line }: { line: string }) {
   )
 }
 
-function AnalysisSections({ analysis }: { analysis: PersonaAnalysis }) {
+function AnalysisSections({ analysis }: { analysis: PersonaDetail }) {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
   
   // Parse — may be JSON string from DB
