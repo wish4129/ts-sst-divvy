@@ -7,6 +7,8 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 ## [Unreleased]
 
 ### 2026-06-10
+- **PANGU: test_industry_scorer** — update macro_adjustment calls to single-arg signature (3e07acb3) [PANGU]
+- **CANGJIE: battle data + CHANGELOG update** — refreshed live_prices, portfolio_history for June 10 (288a5c0f) [Internal]
 - **PANGU: test_sync_from_db.py** — 38 assertions covering null handling, TS output, ticker maps, edge cases (fef990d0) [PANGU]
 - **Rebalance: pillar weights** — quality 35, dividend 25, growth 25, risk 15 (0925356f)
 - **Refactor: uniform 4-pillar scoring** — for all industries, defer industry-specific factors (131f1fea)
