@@ -101,7 +101,7 @@ export interface StockFinancials {
   netIncome: number
   freeCashFlow: number
   peRatio: number
-  pbRatio: number
+  pbRatio?: number
   roe: number
   debtToEquity: number
   revenueGrowthYoY: number
