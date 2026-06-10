@@ -116,6 +116,13 @@ def extract_quarterly(ticker_code):
         if roe_val and roe_val < 1:
             roe_val = roe_val * 100
         de_val = safe_float(ti.get("debtToEquity"), 0)
+        # yfinance returns D/E as percentage for MY stocks (e.g., 92.7 = 92.7%).
+        # Convert to ratio. If missing (banks, etc.), fall back to quarterly BS.
+        if de_val and de_val > 0:
+            de_val = round(de_val / 100, 3)
+        else:
+            # Fallback: compute from latest quarter's balance sheet
+            de_val = quarters[0]["debtToEquity"] if quarters and quarters[0].get("debtToEquity") else 0
 
         # Fill PE into latest quarter
         if quarters and pe:
@@ -128,7 +135,7 @@ def extract_quarterly(ticker_code):
         "roe": round(roe_val, 1) if roe_val else None,
         "dy": round(dy, 2) if dy else None,
         "mcap": round(mcap / 1_000_000, 2) if mcap else None,
-        "de": round(de_val, 1) if de_val else None,
+        "de": round(de_val, 3) if de_val else None,
         "price": round(price, 2) if price else None,
     }
 
