@@ -60,17 +60,17 @@
       "industry": "Farm Products",
       "initial": 1.0499999523162842
     },
-    "1015": {
-      "code": "1015.KL",
-      "name": "AMMB Holdings Berhad",
-      "industry": "Banks - Regional",
-      "initial": 6.449999809265137
-    },
     "1023": {
       "code": "1023.KL",
       "name": "CIMB Group Holdings Berhad",
       "industry": "Banks - Regional",
       "initial": 7.389999866485596
+    },
+    "1015": {
+      "code": "1015.KL",
+      "name": "AMMB Holdings Berhad",
+      "industry": "Banks - Regional",
+      "initial": 6.449999809265137
     },
     "5135": {
       "code": "5135.KL",
@@ -102,11 +102,11 @@
       "industry": "Credit Services",
       "initial": 5.860000133514404
     },
-    "9598": {
-      "code": "9598.KL",
-      "name": "Pintaras Jaya Berhad",
-      "industry": "Engineering & Construction",
-      "initial": 1.2999999523162842
+    "8079": {
+      "code": "8079.KL",
+      "name": "Lee Swee Kiat Group Berhad",
+      "industry": "Furnishings, Fixtures & Appliances",
+      "initial": 0.3100000023841858
     },
     "8583": {
       "code": "8583.KL",
@@ -114,11 +114,11 @@
       "industry": "Real Estate - Development",
       "initial": 0.9549999833106995
     },
-    "8079": {
-      "code": "8079.KL",
-      "name": "Lee Swee Kiat Group Berhad",
-      "industry": "Furnishings, Fixtures & Appliances",
-      "initial": 0.3100000023841858
+    "9598": {
+      "code": "9598.KL",
+      "name": "Pintaras Jaya Berhad",
+      "industry": "Engineering & Construction",
+      "initial": 1.2999999523162842
     },
     "5126": {
       "code": "5126.KL",
@@ -144,6 +144,12 @@
       "industry": "Department Stores",
       "initial": 1.059999942779541
     },
+    "5108": {
+      "code": "5108.KL",
+      "name": "iCapital.biz Berhad",
+      "industry": "Asset Management",
+      "initial": 2.5
+    },
     "7091": {
       "code": "7091.KL",
       "name": "Unimech Group Berhad",
@@ -155,12 +161,6 @@
       "name": "Eco World Development Group Berhad",
       "industry": "Real Estate - Development",
       "initial": 2.0399999618530273
-    },
-    "5108": {
-      "code": "5108.KL",
-      "name": "iCapital.biz Berhad",
-      "industry": "Asset Management",
-      "initial": 2.5
     },
     "5209": {
       "code": "5209.KL",
@@ -210,6 +210,12 @@
       "industry": "REIT",
       "initial": 0.85
     },
+    "6769": {
+      "code": "6769.KL",
+      "name": "JKG Land Berhad",
+      "industry": "Real Estate - Development",
+      "initial": 0.10499999672174454
+    },
     "SEM": {
       "code": "5250.KL",
       "name": "7-ELEVEN MALAYSIA HOLDINGS BERHAD",
@@ -221,12 +227,6 @@
       "name": "Malaysia Marine and Heavy Engineering Holdings Berhad",
       "industry": "Oil & Gas Equipment & Services",
       "initial": 0.36000001430511475
-    },
-    "6769": {
-      "code": "6769.KL",
-      "name": "JKG Land Berhad",
-      "industry": "Real Estate - Development",
-      "initial": 0.10499999672174454
     },
     "PADINI": {
       "code": "7052.KL",
@@ -240,29 +240,17 @@
       "industry": "Furnishings, Fixtures & Appliances",
       "initial": 1.0499999523162842
     },
-    "WASCO": {
-      "code": "5142.KL",
-      "name": "Wasco Berhad",
-      "industry": "Energy",
-      "initial": 0.8
-    },
     "7722": {
       "code": "7722.KL",
       "name": "Asia Brands Berhad",
       "industry": "Apparel Retail",
       "initial": 0.48500001430511475
     },
-    "DELEUM": {
-      "code": "5132.KL",
-      "name": "Deleum Berhad",
+    "WASCO": {
+      "code": "5142.KL",
+      "name": "Wasco Berhad",
       "industry": "Energy",
-      "initial": 1.22
-    },
-    "8702": {
-      "code": "8702.KL",
-      "name": "Texchem Resources Bhd",
-      "industry": "Conglomerates",
-      "initial": 0.7749999761581421
+      "initial": 0.8
     },
     "MATRIX": {
       "code": "5236.KL",
@@ -270,11 +258,17 @@
       "industry": "Property",
       "initial": 1.25
     },
-    "5242": {
-      "code": "5242.KL",
-      "name": "Solid Automotive Berhad",
-      "industry": "Auto Parts",
-      "initial": 0.12999999523162842
+    "8702": {
+      "code": "8702.KL",
+      "name": "Texchem Resources Bhd",
+      "industry": "Conglomerates",
+      "initial": 0.7749999761581421
+    },
+    "DELEUM": {
+      "code": "5132.KL",
+      "name": "Deleum Berhad",
+      "industry": "Energy",
+      "initial": 1.22
     },
     "AXREIT": {
       "code": "5106.KL",
@@ -287,6 +281,12 @@
       "name": "Lii Hen Industries",
       "industry": "Furniture",
       "initial": 0.95
+    },
+    "5242": {
+      "code": "5242.KL",
+      "name": "Solid Automotive Berhad",
+      "industry": "Auto Parts",
+      "initial": 0.12999999523162842
     },
     "5010": {
       "code": "5010.KL",
@@ -318,6 +318,12 @@
       "industry": "Investment",
       "initial": 0.89
     },
+    "5592": {
+      "code": "5592.KL",
+      "name": "Grand Central Enterprises Bhd.",
+      "industry": "Lodging",
+      "initial": 0.3199999928474426
+    },
     "0091": {
       "code": "0091.KL",
       "name": "Propel Global Bhd",
@@ -330,11 +336,11 @@
       "industry": "Communication Equipment",
       "initial": 0.3700000047683716
     },
-    "5592": {
-      "code": "5592.KL",
-      "name": "Grand Central Enterprises Bhd.",
-      "industry": "Lodging",
-      "initial": 0.3199999928474426
+    "INTA": {
+      "code": "INTA.KL",
+      "name": "INTA Berhad",
+      "industry": "Construction",
+      "initial": 0.38
     },
     "KLK": {
       "code": "2445.KL",
@@ -342,11 +348,11 @@
       "industry": "Plantation",
       "initial": 20.5
     },
-    "INTA": {
-      "code": "INTA.KL",
-      "name": "INTA Berhad",
-      "industry": "Construction",
-      "initial": 0.38
+    "MAYBANK": {
+      "code": "1155.KL",
+      "name": "Malayan Banking Berhad",
+      "industry": "Banking",
+      "initial": 9.85
     },
     "RHB": {
       "code": "1066.KL",
@@ -354,23 +360,17 @@
       "industry": "Banking",
       "initial": 8.21
     },
-    "MAYBANK": {
-      "code": "1155.KL",
-      "name": "Malayan Banking Berhad",
-      "industry": "Banking",
-      "initial": 9.85
+    "3948": {
+      "code": "3948.KL",
+      "name": "DutaLand Berhad",
+      "industry": "Food Distribution",
+      "initial": 0.30000001192092896
     },
     "SCIENTEX": {
       "code": "4731.KL",
       "name": "Scientex Berhad",
       "industry": "Packaging",
       "initial": 4.15
-    },
-    "3948": {
-      "code": "3948.KL",
-      "name": "DutaLand Berhad",
-      "industry": "Food Distribution",
-      "initial": 0.30000001192092896
     },
     "YTLPOWR": {
       "code": "6742.KL",
@@ -384,6 +384,12 @@
       "industry": "Telco",
       "initial": 6.03
     },
+    "8044": {
+      "code": "8044.KL",
+      "name": "Computer Forms (Malaysia) Berhad",
+      "industry": "Specialty Business Services",
+      "initial": 0.07000000029802322
+    },
     "PBBANK": {
       "code": "1295.KL",
       "name": "Public Bank Berhad",
@@ -395,12 +401,6 @@
       "name": "Titijaya Land Berhad",
       "industry": "Real Estate - Development",
       "initial": 0.20999999344348907
-    },
-    "8044": {
-      "code": "8044.KL",
-      "name": "Computer Forms (Malaysia) Berhad",
-      "industry": "Specialty Business Services",
-      "initial": 0.07000000029802322
     },
     "GAMUDA": {
       "code": "5398.KL",
@@ -426,11 +426,11 @@
       "industry": "Engineering & Construction",
       "initial": 0.17000000178813934
     },
-    "5401": {
-      "code": "5401.KL",
-      "name": "Tropicana Corporation Berhad",
+    "1589": {
+      "code": "1589.KL",
+      "name": "Iskandar Waterfront City Berhad",
       "industry": "Real Estate - Development",
-      "initial": 1.0399999618530273
+      "initial": 0.22499999403953552
     },
     "6173": {
       "code": "6173.KL",
@@ -438,11 +438,11 @@
       "industry": "Engineering & Construction",
       "initial": 0.20000000298023224
     },
-    "1589": {
-      "code": "1589.KL",
-      "name": "Iskandar Waterfront City Berhad",
-      "industry": "Real Estate - Development",
-      "initial": 0.22499999403953552
+    "5040": {
+      "code": "5040.KL",
+      "name": "Meridian Berhad",
+      "industry": "Real Estate Services",
+      "initial": 0.009999999776482582
     },
     "8745": {
       "code": "8745.KL",
@@ -456,11 +456,11 @@
       "industry": "Real Estate - Development",
       "initial": 0.1899999976158142
     },
-    "5040": {
-      "code": "5040.KL",
-      "name": "Meridian Berhad",
-      "industry": "Real Estate Services",
-      "initial": 0.009999999776482582
+    "5401": {
+      "code": "5401.KL",
+      "name": "Tropicana Corporation Berhad",
+      "industry": "Real Estate - Development",
+      "initial": 1.0399999618530273
     }
   },
   "personas": {

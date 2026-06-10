@@ -7,6 +7,14 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 ## [Unreleased]
 
 ### 2026-06-10
+- **Portfolio battle snapshot** — June 10, 2026 13:32 (1160b010) [Internal]
+- **Portfolio battle snapshot** — June 10, 2026 13:17 (5c0e03de) [Internal]
+- **Fix: map score_breakdown factor names to categories, generate decision_rationale in scorer** (0a5050a4) [PANGU]
+- **Portfolio battle snapshot** — June 10, 2026 13:05 (9ce7ba6f) [Internal]
+- **Fix: inline stock columns in SQL** — postgres.js doesn't support template interpolation (4a0a2386) [PANGU]
+- **Fix: return price/market/sparkline from analysis API, read in frontend** (1449a479) [PANGU]
+- **Portfolio battle snapshot** — June 10, 2026 12:47 (86ff0016) [Internal]
+- **Fix: add financials to no-persona API response** (1dbd146e) [PANGU]
 - **Portfolio battle snapshot** — June 10, 2026 12:31 (92442f13) [Internal]
 - **Portfolio battle snapshot** — June 10, 2026 12:16 (afdb679b) [Internal]
 - **Portfolio battle snapshot** — June 10, 2026 12:01 (829a8686) [Internal]
