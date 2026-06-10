@@ -197,14 +197,13 @@ skipped = 0
 results = []
 for row in all_rows:
     r = score_stock(row)
-    if r["composite"] == 0 and not any(
-        get_financial_from_db(row, fn) for fn in ["dividend_yield", "roe", "pe_ratio"]
-    ):
+    has_data = any(get_financial_from_db(row, fn) for fn in ["dividend_yield", "roe", "pe_ratio"])
+    if not has_data:
+        r["limited_data"] = True
         skipped += 1
-        continue
     results.append(r)
 
-print(f"Scored {len(results)} stocks, skipped {skipped} (no financial data)")
+print(f"Scored {len(results)} stocks ({skipped} with limited data)")
 
 # Print summary
 results.sort(key=lambda x: x["composite"], reverse=True)
@@ -222,11 +221,13 @@ updated = 0
 
 for r in results:
     # Build rationale from score breakdown
+    limited = r.get("limited_data", False)
     rationale = {
         "sections": {
             "Score Analysis": [
                 f"{'🟢' if r['composite'] >= 70 else '🟡' if r['composite'] >= 50 else '🔴'} Composite Score: {r['composite']}/100",
                 f"Industry: {r['industry']}",
+                *([f"⚠️ Limited data — no yfinance quarterly financials available. Score based on stocks table metrics only."] if limited else []),
                 *[f"{'✅' if b['raw'] >= 70 else '⚠️' if b['raw'] >= 40 else '❌'} {fn.replace('_', ' ').title()}: {b['raw']:.0f}/100 (weight: {b['weighted']:.0f}%)" 
                   for fn, b in r['breakdown'].items() if b['value'] is not None],
                 f"Macro Adjustment: {r['macro_adjustment']:+.1f}",

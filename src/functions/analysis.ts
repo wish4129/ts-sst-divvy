@@ -88,6 +88,44 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 
     const latest = latestRow[0];
 
+    // Fallback: if no stock_analyses rows exist, return stocks table data directly
+    if (!latest && personaRows.length === 0) {
+      const stockRow = await sql`
+        SELECT s.name, s.industry, s.financials,
+               s.last_price, s.price_change, s.market_cap, s.dividend_yield, s.sparkline,
+               s.score_composite, s.score_subs
+        FROM stocks s
+        WHERE s.id = ${code}
+      `;
+      const s = stockRow[0];
+      if (!s) return { statusCode: 404, headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }, body: JSON.stringify(null) };
+
+      return {
+        statusCode: 200,
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+        body: JSON.stringify({
+          stock_name: s.name,
+          industry: s.industry || "",
+          personas: {},
+          ai_report: null,
+          ai_model: null,
+          score_composite: Number(s.score_composite || 0),
+          score_breakdown: s.score_subs || null,
+          financials: s.financials || null,
+          last_price: Number(s.last_price || 0),
+          price_change: Number(s.price_change || 0),
+          market_cap: Number(s.market_cap || 0),
+          dividend_yield: Number(s.dividend_yield || 0),
+          sparkline: s.sparkline || [],
+          rationale: null,
+          kronos_signal: null,
+          macro_context: null,
+          generated_at: null,
+          persona: null,
+        }),
+      };
+    }
+
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },

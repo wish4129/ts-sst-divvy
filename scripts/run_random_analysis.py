@@ -235,6 +235,22 @@ def run_analysis(count=3, process_pending=False):
             # Mark as analyzed in universe
             cur.execute("UPDATE bursa_universe SET has_analysis=TRUE, last_analyzed_at=NOW() WHERE stock_code=%s", (ticker,))
             
+            # Also write to stock_analyses for all 3 personas
+            for pid in ['ares', 'demeter', 'athena']:
+                cur.execute("""
+                    INSERT INTO stock_analyses (stock_id, persona, score_composite, score_breakdown, decision_rationale, generated_at)
+                    VALUES (%s, %s, %s, %s, %s, NOW())
+                    ON CONFLICT (stock_id, persona) DO UPDATE
+                    SET score_composite = EXCLUDED.score_composite,
+                        score_breakdown = EXCLUDED.score_breakdown,
+                        decision_rationale = EXCLUDED.decision_rationale,
+                        generated_at = NOW()
+                """, (ticker, pid, scores['composite'], json.dumps(scores),
+                      json.dumps({
+                          "sections": {"Score Analysis": [f"Random analysis — Kronos {kronos_pct:+.1f}%", notes]},
+                          "sources": {"Score Analysis": "Kronos forecast + yfinance"}
+                      })))
+            
             # Mark pending as processed
             if process_pending:
                 cur.execute("UPDATE pending_analyses SET processed=TRUE, processed_at=NOW() WHERE stock_code=%s", (ticker,))
