@@ -43,13 +43,13 @@ export async function handler(
   _event: APIGatewayProxyEventV2
 ): Promise<APIGatewayProxyResultV2> {
   try {
-    // Fetch active watchlist stocks (from stocks table — the ones actively tracked)
+    // Fetch ALL non-removed stocks for full sitemap coverage
     const stocks: { id: string; name: string; updated_at: string }[] =
       await sql`
         SELECT id, name, updated_at
         FROM stocks
-        WHERE status = 'active'
-        ORDER BY name ASC
+        WHERE status != 'removed'
+        ORDER BY score_composite DESC NULLS LAST
       `;
 
     // Fetch all analyzed universe stocks (for discoverability)
