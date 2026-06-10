@@ -18,6 +18,10 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 - **Sync generated data files from DB** — date rollover to June 10 (e63df2f6) [Internal]
 - **Add untracked scripts** — scrape_prices tests + targeted Kronos runner (4a721981) [Internal]
 - **gen_missing_ai_reports.py** — universe stock AI report backfill script for non-portfolio scored stocks (5b6f64bb) [PANGU]
+- **Centralize SEO meta tags** — `seo()` utility across all pages (737d59e6) [PANGU]
+- **Cash drift health check script** — detects persona_config vs user_portfolios cash divergence > RM1 (b6d19adc) [PANGU]
+- **Batch Kronos forecast runner** — perf improvement, refresh all 77 stocks (9a9f0087) [PANGU]
+- **Portfolio battle snapshot** — June 10, 2026 09:19 (a71a1aa3) [Internal]
 
 ### 2026-06-09
 - **pytest for run_deep_analysis.py** — 26 tests across parse_markdown_report, get_stocks_from_db, generate_ai_report, PERSONAS/SECTION_MAP validation (0c3fb073) [PANGU]
