@@ -1,7 +1,7 @@
 import { useState, useEffect, Fragment } from 'react'
-import { Helmet } from 'react-helmet-async'
 import { Clock, CheckCircle2, XCircle, AlertTriangle, RefreshCw } from 'lucide-react'
-
+import { Helmet } from 'react-helmet-async'
+import { seo } from '../lib/seo'
 interface CronJob {
   id: string
   name: string
@@ -68,11 +68,11 @@ export default function CronStatus() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <Helmet>
-        <title>Cron Status — Divvy Bursa Tracker</title>
-        <meta name="description" content="Divvy cron job status dashboard. Monitor pipeline health, last run times, and error tracking." />
-        <meta name="robots" content="noindex" />
-      </Helmet>
+      <Helmet {...seo({
+        title: 'Cron Status — Divvy Bursa Tracker',
+        description: 'Divvy cron job status dashboard. Monitor pipeline health, last run times, and error tracking.',
+        noindex: true,
+      })} />
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Cron Health</h1>

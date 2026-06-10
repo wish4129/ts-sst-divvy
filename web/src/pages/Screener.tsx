@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Search, TrendingUp, AlertCircle, Plus, ArrowUpDown, ExternalLink } from 'lucide-react'
+import { seo } from '../lib/seo'
 import { useNavigate } from 'react-router-dom'
 import { useApi } from '../hooks/useApi'
 import ScoreBadge from '../components/ScoreBadge'
@@ -129,14 +130,11 @@ export default function Screener() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
-      <Helmet>
-        <title>Stock Screener — Divvy Bursa Tracker</title>
-        <meta name="description" content={`Bursa Malaysia stock screener. ${newCount} new candidates, ${inWatchlistCount} tracked. Screen for high-dividend, undervalued KLSE stocks with AI-powered scoring.`} />
-        <meta property="og:title" content="Stock Screener — Divvy Bursa Tracker" />
-        <meta property="og:description" content={`Screen ${candidates.length} Bursa Malaysia stocks by P/E, dividend yield, ROE, and AI composite scores.`} />
-        <meta name="twitter:title" content="Stock Screener — Divvy Bursa Tracker" />
-        <meta name="twitter:description" content={`Screen ${candidates.length} Bursa stocks by P/E, DY, ROE, and AI scores.`} />
-      </Helmet>
+      <Helmet {...seo({
+        title: 'Stock Screener — Divvy Bursa Tracker',
+        description: `Bursa Malaysia stock screener. ${newCount} new candidates, ${inWatchlistCount} tracked. Screen for high-dividend, undervalued KLSE stocks with AI-powered scoring.`,
+        canonical: 'https://d2d7b6u77b6we4.cloudfront.net/screener',
+      })} />
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
           <h1 className="text-2xl font-bold">Stock Screener</h1>

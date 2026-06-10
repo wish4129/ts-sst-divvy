@@ -2,6 +2,7 @@ import { useParams, useSearchParams, Link } from 'react-router-dom'
 import { useState, useMemo } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { ArrowLeft, Brain, ChevronDown, ChevronRight, ExternalLink, CheckSquare, Square } from 'lucide-react'
+import { seo } from '../lib/seo'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import ScoreBadge from '../components/ScoreBadge'
 import SparklineChart from '../components/SparklineChart'
@@ -297,9 +298,11 @@ export default function StockDetail() {
   if (!code) {
     return (
       <div className="min-h-screen">
-        <Helmet>
-          <meta name="robots" content="noindex" />
-        </Helmet>
+        <Helmet {...seo({
+          title: 'Stock not found — Divvy Bursa Tracker',
+          description: 'The requested stock could not be found.',
+          noindex: true,
+        })} />
         <main className="max-w-3xl mx-auto px-4 py-20 text-center">
           <h1 className="text-2xl font-bold text-gray-400 mb-2">Stock not found</h1>
           <Link to="/" className="text-emerald-600 hover:text-emerald-700">Back to Dashboard</Link>
@@ -317,14 +320,11 @@ export default function StockDetail() {
 
   return (
     <div className="min-h-screen">
-      <Helmet>
-        <title>{displayStock.name} ({displayStock.code}) — Stock Analysis | Divvy</title>
-        <meta name="description" content={`Deep analysis of ${displayStock.name} (${displayStock.code}). ${displayStock.industry} stock with composite score ${displayStock.score.composite}/100, RM ${displayStock.lastPrice.toFixed(2)} last price, DY ${displayStock.dividendYield}%. Bursa Malaysia investment tracker.`} />
-        <meta property="og:title" content={`${displayStock.name} (${displayStock.code}) — Stock Analysis | Divvy`} />
-        <meta property="og:description" content={`Score ${displayStock.score.composite}/100 · ${displayStock.industry} · RM ${displayStock.lastPrice.toFixed(2)} · DY ${displayStock.dividendYield}%`} />
-        <meta name="twitter:title" content={`${displayStock.name} (${displayStock.code}) — Stock Analysis | Divvy`} />
-        <meta name="twitter:description" content={`Score ${displayStock.score.composite}/100 · ${displayStock.industry} · RM ${displayStock.lastPrice.toFixed(2)} · DY ${displayStock.dividendYield}%`} />
-      </Helmet>
+      <Helmet {...seo({
+        title: `${displayStock.name} (${displayStock.code}) — Stock Analysis | Divvy`,
+        description: `Deep analysis of ${displayStock.name} (${displayStock.code}). ${displayStock.industry} stock with composite score ${displayStock.score.composite}/100, RM ${displayStock.lastPrice.toFixed(2)} last price, DY ${displayStock.dividendYield}%. Bursa Malaysia investment tracker.`,
+        canonical: `https://d2d7b6u77b6we4.cloudfront.net/stock/${code}`,
+      })} />
       <main className="max-w-4xl mx-auto px-4 py-6">
         <Link to="/battle" aria-label="Back to Battle" className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 mb-4">
           <ArrowLeft className="w-4 h-4" /> Back to Battle

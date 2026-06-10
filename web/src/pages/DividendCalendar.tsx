@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Calendar, ChevronLeft, ChevronRight, TrendingUp, DollarSign } from 'lucide-react'
+import { seo } from '../lib/seo'
 import { useNavigate } from 'react-router-dom'
 import ScoreBadge from '../components/ScoreBadge'
 import { INDUSTRY_COLORS, stocks as staticStocks } from '../data/stocks'
@@ -123,14 +124,11 @@ export default function DividendCalendar() {
 
   return (
     <div className="min-h-screen">
-      <Helmet>
-        <title>Dividend Calendar — Divvy Bursa Tracker</title>
-        <meta name="description" content="Bursa Malaysia dividend calendar. Browse ex-dates, dividend yields, and payment schedules for KLSE stocks in your watchlist." />
-        <meta property="og:title" content="Dividend Calendar — Divvy Bursa Tracker" />
-        <meta property="og:description" content="Track Bursa Malaysia dividend ex-dates and yields across your watchlist stocks." />
-        <meta name="twitter:title" content="Dividend Calendar — Divvy Bursa Tracker" />
-        <meta name="twitter:description" content="Bursa Malaysia dividend calendar for your watchlist." />
-      </Helmet>
+      <Helmet {...seo({
+        title: 'Dividend Calendar — Divvy Bursa Tracker',
+        description: 'Bursa Malaysia dividend calendar. Browse ex-dates, dividend yields, and payment schedules for KLSE stocks in your watchlist.',
+        canonical: 'https://d2d7b6u77b6we4.cloudfront.net/dividends',
+      })} />
       <main className="max-w-4xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">

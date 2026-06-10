@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Search, FolderOpen, ArrowRight, Download } from 'lucide-react'
+import { seo } from '../lib/seo'
 import { useNavigate } from 'react-router-dom'
 import ScoreBadge from '../components/ScoreBadge'
 import { INDUSTRY_COLORS } from '../data/stocks'
@@ -144,14 +145,11 @@ export default function Watchlist() {
 
   return (
     <div className="min-h-screen">
-      <Helmet>
-        <title>Watchlist — Divvy Bursa Tracker</title>
-        <meta name="description" content={`Bursa Malaysia watchlist. ${active.length} active stocks with AI composite scores, ${revisit.length} to revisit. Track KLSE stock performance with Divvy.`} />
-        <meta property="og:title" content="Watchlist — Divvy Bursa Tracker" />
-        <meta property="og:description" content={`Track ${active.length} active Bursa stocks and ${revisit.length} under review. AI-powered scoring and portfolio insights.`} />
-        <meta name="twitter:title" content="Watchlist — Divvy Bursa Tracker" />
-        <meta name="twitter:description" content={`Track ${active.length} active Bursa stocks and ${revisit.length} under review.`} />
-      </Helmet>
+      <Helmet {...seo({
+        title: 'Watchlist — Divvy Bursa Tracker',
+        description: `Bursa Malaysia watchlist. ${active.length} active stocks with AI composite scores, ${revisit.length} to revisit. Track KLSE stock performance with Divvy.`,
+        canonical: 'https://d2d7b6u77b6we4.cloudfront.net/watchlist',
+      })} />
       <main className="max-w-3xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Watchlist</h1>

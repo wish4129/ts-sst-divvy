@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { seo } from '../lib/seo'
 import StockCard from '../components/StockCard'
 import IndustryFilter from '../components/IndustryFilter'
 import { useApi } from '../hooks/useApi'
@@ -77,14 +78,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <Helmet>
-        <title>Divvy — Bursa Investment Tracker</title>
-        <meta name="description" content={`AI-powered Bursa Malaysia investment tracker. Browse ${allStocks.length} tracked stocks with composite scores, industry filters, and live KLSE prices.`} />
-        <meta property="og:title" content="Divvy — Bursa Investment Tracker" />
-        <meta property="og:description" content={`Browse ${allStocks.length} tracked Bursa Malaysia stocks with AI-powered composite scores.`} />
-        <meta name="twitter:title" content="Divvy — Bursa Investment Tracker" />
-        <meta name="twitter:description" content={`Browse ${allStocks.length} tracked Bursa Malaysia stocks with AI-powered composite scores.`} />
-      </Helmet>
+      <Helmet {...seo({
+        title: 'Divvy — Bursa Investment Tracker',
+        description: `AI-powered Bursa Malaysia investment tracker. Browse ${allStocks.length} tracked stocks with composite scores, industry filters, and live KLSE prices.`,
+        canonical: 'https://d2d7b6u77b6we4.cloudfront.net/',
+      })} />
       <main className="max-w-7xl mx-auto px-4 py-6">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
