@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { LayoutDashboard, List, Swords, Sun, Moon, LogIn, LogOut, User, Globe, GitCompare, CalendarDays, TrendingUp, Clock } from 'lucide-react'
+import { LayoutDashboard, List, Swords, Sun, Moon, LogIn, LogOut, User, Globe, GitCompare, CalendarDays, TrendingUp } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { useAuth } from '../lib/AuthContext'
 
@@ -64,10 +64,6 @@ export default function Header() {
             <Link to="/screener" {...linkClass('/screener')}>
               <TrendingUp className="w-4 h-4" />
               <span className="hidden sm:inline">Screener</span>
-            </Link>
-            <Link to="/cron" {...linkClass('/cron')}>
-              <Clock className="w-4 h-4" />
-              <span className="hidden sm:inline">Cron</span>
             </Link>
           </nav>
         </div>
