@@ -76,7 +76,7 @@ def get_stocks_from_db(db_conn=None) -> dict:
             SELECT MAX(score_composite) as max_score FROM stock_analyses
             WHERE stock_id = s.id
         ) sa ON true
-        WHERE s.status != 'removed'
+        WHERE s.status NOT IN ('removed', 'data_missing')
     """)
 
     result = {}
@@ -349,7 +349,7 @@ def main():
                 print(f"  {pid:8s} {name:20s} ({code}) ✗ no AI", flush=True)
     
     # ── Phase 2: Watchlist stocks ──
-    cur.execute("SELECT id, name, industry FROM stocks WHERE status != 'removed' ORDER BY id")
+    cur.execute("SELECT id, name, industry FROM stocks WHERE status NOT IN ('removed', 'data_missing') ORDER BY id")
     watchlist = [(r[0], r[1], r[2] or "") for r in cur.fetchall() if r[0] not in portfolio_codes]
     
     if watchlist:
@@ -393,7 +393,7 @@ def main():
         UPDATE stocks SET status = CASE 
             WHEN id IN (SELECT stock_id FROM stock_analyses GROUP BY stock_id HAVING max(score_composite) >= 70) 
             THEN 'active' ELSE 'revisit' END
-        WHERE status != 'removed'
+        WHERE status NOT IN ('removed', 'data_missing')
     """)
     updated = cur2.rowcount
     db2.commit()

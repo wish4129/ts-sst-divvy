@@ -28,7 +28,7 @@ cur.execute("""
            COALESCE(financials::text, '[]') as financials_json,
            COALESCE(dividends::text, '[]') as dividends_json
     FROM stocks
-    WHERE status != 'removed'
+    WHERE status NOT IN ('removed', 'data_missing')
     ORDER BY score_composite DESC
 """)
 

@@ -47,7 +47,7 @@ predictor = KronosPredictor(model, tokenizer, device="cpu", max_context=512)
 db = get_db()
 cur = dict_cursor(db)
 cur.execute(
-    "SELECT id, name FROM stocks WHERE id = ANY(%s) AND status != 'removed'",
+    "SELECT id, name FROM stocks WHERE id = ANY(%s) AND status NOT IN ('removed', 'data_missing')",
     (TICKERS,)
 )
 stocks = [(r['name'], r['id']) for r in cur.fetchall()]

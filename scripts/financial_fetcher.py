@@ -175,6 +175,7 @@ def main():
                     market_cap = %s,
                     debt_to_equity = %s,
                     last_price = COALESCE(%s, last_price),
+                    status = CASE WHEN status = 'data_missing' THEN 'revisit' ELSE status END,
                     updated_at = now()
                 WHERE id = %s""",
                 (

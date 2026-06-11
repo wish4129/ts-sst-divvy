@@ -226,7 +226,7 @@ def main(max_reports: int = 20):
         JOIN stocks s ON sa.stock_id = s.id
         WHERE sa.ai_report IS NULL
           AND sa.score_composite IS NOT NULL
-          AND s.status != 'removed'
+          AND s.status NOT IN ('removed', 'data_missing')
         ORDER BY sa.score_composite DESC, sa.stock_id
         LIMIT %s
     """, (max_reports,))

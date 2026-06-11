@@ -33,7 +33,7 @@ print(f'Seeded {len(rows)} stocks')
 # Mark existing as analyzed
 cur.execute('''
     UPDATE bursa_universe SET has_analysis = TRUE 
-    WHERE stock_code IN (SELECT id FROM stocks WHERE status != 'removed')
+    WHERE stock_code IN (SELECT id FROM stocks WHERE status NOT IN ('removed', 'data_missing'))
 ''')
 print(f'Marked {cur.rowcount} as analyzed')
 

@@ -37,7 +37,7 @@ def deduplicate_candidates(candidates: list, db_conn) -> list:
     cur = db_conn.cursor()
     
     # Get all watchlist tickers
-    cur.execute("SELECT id FROM stocks WHERE status != 'removed'")
+    cur.execute("SELECT id FROM stocks WHERE status NOT IN ('removed', 'data_missing')")
     watchlist_tickers = {r[0] for r in cur.fetchall()}
     
     # Get all bursa_universe stock codes

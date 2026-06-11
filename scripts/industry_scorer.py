@@ -188,7 +188,7 @@ print("=" * 60)
 cur.execute("""
     SELECT id, name, industry, financials, pe_ratio, roe, dividend_yield,
            debt_to_equity, market_cap
-    FROM stocks WHERE status != 'removed' ORDER BY name
+    FROM stocks WHERE status NOT IN ('removed', 'data_missing') ORDER BY name
 """)
 columns = [desc[0] for desc in cur.description]
 all_rows = [dict(zip(columns, row)) for row in cur.fetchall()]

@@ -35,7 +35,7 @@ def get_stock_list():
     """Get list of (short_name, ticker) for all active/revisit stocks."""
     db = get_db()
     cur = db.cursor()
-    cur.execute("SELECT id, name FROM stocks WHERE status != 'removed' ORDER BY name")
+    cur.execute("SELECT id, name FROM stocks WHERE status NOT IN ('removed', 'data_missing') ORDER BY name")
     stocks = [(ticker_to_short(r[0]), r[0]) for r in cur.fetchall()]
     cur.close()
     db.close()
@@ -46,7 +46,7 @@ def get_all_stocks_dict():
     """Get {short_name: {code, name, industry, initial_price}} for all stocks."""
     db = get_db()
     cur = db.cursor()
-    cur.execute("SELECT id, name, industry, initial_price FROM stocks WHERE status != 'removed'")
+    cur.execute("SELECT id, name, industry, initial_price FROM stocks WHERE status NOT IN ('removed', 'data_missing')")
     result = {}
     for r in cur.fetchall():
         short = ticker_to_short(r[0])

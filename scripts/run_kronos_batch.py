@@ -17,7 +17,7 @@ from db import get_db, dict_cursor
 def get_active_tickers():
     db = get_db()
     cur = dict_cursor(db)
-    cur.execute("SELECT id FROM stocks WHERE status != 'removed' ORDER BY id")
+    cur.execute("SELECT id FROM stocks WHERE status NOT IN ('removed', 'data_missing') ORDER BY id")
     ids = [r['id'] for r in cur.fetchall()]
     cur.close()
     db.close()
