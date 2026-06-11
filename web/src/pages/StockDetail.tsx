@@ -162,13 +162,39 @@ export default function StockDetail() {
   const changeIcon = displayStock.priceChange >= 0 ? '▲' : '▼'
   const divData = displayStock.dividends.map((d) => ({ date: d.exDate.slice(0, 7), amount: d.amount, yield: d.yield }))
 
+  const productSchema = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: `${displayStock.name} (${displayStock.code})`,
+    description: `${displayStock.name} is a ${displayStock.industry} stock listed on Bursa Malaysia with the ticker ${displayStock.code}.`,
+    identifier: displayStock.code,
+    industry: displayStock.industry,
+    offers: {
+      '@type': 'Offer',
+      price: displayStock.lastPrice,
+      priceCurrency: 'MYR',
+      availability: 'https://schema.org/InStock',
+    },
+  }), [displayStock])
+
+  const organizationSchema = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: displayStock.name,
+    identifier: displayStock.code,
+    description: `${displayStock.name} (${displayStock.code}) is a ${displayStock.industry} company listed on Bursa Malaysia.`,
+  }), [displayStock])
+
   return (
     <div className="min-h-screen">
       <Helmet {...seo({
         title: `${displayStock.name} (${displayStock.code}) — Stock Analysis | Divvy`,
         description: `Deep analysis of ${displayStock.name} (${displayStock.code}). ${displayStock.industry} stock with composite score ${displayStock.score.composite}/100, RM ${displayStock.lastPrice.toFixed(2)} last price, DY ${displayStock.dividendYield}%. Bursa Malaysia investment tracker.`,
         canonical: `https://d2d7b6u77b6we4.cloudfront.net/stock/${code}`,
-      })} />
+      })}>
+        <script type="application/ld+json">{JSON.stringify(productSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
+      </Helmet>
       <main className="max-w-4xl mx-auto px-4 py-6">
         <Link to="/battle" aria-label="Back to Battle" className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 mb-4">
           <ArrowLeft className="w-4 h-4" /> Back to Battle
