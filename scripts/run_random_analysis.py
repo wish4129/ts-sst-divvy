@@ -121,7 +121,7 @@ def run_analysis(count=3, process_pending=False):
     
     # Get targets
     if process_pending:
-        cur.execute("SELECT stock_code FROM pending_analyses WHERE processed = FALSE ORDER BY requested_at LIMIT %s", (count,))
+        cur.execute("SELECT stock_code FROM pending_analyses WHERE processed = FALSE ORDER BY COALESCE(priority, 0) DESC, requested_at ASC LIMIT %s", (count,))
         targets = [(r[0], get_short_code(r[0])) for r in cur.fetchall()]
     else:
         cur.execute("SELECT stock_code, name FROM bursa_universe WHERE has_analysis = FALSE ORDER BY RANDOM() LIMIT %s", (count,))

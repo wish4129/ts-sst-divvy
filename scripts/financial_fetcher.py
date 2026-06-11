@@ -190,6 +190,9 @@ def main():
                 ),
             )
             conn.commit()
+            # If this was a data_missing re-fetch, mark it processed
+            cur.execute("UPDATE pending_analyses SET processed=TRUE, processed_at=NOW() WHERE stock_code=%s AND source='data_missing_queue'", (code,))
+            conn.commit()
             print(f"✓ {len(quarters)}q PE={summary['pe']} ROE={summary['roe']}% DY={summary['dy']}%")
             success += 1
         except Exception as e:
