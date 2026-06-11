@@ -128,6 +128,12 @@ def run_analysis(count=3, process_pending=False):
         targets = [(r[0], get_short_code(r[0])) for r in cur.fetchall()]
     
     if not targets:
+        # Fallback: pick random unanalyzed stocks when pending queue is empty
+        print("No pending analyses in queue — picking random unanalyzed stocks instead")
+        cur.execute("SELECT stock_code, name FROM bursa_universe WHERE has_analysis = FALSE ORDER BY RANDOM() LIMIT %s", (count,))
+        targets = [(r[0], get_short_code(r[0])) for r in cur.fetchall()]
+    
+    if not targets:
         print("No unanalyzed stocks found")
         cur.close(); db.close()
         return []
