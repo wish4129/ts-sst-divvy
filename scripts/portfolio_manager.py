@@ -371,9 +371,14 @@ def ares_trade(persona, prices, snapshot, stock_map, prev_prices=None, forecasts
         elif pnl_pct <= cool_threshold and (session_change is None or session_change > cool_threshold):
             # PnL-based fallback: stock underwater but session_change missed it (gap in cron runs)
             # Only trigger if the drop from cost is real and we haven't cooled yet
-            # Guard: don't re-cool if already trimmed this stock (tracked via persona_holdings note)
-            cool_triggered = True
-            session_change = pnl_pct  # use PnL as the "session change" for logging
+            # Guard: don't re-cool if already trimmed this stock today
+            already_trimmed = any(
+                t["stock"] == name and t["source"] == "momentum_cooling"
+                for t in trades
+            )
+            if not already_trimmed:
+                cool_triggered = True
+                session_change = pnl_pct  # use PnL as the "session change" for logging
 
         if cool_triggered:
             trim_pct = rules.get("momentum_cooling_trim", 0.25)
