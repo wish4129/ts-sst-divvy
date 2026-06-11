@@ -18,6 +18,9 @@ const Compare = lazy(() => import('./pages/Compare'))
 const DividendCalendar = lazy(() => import('./pages/DividendCalendar'))
 const Screener = lazy(() => import('./pages/Screener'))
 const AuthCallback = lazy(() => import('./pages/AuthCallback'))
+const Privacy = lazy(() => import('./pages/Privacy'))
+const Disclaimer = lazy(() => import('./pages/Disclaimer'))
+const Terms = lazy(() => import('./pages/Terms'))
 
 function Page({ children }: { children: React.ReactNode }) {
   return (
@@ -33,6 +36,9 @@ export default function App() {
     <Suspense fallback={<><ProgressBar /><Loading /></>}>
       <Routes>
         <Route path="/auth/callback" element={<AuthCallback />} />
+        <Route path="/privacy" element={<Page><Privacy /></Page>} />
+        <Route path="/disclaimer" element={<Page><Disclaimer /></Page>} />
+        <Route path="/terms" element={<Page><Terms /></Page>} />
         <Route path="*" element={
           <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
             <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-emerald-600 focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-400">
@@ -54,6 +60,13 @@ export default function App() {
                 </Routes>
               </LoginGate>
             </main>
+            <footer className="border-t border-gray-200 dark:border-gray-800 py-4 px-4">
+              <div className="max-w-7xl mx-auto flex justify-center gap-6 text-xs text-gray-400 dark:text-gray-500">
+                <Link to="/disclaimer" className="hover:text-gray-600 dark:hover:text-gray-300">Disclaimer</Link>
+                <Link to="/privacy" className="hover:text-gray-600 dark:hover:text-gray-300">Privacy</Link>
+                <Link to="/terms" className="hover:text-gray-600 dark:hover:text-gray-300">Terms</Link>
+              </div>
+            </footer>
             <ToastContainer />
           </div>
         } />
