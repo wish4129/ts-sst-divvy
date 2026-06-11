@@ -10,6 +10,9 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 - **Kronos forecasts refreshed** — 79 entries updated, refactored stocks.ts to API-driven (removed inline data) — 08fecd43 [Internal]
 - **[FUXI] Fix sitemap duplicate URLs** — exclude universe stocks already in watchlist to prevent 76 duplicate stock pages; updated sitemap test mock order (2aa1d480) [FUXI]
 - **Fix: fallback to random unanalyzed stocks when pending queue empty** — when no pending analyses are queued, pick a random unanalyzed stock instead of failing; keeps the analysis pipeline running at all times (57b3711d) [Internal]
+- **Legal pages + sitemap** — Disclaimer, Privacy, Terms pages with sitemap.xml + robots.txt; data_missing stocks excluded from sitemap; footer Link import fix (58d797f7, 03438448, 89310a5b, bd14a98f)
+- **[FUXI] Product + Organization JSON-LD** — structured data added to StockDetail pages for schema.org richness on stock profiles (046c1858) [FUXI]
+- **data_missing stock status** — stocks with null PE/ROE excluded from analysis pipeline; priority queue re-fetches financials before analysis (61f7ee74, 459ef604)
 
 ### 2026-06-10
 - **PANGU: test_industry_scorer** — update macro_adjustment calls to single-arg signature (3e07acb3) [PANGU]
