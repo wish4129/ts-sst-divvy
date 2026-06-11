@@ -20,6 +20,9 @@ const STATIC_PAGES = [
   { loc: "/compare", priority: "0.7", changefreq: "weekly" },
   { loc: "/dividends", priority: "0.7", changefreq: "daily" },
   { loc: "/screener", priority: "0.7", changefreq: "weekly" },
+  { loc: "/disclaimer", priority: "0.4", changefreq: "monthly" },
+  { loc: "/privacy", priority: "0.4", changefreq: "monthly" },
+  { loc: "/terms", priority: "0.4", changefreq: "monthly" },
 ];
 
 function escapeXml(s: string): string {
@@ -48,7 +51,7 @@ export async function handler(
       await sql`
         SELECT id, name, updated_at
         FROM stocks
-        WHERE status != 'removed'
+        WHERE status NOT IN ('removed', 'data_missing')
         ORDER BY score_composite DESC NULLS LAST
       `;
 
@@ -56,7 +59,7 @@ export async function handler(
     const universe: { stock_code: string; name: string }[] = await sql`
       SELECT stock_code, name
       FROM bursa_universe
-      WHERE stock_code NOT IN (SELECT id FROM stocks WHERE status != 'removed')
+      WHERE stock_code NOT IN (SELECT id FROM stocks WHERE status NOT IN ('removed', 'data_missing'))
       ORDER BY name ASC
     `;
 
