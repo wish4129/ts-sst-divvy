@@ -20,12 +20,11 @@ os.environ['DEEPSEEK_API_KEY'] = key
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 from db import get_db, dict_cursor
-from persona_db import get_persona_configs, get_persona_holdings, get_all_stocks_dict
+from persona_db import get_all_stocks_dict
 
 MYT = timezone(timedelta(hours=8))
 
-# Load data from DB + external JSON
-personas = get_persona_configs()
+# Load all stocks from DB
 all_stocks = get_all_stocks_dict()
 
 # Scores from DB (stock_analyses) — single source of truth
@@ -195,7 +194,8 @@ now = datetime.now(MYT)
 total = 0
 
 for pid in ["ares", "demeter", "athena"]:
-    holdings = get_persona_holdings(pid)
+    # Portfolio holdings were removed with persona tables — iterate empty
+    holdings = {}
     for name, holding in holdings.items():
         info = all_stocks.get(name, {})
         code = info.get("code", "")

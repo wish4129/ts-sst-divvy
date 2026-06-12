@@ -29,7 +29,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from persona_db import (
     get_all_stocks_dict,
-    get_persona_configs,
     TICKER_TO_SHORT,
     SHORT_TO_TICKER,
 )

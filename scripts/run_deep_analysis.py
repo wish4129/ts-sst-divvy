@@ -3,13 +3,13 @@
 
 Data sources:
   - stocks table (DB)  → stock registry + scores from stock_analyses
-  - persona_config + persona_holdings (DB) → portfolio data
+  - user_portfolios (DB) → portfolio config (holdings data was removed with persona)
   - macro_signals.json → macro context (external API, independently maintained)
 
 Writes: stock_analyses table (keeps history — no UNIQUE constraint).
 
 Two phases:
-  1. Portfolio holdings — AI reports for stocks in persona portfolios
+  1. Portfolio holdings — AI reports for stocks in persona portfolios (currently empty — holdings data dropped)
   2. Watchlist — AI reports for all other active/revisit stocks
 
 AI reports use markdown-based ## header parsing. Retries up to 2 times on failure.
@@ -272,19 +272,15 @@ Malaysian English. Be specific with the numbers provided."""
 def main():
     # Load stocks from DB
     print("Loading data...", flush=True)
-    from persona_db import get_persona_configs, get_persona_holdings
     stocks_data = get_stocks_from_db()
     print(f"  Loaded {len(stocks_data)} stocks from DB (stock_analyses)", flush=True)
     
-    # Load persona holdings from DB
-    personas = get_persona_configs()
+    # Load persona configs from user_portfolios (portfolio holdings data was dropped)
     pf = {"personas": {}}
     for pid in ["ares", "demeter", "athena"]:
-        config = personas.get(pid, {})
-        holdings = get_persona_holdings(pid)
         pf["personas"][pid] = {
-            "holdings": holdings,
-            "rules": config.get("rules", {}),
+            "holdings": {},
+            "rules": {},
         }
     pf["stocks"] = {}
     

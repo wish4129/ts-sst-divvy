@@ -19,7 +19,7 @@ if not key:
 os.environ['DEEPSEEK_API_KEY'] = key
 
 from db import get_db, dict_cursor
-from persona_db import get_persona_configs, get_all_stocks_dict
+from persona_db import get_all_stocks_dict
 import urllib.request
 
 PERSONA_CONTEXT = {
@@ -38,7 +38,7 @@ PERSONA_CONTEXT = {
 }
 
 # Load data
-personas = get_persona_configs()
+# Load all stocks from DB
 all_stocks = get_all_stocks_dict()
 macro = json.loads((ROOT / ".." / "data" / "macro_signals.json").read_text())
 fin = json.loads((ROOT / ".." / "data" / "stock_financials.json").read_text())
