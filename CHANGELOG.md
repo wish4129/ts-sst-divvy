@@ -6,6 +6,13 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 
 ## [Unreleased]
 
+### 2026-06-12
+- **[PANGU] Simplify scoring: drop 4-pillar display, keep only composite** — removed pillar breakdown UI in favor of single composite score (7bab8fe1) [PANGU]
+- **Remove persona — drop Ares/Athena/Demeter portfolios** — removed DB tables, Battle page, strategies, and cron jobs associated with the persona system (347804fe)
+- **Fix: remove persona_db dependency** — from run_random_analysis, financial_fetcher, and stock_analyses schema (556504db)
+- **Fix(pangu): recreate persona_db.py** — fix ModuleNotFoundError after persona removal (d0abc522) [PANGU]
+- **Suppress build/deploy output noise** — in run_random_analysis auto-deploy script (d0c66747) [Internal]
+
 ### 2026-06-11
 - **Kronos forecasts refreshed** — 79 entries updated, refactored stocks.ts to API-driven (removed inline data) — 08fecd43 [Internal]
 - **[FUXI] Fix sitemap duplicate URLs** — exclude universe stocks already in watchlist to prevent 76 duplicate stock pages; updated sitemap test mock order (2aa1d480) [FUXI]
