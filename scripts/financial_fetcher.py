@@ -25,8 +25,25 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
-from persona_db import get_all_stocks_dict
 from db import get_db
+
+def _get_all_stocks_dict():
+    """Get {short_name: {code, name, industry, initial}} for all stocks from DB."""
+    db = get_db()
+    cur = db.cursor()
+    cur.execute("SELECT id, name, industry, initial_price FROM stocks WHERE status NOT IN ('removed', 'data_missing')")
+    result = {}
+    for r in cur.fetchall():
+        short = r[0].replace('.KL', '')
+        result[short] = {
+            'code': r[0],
+            'name': r[1],
+            'industry': r[2] or '',
+            'initial': float(r[3] or 0),
+        }
+    cur.close()
+    db.close()
+    return result
 
 MALAYSIA_TZ = timezone(timedelta(hours=8))
 
@@ -144,7 +161,7 @@ def extract_quarterly(ticker_code):
 
 
 def main():
-    stocks = get_all_stocks_dict()
+    stocks = _get_all_stocks_dict()
     target_codes = sys.argv[1:] if len(sys.argv) > 1 else [
         info["code"] for info in stocks.values()
     ]

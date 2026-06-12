@@ -15,10 +15,23 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 sys.path.append(str(ROOT / 'Kronos'))
 
 from db import get_db
-from persona_db import SHORT_TO_TICKER as _ST
 
-# Build reverse map for ticker→short
-TICKER_TO_SHORT = {v: k for k, v in _ST.items()}
+# Ticker ↔ Short code maps (mirrors what sync_from_db.py generates)
+SHORT_TO_TICKER = {}
+TICKER_TO_SHORT = {}
+try:
+    import psycopg2.extras
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("SELECT id, name FROM stocks WHERE status NOT IN ('removed', 'data_missing')")
+    for ticker, _name in cur.fetchall():
+        short = ticker.replace('.KL', '')
+        SHORT_TO_TICKER[short] = ticker
+        TICKER_TO_SHORT[ticker] = short
+    cur.close()
+    conn.close()
+except Exception:
+    pass
 
 MYT = timezone(timedelta(hours=8))
 PRED_LEN = 30
@@ -241,21 +254,20 @@ def run_analysis(count=3, process_pending=False):
             # Mark as analyzed in universe
             cur.execute("UPDATE bursa_universe SET has_analysis=TRUE, last_analyzed_at=NOW() WHERE stock_code=%s", (ticker,))
             
-            # Also write to stock_analyses for all 3 personas
-            for pid in ['ares', 'demeter', 'athena']:
-                cur.execute("""
-                    INSERT INTO stock_analyses (stock_id, persona, score_composite, score_breakdown, decision_rationale, generated_at)
-                    VALUES (%s, %s, %s, %s, %s, NOW())
-                    ON CONFLICT (stock_id, persona) DO UPDATE
-                    SET score_composite = EXCLUDED.score_composite,
-                        score_breakdown = EXCLUDED.score_breakdown,
-                        decision_rationale = EXCLUDED.decision_rationale,
-                        generated_at = NOW()
-                """, (ticker, pid, scores['composite'], json.dumps(scores),
-                      json.dumps({
-                          "sections": {"Score Analysis": [f"Random analysis — Kronos {kronos_pct:+.1f}%", notes]},
-                          "sources": {"Score Analysis": "Kronos forecast + yfinance"}
-                      })))
+            # Write to stock_analyses
+            cur.execute("""
+                INSERT INTO stock_analyses (stock_id, score_composite, score_breakdown, decision_rationale, generated_at)
+                VALUES (%s, %s, %s, %s, NOW())
+                ON CONFLICT (stock_id) DO UPDATE
+                SET score_composite = EXCLUDED.score_composite,
+                    score_breakdown = EXCLUDED.score_breakdown,
+                    decision_rationale = EXCLUDED.decision_rationale,
+                    generated_at = NOW()
+            """, (ticker, scores['composite'], json.dumps(scores),
+                  json.dumps({
+                      "sections": {"Score Analysis": [f"Random analysis — Kronos {kronos_pct:+.1f}%", notes]},
+                      "sources": {"Score Analysis": "Kronos forecast + yfinance"}
+                  })))
             
             # Mark pending as processed
             if process_pending:
