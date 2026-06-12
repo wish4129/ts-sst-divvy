@@ -309,9 +309,16 @@ if __name__ == '__main__':
             sign = '▲' if r['kronos_pct'] > 0 else '▼'
             print(f"  {r['short']:10s} {r['name'][:30]:30s} score={r['score']:3d} {r['status']:8s} {sign} Kronos {r['kronos_pct']:+.1f}%")
         
-        # Trigger sync + deploy
+        # Trigger sync + deploy (suppress build noise)
         import subprocess
-        subprocess.run([sys.executable, str(ROOT / 'scripts' / 'sync_from_db.py')], check=True)
-        subprocess.run(['npm', 'run', 'build'], cwd=str(ROOT / 'web'), check=True)
-        subprocess.run(['npx', 'sst', 'deploy', '--stage', 'live'], cwd=str(ROOT))
+        subprocess.run([sys.executable, str(ROOT / 'scripts' / 'sync_from_db.py')], check=True, capture_output=True)
+        subprocess.run(['npm', 'run', 'build'], cwd=str(ROOT / 'web'), check=True, capture_output=True)
+        result = subprocess.run(['npx', 'sst', 'deploy', '--stage', 'live'], cwd=str(ROOT), capture_output=True, text=True)
+        # Only show errors and completion
+        if result.returncode != 0:
+            print(f"DEPLOY FAILED: {result.stderr.strip()}")
+        # Filter SST output to just the essentials
+        for line in result.stdout.split('\n'):
+            if any(kw in line for kw in ['Complete', 'WebApp:', 'Api:', 'Failed', 'Error']):
+                print(line.strip())
         print("✓ Deployed")
