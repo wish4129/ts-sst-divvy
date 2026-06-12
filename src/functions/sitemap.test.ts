@@ -77,7 +77,6 @@ describe('Sitemap Lambda Handler', () => {
   it('includes static pages in sitemap', async () => {
     const result = await handler(mockEvent) as any
     expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/</loc>')
-    expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/battle</loc>')
     expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/watchlist</loc>')
     expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/universe</loc>')
     expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/compare</loc>')

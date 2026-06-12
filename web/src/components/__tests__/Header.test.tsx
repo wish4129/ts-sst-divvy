@@ -100,11 +100,11 @@ describe('Header', () => {
       expect(universeLink).toHaveAttribute('href', '/universe')
     })
 
-    it('renders Battle link', () => {
+    it('renders Compare link', () => {
       mockUseAuth.mockReturnValue({ user: null, loading: false, signInWithGoogle: vi.fn(), signOut: vi.fn() })
       renderHeader()
-      const battleLink = screen.getByRole('link', { name: /battle/i })
-      expect(battleLink).toHaveAttribute('href', '/battle')
+      const compareLink = screen.getByRole('link', { name: /compare/i })
+      expect(compareLink).toHaveAttribute('href', '/compare')
     })
 
     it('highlights active nav link based on current route', () => {
@@ -116,7 +116,7 @@ describe('Header', () => {
 
     it('does not highlight inactive nav links', () => {
       mockUseAuth.mockReturnValue({ user: null, loading: false, signInWithGoogle: vi.fn(), signOut: vi.fn() })
-      renderHeader('/battle')
+      renderHeader('/universe')
       const watchlistLink = screen.getByRole('link', { name: /watchlist/i })
       expect(watchlistLink.className).not.toContain('bg-emerald-100')
     })

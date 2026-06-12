@@ -11,7 +11,6 @@ import { useApi } from '../hooks/useApi'
 import type { Stock } from '../data/stocks'
 
 interface AnalysisData {
-  persona: string
   stock_name: string
   industry: string
   score_composite: number
@@ -192,8 +191,8 @@ export default function StockDetail() {
         <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
       </Helmet>
       <main className="max-w-4xl mx-auto px-4 py-6">
-        <Link to="/battle" aria-label="Back to Battle" className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 mb-4">
-          <ArrowLeft className="w-4 h-4" /> Back to Battle
+        <Link to="/" aria-label="Back to Dashboard" className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 mb-4">
+          <ArrowLeft className="w-4 h-4" /> Back to Dashboard
         </Link>
 
         {/* Header */}

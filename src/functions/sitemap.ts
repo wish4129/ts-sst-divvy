@@ -14,7 +14,6 @@ const sql = postgres({
 const SITE_URL = "https://d2d7b6u77b6we4.cloudfront.net";
 const STATIC_PAGES = [
   { loc: "/", priority: "1.0", changefreq: "daily" },
-  { loc: "/battle", priority: "0.9", changefreq: "daily" },
   { loc: "/watchlist", priority: "0.8", changefreq: "hourly" },
   { loc: "/universe", priority: "0.8", changefreq: "daily" },
   { loc: "/compare", priority: "0.7", changefreq: "weekly" },

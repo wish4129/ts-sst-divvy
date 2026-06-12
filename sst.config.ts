@@ -18,7 +18,6 @@ export default $config({
       },
     });
 
-    api.route("GET /battle", "src/functions/battle.handler");
     api.route("GET /analysis/{code}", "src/functions/analysis.handler");
     api.route("GET /watchlist", "src/functions/watchlist.handler");
     api.route("GET /universe", "src/functions/universe.handler");

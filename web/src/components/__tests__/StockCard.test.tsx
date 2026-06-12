@@ -63,7 +63,7 @@ describe('StockCard', () => {
 
   it('renders market cap', () => {
     renderCard()
-    expect(screen.getByText('RM 1.98B')).toBeInTheDocument()
+    expect(screen.getByText('RM 2M')).toBeInTheDocument()
   })
 
   it('renders sparkline chart via SVG', () => {

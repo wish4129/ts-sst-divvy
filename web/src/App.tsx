@@ -13,7 +13,6 @@ const Home = lazy(() => import('./pages/Home'))
 const StockDetail = lazy(() => import('./pages/StockDetail'))
 const Watchlist = lazy(() => import('./pages/Watchlist'))
 const Universe = lazy(() => import('./pages/Universe'))
-const Battle = lazy(() => import('./pages/Battle'))
 const Compare = lazy(() => import('./pages/Compare'))
 const DividendCalendar = lazy(() => import('./pages/DividendCalendar'))
 const Screener = lazy(() => import('./pages/Screener'))
@@ -52,7 +51,6 @@ export default function App() {
                   <Route path="/stock/:code" element={<Page><StockDetail /></Page>} />
                   <Route path="/watchlist" element={<Page><Watchlist /></Page>} />
                   <Route path="/universe" element={<Page><Universe /></Page>} />
-                  <Route path="/battle" element={<Page><Battle /></Page>} />
                   <Route path="/compare" element={<Page><Compare /></Page>} />
                   <Route path="/dividends" element={<Page><DividendCalendar /></Page>} />
                   <Route path="/screener" element={<Page><Screener /></Page>} />

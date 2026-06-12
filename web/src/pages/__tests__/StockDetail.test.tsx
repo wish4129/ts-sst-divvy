@@ -47,7 +47,6 @@ describe('StockDetail page', () => {
       stock_name: 'Malayan Banking',
       industry: 'Banking',
       score_composite: 85,
-      personas: { ares: {}, demeter: {}, athena: {} },
       score_breakdown: {},
       decision_rationale: { sections: {}, sources: {} },
       ai_report: null,
@@ -56,17 +55,11 @@ describe('StockDetail page', () => {
     expect(screen.getByText(/Malayan Banking/i)).toBeTruthy()
   })
 
-  it('shows persona analysis banner when data loaded', () => {
+  it('shows deep analysis banner when data loaded', () => {
     mockApi({
       stock_name: 'Test Stock',
-      persona: 'ares',
       industry: 'Tech',
       score_composite: 75,
-      personas: {
-        ares: { decision: 'HOLD' },
-        demeter: { decision: 'BUY' },
-        athena: { decision: 'SELL' },
-      },
       score_breakdown: {},
       decision_rationale: { sections: {}, sources: {} },
       ai_report: null,

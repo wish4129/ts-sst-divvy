@@ -27,7 +27,6 @@ interface AnalysisData {
   industry: string
   score_composite: number
   score_breakdown: Record<string, number> | null
-  personas: Record<string, { score_composite: number }>
   kronos_signal: Record<string, any> | null
   ai_report: Record<string, string> | null
   rationale: Record<string, any> | null

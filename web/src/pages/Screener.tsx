@@ -1,10 +1,11 @@
 import { useState, useMemo } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Search, TrendingUp, AlertCircle, Plus, ArrowUpDown, ExternalLink } from 'lucide-react'
+import { Search, TrendingUp, AlertCircle, Plus, ArrowUpDown, ExternalLink, Download } from 'lucide-react'
 import { seo } from '../lib/seo'
 import { useNavigate } from 'react-router-dom'
 import { useApi } from '../hooks/useApi'
 import ScoreBadge from '../components/ScoreBadge'
+import { downloadCsv, type CsvRow } from '../lib/export-csv'
 
 interface ScreenerCandidate {
   id: number
@@ -143,7 +144,32 @@ export default function Screener() {
           </p>
         </div>
 
-        {/* Search */}
+        <div className="flex items-center gap-2">
+          {filtered.length > 0 && (
+            <button
+              onClick={() => {
+                const rows: CsvRow[] = filtered.map(c => ({
+                  code: c.stockCode.replace('.KL', ''),
+                  name: c.stockName,
+                  industry: '',
+                  lastPrice: 0,
+                  dividendYield: c.dividendYield ?? 0,
+                  pe: c.peRatio ?? 0,
+                  score: c.compositeScore,
+                  status: c.inWatchlist ? 'In Watchlist' : 'New',
+                  hasAiReport: false,
+                }))
+                downloadCsv(rows, `divvy-screener-${new Date().toISOString().slice(0, 10)}.csv`)
+              }}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-indigo-700 bg-indigo-50 hover:bg-indigo-100 dark:text-indigo-400 dark:bg-indigo-950 dark:hover:bg-indigo-900 rounded-lg transition-colors"
+              title="Export screener results to CSV"
+            >
+              <Download className="w-3.5 h-3.5" />
+              Export CSV
+            </button>
+          )}
+
+          {/* Search */}
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
@@ -153,6 +179,7 @@ export default function Screener() {
             placeholder="Search stocks..."
             className="pl-9 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-sm w-48"
           />
+        </div>
         </div>
       </div>
 

@@ -13,105 +13,13 @@ const sql = postgres({
 
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {
   const code = event.pathParameters?.code;
-  const persona = event.queryStringParameters?.persona;
-
   if (!code) {
     return { statusCode: 400, headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
              body: JSON.stringify({ error: "Missing stock code" }) };
   }
 
   try {
-    if (persona) {
-      // Specific persona or "all" — return all 3 full analyses
-      if (persona === "all") {
-        const allRows = await sql`
-          SELECT DISTINCT ON (sa.persona) sa.*, s.name as stock_name, s.industry, s.financials,
-                 s.last_price, s.price_change, s.market_cap, s.dividend_yield, s.sparkline
-          FROM stock_analyses sa
-          JOIN stocks s ON sa.stock_id = s.id
-          WHERE sa.stock_id = ${code}
-          ORDER BY sa.persona, sa.generated_at DESC
-        `;
-
-        const analyses: Record<string, any> = {};
-        for (const r of allRows) {
-          analyses[r.persona] = {
-            persona: r.persona,
-            stock_name: r.stock_name,
-            industry: r.industry,
-            score_composite: Number(r.score_composite),
-            score_breakdown: r.score_breakdown,
-            financials: r.financials,
-            last_price: Number(r.last_price || 0),
-            price_change: Number(r.price_change || 0),
-            market_cap: Number(r.market_cap || 0),
-            dividend_yield: Number(r.dividend_yield || 0),
-            sparkline: r.sparkline || [],
-            rationale: r.decision_rationale,
-            kronos_signal: r.kronos_signal,
-            macro_context: r.macro_context,
-            ai_report: r.ai_report,
-            ai_model: r.ai_model,
-            generated_at: r.generated_at,
-          };
-        }
-
-        const first = allRows[0];
-        return {
-          statusCode: 200,
-          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-          body: JSON.stringify({
-            stock_name: first?.stock_name || "",
-            industry: first?.industry || "",
-            personas: analyses,
-            last_price: first ? Number(first.last_price || 0) : 0,
-            price_change: first ? Number(first.price_change || 0) : 0,
-            market_cap: first ? Number(first.market_cap || 0) : 0,
-            dividend_yield: first ? Number(first.dividend_yield || 0) : 0,
-            sparkline: first?.sparkline || [],
-            financials: first?.financials || null,
-            generated_at: first?.generated_at || null,
-          }),
-        };
-      }
-
-      const rows = await sql`
-        SELECT sa.*, s.name as stock_name, s.industry, s.financials,
-               s.last_price, s.price_change, s.market_cap, s.dividend_yield, s.sparkline
-        FROM stock_analyses sa
-        JOIN stocks s ON sa.stock_id = s.id
-        WHERE sa.stock_id = ${code} AND sa.persona = ${persona}
-        ORDER BY sa.generated_at DESC LIMIT 1
-      `;
-      const row = rows[0];
-      if (!row) return { statusCode: 404, headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }, body: JSON.stringify(null) };
-
-      return {
-        statusCode: 200,
-        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-        body: JSON.stringify({
-          persona: row.persona,
-          stock_name: row.stock_name,
-          industry: row.industry,
-          score_composite: Number(row.score_composite),
-          score_breakdown: row.score_breakdown,
-          financials: row.financials,
-          last_price: Number(row.last_price || 0),
-          price_change: Number(row.price_change || 0),
-          market_cap: Number(row.market_cap || 0),
-          dividend_yield: Number(row.dividend_yield || 0),
-          sparkline: row.sparkline || [],
-          rationale: row.decision_rationale,
-          kronos_signal: row.kronos_signal,
-          macro_context: row.macro_context,
-          ai_report: row.ai_report,
-          ai_model: row.ai_model,
-          generated_at: row.generated_at,
-        }),
-      };
-    }
-
-    // No persona — latest analysis + persona summary
+    // Latest analysis for this stock
     const latestRow = await sql`
       SELECT sa.*, s.name as stock_name, s.industry, s.financials,
              s.last_price, s.price_change, s.market_cap, s.dividend_yield, s.sparkline
@@ -121,28 +29,10 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
       ORDER BY sa.generated_at DESC LIMIT 1
     `;
 
-    const personaRows = await sql`
-      SELECT DISTINCT ON (sa.persona) sa.persona, sa.score_composite, sa.generated_at,
-             s.name as stock_name, s.industry
-      FROM stock_analyses sa
-      JOIN stocks s ON sa.stock_id = s.id
-      WHERE sa.stock_id = ${code}
-      ORDER BY sa.persona, sa.generated_at DESC
-    `;
-
-    const byPersona: Record<string, any> = {};
-    for (const r of personaRows) {
-      byPersona[r.persona] = {
-        persona: r.persona,
-        score_composite: Number(r.score_composite),
-        generated_at: r.generated_at,
-      };
-    }
-
     const latest = latestRow[0];
 
-    // Fallback: if no stock_analyses rows exist, return stocks table data directly
-    if (!latest && personaRows.length === 0) {
+    // Fallback: if no analysis, return stocks table data
+    if (!latest) {
       const stockRow = await sql`
         SELECT s.name, s.industry, s.financials,
                s.last_price, s.price_change, s.market_cap, s.dividend_yield, s.sparkline,
@@ -159,7 +49,6 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
         body: JSON.stringify({
           stock_name: s.name,
           industry: s.industry || "",
-          personas: {},
           ai_report: null,
           ai_model: null,
           score_composite: Number(s.score_composite || 0),
@@ -174,7 +63,6 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
           kronos_signal: null,
           macro_context: null,
           generated_at: null,
-          persona: null,
         }),
       };
     }
@@ -183,24 +71,22 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
       statusCode: 200,
       headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
       body: JSON.stringify({
-        stock_name: latest?.stock_name || personaRows[0]?.stock_name || "",
-        industry: latest?.industry || personaRows[0]?.industry || "",
-        personas: byPersona,
-        ai_report: latest?.ai_report || null,
-        ai_model: latest?.ai_model || null,
-        score_composite: latest ? Number(latest.score_composite) : 0,
-        score_breakdown: latest?.score_breakdown || null,
-        financials: latest?.financials || null,
-        last_price: latest ? Number(latest.last_price || 0) : 0,
-        price_change: latest ? Number(latest.price_change || 0) : 0,
-        market_cap: latest ? Number(latest.market_cap || 0) : 0,
-        dividend_yield: latest ? Number(latest.dividend_yield || 0) : 0,
-        sparkline: latest?.sparkline || [],
-        rationale: latest?.decision_rationale || null,
-        kronos_signal: latest?.kronos_signal || null,
-        macro_context: latest?.macro_context || null,
-        generated_at: latest?.generated_at || null,
-        persona: latest?.persona || null,
+        stock_name: latest.stock_name || "",
+        industry: latest.industry || "",
+        ai_report: latest.ai_report || null,
+        ai_model: latest.ai_model || null,
+        score_composite: Number(latest.score_composite || 0),
+        score_breakdown: latest.score_breakdown || null,
+        financials: latest.financials || null,
+        last_price: Number(latest.last_price || 0),
+        price_change: Number(latest.price_change || 0),
+        market_cap: Number(latest.market_cap || 0),
+        dividend_yield: Number(latest.dividend_yield || 0),
+        sparkline: latest.sparkline || [],
+        rationale: latest.decision_rationale || null,
+        kronos_signal: latest.kronos_signal || null,
+        macro_context: latest.macro_context || null,
+        generated_at: latest.generated_at || null,
       }),
     };
   } catch (error: any) {

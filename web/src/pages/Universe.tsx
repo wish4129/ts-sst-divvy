@@ -1,8 +1,9 @@
 import { useState, useMemo } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Search, Beaker, Loader2, CheckCircle2, Clock } from 'lucide-react'
+import { Search, Beaker, Loader2, CheckCircle2, Clock, Download } from 'lucide-react'
 import { seo } from '../lib/seo'
 import { useApi } from '../hooks/useApi'
+import { downloadCsv, type CsvRow } from '../lib/export-csv'
 
 interface UniverseStock {
   stock_code: string
@@ -93,6 +94,29 @@ export default function Universe() {
             <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Bursa Universe</h1>
             <p className="text-sm text-gray-500">{total.toLocaleString()} stocks · Request deep analysis on any stock</p>
           </div>
+          {stocks.length > 0 && (
+            <button
+              onClick={() => {
+                const rows: CsvRow[] = stocks.map(s => ({
+                  code: s.stock_code.replace('.KL', ''),
+                  name: s.name,
+                  industry: s.industry || '',
+                  lastPrice: s.last_price ?? 0,
+                  dividendYield: s.dividend_yield ?? 0,
+                  pe: s.pe_ratio ?? 0,
+                  score: 0,
+                  status: s.has_analysis ? 'Analyzed' : 'Pending',
+                  hasAiReport: s.has_analysis,
+                }))
+                downloadCsv(rows, `divvy-universe-${new Date().toISOString().slice(0, 10)}.csv`)
+              }}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-950 dark:hover:bg-emerald-900 rounded-lg transition-colors"
+              title="Export universe to CSV"
+            >
+              <Download className="w-3.5 h-3.5" />
+              Export CSV
+            </button>
+          )}
         </div>
 
         {message && (

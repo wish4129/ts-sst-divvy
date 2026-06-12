@@ -11,7 +11,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 from db import get_db
-from persona_db import TICKER_TO_SHORT, SHORT_TO_TICKER
+
+# Ticker ↔ Short code maps (built from DB)
+TICKER_TO_SHORT: dict[str, str] = {}
+SHORT_TO_TICKER: dict[str, str] = {}
 
 MYT = timezone(timedelta(hours=8))
 NOW = datetime.now(MYT).strftime("%Y-%m-%d")
@@ -65,6 +68,9 @@ for row in cur.fetchall():
 
 cur.close()
 db.close()
+
+# Build reverse SHORT_TO_TICKER map
+SHORT_TO_TICKER = {v: k for k, v in _ticker_short_map.items()}
 
 print(f"Fetched {len(stocks)} stocks from DB")
 
