@@ -27,7 +27,6 @@ def make_stock_row(
     industry="Banking",
     status="active",
     composite=85,
-    score_subs_raw='{"dividend":80,"growth":70,"quality":90,"risk":30}',
     last_price=10.50,
     price_change=0.25,
     dividend_yield=6.2,
@@ -42,7 +41,7 @@ def make_stock_row(
     # Type hints omitted — real DB returns None for NULL columns
     """Build a mock cursor-fetch row matching the SELECT in sync_from_db.py."""
     return (
-        ticker, name, industry, status, composite, score_subs_raw,
+        ticker, name, industry, status, composite,
         last_price, price_change, dividend_yield, market_cap,
         sparkline_raw, notes, kronos_warning, revisit_at,
         fin_json, div_json,
@@ -107,14 +106,14 @@ class TestDBToPythonTransformation:
     def test_null_fields_handled(self):
         """NULL financial fields → 0 / '' / [] instead of errors."""
         row = make_stock_row(
-            composite=None, score_subs_raw=None,
+            composite=None,
             last_price=None, price_change=None,
             dividend_yield=None, market_cap=None,
             sparkline_raw=None, notes=None,
             fin_json=None, div_json=None,
         )
         ts_text = run_sync([row])
-        assert "score: { composite: 0," in ts_text
+        assert "score: { composite: 0 }" in ts_text
         assert "marketCap: 0.0," in ts_text
         assert "lastPrice: 0.0," in ts_text
         assert "notes: ''" in ts_text
@@ -187,15 +186,11 @@ class TestTypeScriptOutputFormat:
         assert "bg-blue-100" in ts_text
 
     def test_score_object_structure(self):
-        """Score sub-scores appear as a nested object."""
+        """Score composite appears as a single-field object."""
         ts_text = run_sync([
-            StockRow(score_subs_raw='{"dividend":80,"growth":70,"quality":90,"risk":30}')
+            StockRow(composite=85)
         ])
         assert "composite: 85" in ts_text
-        assert "dividend: 80" in ts_text
-        assert "growth: 70" in ts_text
-        assert "quality: 90" in ts_text
-        assert "risk: 30" in ts_text
 
     def test_special_chars_escaped(self):
         """Stock names / notes with special chars are escaped."""
@@ -332,15 +327,6 @@ class TestEdgeCases:
         """Negative price change preserves sign."""
         ts_text = run_sync([StockRow(price_change=-0.50)])
         assert "priceChange: -0.5" in ts_text or "priceChange: -0.50" in ts_text
-
-    def test_score_subs_missing_fields(self):
-        """score_subs may lack some sub-scores → defaults to 0."""
-        ts_text = run_sync([StockRow(score_subs_raw='{"dividend":80}')])
-        assert "dividend: 80" in ts_text
-        assert "growth: 0" in ts_text
-        assert "quality: 0" in ts_text
-        assert "risk: 0" in ts_text
-
 
 class TestPrintOutput:
     """Verify stdout prints informative status messages (via generated TS)."""

@@ -22,7 +22,7 @@ db = get_db()
 cur = db.cursor()
 
 cur.execute("""
-    SELECT id, name, industry, status, score_composite, score_subs,
+    SELECT id, name, industry, status, score_composite,
            last_price, price_change, dividend_yield, market_cap,
            sparkline, notes, kronos_warning, revisit_at, 
            COALESCE(financials::text, '[]') as financials_json,
@@ -33,16 +33,15 @@ cur.execute("""
 """)
 
 stocks = []
-_ticker_short_map = {}  # ticker → short_code for TS exports
+_ticker_short_map = {}  # ticker -> short_code for TS exports
 for row in cur.fetchall():
-    (ticker, name, industry, status, composite, score_subs_raw,
+    (ticker, name, industry, status, composite,
      price, price_change, dy, mcap, sparkline_raw, notes,
      kronos_warning, revisit_at, fin_json, div_json) = row
     
     short_code = TICKER_TO_SHORT.get(ticker, ticker.replace('.KL', ''))
     _ticker_short_map[ticker] = short_code
     
-    scores = json.loads(score_subs_raw) if isinstance(score_subs_raw, str) else (score_subs_raw or {})
     financials = json.loads(fin_json) if isinstance(fin_json, str) else (fin_json or [])
     dividends = json.loads(div_json) if isinstance(div_json, str) else (div_json or [])
     sparkline = json.loads(sparkline_raw) if isinstance(sparkline_raw, str) else (sparkline_raw or [])
@@ -56,10 +55,6 @@ for row in cur.fetchall():
         'priceChange': float(price_change or 0),
         'dividendYield': float(dy or 0),
         'score_composite': int(composite or 0),
-        'score_dividend': scores.get('dividend', 0),
-        'score_growth': scores.get('growth', 0),
-        'score_quality': scores.get('quality', 0),
-        'score_risk': scores.get('risk', 0),
         'financials': financials,
         'dividends': dividends,
         'status': status or 'revisit',
@@ -78,10 +73,6 @@ print(f"Fetched {len(stocks)} stocks from DB")
 lines = []
 lines.append("""export interface StockScore {
   composite: number
-  dividend: number
-  growth: number
-  quality: number
-  risk: number
 }
 
 export interface StockFinancials {
@@ -140,7 +131,7 @@ for i, s in enumerate(stocks):
     lines.append(f"    lastPrice: {s['lastPrice']},")
     lines.append(f"    priceChange: {s['priceChange']},")
     lines.append(f"    dividendYield: {s['dividendYield']},")
-    lines.append(f"    score: {{ composite: {s['score_composite']}, dividend: {s['score_dividend']}, growth: {s['score_growth']}, quality: {s['score_quality']}, risk: {s['score_risk']} }},")
+    lines.append(f"    score: {{ composite: {s['score_composite']} }},")
     lines.append(f"    financials: {fin_str},")
     lines.append(f"    dividends: {div_str},")
     lines.append(f"    status: '{s['status']}',")

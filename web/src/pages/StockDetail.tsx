@@ -121,10 +121,6 @@ export default function StockDetail() {
         dividendYield: api.data.dividend_yield || 0,
         score: {
           composite: api.data.score_composite || 0,
-          dividend: api.data.score_breakdown?.dividend_yield?.raw || 0,
-          growth: api.data.score_breakdown?.revenue_growth_yoy?.raw || 0,
-          quality: api.data.score_breakdown?.roe?.raw || 0,
-          risk: api.data.score_breakdown?.de_ratio?.raw || 0,
         },
         financials: api.data.financials || [],
         dividends: [],
@@ -138,7 +134,7 @@ export default function StockDetail() {
     return {
       code: shortCode, name: shortCode || code || 'Loading...', industry: '',
       marketCap: 0, lastPrice: 0, priceChange: 0, dividendYield: 0,
-      score: { composite: 0, dividend: 0, growth: 0, quality: 0, risk: 0 },
+      score: { composite: 0 },
       financials: [], dividends: [], status: 'revisit', addedAt: '', revisitAt: null, notes: '', sparkline: [],
     }
   }, [api.data, code])
@@ -265,26 +261,8 @@ export default function StockDetail() {
           </div>
         )}
 
-        {/* Score Breakdown + 30-Day Price Trend */}
+        {/* 30-Day Price Trend */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-          <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800">
-            <h2 className="font-semibold text-sm text-gray-700 dark:text-gray-300 mb-3">Score Breakdown</h2>
-            {[
-              { label: 'Dividend', value: displayStock.score.dividend, max: 40, color: 'bg-emerald-500' },
-              { label: 'Growth', value: displayStock.score.growth, max: 30, color: 'bg-blue-500' },
-              { label: 'Quality', value: displayStock.score.quality, max: 20, color: 'bg-violet-500' },
-              { label: 'Risk', value: displayStock.score.risk, max: 10, color: 'bg-amber-500' },
-            ].map((factor) => (
-              <div key={factor.label} className="flex items-center gap-3 mb-2">
-                <span className="text-xs text-gray-500 w-16">{factor.label}</span>
-                <div className="flex-1 h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-                  <div className={`h-full ${factor.color} rounded-full transition-all`} style={{ width: `${(factor.value / factor.max) * 100}%` }} />
-                </div>
-                <span className="text-xs font-medium text-gray-600 dark:text-gray-400 w-8 text-right">{factor.value}/{factor.max}</span>
-              </div>
-            ))}
-          </div>
-
           <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800">
             <h2 className="font-semibold text-sm text-gray-700 dark:text-gray-300 mb-3">30-Day Price Trend</h2>
             <div className="flex items-center justify-between mb-2">

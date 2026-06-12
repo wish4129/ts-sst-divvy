@@ -145,26 +145,6 @@ def score_stock(row):
     composite += macro_adj
     composite = round(min(max(composite, 0), 100), 1)
 
-    # Map factor names to sub-score categories
-    factor_to_sub = {
-        "dividend_yield": "dividend",
-        "revenue_growth_yoy": "growth",
-        "roe": "quality",
-        "de_ratio": "risk",
-        "gross_margin": "quality",
-    }
-    subs = {"dividend": 0, "growth": 0, "quality": 0, "risk": 0}
-    for fn, b in breakdown.items():
-        sub = factor_to_sub.get(fn)
-        if sub:
-            subs[sub] += round(b["raw"], 1)
-    # Cap each sub-score at its max
-    subs["dividend"] = min(subs["dividend"], 40)
-    subs["growth"] = min(subs["growth"], 30)
-    subs["quality"] = min(subs["quality"], 20)
-    subs["risk"] = min(subs["risk"], 10)
-    subs["composite"] = composite
-
     return {
         "code": stock_code,
         "name": stock_name,
@@ -172,7 +152,6 @@ def score_stock(row):
         "composite": composite,
         "macro_adjustment": macro_adj,
         "breakdown": breakdown,
-        "subs": subs,
     }
 
 
@@ -207,12 +186,10 @@ print(f"Scored {len(results)} stocks ({skipped} with limited data)")
 
 # Print summary
 results.sort(key=lambda x: x["composite"], reverse=True)
-print(f"\n{'Stock':10s} {'Composite':>8s} {'Macro':>6s} {'Div':>4s} {'Grw':>4s} {'Qly':>4s} {'Rsk':>4s}")
-print("-" * 50)
+print(f"\n{'Stock':10s} {'Composite':>8s} {'Macro':>6s}")
+print("-" * 30)
 for r in results[:10]:
-    s = r["subs"]
-    print(f"{r['code']:10s} {r['composite']:8.1f} {r['macro_adjustment']:+6.1f} "
-          f"{s['dividend']:4.0f} {s['growth']:4.0f} {s['quality']:4.0f} {s['risk']:4.0f}")
+    print(f"{r['code']:10s} {r['composite']:8.1f} {r['macro_adjustment']:+6.1f}")
 
 # Write to DB
 PERSONAS = ['ares', 'demeter', 'athena']
@@ -249,10 +226,9 @@ for r in results:
     cur.execute("""
         UPDATE stocks SET
             score_composite = %s,
-            score_subs = %s,
             updated_at = NOW()
         WHERE id = %s
-    """, (r["composite"], json.dumps(r["subs"]), r["code"]))
+    """, (r["composite"], r["code"]))
 
     # Update stock_analyses (all 3 personas) — now includes decision_rationale
     for pid in PERSONAS:
