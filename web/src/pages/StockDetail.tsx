@@ -138,20 +138,7 @@ export default function StockDetail() {
     }
   }, [api.data, code])
 
-  if (!code) {
-    return (
-      <div className="min-h-screen">
-        <Helmet {...seo({ title: 'Stock not found — Divvy Bursa Tracker', description: 'The requested stock could not be found.', noindex: true })} />
-        <main className="max-w-3xl mx-auto px-4 py-20 text-center">
-          <h1 className="text-2xl font-bold text-gray-400 mb-2">Stock not found</h1>
-          <Link to="/" className="text-emerald-600 hover:text-emerald-700">Back to Dashboard</Link>
-        </main>
-      </div>
-    )
-  }
-
-  if (api.loading) return <StockDetailSkeleton />
-
+  const shortCode = code ? (TICKER_TO_SHORT[code] || code.toUpperCase()) : ''
   const indColor = INDUSTRY_COLORS[displayStock.industry] || 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
   const changeColor = displayStock.priceChange >= 0 ? 'text-emerald-600' : 'text-red-500'
   const changeIcon = displayStock.priceChange >= 0 ? '▲' : '▼'
@@ -179,6 +166,20 @@ export default function StockDetail() {
     identifier: displayStock.code,
     description: `${displayStock.name} (${displayStock.code}) is a ${displayStock.industry} company listed on Bursa Malaysia.`,
   }), [displayStock])
+
+  if (!code) {
+    return (
+      <div className="min-h-screen">
+        <Helmet {...seo({ title: 'Stock not found — Divvy Bursa Tracker', description: 'The requested stock could not be found.', noindex: true })} />
+        <main className="max-w-3xl mx-auto px-4 py-20 text-center">
+          <h1 className="text-2xl font-bold text-gray-400 mb-2">Stock not found</h1>
+          <Link to="/" className="text-emerald-600 hover:text-emerald-700">Back to Dashboard</Link>
+        </main>
+      </div>
+    )
+  }
+
+  if (api.loading) return <StockDetailSkeleton />
 
   return (
     <div className="min-h-screen">
