@@ -17,6 +17,7 @@
     "@supabase/supabase-js": "^2.106.2",
     "canvas-confetti": "^1.9.4",
     "lucide-react": "^0.468.0",
+    "marked": "^18.0.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-helmet-async": "^3.0.0",

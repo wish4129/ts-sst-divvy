@@ -16,6 +16,8 @@ const Universe = lazy(() => import('./pages/Universe'))
 const Compare = lazy(() => import('./pages/Compare'))
 const DividendCalendar = lazy(() => import('./pages/DividendCalendar'))
 const Screener = lazy(() => import('./pages/Screener'))
+const Blog = lazy(() => import('./pages/Blog'))
+const BlogPost = lazy(() => import('./pages/BlogPost'))
 const AuthCallback = lazy(() => import('./pages/AuthCallback'))
 const Privacy = lazy(() => import('./pages/Privacy'))
 const Disclaimer = lazy(() => import('./pages/Disclaimer'))
@@ -35,6 +37,8 @@ export default function App() {
     <Suspense fallback={<><ProgressBar /><Loading /></>}>
       <Routes>
         <Route path="/auth/callback" element={<AuthCallback />} />
+        <Route path="/blog" element={<Page><Blog /></Page>} />
+        <Route path="/blog/:slug" element={<Page><BlogPost /></Page>} />
         <Route path="/privacy" element={<Page><Privacy /></Page>} />
         <Route path="/disclaimer" element={<Page><Disclaimer /></Page>} />
         <Route path="/terms" element={<Page><Terms /></Page>} />

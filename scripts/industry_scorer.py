@@ -230,27 +230,26 @@ for r in results:
         WHERE id = %s
     """, (r["composite"], r["code"]))
 
-    # Update stock_analyses (all 3 personas) — now includes decision_rationale
-    for pid in PERSONAS:
-        cur.execute("""
-            INSERT INTO stock_analyses (stock_id, persona, score_composite, score_breakdown, decision_rationale, generated_at)
-            VALUES (%s, %s, %s, %s, %s, NOW())
-            ON CONFLICT (stock_id, persona) DO UPDATE
-            SET score_composite = EXCLUDED.score_composite,
-                score_breakdown = EXCLUDED.score_breakdown,
-                decision_rationale = EXCLUDED.decision_rationale,
-                generated_at = NOW()
-        """, (r["code"], pid, r["composite"], json.dumps(r["breakdown"]), rationale_json))
-        if cur.rowcount == 1:
-            inserted += 1
-        else:
-            updated += 1
+    # Update stock_analyses — persona column deprecated (nullable, UNIQUE on stock_id only)
+    cur.execute("""
+        INSERT INTO stock_analyses (stock_id, score_composite, score_breakdown, decision_rationale, generated_at)
+        VALUES (%s, %s, %s, %s, NOW())
+        ON CONFLICT (stock_id) DO UPDATE
+        SET score_composite = EXCLUDED.score_composite,
+            score_breakdown = EXCLUDED.score_breakdown,
+            decision_rationale = EXCLUDED.decision_rationale,
+            generated_at = NOW()
+    """, (r["code"], r["composite"], json.dumps(r["breakdown"]), rationale_json))
+    if cur.rowcount == 1:
+        inserted += 1
+    else:
+        updated += 1
 
 db.commit()
 cur.close()
 db.close()
 
-print(f"\n✓ Wrote {inserted} new + {updated} updated scores — {len(results)} stocks × 3 personas")
+print(f"\n✓ Wrote {inserted} new + {updated} updated scores — {len(results)} stocks")
 
 # Top 5 breakdown
 print(f"\n{'─'*50}")
