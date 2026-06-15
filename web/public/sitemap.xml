@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Main pages -->
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/universe</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/screener</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/battle</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/watchlist</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/compare</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/dividends</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Legal pages -->
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/disclaimer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/privacy</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/terms</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- Blog -->
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/blog/coming-soon</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/blog/how-to-invest-bursa-malaysia-beginners-guide</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Stock detail pages -->
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/stock/1155.KL</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/stock/1295.KL</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/stock/3182.KL</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/stock/4707.KL</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d2d7b6u77b6we4.cloudfront.net/stock/6947.KL</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>
