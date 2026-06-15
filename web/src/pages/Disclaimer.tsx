@@ -15,6 +15,34 @@ const Disclaimer: React.FC = () => {
         <h1 className="text-3xl font-bold mb-8">Disclaimer</h1>
 
         <div className="prose prose-lg dark:prose-invert space-y-6">
+          <section className="bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-lg p-6 mb-8">
+            <h2 className="text-xl font-bold text-red-700 dark:text-red-400 mb-3">⚠️ Important — Read This First</h2>
+            <p className="text-red-800 dark:text-red-300 font-medium">
+              Divvy is a <strong>knowledge-sharing platform only</strong>. It is not an investment advisor,
+              financial planner, or trading guide. Nothing on this site should be interpreted as a
+              recommendation to buy, sell, or trade any security on any platform.
+            </p>
+            <p className="text-red-800 dark:text-red-300 font-medium mt-2">
+              <strong>Divvy does not and will not hold any responsibility for any trade or investment losses</strong>{' '}
+              you may incur. All information — including stock scores, AI reports, Kronos forecasts,
+              and analysis — is shared for educational and knowledge-sharing purposes only.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold mb-3">Knowledge-Sharing Platform, Not Investment Guidance</h2>
+            <p>
+              Divvy exists to share knowledge about Bursa Malaysia-listed companies: their fundamentals,
+              historical performance, and AI-generated analysis. The scores, reports, and forecasts
+              you see are <strong>data-driven observations</strong>, not investment advice.
+            </p>
+            <p>
+              You should <strong>never</strong> use Divvy as your sole guide for making investment or
+              trading decisions. The platform is a research tool — one of many you should consult
+              before committing your capital.
+            </p>
+          </section>
+
           <section>
             <h2 className="text-xl font-semibold mb-3">No Financial Advice</h2>
             <p>
@@ -100,7 +128,7 @@ const Disclaimer: React.FC = () => {
           </section>
 
           <p className="text-sm text-gray-500 pt-8">
-            Last updated: June 12, 2026
+            Last updated: June 15, 2026
           </p>
         </div>
 

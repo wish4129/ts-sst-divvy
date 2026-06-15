@@ -111,7 +111,7 @@ const Terms: React.FC = () => {
           </section>
 
           <p className="text-sm text-gray-500 pt-8">
-            Last updated: June 12, 2026
+            Last updated: June 15, 2026
           </p>
         </div>
 
