@@ -246,7 +246,7 @@ export default function StockDetail() {
               <div className="p-5 border-t border-emerald-200 dark:border-emerald-800">
                 <h3 className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide mb-2">
                   Factor Score Breakdown
-                  <span className="text-[10px] text-gray-400 ml-2 font-normal normal-case">Source: Quarterly financials (yfinance)</span>
+                  <span className="text-[10px] text-gray-400 ml-2 font-normal normal-case">Source: Quarterly financials</span>
                 </h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {Object.entries(api.data.score_breakdown).map(([factor, b]: [string, any]) => (

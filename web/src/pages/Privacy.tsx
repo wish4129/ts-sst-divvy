@@ -55,8 +55,6 @@ const Privacy: React.FC = () => {
             <p>Divvy relies on the following third-party services:</p>
             <ul className="list-disc pl-6 space-y-2">
               <li><strong>Supabase</strong> — authentication, database, and data storage. Your email and account data are stored on Supabase's cloud infrastructure (AWS, us-east-1). <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className="text-emerald-600 dark:text-emerald-400 underline">Supabase Privacy Policy</a></li>
-              <li><strong>yfinance (Yahoo Finance)</strong> — real-time and historical stock price data. No personal data is shared. Stock symbols and timestamps only.</li>
-              <li><strong>Kronos</strong> — AI-powered financial time-series forecasting. Stock price history is used to generate forecasts. No personal data is involved.</li>
               <li><strong>Google OAuth</strong> — optional sign-in method. Your email and profile picture are shared with Divvy only after you explicitly authorize it. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-emerald-600 dark:text-emerald-400 underline">Google Privacy Policy</a></li>
             </ul>
             <p>

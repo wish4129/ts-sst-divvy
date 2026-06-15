@@ -24,7 +24,7 @@ const Disclaimer: React.FC = () => {
             </p>
             <p className="text-red-800 dark:text-red-300 font-medium mt-2">
               <strong>Divvy does not and will not hold any responsibility for any trade or investment losses</strong>{' '}
-              you may incur. All information — including stock scores, AI reports, Kronos forecasts,
+              you may incur. All information — including stock scores, AI-generated reports, forecasts,
               and analysis — is shared for educational and knowledge-sharing purposes only.
             </p>
           </section>
@@ -84,7 +84,7 @@ const Disclaimer: React.FC = () => {
           <section>
             <h2 className="text-xl font-semibold mb-3">Data Accuracy</h2>
             <p>
-              Stock data is sourced from third-party providers (yfinance / Yahoo Finance, Bursa Malaysia
+              Stock data is sourced from third-party providers and Bursa Malaysia
               public filings) and may contain errors, inaccuracies, delays, or omissions. Data is provided
               "as is" without any guarantee of completeness or timeliness.
             </p>
