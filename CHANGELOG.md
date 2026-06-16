@@ -6,6 +6,22 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 
 ## [Unreleased]
 
+### 2026-06-16
+- **Feat: top 10 scored stocks in DB health audit** — adds a `db_health_audit.py` step that logs the 10 highest-scored stocks for quick health verification (24b92cb8) [PANGU]
+- **KLSE Screener results updated** — committed latest screener data from Jun 15 run (0e5f84b6) [Internal]
+- **Docs: strengthen disclaimer, remove tool references** — disclaimer now clearly states knowledge-sharing platform (no investment guidance); removed Kronos/yfinance tool references from legal pages and StockDetail (a8285b09, 20b9b372)
+- **Fix: remove sitemap.xml and stocks.ts from .gitignore** — these should be tracked; restore from gitignore (3b0aa942)
+
+### 2026-06-15
+- **Blog system — pages, content, routing** — full blog infrastructure with Wenchang Bursa beginner guide; macro data updates + industry scorer enhancements (e03b6a19) [PANGU]
+
+### 2026-06-14
+- **Fix: StockDetail hooks ordering** — move `useMemo` before early returns to fix React hooks rule violation (#310) (c5d1d2e9) [PANGU]
+
+### 2026-06-13
+- **PANGU: ADR-002 Bursa ETF screener architecture** — architecture decision record for ETF screening feature (3862eb36) [PANGU]
+- **PANGU: ADR-003 gearing risk verification** — ADR for gearing/leverage risk checks in stock analysis pipeline (3862eb36) [PANGU]
+
 ### 2026-06-12
 - **[PANGU] Simplify scoring: drop 4-pillar display, keep only composite** — removed pillar breakdown UI in favor of single composite score (7bab8fe1) [PANGU]
 - **Remove persona — drop Ares/Athena/Demeter portfolios** — removed DB tables, Battle page, strategies, and cron jobs associated with the persona system (347804fe)
@@ -179,9 +195,9 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 - StockDetail early-return guards restored (removed by opencode)
 - All scripts read from DB instead of stale files (`stocks.ts` no longer parsed)
 
-### Testing (687 tests, 44 files)
-- **Vitest (web):** 273 tests, 26 files — all pages (Battle, Watchlist, StockDetail, Home, Universe, Compare, DividendCalendar, Screener, AuthCallback, CronStatus), all components (Header, StockCard, ScoreBadge, SparklineChart, IndustryFilter, ErrorBoundary, Loading, LoginGate, NotFound, ProgressBar, Toast), hooks (useApi, AuthContext, ToastContext), libraries (strategies, export-csv)
-- **Pytest (Python):** 414 tests, 18 files — market_data (15), persona_db ticker mapping (16), portfolio_history (78), risk modules batch 1 (87: backtesting, Monte Carlo, correlation, drawdown, sector limits, Kelly, regime, transaction costs, attribution), risk modules batch 2 (93: Kelly edge cases, market regime, transaction costs, sector exposure), backtest metrics (39: CAGR, Sharpe, max drawdown, win rate, profit factor, Calmar, Sortino), portfolio manager (17: core buy/sell execution), run_deep_analysis (26: parse_markdown_report, get_stocks_from_db, generate_ai_report, const validation)
+### Testing (603 tests, 39 files)
+- **Vitest (web):** 189 tests, 23 files — pages (Watchlist, StockDetail, Home, Universe, Compare, DividendCalendar, Screener, AuthCallback, CronStatus), components (Header, StockCard, ScoreBadge, SparklineChart, IndustryFilter, ErrorBoundary, Loading, LoginGate, NotFound, ProgressBar, Toast), hooks (useApi, AuthContext, ToastContext), libraries (export-csv). Battle/persona tests removed with persona system.
+- **Pytest (Python):** 414 tests, 16 files — market_data (15), persona_db ticker mapping (16), portfolio_history (78), risk modules batch 1 (87: backtesting, Monte Carlo, correlation, drawdown, sector limits, Kelly, regime, transaction costs, attribution), risk modules batch 2 (93: Kelly edge cases, market regime, transaction costs, sector exposure), backtest metrics (39: CAGR, Sharpe, max drawdown, win rate, profit factor, Calmar, Sortino), portfolio manager (17: core buy/sell execution), run_deep_analysis (26: parse_markdown_report, get_stocks_from_db, generate_ai_report, const validation), scrape_prices (43), strategies (78: ares trailing stop, RSI filter, volume confirmation)
 
 ### DB-First Pipeline (v4+)
 - Stocks table JSONB columns expansion + Drizzle schema sync
