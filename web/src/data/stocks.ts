@@ -36,6 +36,7 @@ export interface Stock {
   revisitAt: string | null
   notes: string
   sparkline: number[]
+  pivotTag?: string | null
 }
 
 export const stocks: Stock[] = [

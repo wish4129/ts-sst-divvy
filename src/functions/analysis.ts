@@ -22,7 +22,8 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     // Latest analysis for this stock
     const latestRow = await sql`
       SELECT sa.*, s.name as stock_name, s.industry, s.financials,
-             s.last_price, s.price_change, s.market_cap, s.dividend_yield, s.sparkline
+             s.last_price, s.price_change, s.market_cap, s.dividend_yield, s.sparkline,
+             s.pivot_tag
       FROM stock_analyses sa
       JOIN stocks s ON sa.stock_id = s.id
       WHERE sa.stock_id = ${code}
@@ -36,7 +37,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
       const stockRow = await sql`
         SELECT s.name, s.industry, s.financials,
                s.last_price, s.price_change, s.market_cap, s.dividend_yield, s.sparkline,
-               s.score_composite, s.score_subs
+               s.score_composite, s.score_subs, s.pivot_tag
         FROM stocks s
         WHERE s.id = ${code}
       `;
@@ -53,6 +54,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
           ai_model: null,
           score_composite: Number(s.score_composite || 0),
           score_breakdown: s.score_subs || null,
+          pivot_tag: s.pivot_tag || null,
           financials: s.financials || null,
           last_price: Number(s.last_price || 0),
           price_change: Number(s.price_change || 0),
@@ -77,6 +79,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
         ai_model: latest.ai_model || null,
         score_composite: Number(latest.score_composite || 0),
         score_breakdown: latest.score_breakdown || null,
+        pivot_tag: latest.pivot_tag || null,
         financials: latest.financials || null,
         last_price: Number(latest.last_price || 0),
         price_change: Number(latest.price_change || 0),

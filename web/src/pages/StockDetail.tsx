@@ -24,6 +24,7 @@ interface AnalysisData {
   market_cap?: number
   dividend_yield?: number
   sparkline?: number[]
+  pivot_tag?: string | null
 }
 
 const AI_REPORT_LABELS: Record<string, string> = {
@@ -124,6 +125,7 @@ export default function StockDetail() {
         financials: api.data.financials || [],
         dividends: [],
         sparkline: api.data.sparkline || [],
+        pivotTag: api.data.pivot_tag || null,
         status: (api.data.score_composite || 0) >= 70 ? 'active' as const : 'revisit' as const,
         addedAt: '',
         revisitAt: null,
@@ -192,7 +194,7 @@ export default function StockDetail() {
         <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
       </Helmet>
       <main className="max-w-4xl mx-auto px-4 py-6">
-        <Link to="/" aria-label="Back to Dashboard" className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 mb-4">
+        <Link to="/" aria-label="Back to Dashboard" className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 mb-4 min-h-[44px] min-w-[44px]">
           <ArrowLeft className="w-4 h-4" /> Back to Dashboard
         </Link>
 
@@ -204,6 +206,11 @@ export default function StockDetail() {
               {displayStock.industry && (
                 <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${indColor}`}>{displayStock.industry}</span>
               )}
+              {displayStock.pivotTag && (
+                <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 border border-amber-300 dark:border-amber-700" title="Sector pivot / transition">
+                  {displayStock.pivotTag}
+                </span>
+              )}
             </div>
             <p className="text-xs md:text-sm text-gray-500">{displayStock.code} · MCap RM {displayStock.marketCap}B</p>
           </div>
@@ -212,7 +219,8 @@ export default function StockDetail() {
               <span className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">RM {displayStock.lastPrice.toFixed(2)}</span>
               <span className={`ml-2 text-sm font-medium ${changeColor}`}>{changeIcon} {Math.abs(displayStock.priceChange).toFixed(2)}%</span>
             </div>
-            <ScoreBadge score={displayStock.score.composite} size="lg" />
+            <ScoreBadge score={displayStock.score.composite} size="md" className="md:hidden" />
+            <ScoreBadge score={displayStock.score.composite} size="lg" className="hidden md:inline-flex" />
           </div>
         </div>
 
@@ -248,9 +256,9 @@ export default function StockDetail() {
                   Factor Score Breakdown
                   <span className="text-[10px] text-gray-400 ml-2 font-normal normal-case">Source: Quarterly financials</span>
                 </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                   {Object.entries(api.data.score_breakdown).map(([factor, b]: [string, any]) => (
-                    <div key={factor} className="flex items-center justify-between text-xs bg-white/50 dark:bg-black/20 rounded px-2 py-1">
+                    <div key={factor} className="flex items-center justify-between text-xs bg-white/50 dark:bg-black/20 rounded px-3 py-2 min-h-[40px]">
                       <span className="text-gray-500 capitalize truncate mr-2">{factor.replace(/_/g, ' ')}</span>
                       <span className="font-mono text-gray-700 dark:text-gray-300 flex-shrink-0">{b.weighted?.toFixed(1) || '—'}</span>
                     </div>
@@ -262,7 +270,7 @@ export default function StockDetail() {
         )}
 
         {/* 30-Day Price Trend */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+        <div className="mb-6">
           <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800">
             <h2 className="font-semibold text-sm text-gray-700 dark:text-gray-300 mb-3">30-Day Price Trend</h2>
             <div className="flex items-center justify-between mb-2">
@@ -273,7 +281,9 @@ export default function StockDetail() {
               </span>
               <span className="text-xs text-gray-500">DY {displayStock.dividendYield}%</span>
             </div>
-            <SparklineChart data={displayStock.sparkline} width={300} height={60} />
+            <div className="w-full">
+              <SparklineChart data={displayStock.sparkline} width={600} height={80} />
+            </div>
           </div>
         </div>
 
@@ -283,7 +293,7 @@ export default function StockDetail() {
           {displayStock.financials.length === 0 ? (
             <p className="text-xs text-gray-400 py-4">Financial data will appear after the next pipeline run.</p>
           ) : (
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0" style={{ WebkitOverflowScrolling: 'touch' }}>
               <table className="w-full text-xs">
                 <thead>
                   <tr className="text-gray-500 border-b border-gray-200 dark:border-gray-700">

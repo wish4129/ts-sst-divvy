@@ -26,7 +26,8 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
         s.dividend_yield,
         s.roe,
         s.debt_to_equity,
-        s.market_cap
+        s.market_cap,
+        s.pivot_tag
       FROM stocks s
       LEFT JOIN LATERAL (
         SELECT score_composite, ai_report
@@ -52,6 +53,7 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
       roe: r.roe ? Number(r.roe) : null,
       debtToEquity: r.debt_to_equity ? Number(r.debt_to_equity) : null,
       marketCap: r.market_cap ? Number(r.market_cap) : null,
+      pivotTag: r.pivot_tag || null,
     }));
 
     return {

@@ -41,6 +41,7 @@ export const stocks = pgTable('stocks', {
   revisitAt: timestamp('revisit_at', { withTimezone: true }),
   targetPrice: numeric('target_price'),
   cutLossPrice: numeric('cut_loss_price'),
+  pivotTag: text('pivot_tag'),
 });
 
 // ── OHLCV history (yfinance, daily) ──

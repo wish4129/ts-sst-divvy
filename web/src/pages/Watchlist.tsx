@@ -22,9 +22,10 @@ interface WatchlistStock {
   roe: number | null
   debtToEquity: number | null
   marketCap: number | null
+  pivotTag: string | null
 }
 
-type Tab = 'active' | 'revisit' | 'removed'
+type Tab = 'active' | 'revisit' | 'removed' | 'pivot'
 
 function apiStockToStock(s: WatchlistStock): Stock {
   const shortCode = TICKER_TO_SHORT[s.code] || s.code
@@ -47,6 +48,7 @@ function apiStockToStock(s: WatchlistStock): Stock {
     // Store short code for display
     _shortCode: shortCode,
     hasAiReport: s.hasAiReport,
+    pivotTag: s.pivotTag,
   } as Stock & { _shortCode: string; hasAiReport: boolean }
 }
 
@@ -82,8 +84,12 @@ export default function Watchlist() {
     mergedStocks.filter((s) => s.status === 'removed'),
     [mergedStocks]
   )
+  const pivot = useMemo(() =>
+    mergedStocks.filter((s) => s.pivotTag).sort((a, b) => b.score.composite - a.score.composite),
+    [mergedStocks]
+  )
 
-  const data = tab === 'active' ? active : tab === 'revisit' ? revisit : removed
+  const data = tab === 'active' ? active : tab === 'revisit' ? revisit : tab === 'pivot' ? pivot : removed
 
   const tabClass = (t: Tab) =>
     `px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
@@ -116,6 +122,11 @@ export default function Watchlist() {
         </div>
         <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
           <span className={`px-2 py-0.5 rounded-full text-[10px] md:text-xs font-medium hidden sm:inline ${indColor}`}>{stock.industry}</span>
+          {stock.pivotTag && (
+            <span className="px-2 py-0.5 rounded-full text-[10px] md:text-xs font-medium bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 border border-amber-300 dark:border-amber-700 hidden md:inline" title="Sector pivot">
+              {stock.pivotTag}
+            </span>
+          )}
           <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusColor}`}>
             {stock.status}
           </span>
@@ -160,11 +171,11 @@ export default function Watchlist() {
         </div>
 
         <div className="flex border-b border-gray-200 dark:border-gray-800 mb-4">
-          {(['active', 'revisit', 'removed'] as Tab[]).map((t) => (
+          {(['active', 'revisit', 'pivot', 'removed'] as Tab[]).map((t) => (
             <button key={t} onClick={() => setTab(t)} className={tabClass(t)}>
               {t.charAt(0).toUpperCase() + t.slice(1)}
               <span className="ml-1.5 text-xs text-gray-400">
-                ({t === 'active' ? active.length : t === 'revisit' ? revisit.length : removed.length})
+                ({t === 'active' ? active.length : t === 'revisit' ? revisit.length : t === 'pivot' ? pivot.length : removed.length})
               </span>
             </button>
           ))}
@@ -195,18 +206,22 @@ export default function Watchlist() {
                 <Search className="w-8 h-8 text-gray-400" />
               ) : tab === 'revisit' ? (
                 <FolderOpen className="w-8 h-8 text-gray-400" />
+              ) : tab === 'pivot' ? (
+                <Search className="w-8 h-8 text-gray-400" />
               ) : (
                 <FolderOpen className="w-8 h-8 text-gray-400" />
               )}
             </div>
             <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-1">
-              {tab === 'active' ? 'No active stocks yet' : tab === 'revisit' ? 'Nothing to revisit' : 'No removed stocks'}
+              {tab === 'active' ? 'No active stocks yet' : tab === 'revisit' ? 'Nothing to revisit' : tab === 'pivot' ? 'No sector pivot stocks' : 'No removed stocks'}
             </h3>
             <p className="text-sm text-gray-500 mb-5 max-w-sm mx-auto">
               {tab === 'active'
                 ? 'Stocks scoring 70+ will appear here. Run deep analysis on stocks from the universe to get started.'
                 : tab === 'revisit'
                 ? 'Stocks scoring below 70 land here for later review.'
+                : tab === 'pivot'
+                ? 'Companies transitioning between sectors (e.g., O&G to Renewable Energy) will appear here.'
                 : 'Removed stocks will show up here.'}
             </p>
             <a
