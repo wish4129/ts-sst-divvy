@@ -51,7 +51,9 @@ MALAYSIA_TZ = timezone(timedelta(hours=8))
 def safe_float(val, default=None):
     try:
         v = float(val)
-        return v if not (pd.isna(v) if isinstance(v, float) else False) else default
+        if isinstance(v, float) and (pd.isna(v) or v == float('inf') or v == float('-inf')):
+            return default
+        return v
     except (ValueError, TypeError):
         return default
 
