@@ -14,13 +14,11 @@ import sys
 import os
 
 # Run from project root: cd ~/xiongit/divvy && .venv/bin/python3 scripts/db_health_audit.py
-# If script was copied to project scripts/, use project scripts/ for db.py import.
 _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _PROJECT_SCRIPTS = os.path.join(_PROJECT_ROOT, 'scripts')
 if os.path.exists(os.path.join(_PROJECT_SCRIPTS, 'db.py')):
     sys.path.insert(0, _PROJECT_SCRIPTS)
 else:
-    # Fallback: running from skill directory — assume cwd is project root
     sys.path.insert(0, 'scripts')
 
 from db import get_db
@@ -109,6 +107,19 @@ def baseline_audit(cur):
         "WHERE industry IS NOT NULL GROUP BY industry ORDER BY COUNT(*) DESC"
     )
     print(f"Industry tags: {cur.fetchall()}")
+
+    # Top AI-reported stocks by score
+    cur.execute(
+        "SELECT s.id, s.name, sa.score_composite, sa.ai_report IS NOT NULL as has_ai "
+        "FROM stocks s "
+        "JOIN stock_analyses sa ON s.id = sa.stock_id "
+        "WHERE sa.score_composite IS NOT NULL "
+        "ORDER BY sa.score_composite DESC LIMIT 10"
+    )
+    top10 = cur.fetchall()
+    print(f"\nTop 10 scored stocks:")
+    for r in top10:
+        print(f"  {r[0]} | {r[1][:40]:40s} | {r[2]:5.1f} | AI: {'YES' if r[3] else 'NO'}")
 
 
 def energy_scan(cur):
