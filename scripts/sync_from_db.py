@@ -127,7 +127,7 @@ for i, s in enumerate(stocks):
     comma = ',' if i < len(stocks) - 1 else ''
     
     esc_name = s['name'].replace("'", "\\'")
-    esc_notes = s['notes'].replace("'", "\\'")
+    esc_notes = s['notes'].replace("'", "\\'").replace('\n', '\\n').replace('\r', '\\r')
     
     lines.append(f"  {{")
     lines.append(f"    code: '{s['code']}',")
