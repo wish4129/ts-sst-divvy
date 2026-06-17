@@ -17,7 +17,10 @@ export interface StockFinancials {
 export interface DividendRecord {
   exDate: string
   amount: number
-  yield: number
+  yield?: number
+  subject?: string
+  paymentDate?: string
+  announceDate?: string
 }
 
 export interface Stock {
@@ -36,6 +39,7 @@ export interface Stock {
   revisitAt: string | null
   notes: string
   sparkline: number[]
+  pivotTag?: string | null
 }
 
 export const stocks: Stock[] = [
@@ -291,8 +295,7 @@ export const stocks: Stock[] = [
     status: 'active',
     addedAt: '2026-06-18',
     revisitAt: null,
-    notes: '⚠️ BEARISH -5.5%. P/E 10.8x, DY 6.7%, ROE 13.4%, D/E 6.4. Kronos -5.5%.
-[2026-06-16] Kronos -27.4% 30-day forecast. Score 71 but deeply bearish signal — review position.',
+    notes: '⚠️ BEARISH -5.5%. P/E 10.8x, DY 6.7%, ROE 13.4%, D/E 6.4. Kronos -5.5%.\n[2026-06-16] Kronos -27.4% 30-day forecast. Score 71 but deeply bearish signal — review position.',
     sparkline: [],
   },
   {
