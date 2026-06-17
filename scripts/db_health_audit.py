@@ -108,18 +108,17 @@ def baseline_audit(cur):
     )
     print(f"Industry tags: {cur.fetchall()}")
 
-    # Top AI-reported stocks by score
+    # Top 10 scored stocks
     cur.execute(
-        "SELECT s.id, s.name, sa.score_composite, sa.ai_report IS NOT NULL as has_ai "
-        "FROM stocks s "
+        "SELECT s.id, s.name, sa.score_composite FROM stocks s "
         "JOIN stock_analyses sa ON s.id = sa.stock_id "
         "WHERE sa.score_composite IS NOT NULL "
         "ORDER BY sa.score_composite DESC LIMIT 10"
     )
     top10 = cur.fetchall()
-    print(f"\nTop 10 scored stocks:")
+    print(f"\nTop 10 scores:")
     for r in top10:
-        print(f"  {r[0]} | {r[1][:40]:40s} | {r[2]:5.1f} | AI: {'YES' if r[3] else 'NO'}")
+        print(f"  {r[0]:12s} | {r[1][:50]:50s} | {float(r[2]):.1f}")
 
 
 def energy_scan(cur):
