@@ -58,6 +58,7 @@ export default function App() {
                   <Route path="/compare" element={<Page><Compare /></Page>} />
                   <Route path="/dividends" element={<Page><DividendCalendar /></Page>} />
                   <Route path="/screener" element={<Page><Screener /></Page>} />
+                  <Route path="/battle" element={<NotFound />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </LoginGate>
