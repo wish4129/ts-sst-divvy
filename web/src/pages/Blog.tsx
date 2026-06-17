@@ -1,18 +1,16 @@
 import { Helmet } from 'react-helmet-async'
+import { seo } from '../lib/seo'
 import { Link } from 'react-router-dom'
 import posts from '@/content/blog/posts.json'
 
 export default function Blog() {
   return (
     <div className="space-y-6">
-      <Helmet>
-        <title>Blog — Bursa Market Analysis & KLSE Insights | Divvy</title>
-        <link rel="canonical" href="https://d2d7b6u77b6we4.cloudfront.net/blog" />
-        <meta name="description" content="Bursa Malaysia stock market analysis, KLSE investing guides, and portfolio strategy insights from the Divvy team." />
-        <meta property="og:title" content="Blog — Bursa Market Analysis | Divvy" />
-        <meta property="og:description" content="Bursa Malaysia stock market analysis, KLSE investing guides, and portfolio strategy insights." />
-        <meta name="robots" content="index, follow" />
-      </Helmet>
+      <Helmet {...seo({
+        title: 'Blog — Bursa Market Analysis',
+        description: 'Bursa Malaysia stock market analysis, KLSE investing guides, and portfolio strategy insights from the Divvy team.',
+        canonical: 'https://d2d7b6u77b6we4.cloudfront.net/blog',
+      })} />
       <div className="max-w-7xl mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
           Divvy Blog

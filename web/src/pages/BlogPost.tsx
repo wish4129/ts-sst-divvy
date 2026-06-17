@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
+import { seo } from '../lib/seo'
 import { marked } from 'marked'
 import posts from '@/content/blog/posts.json'
 
@@ -29,14 +30,11 @@ export default function BlogPost() {
 
   return (
     <div className="space-y-4">
-      <Helmet>
-        <title>{post.title} | Divvy Blog</title>
-        <link rel="canonical" href={`https://d2d7b6u77b6we4.cloudfront.net/blog/${post.slug}`} />
-        <meta name="description" content={post.excerpt} />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.excerpt} />
-        <meta name="robots" content="index, follow" />
-      </Helmet>
+      <Helmet {...seo({
+        title: post.title,
+        description: post.excerpt,
+        canonical: `https://d2d7b6u77b6we4.cloudfront.net/blog/${post.slug}`,
+      })} />
       <div className="max-w-3xl mx-auto px-4 py-8">
         <Link to="/blog" className="text-sm text-emerald-600 dark:text-emerald-400 hover:underline mb-6 inline-flex items-center gap-1">
           ← Back to blog

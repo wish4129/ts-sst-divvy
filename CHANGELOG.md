@@ -6,7 +6,18 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 
 ## [Unreleased]
 
+### 2026-06-18
+- **Feat: dividend calendar** — scraper, Lambda endpoint, and frontend page for upcoming ex-dates and yield tiers (9610cee8) [CANGJIE]
+- **Chore: macro recalibration script** — weekly cron for >5% indicator moves, automates macro score refresh (26a36e09) [SAFE]
+- **Fix: db health audit — simplify top 10 scores output** — remove AI report column, cleaner output (cd338503) [PANGU]
+- **[MENSHEN] Remove static sitemap shadow, add blog routes to dynamic sitemap** — blog pages now indexed (b5301e75) [MENSHEN]
+- **Fix: sync_from_db — escape newlines in notes field** — prevents SQL/JSON corruption on multi-line notes (5be8f5d0) [Internal]
+- **Fix: TS types — make yield optional in DividendRecord** — add pivotTag, subject/paymentDate/announceDate fields for dividend calendar schema (5f26d232) [Internal]
+- **Fix: Extract TS types to separate types.ts** — sync script imports shared types instead of redefining (3cb47d64, 99f54b55) [Internal]
+
 ### 2026-06-16
+- **[SHENNONG] Fix safe_float to reject Infinity values** — prevents ACE Market financial fetch crashes from division-by-zero floats (d461ca7c) [SHENNONG]
+- **[PANGU] Add pivot_tag for sector-transitioning stocks** — flag stocks undergoing fundamental sector shifts (b86927af) [PANGU]
 - **Feat: top 10 scored stocks in DB health audit** — adds a `db_health_audit.py` step that logs the 10 highest-scored stocks for quick health verification (24b92cb8) [PANGU]
 - **KLSE Screener results updated** — committed latest screener data from Jun 15 run (0e5f84b6) [Internal]
 - **Docs: strengthen disclaimer, remove tool references** — disclaimer now clearly states knowledge-sharing platform (no investment guidance); removed Kronos/yfinance tool references from legal pages and StockDetail (a8285b09, 20b9b372)
