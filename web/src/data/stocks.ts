@@ -17,10 +17,7 @@ export interface StockFinancials {
 export interface DividendRecord {
   exDate: string
   amount: number
-  yield?: number
-  subject?: string
-  paymentDate?: string
-  announceDate?: string
+  yield: number
 }
 
 export interface Stock {
@@ -39,7 +36,6 @@ export interface Stock {
   revisitAt: string | null
   notes: string
   sparkline: number[]
-  pivotTag?: string | null
 }
 
 export const stocks: Stock[] = [
