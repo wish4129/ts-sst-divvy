@@ -1,7 +1,8 @@
 export interface StockFinancials {
   quarter: string
   revenue: number
-  profit: number
+  netIncome: number
+  freeCashFlow: number
   peRatio: number
   pbRatio?: number
   roe: number

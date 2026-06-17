@@ -78,6 +78,7 @@ print(f"Fetched {len(stocks)} stocks from DB")
 
 lines = []
 lines.append("""import type { Stock } from './types';
+export type { Stock, StockFinancials, StockScore, DividendRecord } from './types';
 
 export const stocks: Stock[] = [""")
 
