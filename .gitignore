@@ -18,3 +18,5 @@ web/tsconfig.tsbuildinfo
 # test scripts
 vitest.workspace.ts
 hermes/
+# Static sitemap shadow — Lambda generates dynamic sitemap
+web/public/sitemap.xml

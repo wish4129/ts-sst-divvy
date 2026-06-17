@@ -22,6 +22,9 @@ const STATIC_PAGES = [
   { loc: "/disclaimer", priority: "0.4", changefreq: "monthly" },
   { loc: "/privacy", priority: "0.4", changefreq: "monthly" },
   { loc: "/terms", priority: "0.4", changefreq: "monthly" },
+  { loc: "/blog", priority: "0.8", changefreq: "weekly" },
+  { loc: "/blog/coming-soon", priority: "0.6", changefreq: "monthly" },
+  { loc: "/blog/how-to-invest-bursa-malaysia-beginners-guide", priority: "0.8", changefreq: "weekly" },
 ];
 
 function escapeXml(s: string): string {
