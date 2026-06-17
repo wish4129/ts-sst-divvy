@@ -1,33 +1,41 @@
 import { useState, useMemo } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Calendar, ChevronLeft, ChevronRight, TrendingUp, DollarSign } from 'lucide-react'
+import { Calendar, ChevronLeft, ChevronRight, TrendingUp, DollarSign, PiggyBank } from 'lucide-react'
 import { seo } from '../lib/seo'
 import { useNavigate } from 'react-router-dom'
 import ScoreBadge from '../components/ScoreBadge'
-import { INDUSTRY_COLORS, stocks as staticStocks, TICKER_TO_SHORT } from '../data/stocks'
+import { INDUSTRY_COLORS } from '../data/stocks'
 import { useApi } from '../hooks/useApi'
-import type { Stock } from '../data/stocks'
 
-interface WatchlistStock {
-  code: string
-  name: string
-  industry: string
-  lastPrice: number
-  status: 'active' | 'revisit' | 'removed'
-  compositeScore: number
-  hasAiReport: boolean
+interface DividendRecord {
+  announceDate: string | null
+  subject: string
+  amount: number
+  exDate: string | null
+  paymentDate: string | null
 }
 
-interface CalendarStock {
-  code: string
-  ticker: string
+interface DividendStock {
+  stockId: string
   name: string
   industry: string
   dividendYield: number
-  score: number
+  compositeScore: number
   status: string
-  exDate: string | null
-  amount: number | null
+  dividends: DividendRecord[]
+  nextExDate: string | null
+  nextAmount: number | null
+}
+
+interface DisplayStock {
+  stockId: string
+  name: string
+  industry: string
+  dividendYield: number
+  compositeScore: number
+  status: string
+  nextExDate: string | null
+  nextAmount: number | null
 }
 
 const MONTHS = [
@@ -37,29 +45,24 @@ const MONTHS = [
 
 export default function DividendCalendar() {
   const navigate = useNavigate()
-  const api = useApi<WatchlistStock[]>('/watchlist')
+  const api = useApi<DividendStock[]>('/dividends')
   const [selectedMonth, setSelectedMonth] = useState(() => new Date().getMonth())
-  const [selectedYear] = useState(() => new Date().getFullYear())
+  const [selectedYear, setSelectedYear] = useState(() => new Date().getFullYear())
 
-  // Merge API data with static for dividend yield
-  const calendarStocks: CalendarStock[] = useMemo(() => {
+  // Map API data to display format
+  const calendarStocks: DisplayStock[] = useMemo(() => {
     if (!api.data || !Array.isArray(api.data)) return []
 
-    return api.data.map(s => {
-      const shortCode = TICKER_TO_SHORT[s.code] || s.code
-      const existing = staticStocks.find(st => st.code === shortCode)
-      return {
-        code: s.code,
-        ticker: shortCode,
-        name: s.name || existing?.name || shortCode,
-        industry: s.industry || existing?.industry || '',
-        dividendYield: existing?.dividendYield || 0,
-        score: s.compositeScore,
-        status: s.compositeScore >= 70 ? 'active' : 'revisit',
-        exDate: null,
-        amount: null,
-      }
-    }).filter(s => s.dividendYield > 0)
+    return api.data.map(s => ({
+      stockId: s.stockId,
+      name: s.name,
+      industry: s.industry,
+      dividendYield: s.dividendYield,
+      compositeScore: s.compositeScore,
+      status: s.status,
+      nextExDate: s.nextExDate,
+      nextAmount: s.nextAmount,
+    }))
   }, [api.data])
 
   // Sort by dividend yield descending
@@ -68,9 +71,9 @@ export default function DividendCalendar() {
     [calendarStocks]
   )
 
-  // Group stocks into yield tiers for the "calendar" view
+  // Group stocks into yield tiers
   const yieldTiers = useMemo(() => {
-    const tiers: { label: string; min: number; max: number; color: string; stocks: CalendarStock[] }[] = [
+    const tiers: { label: string; min: number; max: number; color: string; stocks: DisplayStock[] }[] = [
       { label: '8%+ High Yield', min: 8, max: Infinity, color: 'border-emerald-400 bg-emerald-50 dark:bg-emerald-950', stocks: [] },
       { label: '5%–8% Yield', min: 5, max: 8, color: 'border-blue-400 bg-blue-50 dark:bg-blue-950', stocks: [] },
       { label: '3%–5% Yield', min: 3, max: 5, color: 'border-amber-400 bg-amber-50 dark:bg-amber-950', stocks: [] },
@@ -95,7 +98,13 @@ export default function DividendCalendar() {
     ? totalYield / calendarStocks.length
     : 0
 
-  // Navigation for month selector
+  // Upcoming ex-date count (nextExDate is non-null)
+  const upcomingExDates = useMemo(() =>
+    sortedStocks.filter(s => s.nextExDate !== null),
+    [sortedStocks]
+  )
+
+  // Navigation for month selector (for future calendar view)
   const prevMonth = () => setSelectedMonth(m => m === 0 ? 11 : m - 1)
   const nextMonth = () => setSelectedMonth(m => m === 11 ? 0 : m + 1)
 
@@ -103,7 +112,7 @@ export default function DividendCalendar() {
     <div className="min-h-screen">
       <Helmet {...seo({
         title: 'Dividend Calendar — Divvy Bursa Tracker',
-        description: 'Bursa Malaysia dividend calendar. Browse ex-dates, dividend yields, and payment schedules for KLSE stocks in your watchlist.',
+        description: 'Bursa Malaysia dividend calendar. Browse ex-dates, dividend yields, and payment schedules for KLSE stocks.',
         canonical: 'https://d2d7b6u77b6we4.cloudfront.net/dividends',
       })} />
       <main className="max-w-4xl mx-auto px-4 py-6">
@@ -153,7 +162,7 @@ export default function DividendCalendar() {
           <div className="p-3 rounded-xl border border-gray-200 dark:border-gray-800">
             <p className="text-xs text-gray-500 mb-1">Upcoming Ex-Dates</p>
             <p className="text-xl font-bold text-gray-900 dark:text-gray-100">
-              {sortedStocks.filter(s => s.exDate).length || '—'}
+              {upcomingExDates.length > 0 ? upcomingExDates.length : '—'}
             </p>
           </div>
         </div>
@@ -169,21 +178,21 @@ export default function DividendCalendar() {
               No dividend data yet
             </h3>
             <p className="text-sm text-gray-500 max-w-sm mx-auto">
-              Stock dividend yields will appear here after the next pipeline run.
-              Browse the universe to add more dividend-paying stocks.
+              Stock dividend declarations will appear here after the next scraper run.
+              The pipeline checks i3investor daily for new dividend announcements.
             </p>
           </div>
         ) : (
           <div className="space-y-6">
-            {/* Info banner */}
-            <div className="flex items-start gap-3 p-4 rounded-xl bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800">
-              <DollarSign className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" />
+            {/* Active dividend stocks notice */}
+            <div className="flex items-start gap-3 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800">
+              <PiggyBank className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-sm font-medium text-blue-800 dark:text-blue-200">
-                  Ex-dates coming soon
+                <p className="text-sm font-medium text-emerald-800 dark:text-emerald-200">
+                  {upcomingExDates.length} stocks with upcoming ex-dates
                 </p>
-                <p className="text-xs text-blue-600 dark:text-blue-400 mt-0.5">
-                  Currently showing stocks by dividend yield tier. Exact ex-dates will be populated by the financial data pipeline.
+                <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-0.5">
+                  Dividend data sourced from i3investor. Updated daily via automated scraper.
                 </p>
               </div>
             </div>
@@ -204,18 +213,18 @@ export default function DividendCalendar() {
                   <div className="divide-y divide-gray-100 dark:divide-gray-800">
                     {tier.stocks.map(stock => (
                       <div
-                        key={stock.code}
+                        key={stock.stockId}
                         className="flex items-center justify-between py-3 px-4 hover:bg-white/50 dark:hover:bg-gray-900/50 transition-colors cursor-pointer"
-                        onClick={() => navigate(`/stock/${stock.code}`)}
+                        onClick={() => navigate(`/stock/${stock.stockId}`)}
                       >
                         <div className="flex items-center gap-3 min-w-0">
-                          <ScoreBadge score={stock.score} size="sm" />
+                          <ScoreBadge score={stock.compositeScore} size="sm" />
                           <div className="min-w-0">
                             <p className="font-medium text-sm text-gray-900 dark:text-gray-100 truncate">
                               {stock.name}
                             </p>
                             <p className="text-xs text-gray-500 truncate">
-                              {stock.ticker} · {stock.industry}
+                              {stock.stockId.replace('.KL', '')} · {stock.industry}
                             </p>
                           </div>
                         </div>
@@ -238,7 +247,7 @@ export default function DividendCalendar() {
               </div>
             ))}
 
-            {/* All stocks table view */}
+            {/* All stocks table view with ex-dates */}
             <div className="rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
               <div className="p-3 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
                 <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
@@ -253,18 +262,19 @@ export default function DividendCalendar() {
                       <th className="text-left py-2 px-2 hidden md:table-cell">Industry</th>
                       <th className="text-right py-2 px-2">Score</th>
                       <th className="text-right py-2 px-2">Dividend Yield</th>
-                      <th className="text-right py-2 px-4">Ex-Date</th>
+                      <th className="text-right py-2 px-2">Next Ex-Date</th>
+                      <th className="text-right py-2 px-4">Amount (RM)</th>
                     </tr>
                   </thead>
                   <tbody>
                     {sortedStocks.map(stock => (
                       <tr
-                        key={stock.code}
+                        key={stock.stockId}
                         className="border-b border-gray-50 dark:border-gray-900 hover:bg-gray-50 dark:hover:bg-gray-900 cursor-pointer transition-colors"
-                        onClick={() => navigate(`/stock/${stock.code}`)}
+                        onClick={() => navigate(`/stock/${stock.stockId}`)}
                       >
                         <td className="py-2.5 px-4">
-                          <p className="font-medium text-gray-900 dark:text-gray-100">{stock.ticker}</p>
+                          <p className="font-medium text-gray-900 dark:text-gray-100">{stock.stockId.replace('.KL', '')}</p>
                           <p className="text-xs text-gray-500 truncate max-w-[180px]">{stock.name}</p>
                         </td>
                         <td className="py-2.5 px-2 hidden md:table-cell">
@@ -275,7 +285,7 @@ export default function DividendCalendar() {
                           </span>
                         </td>
                         <td className="py-2.5 px-2 text-right">
-                          <ScoreBadge score={stock.score} size="sm" />
+                          <ScoreBadge score={stock.compositeScore} size="sm" />
                         </td>
                         <td className="py-2.5 px-2 text-right">
                           <span className={`font-semibold ${
@@ -286,10 +296,19 @@ export default function DividendCalendar() {
                             {stock.dividendYield.toFixed(1)}%
                           </span>
                         </td>
+                        <td className="py-2.5 px-2 text-right">
+                          {stock.nextExDate ? (
+                            <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+                              {stock.nextExDate}
+                            </span>
+                          ) : (
+                            <span className="text-xs text-gray-400">—</span>
+                          )}
+                        </td>
                         <td className="py-2.5 px-4 text-right">
-                          {stock.exDate ? (
+                          {stock.nextAmount !== null ? (
                             <span className="text-xs text-gray-600 dark:text-gray-400">
-                              {stock.exDate}
+                              {stock.nextAmount.toFixed(4)}
                             </span>
                           ) : (
                             <span className="text-xs text-gray-400">—</span>

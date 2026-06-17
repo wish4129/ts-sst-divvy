@@ -24,7 +24,7 @@ export default function SparklineChart({ data, width = 80, height = 30, color = 
   const trend = data[data.length - 1] >= data[0] ? color : '#ef4444'
 
   return (
-    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="flex-shrink-0">
+    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="w-full h-auto flex-shrink-0" preserveAspectRatio="xMidYMid meet">
       <defs>
         <linearGradient id={`spark-${data[0]}`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={trend} stopOpacity="0.3" />

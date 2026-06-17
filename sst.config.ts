@@ -26,6 +26,7 @@ export default $config({
     api.route("GET /notes/{code}", "src/functions/notes.handler");
     api.route("POST /notes/{code}", "src/functions/notes.handler");
     api.route("GET /screener", "src/functions/screener.handler");
+    api.route("GET /dividends", "src/functions/dividends.handler");
     api.route("GET /sitemap.xml", "src/functions/sitemap.handler");
 
     new sst.aws.StaticSite("WebApp", {

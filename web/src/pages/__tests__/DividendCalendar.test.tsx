@@ -42,7 +42,7 @@ describe('DividendCalendar page', () => {
   it('shows summary cards with data counts', () => {
     mockUseApi.mockReturnValue({
       data: [
-        { code: '1155.KL', name: 'Maybank', industry: 'Banking', lastPrice: 10.50, status: 'active', compositeScore: 85, hasAiReport: true },
+        { stockId: '1155.KL', name: 'Maybank', industry: 'Banking', dividendYield: 6.5, compositeScore: 85, status: 'active', dividends: [{ exDate: '2026-07-15', amount: 0.25, subject: 'Interim Dividend', announceDate: '2026-06-01', paymentDate: '2026-08-01' }], nextExDate: '2026-07-15', nextAmount: 0.25 },
       ],
       loading: false, error: null, refetch: vi.fn(),
     })
