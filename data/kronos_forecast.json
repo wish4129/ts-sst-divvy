@@ -1,1472 +1,1031 @@
 {
-  "7-ELEVEN MALAYSIA HOLDINGS BERHAD": {
-    "ticker": "5250.KL",
-    "last_close": 2.0,
-    "pred_30d_close": 1.9768,
-    "pred_change_pct": -1.16,
-    "pred_low": 1.9718,
-    "pred_high": 1.9807,
-    "pred_volatility": 0.09,
-    "time_s": 0.8
-  },
-  "Adventa Berhad": {
-    "ticker": "7191.KL",
-    "last_close": 0.13,
-    "pred_30d_close": 0.1507,
-    "pred_change_pct": 15.94,
-    "pred_low": 0.1272,
-    "pred_high": 0.1526,
-    "pred_volatility": 5.21,
-    "time_s": 0.7
-  },
-  "Aeon Co. (M) Bhd.": {
-    "ticker": "6599.KL",
-    "last_close": 1.06,
-    "pred_30d_close": 1.0942,
-    "pred_change_pct": 3.22,
-    "pred_low": 1.0464,
-    "pred_high": 1.1232,
-    "pred_volatility": 2.32,
-    "time_s": 0.7
-  },
-  "AEON Credit Service (M) Berhad": {
-    "ticker": "5139.KL",
-    "last_close": 5.9,
-    "pred_30d_close": 5.7659,
-    "pred_change_pct": -2.27,
-    "pred_low": 5.7659,
-    "pred_high": 5.897,
-    "pred_volatility": 0.52,
-    "time_s": 0.7
-  },
-  "Ajinomoto (Malaysia) Berhad": {
-    "ticker": "2658.KL",
-    "last_close": 15.24,
-    "pred_30d_close": 12.4779,
-    "pred_change_pct": -18.12,
-    "pred_low": 12.4779,
-    "pred_high": 15.108,
-    "pred_volatility": 5.02,
-    "time_s": 0.7
-  },
-  "Alam Maritim Resources Berhad": {
-    "ticker": "5115.KL",
-    "last_close": 0.28,
-    "pred_30d_close": 0.2706,
-    "pred_change_pct": -3.36,
-    "pred_low": 0.2637,
-    "pred_high": 0.2946,
-    "pred_volatility": 3.36,
-    "time_s": 0.7
-  },
-  "Alliance Bank Malaysia Berhad": {
-    "ticker": "2488.KL",
-    "last_close": 4.8,
-    "pred_30d_close": 4.9176,
-    "pred_change_pct": 2.45,
-    "pred_low": 4.7426,
-    "pred_high": 4.9212,
-    "pred_volatility": 0.93,
-    "time_s": 0.7
-  },
-  "AmanahRaya Real Estate Investment Trust": {
-    "ticker": "5127.KL",
-    "last_close": 0.395,
-    "pred_30d_close": 0.3585,
-    "pred_change_pct": -9.25,
-    "pred_low": 0.3584,
-    "pred_high": 0.4003,
-    "pred_volatility": 2.29,
-    "time_s": 0.7
-  },
-  "AME Elite Consortium Berhad": {
-    "ticker": "5293.KL",
-    "last_close": 1.53,
-    "pred_30d_close": 1.5226,
-    "pred_change_pct": -0.48,
-    "pred_low": 1.5034,
-    "pred_high": 1.5457,
-    "pred_volatility": 0.68,
-    "time_s": 0.7
-  },
-  "AMMB Holdings Berhad": {
-    "ticker": "1015.KL",
-    "last_close": 6.49,
-    "pred_30d_close": 6.2535,
-    "pred_change_pct": -3.64,
-    "pred_low": 6.1457,
-    "pred_high": 6.4712,
-    "pred_volatility": 1.5,
-    "time_s": 0.7
-  },
-  "Asia Brands Berhad": {
-    "ticker": "7722.KL",
-    "last_close": 0.485,
-    "pred_30d_close": 0.5008,
-    "pred_change_pct": 3.25,
-    "pred_low": 0.4626,
-    "pred_high": 0.5211,
-    "pred_volatility": 2.25,
-    "time_s": 0.7
-  },
-  "Asian Pac Holdings Berhad": {
-    "ticker": "4057.KL",
-    "last_close": 0.115,
-    "pred_30d_close": 0.0986,
-    "pred_change_pct": -14.27,
-    "pred_low": 0.0954,
-    "pred_high": 0.1134,
-    "pred_volatility": 3.47,
-    "time_s": 0.7
-  },
-  "Astino Berhad": {
-    "ticker": "7162.KL",
-    "last_close": 0.525,
-    "pred_30d_close": 0.499,
-    "pred_change_pct": -4.95,
-    "pred_low": 0.4979,
-    "pred_high": 0.528,
-    "pred_volatility": 1.17,
-    "time_s": 0.7
-  },
-  "Astro Malaysia Holdings Berhad": {
-    "ticker": "6399.KL",
-    "last_close": 0.06,
-    "pred_30d_close": 0.0938,
-    "pred_change_pct": 56.28,
-    "pred_low": 0.0605,
-    "pred_high": 0.0938,
-    "pred_volatility": 20.62,
-    "time_s": 0.7
-  },
-  "Axis Real Estate Investment Trust": {
-    "ticker": "5106.KL",
-    "last_close": 1.96,
-    "pred_30d_close": 2.0002,
-    "pred_change_pct": 2.05,
-    "pred_low": 1.8954,
-    "pred_high": 2.0223,
-    "pred_volatility": 2.16,
-    "time_s": 0.7
-  },
-  "AYER Holdings Berhad": {
-    "ticker": "2305.KL",
-    "last_close": 7.3,
-    "pred_30d_close": 7.1492,
-    "pred_change_pct": -2.07,
-    "pred_low": 7.025,
-    "pred_high": 7.2747,
-    "pred_volatility": 0.68,
-    "time_s": 0.7
-  },
-  "B.I.G. Industries Berhad": {
-    "ticker": "7005.KL",
-    "last_close": 0.575,
-    "pred_30d_close": 0.5217,
-    "pred_change_pct": -9.26,
-    "pred_low": 0.5148,
-    "pred_high": 0.573,
-    "pred_volatility": 2.13,
-    "time_s": 0.7
-  },
-  "Bank Islam Malaysia Berhad": {
-    "ticker": "5258.KL",
-    "last_close": 2.18,
-    "pred_30d_close": 2.2194,
-    "pred_change_pct": 1.81,
-    "pred_low": 2.1569,
-    "pred_high": 2.2349,
-    "pred_volatility": 0.96,
-    "time_s": 0.7
-  },
-  "Bina Darulaman Berhad": {
-    "ticker": "6173.KL",
-    "last_close": 0.195,
-    "pred_30d_close": 0.2057,
-    "pred_change_pct": 5.5,
-    "pred_low": 0.1964,
-    "pred_high": 0.2184,
-    "pred_volatility": 3.38,
-    "time_s": 0.7
-  },
-  "Binastra Corporation Berhad": {
-    "ticker": "7195.KL",
-    "last_close": 1.96,
-    "pred_30d_close": 1.9518,
-    "pred_change_pct": -0.42,
-    "pred_low": 1.8531,
-    "pred_high": 1.9705,
-    "pred_volatility": 1.6,
-    "time_s": 0.7
-  },
-  "CapitaLand Malaysia Trust": {
-    "ticker": "5180.KL",
-    "last_close": 0.615,
-    "pred_30d_close": 0.6161,
-    "pred_change_pct": 0.18,
-    "pred_low": 0.6118,
-    "pred_high": 0.6194,
-    "pred_volatility": 0.33,
-    "time_s": 0.7
-  },
-  "Carlsberg Brewery Malaysia Berhad": {
-    "ticker": "2836.KL",
-    "last_close": 16.42,
-    "pred_30d_close": 16.8005,
-    "pred_change_pct": 2.32,
-    "pred_low": 16.482,
-    "pred_high": 16.9799,
-    "pred_volatility": 0.87,
-    "time_s": 0.7
-  },
-  "Chin Hin Group Berhad": {
-    "ticker": "5273.KL",
-    "last_close": 2.08,
-    "pred_30d_close": 2.0689,
-    "pred_change_pct": -0.53,
-    "pred_low": 2.0559,
-    "pred_high": 2.1775,
-    "pred_volatility": 1.95,
-    "time_s": 0.8
-  },
-  "CIMB Group Holdings Berhad": {
-    "ticker": "1023.KL",
-    "last_close": 7.78,
-    "pred_30d_close": 7.9724,
-    "pred_change_pct": 2.47,
-    "pred_low": 7.6817,
-    "pred_high": 8.07,
-    "pred_volatility": 1.52,
-    "time_s": 0.8
-  },
-  "Computer Forms (Malaysia) Berhad": {
-    "ticker": "8044.KL",
-    "last_close": 0.07,
-    "pred_30d_close": 0.0706,
-    "pred_change_pct": 0.85,
-    "pred_low": 0.0688,
-    "pred_high": 0.0753,
-    "pred_volatility": 2.29,
-    "time_s": 0.8
-  },
-  "Cuscapi Berhad": {
-    "ticker": "0051.KL",
-    "last_close": 0.085,
-    "pred_30d_close": 0.0903,
-    "pred_change_pct": 6.22,
-    "pred_low": 0.0838,
-    "pred_high": 0.0947,
-    "pred_volatility": 3.75,
-    "time_s": 0.8
-  },
-  "CYL Corporation Berhad": {
-    "ticker": "7157.KL",
-    "last_close": 0.295,
-    "pred_30d_close": 0.3227,
-    "pred_change_pct": 9.38,
-    "pred_low": 0.2958,
-    "pred_high": 0.3442,
-    "pred_volatility": 4.7,
-    "time_s": 0.7
-  },
-  "Dancomech Holdings Berhad": {
-    "ticker": "5276.KL",
-    "last_close": 0.325,
-    "pred_30d_close": 0.3588,
-    "pred_change_pct": 10.4,
-    "pred_low": 0.3306,
-    "pred_high": 0.3628,
-    "pred_volatility": 2.17,
-    "time_s": 0.8
-  },
-  "Deleum Berhad": {
-    "ticker": "5132.KL",
-    "last_close": 1.14,
-    "pred_30d_close": 1.2389,
-    "pred_change_pct": 8.67,
-    "pred_low": 1.13,
-    "pred_high": 1.2658,
-    "pred_volatility": 4.17,
-    "time_s": 0.8
-  },
-  "Destini Berhad": {
-    "ticker": "7212.KL",
-    "last_close": 0.305,
-    "pred_30d_close": 0.3149,
-    "pred_change_pct": 3.25,
-    "pred_low": 0.2756,
-    "pred_high": 0.3242,
-    "pred_volatility": 4.55,
-    "time_s": 0.8
-  },
-  "DutaLand Berhad": {
-    "ticker": "3948.KL",
-    "last_close": 0.305,
-    "pred_30d_close": 0.2946,
-    "pred_change_pct": -3.39,
-    "pred_low": 0.2876,
-    "pred_high": 0.3073,
-    "pred_volatility": 1.9,
-    "time_s": 0.8
-  },
-  "Dutch Lady Milk Industries Berhad": {
-    "ticker": "3026.KL",
-    "last_close": 32.26,
-    "pred_30d_close": 32.3939,
-    "pred_change_pct": 0.42,
-    "pred_low": 32.3616,
-    "pred_high": 33.0883,
-    "pred_volatility": 0.53,
-    "time_s": 0.8
-  },
-  "Eco World Development Group Berhad": {
-    "ticker": "8206.KL",
-    "last_close": 2.12,
-    "pred_30d_close": 2.1693,
-    "pred_change_pct": 2.32,
-    "pred_low": 2.0942,
-    "pred_high": 2.229,
-    "pred_volatility": 1.85,
-    "time_s": 0.8
-  },
-  "Elridge Energy Holdings Berhad": {
-    "ticker": "0318.KL",
-    "last_close": 0.805,
-    "pred_30d_close": 0.8237,
-    "pred_change_pct": 2.32,
-    "pred_low": 0.8047,
-    "pred_high": 0.8494,
-    "pred_volatility": 1.38,
-    "time_s": 0.8
-  },
-  "Farlim Group (Malaysia) Bhd.": {
-    "ticker": "6041.KL",
-    "last_close": 0.165,
-    "pred_30d_close": 0.162,
-    "pred_change_pct": -1.83,
-    "pred_low": 0.1533,
-    "pred_high": 0.1653,
-    "pred_volatility": 1.71,
-    "time_s": 0.8
-  },
-  "Frontken Corporation Berhad": {
-    "ticker": "0128.KL",
-    "last_close": 5.0,
-    "pred_30d_close": 4.3724,
-    "pred_change_pct": -12.55,
-    "pred_low": 4.154,
-    "pred_high": 4.9519,
-    "pred_volatility": 3.91,
-    "time_s": 0.8
-  },
-  "Gamuda Berhad": {
-    "ticker": "5398.KL",
-    "last_close": 4.43,
-    "pred_30d_close": 4.0158,
-    "pred_change_pct": -9.35,
-    "pred_low": 3.9295,
-    "pred_high": 4.4484,
-    "pred_volatility": 3.31,
-    "time_s": 0.8
-  },
-  "Gas Malaysia Berhad": {
-    "ticker": "5209.KL",
-    "last_close": 5.25,
-    "pred_30d_close": 4.9571,
-    "pred_change_pct": -5.58,
-    "pred_low": 4.9006,
-    "pred_high": 5.2539,
-    "pred_volatility": 1.96,
-    "time_s": 0.8
-  },
-  "Genetec Technology": {
-    "ticker": "0104.KL",
-    "last_close": 0.31,
-    "pred_30d_close": 0.2794,
-    "pred_change_pct": -9.89,
-    "pred_low": 0.2788,
-    "pred_high": 0.3222,
-    "pred_volatility": 4.64,
-    "time_s": 0.8
-  },
-  "Genting Berhad": {
-    "ticker": "3182.KL",
-    "last_close": 2.26,
-    "pred_30d_close": 2.929,
-    "pred_change_pct": 29.6,
-    "pred_low": 2.2198,
-    "pred_high": 2.929,
-    "pred_volatility": 9.42,
-    "time_s": 0.8
-  },
-  "Genting Plantations Berhad": {
-    "ticker": "2291.KL",
-    "last_close": 5.3,
-    "pred_30d_close": 5.0972,
-    "pred_change_pct": -3.83,
-    "pred_low": 5.0307,
-    "pred_high": 5.2345,
-    "pred_volatility": 1.03,
-    "time_s": 0.8
-  },
-  "GIIB Holdings Berhad": {
-    "ticker": "7192.KL",
-    "last_close": 0.48,
-    "pred_30d_close": 0.1058,
-    "pred_change_pct": -77.95,
-    "pred_low": 0.1058,
-    "pred_high": 0.2422,
-    "pred_volatility": 5.61,
-    "time_s": 0.8
-  },
-  "Globaltec Formation Berhad": {
-    "ticker": "5220.KL",
-    "last_close": 0.855,
-    "pred_30d_close": 0.8909,
-    "pred_change_pct": 4.2,
-    "pred_low": 0.8205,
-    "pred_high": 0.8909,
-    "pred_volatility": 2.56,
-    "time_s": 0.8
-  },
-  "Grand Central Enterprises Bhd.": {
-    "ticker": "5592.KL",
-    "last_close": 0.34,
-    "pred_30d_close": 0.3508,
-    "pred_change_pct": 3.19,
-    "pred_low": 0.3376,
-    "pred_high": 0.3615,
-    "pred_volatility": 1.54,
-    "time_s": 0.8
-  },
-  "Greentronics Technology Berhad": {
-    "ticker": "7943.KL",
-    "last_close": 0.19,
-    "pred_30d_close": 0.1904,
-    "pred_change_pct": 0.23,
-    "pred_low": 0.1863,
-    "pred_high": 0.1953,
-    "pred_volatility": 1.01,
-    "time_s": 0.8
-  },
-  "GUH Holdings Berhad": {
-    "ticker": "3247.KL",
-    "last_close": 0.265,
-    "pred_30d_close": 0.3089,
-    "pred_change_pct": 16.55,
-    "pred_low": 0.2649,
-    "pred_high": 0.313,
-    "pred_volatility": 5.76,
-    "time_s": 0.8
-  },
-  "Heineken Malaysia Berhad": {
-    "ticker": "3255.KL",
-    "last_close": 19.5,
-    "pred_30d_close": 21.9647,
-    "pred_change_pct": 12.64,
-    "pred_low": 19.4449,
-    "pred_high": 21.9647,
-    "pred_volatility": 4.39,
-    "time_s": 0.8
-  },
-  "Hektar Real Estate Investment Trust": {
-    "ticker": "5121.KL",
-    "last_close": 0.415,
-    "pred_30d_close": 0.4363,
-    "pred_change_pct": 5.14,
-    "pred_low": 0.4233,
-    "pred_high": 0.441,
-    "pred_volatility": 1.12,
-    "time_s": 0.8
-  },
-  "HeveaBoard Berhad": {
-    "ticker": "5095.KL",
-    "last_close": 0.105,
-    "pred_30d_close": 0.1419,
-    "pred_change_pct": 35.11,
-    "pred_low": 0.101,
-    "pred_high": 0.1454,
-    "pred_volatility": 13.91,
-    "time_s": 0.8
-  },
-  "Hextar Global Berhad": {
-    "ticker": "5151.KL",
-    "last_close": 0.77,
-    "pred_30d_close": 0.7843,
-    "pred_change_pct": 1.86,
-    "pred_low": 0.7647,
-    "pred_high": 0.7971,
-    "pred_volatility": 1.37,
-    "time_s": 0.8
-  },
-  "Hong Leong Bank Berhad": {
-    "ticker": "5819.KL",
-    "last_close": 22.0,
-    "pred_30d_close": 22.0621,
-    "pred_change_pct": 0.28,
-    "pred_low": 21.5714,
-    "pred_high": 23.0411,
-    "pred_volatility": 1.51,
-    "time_s": 0.8
-  },
-  "Hua Yang Berhad": {
-    "ticker": "5062.KL",
-    "last_close": 0.19,
-    "pred_30d_close": 0.2022,
-    "pred_change_pct": 6.4,
-    "pred_low": 0.1855,
-    "pred_high": 0.2027,
-    "pred_volatility": 2.63,
-    "time_s": 0.8
-  },
-  "iCapital.biz Berhad": {
-    "ticker": "5108.KL",
-    "last_close": 2.45,
-    "pred_30d_close": 2.4713,
-    "pred_change_pct": 0.87,
-    "pred_low": 2.4281,
-    "pred_high": 2.5117,
-    "pred_volatility": 0.79,
-    "time_s": 0.8
-  },
-  "Inari Amertron": {
-    "ticker": "0166.KL",
-    "last_close": 2.26,
-    "pred_30d_close": 2.1141,
-    "pred_change_pct": -6.45,
-    "pred_low": 1.9039,
-    "pred_high": 2.2334,
-    "pred_volatility": 4.42,
-    "time_s": 0.8
-  },
-  "Industronics Berhad": {
-    "ticker": "9393.KL",
-    "last_close": 0.02,
-    "pred_30d_close": 0.0393,
-    "pred_change_pct": 96.54,
-    "pred_low": 0.0183,
-    "pred_high": 0.0463,
-    "pred_volatility": 42.64,
-    "time_s": 0.8
-  },
-  "INSAS Berhad": {
-    "ticker": "3379.KL",
-    "last_close": 0.86,
-    "pred_30d_close": 0.8922,
-    "pred_change_pct": 3.74,
-    "pred_low": 0.8509,
-    "pred_high": 0.8922,
-    "pred_volatility": 1.17,
-    "time_s": 0.8
-  },
-  "INTA Berhad": {
-    "ticker": "INTA.KL",
-    "last_close": 0.395,
-    "pred_30d_close": 0.3805,
-    "pred_change_pct": -3.67,
-    "pred_low": 0.3729,
-    "pred_high": 0.3925,
-    "pred_volatility": 1.38,
-    "time_s": 0.8
-  },
-  "IOI Properties Group Berhad": {
-    "ticker": "5249.KL",
-    "last_close": 4.18,
-    "pred_30d_close": 3.3755,
-    "pred_change_pct": -19.25,
-    "pred_low": 3.2161,
-    "pred_high": 4.0117,
-    "pred_volatility": 5.73,
-    "time_s": 0.8
-  },
-  "Iskandar Waterfront City Berhad": {
-    "ticker": "1589.KL",
-    "last_close": 0.23,
-    "pred_30d_close": 0.2381,
-    "pred_change_pct": 3.5,
-    "pred_low": 0.2273,
-    "pred_high": 0.2427,
-    "pred_volatility": 1.49,
-    "time_s": 0.8
-  },
-  "Jaya Tiasa Holdings Berhad": {
-    "ticker": "4383.KL",
-    "last_close": 1.04,
-    "pred_30d_close": 1.0738,
-    "pred_change_pct": 3.25,
-    "pred_low": 1.0134,
-    "pred_high": 1.1014,
-    "pred_volatility": 2.31,
-    "time_s": 0.7
-  },
-  "JKG Land Berhad": {
-    "ticker": "6769.KL",
-    "last_close": 0.105,
-    "pred_30d_close": 0.1072,
-    "pred_change_pct": 2.13,
-    "pred_low": 0.1013,
-    "pred_high": 0.1081,
-    "pred_volatility": 1.4,
-    "time_s": 0.7
-  },
-  "Joe Holding Berhad": {
-    "ticker": "7096.KL",
-    "last_close": 0.06,
-    "pred_30d_close": 0.0622,
-    "pred_change_pct": 3.62,
-    "pred_low": 0.0597,
-    "pred_high": 0.068,
-    "pred_volatility": 3.11,
-    "time_s": 0.7
-  },
-  "Keck Seng (Malaysia) Berhad": {
-    "ticker": "3476.KL",
-    "last_close": 5.24,
-    "pred_30d_close": 5.1965,
-    "pred_change_pct": -0.83,
-    "pred_low": 5.1965,
-    "pred_high": 5.2795,
-    "pred_volatility": 0.37,
-    "time_s": 0.7
-  },
-  "Kenanga Investment Bank Berhad": {
-    "ticker": "6483.KL",
-    "last_close": 0.685,
-    "pred_30d_close": 0.8075,
-    "pred_change_pct": 17.88,
-    "pred_low": 0.7409,
-    "pred_high": 0.819,
-    "pred_volatility": 2.52,
-    "time_s": 0.7
-  },
-  "Kerjaya Prospek Property Berhad": {
-    "ticker": "7077.KL",
-    "last_close": 0.275,
-    "pred_30d_close": 0.2906,
-    "pred_change_pct": 5.67,
-    "pred_low": 0.2751,
-    "pred_high": 0.3058,
-    "pred_volatility": 2.87,
-    "time_s": 0.7
-  },
-  "KIP Real Estate Investment Trust": {
-    "ticker": "5280.KL",
-    "last_close": 0.85,
-    "pred_30d_close": 0.84,
-    "pred_change_pct": -1.18,
-    "pred_low": 0.84,
-    "pred_high": 0.8494,
-    "pred_volatility": 0.26,
-    "time_s": 0.7
-  },
-  "KL Kepong": {
-    "ticker": "2445.KL",
-    "last_close": 20.76,
-    "pred_30d_close": 21.0856,
-    "pred_change_pct": 1.57,
-    "pred_low": 20.2414,
-    "pred_high": 21.0989,
-    "pred_volatility": 1.3,
-    "time_s": 0.7
-  },
-  "KSL Holdings Berhad": {
-    "ticker": "5038.KL",
-    "last_close": 2.95,
-    "pred_30d_close": 3.1356,
-    "pred_change_pct": 6.29,
-    "pred_low": 2.8394,
-    "pred_high": 3.1356,
-    "pred_volatility": 2.56,
-    "time_s": 0.7
-  },
-  "Lee Swee Kiat Group Berhad": {
-    "ticker": "8079.KL",
-    "last_close": 0.3,
-    "pred_30d_close": 0.3245,
-    "pred_change_pct": 8.17,
-    "pred_low": 0.2998,
-    "pred_high": 0.3331,
-    "pred_volatility": 3.01,
-    "time_s": 0.7
-  },
-  "Lii Hen Industries": {
-    "ticker": "7089.KL",
-    "last_close": 0.28,
-    "pred_30d_close": 0.2963,
-    "pred_change_pct": 5.82,
-    "pred_low": 0.2835,
-    "pred_high": 0.3273,
-    "pred_volatility": 4.75,
-    "time_s": 0.7
-  },
-  "LPI Capital Bhd": {
-    "ticker": "8621.KL",
-    "last_close": 15.18,
-    "pred_30d_close": 14.5034,
-    "pred_change_pct": -4.46,
-    "pred_low": 14.4303,
-    "pred_high": 15.0884,
-    "pred_volatility": 1.13,
-    "time_s": 0.7
-  },
-  "Magma Group Berhad": {
-    "ticker": "7243.KL",
-    "last_close": 0.295,
-    "pred_30d_close": 0.3045,
-    "pred_change_pct": 3.22,
-    "pred_low": 0.2941,
-    "pred_high": 0.3089,
-    "pred_volatility": 1.23,
-    "time_s": 0.7
-  },
-  "Magni-Tech Industries Berhad": {
-    "ticker": "7087.KL",
-    "last_close": 1.96,
-    "pred_30d_close": 1.9451,
-    "pred_change_pct": -0.76,
-    "pred_low": 1.9152,
-    "pred_high": 1.9562,
-    "pred_volatility": 0.55,
-    "time_s": 0.7
-  },
-  "Mah Sing Group Berhad": {
-    "ticker": "8583.KL",
-    "last_close": 0.975,
-    "pred_30d_close": 0.9608,
-    "pred_change_pct": -1.46,
-    "pred_low": 0.951,
-    "pred_high": 0.9855,
-    "pred_volatility": 0.94,
-    "time_s": 0.7
-  },
-  "Malayan Banking Berhad": {
-    "ticker": "1155.KL",
-    "last_close": 11.16,
-    "pred_30d_close": 11.2163,
-    "pred_change_pct": 0.5,
-    "pred_low": 10.8691,
-    "pred_high": 11.3661,
-    "pred_volatility": 1.11,
-    "time_s": 0.7
-  },
-  "Malaysia Marine and Heavy Engineering Holdings Berhad": {
-    "ticker": "5186.KL",
-    "last_close": 0.33,
-    "pred_30d_close": 0.4154,
-    "pred_change_pct": 25.89,
-    "pred_low": 0.3326,
-    "pred_high": 0.4236,
-    "pred_volatility": 8.41,
-    "time_s": 0.7
-  },
-  "Marco Holdings Berhad": {
-    "ticker": "3514.KL",
-    "last_close": 0.1,
-    "pred_30d_close": 0.1005,
-    "pred_change_pct": 0.5,
-    "pred_low": 0.0967,
-    "pred_high": 0.1053,
-    "pred_volatility": 1.61,
-    "time_s": 0.7
-  },
-  "Matrix Concepts Holdings Berhad": {
-    "ticker": "5236.KL",
-    "last_close": 1.19,
-    "pred_30d_close": 1.3813,
-    "pred_change_pct": 16.07,
-    "pred_low": 1.1903,
-    "pred_high": 1.3826,
-    "pred_volatility": 4.46,
-    "time_s": 0.7
-  },
-  "Maxim Global Berhad": {
-    "ticker": "4022.KL",
-    "last_close": 0.27,
-    "pred_30d_close": 0.2903,
-    "pred_change_pct": 7.53,
-    "pred_low": 0.2673,
-    "pred_high": 0.3125,
-    "pred_volatility": 5.28,
-    "time_s": 0.7
-  },
-  "MBM Resources Berhad": {
-    "ticker": "5983.KL",
-    "last_close": 5.16,
-    "pred_30d_close": 5.1721,
-    "pred_change_pct": 0.24,
-    "pred_low": 5.0748,
-    "pred_high": 5.1826,
-    "pred_volatility": 0.61,
-    "time_s": 0.7
-  },
-  "Meridian Berhad": {
-    "ticker": "5040.KL",
-    "last_close": 0.03,
-    "pred_30d_close": 0.0203,
-    "pred_change_pct": -32.49,
-    "pred_low": 0.0167,
-    "pred_high": 0.0313,
-    "pred_volatility": 8.37,
-    "time_s": 0.7
-  },
-  "Meta Bright Group Berhad": {
-    "ticker": "2097.KL",
-    "last_close": 0.14,
-    "pred_30d_close": 0.1395,
-    "pred_change_pct": -0.34,
-    "pred_low": 0.1347,
-    "pred_high": 0.1414,
-    "pred_volatility": 1.34,
-    "time_s": 0.7
-  },
-  "Metronic Global Berhad": {
-    "ticker": "0043.KL",
-    "last_close": 0.01,
-    "pred_30d_close": 0.0086,
+  "0043": {
     "pred_change_pct": -14.23,
+    "pred_30d_close": 0.0086,
     "pred_low": 0.0062,
     "pred_high": 0.0096,
-    "pred_volatility": 8.07,
-    "time_s": 0.7
+    "pred_volatility": 8.07
   },
-  "Mudajaya Group Berhad": {
-    "ticker": "5085.KL",
-    "last_close": 0.34,
-    "pred_30d_close": 0.4524,
-    "pred_change_pct": 33.07,
-    "pred_low": 0.3426,
-    "pred_high": 0.4598,
-    "pred_volatility": 11.54,
-    "time_s": 0.7
+  "0051": {
+    "pred_change_pct": 6.22,
+    "pred_30d_close": 0.0903,
+    "pred_low": 0.0838,
+    "pred_high": 0.0947,
+    "pred_volatility": 3.75
   },
-  "Muhibbah Engineering (M) Bhd.": {
-    "ticker": "5703.KL",
-    "last_close": 0.54,
-    "pred_30d_close": 0.5458,
-    "pred_change_pct": 1.08,
-    "pred_low": 0.5201,
-    "pred_high": 0.5501,
-    "pred_volatility": 1.88,
-    "time_s": 0.7
-  },
-  "Mycron Steel Berhad": {
-    "ticker": "5087.KL",
-    "last_close": 0.26,
-    "pred_30d_close": 0.2402,
-    "pred_change_pct": -7.62,
-    "pred_low": 0.2357,
-    "pred_high": 0.2652,
-    "pred_volatility": 3.08,
-    "time_s": 0.7
-  },
-  "Mynews Holdings Berhad": {
-    "ticker": "5275.KL",
-    "last_close": 0.46,
-    "pred_30d_close": 0.5754,
-    "pred_change_pct": 25.08,
-    "pred_low": 0.4491,
-    "pred_high": 0.5786,
-    "pred_volatility": 7.48,
-    "time_s": 0.7
-  },
-  "Naim Holdings Berhad": {
-    "ticker": "5073.KL",
-    "last_close": 0.75,
-    "pred_30d_close": 0.7904,
-    "pred_change_pct": 5.38,
-    "pred_low": 0.7418,
-    "pred_high": 0.8033,
-    "pred_volatility": 2.23,
-    "time_s": 0.7
-  },
-  "Nexg Bina Berhad": {
-    "ticker": "7154.KL",
-    "last_close": 0.025,
-    "pred_30d_close": 0.0311,
-    "pred_change_pct": 24.57,
-    "pred_low": 0.0244,
-    "pred_high": 0.0311,
-    "pred_volatility": 6.73,
-    "time_s": 0.7
-  },
-  "Niche Capital Emas Holdings Berhad": {
-    "ticker": "7139.KL",
-    "last_close": 0.09,
-    "pred_30d_close": 0.0885,
-    "pred_change_pct": -1.64,
-    "pred_low": 0.086,
-    "pred_high": 0.0919,
-    "pred_volatility": 1.63,
-    "time_s": 0.7
-  },
-  "Notion VTec Berhad": {
-    "ticker": "0083.KL",
-    "last_close": 0.425,
-    "pred_30d_close": 0.3934,
+  "0083": {
     "pred_change_pct": -7.44,
+    "pred_30d_close": 0.3934,
     "pred_low": 0.3934,
     "pred_high": 0.4512,
-    "pred_volatility": 3.8,
-    "time_s": 0.7
+    "pred_volatility": 3.8
   },
-  "Oriental Holdings Berhad": {
-    "ticker": "4006.KL",
-    "last_close": 7.09,
-    "pred_30d_close": 7.0907,
-    "pred_change_pct": 0.01,
-    "pred_low": 7.0668,
-    "pred_high": 7.1312,
-    "pred_volatility": 0.24,
-    "time_s": 0.7
-  },
-  "Oriental Interest Berhad": {
-    "ticker": "5827.KL",
-    "last_close": 1.3,
-    "pred_30d_close": 1.2197,
-    "pred_change_pct": -6.18,
-    "pred_low": 1.1992,
-    "pred_high": 1.2862,
-    "pred_volatility": 1.74,
-    "time_s": 0.7
-  },
-  "P.I.E. Industrial Berhad": {
-    "ticker": "7095.KL",
-    "last_close": 1.69,
-    "pred_30d_close": 1.3658,
-    "pred_change_pct": -19.18,
-    "pred_low": 1.3259,
-    "pred_high": 1.5856,
-    "pred_volatility": 3.84,
-    "time_s": 0.7
-  },
-  "Padini Holdings Berhad": {
-    "ticker": "7052.KL",
-    "last_close": 1.45,
-    "pred_30d_close": 1.6343,
-    "pred_change_pct": 12.71,
-    "pred_low": 1.4594,
-    "pred_high": 1.6343,
-    "pred_volatility": 3.64,
-    "time_s": 0.7
-  },
-  "Paos Holdings Berhad": {
-    "ticker": "5022.KL",
-    "last_close": 0.29,
-    "pred_30d_close": 0.3103,
-    "pred_change_pct": 6.99,
-    "pred_low": 0.2489,
-    "pred_high": 0.3107,
-    "pred_volatility": 5.33,
-    "time_s": 0.7
-  },
-  "Pavilion Real Estate Investment Trust": {
-    "ticker": "5212.KL",
-    "last_close": 1.7,
-    "pred_30d_close": 1.7789,
-    "pred_change_pct": 4.64,
-    "pred_low": 1.6918,
-    "pred_high": 1.8164,
-    "pred_volatility": 2.13,
-    "time_s": 0.7
-  },
-  "PBS Berhad": {
-    "ticker": "5231.KL",
-    "last_close": 0.105,
-    "pred_30d_close": 0.1122,
-    "pred_change_pct": 6.86,
-    "pred_low": 0.0988,
-    "pred_high": 0.1172,
-    "pred_volatility": 5.06,
-    "time_s": 0.7
-  },
-  "Pertama Digital Berhad": {
-    "ticker": "8532.KL",
-    "last_close": 0.095,
-    "pred_30d_close": 0.0959,
-    "pred_change_pct": 0.92,
-    "pred_low": 0.0959,
-    "pred_high": 0.0965,
-    "pred_volatility": 0.22,
-    "time_s": 0.7
-  },
-  "Pintaras Jaya Berhad": {
-    "ticker": "9598.KL",
-    "last_close": 1.26,
-    "pred_30d_close": 1.5136,
-    "pred_change_pct": 20.12,
-    "pred_low": 1.2755,
-    "pred_high": 1.5136,
-    "pred_volatility": 7.13,
-    "time_s": 0.7
-  },
-  "PNE PCB Berhad": {
-    "ticker": "6637.KL",
-    "last_close": 0.05,
-    "pred_30d_close": 0.0489,
-    "pred_change_pct": -2.3,
-    "pred_low": 0.0457,
-    "pred_high": 0.053,
-    "pred_volatility": 3.51,
-    "time_s": 0.7
-  },
-  "Propel Global Bhd": {
-    "ticker": "0091.KL",
-    "last_close": 0.065,
-    "pred_30d_close": 0.0712,
+  "0091": {
     "pred_change_pct": 9.6,
+    "pred_30d_close": 0.0712,
     "pred_low": 0.0567,
     "pred_high": 0.0767,
-    "pred_volatility": 7.62,
-    "time_s": 0.7
+    "pred_volatility": 7.62
   },
-  "Public Bank Berhad": {
-    "ticker": "1295.KL",
-    "last_close": 5.05,
-    "pred_30d_close": 4.7538,
-    "pred_change_pct": -5.87,
-    "pred_low": 4.6491,
-    "pred_high": 4.9443,
-    "pred_volatility": 1.35,
-    "time_s": 0.7
-  },
-  "Reservoir Link Energy Bhd": {
-    "ticker": "0219.KL",
-    "last_close": 0.265,
-    "pred_30d_close": 0.2595,
-    "pred_change_pct": -2.09,
-    "pred_low": 0.2361,
-    "pred_high": 0.2636,
-    "pred_volatility": 2.57,
-    "time_s": 0.7
-  },
-  "RHB Bank Berhad": {
-    "ticker": "1066.KL",
-    "last_close": 8.39,
-    "pred_30d_close": 8.1467,
-    "pred_change_pct": -2.9,
-    "pred_low": 7.9503,
-    "pred_high": 8.415,
-    "pred_volatility": 1.32,
-    "time_s": 0.7
-  },
-  "Rhone Ma Holdings Berhad": {
-    "ticker": "5278.KL",
-    "last_close": 0.675,
-    "pred_30d_close": 0.6894,
-    "pred_change_pct": 2.14,
-    "pred_low": 0.6379,
-    "pred_high": 0.6993,
-    "pred_volatility": 2.94,
-    "time_s": 0.7
-  },
-  "Rhong Khen International Berhad": {
-    "ticker": "7006.KL",
-    "last_close": 1.03,
-    "pred_30d_close": 1.0253,
-    "pred_change_pct": -0.46,
-    "pred_low": 1.0251,
-    "pred_high": 1.1011,
-    "pred_volatility": 2.18,
-    "time_s": 0.7
-  },
-  "S & F Capital Berhad": {
-    "ticker": "8745.KL",
-    "last_close": 0.055,
-    "pred_30d_close": 0.0628,
-    "pred_change_pct": 14.24,
-    "pred_low": 0.0548,
-    "pred_high": 0.064,
-    "pred_volatility": 5.25,
-    "time_s": 0.7
-  },
-  "Sarawak Oil Palms Berhad": {
-    "ticker": "5126.KL",
-    "last_close": 4.56,
-    "pred_30d_close": 4.2799,
-    "pred_change_pct": -6.14,
-    "pred_low": 4.0513,
-    "pred_high": 4.5878,
-    "pred_volatility": 3.13,
-    "time_s": 0.7
-  },
-  "Sarawak Plantation Berhad": {
-    "ticker": "5135.KL",
-    "last_close": 3.77,
-    "pred_30d_close": 3.3646,
-    "pred_change_pct": -10.75,
-    "pred_low": 3.2433,
-    "pred_high": 3.7524,
-    "pred_volatility": 4.51,
-    "time_s": 0.7
-  },
-  "SaudiGold Group Berhad": {
-    "ticker": "5157.KL",
-    "last_close": 0.065,
-    "pred_30d_close": 0.0986,
-    "pred_change_pct": 51.65,
-    "pred_low": 0.0807,
-    "pred_high": 0.0993,
-    "pred_volatility": 6.82,
-    "time_s": 0.9
-  },
-  "SC Estate Builder Berhad": {
-    "ticker": "0117.KL",
-    "last_close": 0.2,
-    "pred_30d_close": 0.2232,
-    "pred_change_pct": 11.59,
-    "pred_low": 0.1986,
-    "pred_high": 0.2815,
-    "pred_volatility": 10.47,
-    "time_s": 0.7
-  },
-  "Scicom (MSC) Berhad": {
-    "ticker": "0099.KL",
-    "last_close": 1.99,
-    "pred_30d_close": 1.5083,
+  "0099": {
     "pred_change_pct": -24.2,
+    "pred_30d_close": 1.5083,
     "pred_low": 1.463,
     "pred_high": 1.9154,
-    "pred_volatility": 5.06,
-    "time_s": 0.7
+    "pred_volatility": 5.06
   },
-  "Scientex Berhad": {
-    "ticker": "4731.KL",
-    "last_close": 3.81,
-    "pred_30d_close": 3.6555,
-    "pred_change_pct": -4.05,
-    "pred_low": 3.6361,
-    "pred_high": 3.804,
-    "pred_volatility": 1.04,
-    "time_s": 0.7
+  "0104": {
+    "pred_change_pct": -9.89,
+    "pred_30d_close": 0.2794,
+    "pred_low": 0.2788,
+    "pred_high": 0.3222,
+    "pred_volatility": 4.64
   },
-  "Seal Incorporated Berhad": {
-    "ticker": "4286.KL",
-    "last_close": 0.68,
-    "pred_30d_close": 0.6856,
-    "pred_change_pct": 0.82,
-    "pred_low": 0.662,
-    "pred_high": 0.6882,
-    "pred_volatility": 1.38,
-    "time_s": 0.7
+  "0117": {
+    "pred_change_pct": 11.59,
+    "pred_30d_close": 0.2232,
+    "pred_low": 0.1986,
+    "pred_high": 0.2815,
+    "pred_volatility": 10.47
   },
-  "Seni Jaya Corporation Berhad": {
-    "ticker": "9431.KL",
-    "last_close": 0.535,
-    "pred_30d_close": 0.5165,
-    "pred_change_pct": -3.45,
-    "pred_low": 0.5034,
-    "pred_high": 0.5327,
-    "pred_volatility": 1.27,
-    "time_s": 0.7
+  "0128": {
+    "pred_change_pct": -12.55,
+    "pred_30d_close": 4.3724,
+    "pred_low": 4.154,
+    "pred_high": 4.9519,
+    "pred_volatility": 3.91
   },
-  "Sime Darby": {
-    "ticker": "4197.KL",
-    "last_close": 2.17,
-    "pred_30d_close": 2.2276,
+  "0166": {
+    "pred_change_pct": -6.45,
+    "pred_30d_close": 2.1141,
+    "pred_low": 1.9039,
+    "pred_high": 2.2334,
+    "pred_volatility": 4.42
+  },
+  "0219": {
+    "pred_change_pct": -2.09,
+    "pred_30d_close": 0.2595,
+    "pred_low": 0.2361,
+    "pred_high": 0.2636,
+    "pred_volatility": 2.57
+  },
+  "0318": {
+    "pred_change_pct": 2.32,
+    "pred_30d_close": 0.8237,
+    "pred_low": 0.8047,
+    "pred_high": 0.8494,
+    "pred_volatility": 1.38
+  },
+  "1015": {
+    "pred_change_pct": -3.64,
+    "pred_30d_close": 6.2535,
+    "pred_low": 6.1457,
+    "pred_high": 6.4712,
+    "pred_volatility": 1.5
+  },
+  "1023": {
+    "pred_change_pct": 2.47,
+    "pred_30d_close": 7.9724,
+    "pred_low": 7.6817,
+    "pred_high": 8.07,
+    "pred_volatility": 1.52
+  },
+  "1066": {
+    "pred_change_pct": -2.9,
+    "pred_30d_close": 8.1467,
+    "pred_low": 7.9503,
+    "pred_high": 8.415,
+    "pred_volatility": 1.32
+  },
+  "1155": {
+    "pred_change_pct": 0.5,
+    "pred_30d_close": 11.2163,
+    "pred_low": 10.8691,
+    "pred_high": 11.3661,
+    "pred_volatility": 1.11
+  },
+  "1295": {
+    "pred_change_pct": -5.87,
+    "pred_30d_close": 4.7538,
+    "pred_low": 4.6491,
+    "pred_high": 4.9443,
+    "pred_volatility": 1.35
+  },
+  "1589": {
+    "pred_change_pct": 3.5,
+    "pred_30d_close": 0.2381,
+    "pred_low": 0.2273,
+    "pred_high": 0.2427,
+    "pred_volatility": 1.49
+  },
+  "2097": {
+    "pred_change_pct": -0.34,
+    "pred_30d_close": 0.1395,
+    "pred_low": 0.1347,
+    "pred_high": 0.1414,
+    "pred_volatility": 1.34
+  },
+  "2291": {
+    "pred_change_pct": -3.83,
+    "pred_30d_close": 5.0972,
+    "pred_low": 5.0307,
+    "pred_high": 5.2345,
+    "pred_volatility": 1.03
+  },
+  "2305": {
+    "pred_change_pct": -2.07,
+    "pred_30d_close": 7.1492,
+    "pred_low": 7.025,
+    "pred_high": 7.2747,
+    "pred_volatility": 0.68
+  },
+  "2445": {
+    "pred_change_pct": 1.57,
+    "pred_30d_close": 21.0856,
+    "pred_low": 20.2414,
+    "pred_high": 21.0989,
+    "pred_volatility": 1.3
+  },
+  "2488": {
+    "pred_change_pct": 2.45,
+    "pred_30d_close": 4.9176,
+    "pred_low": 4.7426,
+    "pred_high": 4.9212,
+    "pred_volatility": 0.93
+  },
+  "2658": {
+    "pred_change_pct": -18.12,
+    "pred_30d_close": 12.4779,
+    "pred_low": 12.4779,
+    "pred_high": 15.108,
+    "pred_volatility": 5.02
+  },
+  "2836": {
+    "pred_change_pct": 2.32,
+    "pred_30d_close": 16.8005,
+    "pred_low": 16.482,
+    "pred_high": 16.9799,
+    "pred_volatility": 0.87
+  },
+  "3026": {
+    "pred_change_pct": 0.42,
+    "pred_30d_close": 32.3939,
+    "pred_low": 32.3616,
+    "pred_high": 33.0883,
+    "pred_volatility": 0.53
+  },
+  "3182": {
+    "pred_change_pct": 29.6,
+    "pred_30d_close": 2.929,
+    "pred_low": 2.2198,
+    "pred_high": 2.929,
+    "pred_volatility": 9.42
+  },
+  "3247": {
+    "pred_change_pct": 16.55,
+    "pred_30d_close": 0.3089,
+    "pred_low": 0.2649,
+    "pred_high": 0.313,
+    "pred_volatility": 5.76
+  },
+  "3255": {
+    "pred_change_pct": 12.64,
+    "pred_30d_close": 21.9647,
+    "pred_low": 19.4449,
+    "pred_high": 21.9647,
+    "pred_volatility": 4.39
+  },
+  "3379": {
+    "pred_change_pct": 3.74,
+    "pred_30d_close": 0.8922,
+    "pred_low": 0.8509,
+    "pred_high": 0.8922,
+    "pred_volatility": 1.17
+  },
+  "3476": {
+    "pred_change_pct": -0.83,
+    "pred_30d_close": 5.1965,
+    "pred_low": 5.1965,
+    "pred_high": 5.2795,
+    "pred_volatility": 0.37
+  },
+  "3514": {
+    "pred_change_pct": 0.5,
+    "pred_30d_close": 0.1005,
+    "pred_low": 0.0967,
+    "pred_high": 0.1053,
+    "pred_volatility": 1.61
+  },
+  "3948": {
+    "pred_change_pct": -3.39,
+    "pred_30d_close": 0.2946,
+    "pred_low": 0.2876,
+    "pred_high": 0.3073,
+    "pred_volatility": 1.9
+  },
+  "4006": {
+    "pred_change_pct": 0.01,
+    "pred_30d_close": 7.0907,
+    "pred_low": 7.0668,
+    "pred_high": 7.1312,
+    "pred_volatility": 0.24
+  },
+  "4022": {
+    "pred_change_pct": 7.53,
+    "pred_30d_close": 0.2903,
+    "pred_low": 0.2673,
+    "pred_high": 0.3125,
+    "pred_volatility": 5.28
+  },
+  "4057": {
+    "pred_change_pct": -14.27,
+    "pred_30d_close": 0.0986,
+    "pred_low": 0.0954,
+    "pred_high": 0.1134,
+    "pred_volatility": 3.47
+  },
+  "4197": {
     "pred_change_pct": 2.65,
+    "pred_30d_close": 2.2276,
     "pred_low": 2.1362,
     "pred_high": 2.2864,
-    "pred_volatility": 1.84,
-    "time_s": 0.7
+    "pred_volatility": 1.84
   },
-  "Solid Automotive Berhad": {
-    "ticker": "5242.KL",
-    "last_close": 0.125,
-    "pred_30d_close": 0.1249,
-    "pred_change_pct": -0.09,
-    "pred_low": 0.1228,
-    "pred_high": 0.1283,
-    "pred_volatility": 1.18,
-    "time_s": 0.7
+  "4286": {
+    "pred_change_pct": 0.82,
+    "pred_30d_close": 0.6856,
+    "pred_low": 0.662,
+    "pred_high": 0.6882,
+    "pred_volatility": 1.38
   },
-  "Sunway Berhad": {
-    "ticker": "5211.KL",
-    "last_close": 5.3,
-    "pred_30d_close": 5.3083,
-    "pred_change_pct": 0.16,
-    "pred_low": 5.1308,
-    "pred_high": 5.4152,
-    "pred_volatility": 1.15,
-    "time_s": 0.7
+  "4383": {
+    "pred_change_pct": 3.25,
+    "pred_30d_close": 1.0738,
+    "pred_low": 1.0134,
+    "pred_high": 1.1014,
+    "pred_volatility": 2.31
   },
-  "Sunway Construction Group Berhad": {
-    "ticker": "5263.KL",
-    "last_close": 7.43,
-    "pred_30d_close": 6.2042,
-    "pred_change_pct": -16.5,
-    "pred_low": 6.0098,
-    "pred_high": 7.0557,
-    "pred_volatility": 3.58,
-    "time_s": 0.7
-  },
-  "Sunway Real Estate Investment Trust": {
-    "ticker": "5176.KL",
-    "last_close": 2.2,
-    "pred_30d_close": 2.3917,
-    "pred_change_pct": 8.72,
-    "pred_low": 2.2034,
-    "pred_high": 2.4021,
-    "pred_volatility": 2.23,
-    "time_s": 0.7
-  },
-  "Suria Capital Holdings Berhad": {
-    "ticker": "6521.KL",
-    "last_close": 1.25,
-    "pred_30d_close": 1.57,
-    "pred_change_pct": 25.6,
-    "pred_low": 1.2398,
-    "pred_high": 1.6209,
-    "pred_volatility": 11.89,
-    "time_s": 0.7
-  },
-  "Sycal Ventures Berhad": {
-    "ticker": "9717.KL",
-    "last_close": 0.17,
-    "pred_30d_close": 0.1742,
-    "pred_change_pct": 2.48,
-    "pred_low": 0.1686,
-    "pred_high": 0.1742,
-    "pred_volatility": 0.69,
-    "time_s": 0.7
-  },
-  "Ta Ann Holdings Berhad": {
-    "ticker": "5012.KL",
-    "last_close": 5.24,
-    "pred_30d_close": 4.7194,
-    "pred_change_pct": -9.94,
-    "pred_low": 4.5909,
-    "pred_high": 5.2507,
-    "pred_volatility": 4.28,
-    "time_s": 0.7
-  },
-  "Tan Chong Motor Holdings Berhad": {
-    "ticker": "4405.KL",
-    "last_close": 0.495,
-    "pred_30d_close": 0.5186,
+  "4405": {
     "pred_change_pct": 4.76,
+    "pred_30d_close": 0.5186,
     "pred_low": 0.4995,
     "pred_high": 0.5481,
-    "pred_volatility": 2.11,
-    "time_s": 0.7
+    "pred_volatility": 2.11
   },
-  "Tenaga Nasional Berhad": {
-    "ticker": "5347.KL",
-    "last_close": 14.56,
-    "pred_30d_close": 14.1695,
-    "pred_change_pct": -2.68,
-    "pred_low": 13.8908,
-    "pred_high": 14.4906,
-    "pred_volatility": 0.99,
-    "time_s": 0.7
+  "4731": {
+    "pred_change_pct": -4.05,
+    "pred_30d_close": 3.6555,
+    "pred_low": 3.6361,
+    "pred_high": 3.804,
+    "pred_volatility": 1.04
   },
-  "Texchem Resources Bhd": {
-    "ticker": "8702.KL",
-    "last_close": 0.77,
-    "pred_30d_close": 0.8142,
-    "pred_change_pct": 5.74,
-    "pred_low": 0.77,
-    "pred_high": 0.8159,
-    "pred_volatility": 2.05,
-    "time_s": 0.7
-  },
-  "Theta Edge Berhad": {
-    "ticker": "9075.KL",
-    "last_close": 0.54,
-    "pred_30d_close": 0.6423,
-    "pred_change_pct": 18.94,
-    "pred_low": 0.548,
-    "pred_high": 0.6856,
-    "pred_volatility": 8.13,
-    "time_s": 0.7
-  },
-  "TIME dotCom Berhad": {
-    "ticker": "5031.KL",
-    "last_close": 6.1,
-    "pred_30d_close": 5.9454,
-    "pred_change_pct": -2.53,
-    "pred_low": 5.8678,
-    "pred_high": 6.1659,
-    "pred_volatility": 1.28,
-    "time_s": 0.7
-  },
-  "Tiong Nam Logistics Holdings Berhad": {
-    "ticker": "8397.KL",
-    "last_close": 0.755,
-    "pred_30d_close": 0.7566,
-    "pred_change_pct": 0.21,
-    "pred_low": 0.7489,
-    "pred_high": 0.7724,
-    "pred_volatility": 0.84,
-    "time_s": 0.7
-  },
-  "Titijaya Land Berhad": {
-    "ticker": "5239.KL",
-    "last_close": 0.21,
-    "pred_30d_close": 0.2098,
-    "pred_change_pct": -0.07,
-    "pred_low": 0.2075,
-    "pred_high": 0.2138,
-    "pred_volatility": 0.77,
-    "time_s": 0.7
-  },
-  "Tong Herr Resources Berhad": {
-    "ticker": "5010.KL",
-    "last_close": 1.59,
-    "pred_30d_close": 1.4144,
+  "5010": {
     "pred_change_pct": -11.05,
+    "pred_30d_close": 1.4144,
     "pred_low": 1.3066,
     "pred_high": 1.5914,
-    "pred_volatility": 4.34,
-    "time_s": 0.7
+    "pred_volatility": 4.34
   },
-  "TRC Synergy Berhad": {
-    "ticker": "5054.KL",
-    "last_close": 0.28,
-    "pred_30d_close": 0.3213,
-    "pred_change_pct": 14.76,
-    "pred_low": 0.2835,
-    "pred_high": 0.3231,
-    "pred_volatility": 4.92,
-    "time_s": 0.7
+  "5012": {
+    "pred_change_pct": -9.94,
+    "pred_30d_close": 4.7194,
+    "pred_low": 4.5909,
+    "pred_high": 5.2507,
+    "pred_volatility": 4.28
   },
-  "Tropicana Corporation Berhad": {
-    "ticker": "5401.KL",
-    "last_close": 1.16,
-    "pred_30d_close": 1.2171,
-    "pred_change_pct": 4.93,
-    "pred_low": 1.1206,
-    "pred_high": 1.2244,
-    "pred_volatility": 2.4,
-    "time_s": 0.7
+  "5022": {
+    "pred_change_pct": 6.99,
+    "pred_30d_close": 0.3103,
+    "pred_low": 0.2489,
+    "pred_high": 0.3107,
+    "pred_volatility": 5.33
   },
-  "TSR Capital Berhad": {
-    "ticker": "5042.KL",
-    "last_close": 0.245,
-    "pred_30d_close": 0.2487,
+  "5031": {
+    "pred_change_pct": -2.53,
+    "pred_30d_close": 5.9454,
+    "pred_low": 5.8678,
+    "pred_high": 6.1659,
+    "pred_volatility": 1.28
+  },
+  "5038": {
+    "pred_change_pct": 6.29,
+    "pred_30d_close": 3.1356,
+    "pred_low": 2.8394,
+    "pred_high": 3.1356,
+    "pred_volatility": 2.56
+  },
+  "5040": {
+    "pred_change_pct": -32.49,
+    "pred_30d_close": 0.0203,
+    "pred_low": 0.0167,
+    "pred_high": 0.0313,
+    "pred_volatility": 8.37
+  },
+  "5042": {
     "pred_change_pct": 1.52,
+    "pred_30d_close": 0.2487,
     "pred_low": 0.2441,
     "pred_high": 0.2503,
-    "pred_volatility": 0.69,
-    "time_s": 0.7
+    "pred_volatility": 0.69
   },
-  "Uchi Technologies Berhad": {
-    "ticker": "7100.KL",
-    "last_close": 2.87,
-    "pred_30d_close": 2.7188,
-    "pred_change_pct": -5.27,
-    "pred_low": 2.6937,
-    "pred_high": 2.8757,
-    "pred_volatility": 1.85,
-    "time_s": 0.7
+  "5054": {
+    "pred_change_pct": 14.76,
+    "pred_30d_close": 0.3213,
+    "pred_low": 0.2835,
+    "pred_high": 0.3231,
+    "pred_volatility": 4.92
   },
-  "Unimech Group Berhad": {
-    "ticker": "7091.KL",
-    "last_close": 1.35,
-    "pred_30d_close": 1.3593,
-    "pred_change_pct": 0.69,
-    "pred_low": 1.3181,
-    "pred_high": 1.3677,
-    "pred_volatility": 0.86,
-    "time_s": 0.7
+  "5062": {
+    "pred_change_pct": 6.4,
+    "pred_30d_close": 0.2022,
+    "pred_low": 0.1855,
+    "pred_high": 0.2027,
+    "pred_volatility": 2.63
   },
-  "UPA Corporation Berhad": {
-    "ticker": "7757.KL",
-    "last_close": 0.685,
-    "pred_30d_close": 0.6518,
-    "pred_change_pct": -4.85,
-    "pred_low": 0.6331,
-    "pred_high": 0.6668,
-    "pred_volatility": 1.28,
-    "time_s": 0.7
+  "5073": {
+    "pred_change_pct": 5.38,
+    "pred_30d_close": 0.7904,
+    "pred_low": 0.7418,
+    "pred_high": 0.8033,
+    "pred_volatility": 2.23
   },
-  "Velocity Capital Partner Berhad": {
-    "ticker": "7165.KL",
-    "last_close": 0.035,
-    "pred_30d_close": 0.0443,
-    "pred_change_pct": 26.64,
-    "pred_low": 0.0348,
-    "pred_high": 0.0445,
-    "pred_volatility": 7.99,
-    "time_s": 0.7
+  "5085": {
+    "pred_change_pct": 33.07,
+    "pred_30d_close": 0.4524,
+    "pred_low": 0.3426,
+    "pred_high": 0.4598,
+    "pred_volatility": 11.54
   },
-  "Vizione Holdings Berhad": {
-    "ticker": "7070.KL",
-    "last_close": 0.085,
-    "pred_30d_close": 0.1034,
-    "pred_change_pct": 21.68,
-    "pred_low": 0.0875,
-    "pred_high": 0.1047,
-    "pred_volatility": 5.79,
-    "time_s": 0.7
+  "5087": {
+    "pred_change_pct": -7.62,
+    "pred_30d_close": 0.2402,
+    "pred_low": 0.2357,
+    "pred_high": 0.2652,
+    "pred_volatility": 3.08
   },
-  "Wasco Berhad": {
-    "ticker": "5142.KL",
-    "last_close": 0.77,
-    "pred_30d_close": 1.0442,
+  "5095": {
+    "pred_change_pct": 35.11,
+    "pred_30d_close": 0.1419,
+    "pred_low": 0.101,
+    "pred_high": 0.1454,
+    "pred_volatility": 13.91
+  },
+  "5106": {
+    "pred_change_pct": 2.05,
+    "pred_30d_close": 2.0002,
+    "pred_low": 1.8954,
+    "pred_high": 2.0223,
+    "pred_volatility": 2.16
+  },
+  "5108": {
+    "pred_change_pct": 0.87,
+    "pred_30d_close": 2.4713,
+    "pred_low": 2.4281,
+    "pred_high": 2.5117,
+    "pred_volatility": 0.79
+  },
+  "5115": {
+    "pred_change_pct": -3.36,
+    "pred_30d_close": 0.2706,
+    "pred_low": 0.2637,
+    "pred_high": 0.2946,
+    "pred_volatility": 3.36
+  },
+  "5121": {
+    "pred_change_pct": 5.14,
+    "pred_30d_close": 0.4363,
+    "pred_low": 0.4233,
+    "pred_high": 0.441,
+    "pred_volatility": 1.12
+  },
+  "5126": {
+    "pred_change_pct": -6.14,
+    "pred_30d_close": 4.2799,
+    "pred_low": 4.0513,
+    "pred_high": 4.5878,
+    "pred_volatility": 3.13
+  },
+  "5127": {
+    "pred_change_pct": -9.25,
+    "pred_30d_close": 0.3585,
+    "pred_low": 0.3584,
+    "pred_high": 0.4003,
+    "pred_volatility": 2.29
+  },
+  "5132": {
+    "pred_change_pct": 8.67,
+    "pred_30d_close": 1.2389,
+    "pred_low": 1.13,
+    "pred_high": 1.2658,
+    "pred_volatility": 4.17
+  },
+  "5135": {
+    "pred_change_pct": -10.75,
+    "pred_30d_close": 3.3646,
+    "pred_low": 3.2433,
+    "pred_high": 3.7524,
+    "pred_volatility": 4.51
+  },
+  "5139": {
+    "pred_change_pct": -2.27,
+    "pred_30d_close": 5.7659,
+    "pred_low": 5.7659,
+    "pred_high": 5.897,
+    "pred_volatility": 0.52
+  },
+  "5142": {
     "pred_change_pct": 35.62,
+    "pred_30d_close": 1.0442,
     "pred_low": 0.7467,
     "pred_high": 1.0561,
-    "pred_volatility": 11.95,
-    "time_s": 0.7
+    "pred_volatility": 11.95
   },
-  "Watta Holding Berhad": {
-    "ticker": "7226.KL",
-    "last_close": 0.405,
-    "pred_30d_close": 0.4167,
-    "pred_change_pct": 2.9,
-    "pred_low": 0.3908,
-    "pred_high": 0.4167,
-    "pred_volatility": 1.41,
-    "time_s": 0.7
+  "5151": {
+    "pred_change_pct": 1.86,
+    "pred_30d_close": 0.7843,
+    "pred_low": 0.7647,
+    "pred_high": 0.7971,
+    "pred_volatility": 1.37
   },
-  "XiDeLang Holdings Ltd": {
-    "ticker": "5156.KL",
-    "last_close": 0.01,
-    "pred_30d_close": 0.0088,
+  "5156": {
     "pred_change_pct": -11.72,
+    "pred_30d_close": 0.0088,
     "pred_low": 0.0053,
     "pred_high": 0.0113,
-    "pred_volatility": 12.58,
-    "time_s": 0.8
+    "pred_volatility": 12.58
   },
-  "Xin Synergy Group Berhad": {
-    "ticker": "7043.KL",
-    "last_close": 0.19,
-    "pred_30d_close": 0.1827,
-    "pred_change_pct": -3.84,
-    "pred_low": 0.1826,
-    "pred_high": 0.19,
-    "pred_volatility": 1.0,
-    "time_s": 0.7
+  "5157": {
+    "pred_change_pct": 51.65,
+    "pred_30d_close": 0.0986,
+    "pred_low": 0.0807,
+    "pred_high": 0.0993,
+    "pred_volatility": 6.82
   },
-  "XL Holdings Berhad": {
-    "ticker": "7121.KL",
-    "last_close": 0.75,
-    "pred_30d_close": 0.7101,
-    "pred_change_pct": -5.31,
-    "pred_low": 0.6983,
-    "pred_high": 0.744,
-    "pred_volatility": 1.39,
-    "time_s": 0.7
+  "5176": {
+    "pred_change_pct": 8.72,
+    "pred_30d_close": 2.3917,
+    "pred_low": 2.2034,
+    "pred_high": 2.4021,
+    "pred_volatility": 2.23
   },
-  "YLI Holdings Berhad": {
-    "ticker": "7014.KL",
-    "last_close": 0.23,
-    "pred_30d_close": 0.2139,
-    "pred_change_pct": -7.01,
-    "pred_low": 0.2107,
-    "pred_high": 0.2366,
-    "pred_volatility": 3.0,
-    "time_s": 0.7
+  "5180": {
+    "pred_change_pct": 0.18,
+    "pred_30d_close": 0.6161,
+    "pred_low": 0.6118,
+    "pred_high": 0.6194,
+    "pred_volatility": 0.33
   },
-  "YTL Power International": {
-    "ticker": "6742.KL",
-    "last_close": 4.23,
-    "pred_30d_close": 2.9104,
+  "5186": {
+    "pred_change_pct": 25.89,
+    "pred_30d_close": 0.4154,
+    "pred_low": 0.3326,
+    "pred_high": 0.4236,
+    "pred_volatility": 8.41
+  },
+  "5209": {
+    "pred_change_pct": -5.58,
+    "pred_30d_close": 4.9571,
+    "pred_low": 4.9006,
+    "pred_high": 5.2539,
+    "pred_volatility": 1.96
+  },
+  "5211": {
+    "pred_change_pct": 0.16,
+    "pred_30d_close": 5.3083,
+    "pred_low": 5.1308,
+    "pred_high": 5.4152,
+    "pred_volatility": 1.15
+  },
+  "5212": {
+    "pred_change_pct": 4.64,
+    "pred_30d_close": 1.7789,
+    "pred_low": 1.6918,
+    "pred_high": 1.8164,
+    "pred_volatility": 2.13
+  },
+  "5220": {
+    "pred_change_pct": 4.2,
+    "pred_30d_close": 0.8909,
+    "pred_low": 0.8205,
+    "pred_high": 0.8909,
+    "pred_volatility": 2.56
+  },
+  "5231": {
+    "pred_change_pct": 6.86,
+    "pred_30d_close": 0.1122,
+    "pred_low": 0.0988,
+    "pred_high": 0.1172,
+    "pred_volatility": 5.06
+  },
+  "5236": {
+    "pred_change_pct": 16.07,
+    "pred_30d_close": 1.3813,
+    "pred_low": 1.1903,
+    "pred_high": 1.3826,
+    "pred_volatility": 4.46
+  },
+  "5239": {
+    "pred_change_pct": -0.07,
+    "pred_30d_close": 0.2098,
+    "pred_low": 0.2075,
+    "pred_high": 0.2138,
+    "pred_volatility": 0.77
+  },
+  "5242": {
+    "pred_change_pct": -0.09,
+    "pred_30d_close": 0.1249,
+    "pred_low": 0.1228,
+    "pred_high": 0.1283,
+    "pred_volatility": 1.18
+  },
+  "5249": {
+    "pred_change_pct": -19.25,
+    "pred_30d_close": 3.3755,
+    "pred_low": 3.2161,
+    "pred_high": 4.0117,
+    "pred_volatility": 5.73
+  },
+  "5250": {
+    "pred_change_pct": -1.16,
+    "pred_30d_close": 1.9768,
+    "pred_low": 1.9718,
+    "pred_high": 1.9807,
+    "pred_volatility": 0.09
+  },
+  "5258": {
+    "pred_change_pct": 1.81,
+    "pred_30d_close": 2.2194,
+    "pred_low": 2.1569,
+    "pred_high": 2.2349,
+    "pred_volatility": 0.96
+  },
+  "5263": {
+    "pred_change_pct": -16.5,
+    "pred_30d_close": 6.2042,
+    "pred_low": 6.0098,
+    "pred_high": 7.0557,
+    "pred_volatility": 3.58
+  },
+  "5273": {
+    "pred_change_pct": -0.53,
+    "pred_30d_close": 2.0689,
+    "pred_low": 2.0559,
+    "pred_high": 2.1775,
+    "pred_volatility": 1.95
+  },
+  "5275": {
+    "pred_change_pct": 25.08,
+    "pred_30d_close": 0.5754,
+    "pred_low": 0.4491,
+    "pred_high": 0.5786,
+    "pred_volatility": 7.48
+  },
+  "5276": {
+    "pred_change_pct": 10.4,
+    "pred_30d_close": 0.3588,
+    "pred_low": 0.3306,
+    "pred_high": 0.3628,
+    "pred_volatility": 2.17
+  },
+  "5278": {
+    "pred_change_pct": 2.14,
+    "pred_30d_close": 0.6894,
+    "pred_low": 0.6379,
+    "pred_high": 0.6993,
+    "pred_volatility": 2.94
+  },
+  "5280": {
+    "pred_change_pct": -1.18,
+    "pred_30d_close": 0.84,
+    "pred_low": 0.84,
+    "pred_high": 0.8494,
+    "pred_volatility": 0.26
+  },
+  "5293": {
+    "pred_change_pct": -0.48,
+    "pred_30d_close": 1.5226,
+    "pred_low": 1.5034,
+    "pred_high": 1.5457,
+    "pred_volatility": 0.68
+  },
+  "5347": {
+    "pred_change_pct": -2.68,
+    "pred_30d_close": 14.1695,
+    "pred_low": 13.8908,
+    "pred_high": 14.4906,
+    "pred_volatility": 0.99
+  },
+  "5398": {
+    "pred_change_pct": -9.35,
+    "pred_30d_close": 4.0158,
+    "pred_low": 3.9295,
+    "pred_high": 4.4484,
+    "pred_volatility": 3.31
+  },
+  "5401": {
+    "pred_change_pct": 4.93,
+    "pred_30d_close": 1.2171,
+    "pred_low": 1.1206,
+    "pred_high": 1.2244,
+    "pred_volatility": 2.4
+  },
+  "5592": {
+    "pred_change_pct": 3.19,
+    "pred_30d_close": 0.3508,
+    "pred_low": 0.3376,
+    "pred_high": 0.3615,
+    "pred_volatility": 1.54
+  },
+  "5703": {
+    "pred_change_pct": 1.08,
+    "pred_30d_close": 0.5458,
+    "pred_low": 0.5201,
+    "pred_high": 0.5501,
+    "pred_volatility": 1.88
+  },
+  "5819": {
+    "pred_change_pct": 0.28,
+    "pred_30d_close": 22.0621,
+    "pred_low": 21.5714,
+    "pred_high": 23.0411,
+    "pred_volatility": 1.51
+  },
+  "5827": {
+    "pred_change_pct": -6.18,
+    "pred_30d_close": 1.2197,
+    "pred_low": 1.1992,
+    "pred_high": 1.2862,
+    "pred_volatility": 1.74
+  },
+  "5983": {
+    "pred_change_pct": 0.24,
+    "pred_30d_close": 5.1721,
+    "pred_low": 5.0748,
+    "pred_high": 5.1826,
+    "pred_volatility": 0.61
+  },
+  "6041": {
+    "pred_change_pct": -1.83,
+    "pred_30d_close": 0.162,
+    "pred_low": 0.1533,
+    "pred_high": 0.1653,
+    "pred_volatility": 1.71
+  },
+  "6173": {
+    "pred_change_pct": 5.5,
+    "pred_30d_close": 0.2057,
+    "pred_low": 0.1964,
+    "pred_high": 0.2184,
+    "pred_volatility": 3.38
+  },
+  "6399": {
+    "pred_change_pct": 56.28,
+    "pred_30d_close": 0.0938,
+    "pred_low": 0.0605,
+    "pred_high": 0.0938,
+    "pred_volatility": 20.62
+  },
+  "6483": {
+    "pred_change_pct": 17.88,
+    "pred_30d_close": 0.8075,
+    "pred_low": 0.7409,
+    "pred_high": 0.819,
+    "pred_volatility": 2.52
+  },
+  "6521": {
+    "pred_change_pct": 25.6,
+    "pred_30d_close": 1.57,
+    "pred_low": 1.2398,
+    "pred_high": 1.6209,
+    "pred_volatility": 11.89
+  },
+  "6599": {
+    "pred_change_pct": 3.22,
+    "pred_30d_close": 1.0942,
+    "pred_low": 1.0464,
+    "pred_high": 1.1232,
+    "pred_volatility": 2.32
+  },
+  "6637": {
+    "pred_change_pct": -2.3,
+    "pred_30d_close": 0.0489,
+    "pred_low": 0.0457,
+    "pred_high": 0.053,
+    "pred_volatility": 3.51
+  },
+  "6742": {
     "pred_change_pct": -31.2,
+    "pred_30d_close": 2.9104,
     "pred_low": 2.8755,
     "pred_high": 4.268,
-    "pred_volatility": 14.1,
-    "time_s": 0.8
+    "pred_volatility": 14.1
+  },
+  "6769": {
+    "pred_change_pct": 2.13,
+    "pred_30d_close": 0.1072,
+    "pred_low": 0.1013,
+    "pred_high": 0.1081,
+    "pred_volatility": 1.4
+  },
+  "7005": {
+    "pred_change_pct": -9.26,
+    "pred_30d_close": 0.5217,
+    "pred_low": 0.5148,
+    "pred_high": 0.573,
+    "pred_volatility": 2.13
+  },
+  "7006": {
+    "pred_change_pct": -0.46,
+    "pred_30d_close": 1.0253,
+    "pred_low": 1.0251,
+    "pred_high": 1.1011,
+    "pred_volatility": 2.18
+  },
+  "7014": {
+    "pred_change_pct": -7.01,
+    "pred_30d_close": 0.2139,
+    "pred_low": 0.2107,
+    "pred_high": 0.2366,
+    "pred_volatility": 3.0
+  },
+  "7043": {
+    "pred_change_pct": -3.84,
+    "pred_30d_close": 0.1827,
+    "pred_low": 0.1826,
+    "pred_high": 0.19,
+    "pred_volatility": 1.0
+  },
+  "7052": {
+    "pred_change_pct": 12.71,
+    "pred_30d_close": 1.6343,
+    "pred_low": 1.4594,
+    "pred_high": 1.6343,
+    "pred_volatility": 3.64
+  },
+  "7070": {
+    "pred_change_pct": 21.68,
+    "pred_30d_close": 0.1034,
+    "pred_low": 0.0875,
+    "pred_high": 0.1047,
+    "pred_volatility": 5.79
+  },
+  "7077": {
+    "pred_change_pct": 5.67,
+    "pred_30d_close": 0.2906,
+    "pred_low": 0.2751,
+    "pred_high": 0.3058,
+    "pred_volatility": 2.87
+  },
+  "7087": {
+    "pred_change_pct": -0.76,
+    "pred_30d_close": 1.9451,
+    "pred_low": 1.9152,
+    "pred_high": 1.9562,
+    "pred_volatility": 0.55
+  },
+  "7089": {
+    "pred_change_pct": 5.82,
+    "pred_30d_close": 0.2963,
+    "pred_low": 0.2835,
+    "pred_high": 0.3273,
+    "pred_volatility": 4.75
+  },
+  "7091": {
+    "pred_change_pct": 0.69,
+    "pred_30d_close": 1.3593,
+    "pred_low": 1.3181,
+    "pred_high": 1.3677,
+    "pred_volatility": 0.86
+  },
+  "7095": {
+    "pred_change_pct": -19.18,
+    "pred_30d_close": 1.3658,
+    "pred_low": 1.3259,
+    "pred_high": 1.5856,
+    "pred_volatility": 3.84
+  },
+  "7096": {
+    "pred_change_pct": 3.62,
+    "pred_30d_close": 0.0622,
+    "pred_low": 0.0597,
+    "pred_high": 0.068,
+    "pred_volatility": 3.11
+  },
+  "7100": {
+    "pred_change_pct": -5.27,
+    "pred_30d_close": 2.7188,
+    "pred_low": 2.6937,
+    "pred_high": 2.8757,
+    "pred_volatility": 1.85
+  },
+  "7121": {
+    "pred_change_pct": -5.31,
+    "pred_30d_close": 0.7101,
+    "pred_low": 0.6983,
+    "pred_high": 0.744,
+    "pred_volatility": 1.39
+  },
+  "7139": {
+    "pred_change_pct": -1.64,
+    "pred_30d_close": 0.0885,
+    "pred_low": 0.086,
+    "pred_high": 0.0919,
+    "pred_volatility": 1.63
+  },
+  "7154": {
+    "pred_change_pct": 24.57,
+    "pred_30d_close": 0.0311,
+    "pred_low": 0.0244,
+    "pred_high": 0.0311,
+    "pred_volatility": 6.73
+  },
+  "7157": {
+    "pred_change_pct": 9.38,
+    "pred_30d_close": 0.3227,
+    "pred_low": 0.2958,
+    "pred_high": 0.3442,
+    "pred_volatility": 4.7
+  },
+  "7162": {
+    "pred_change_pct": -4.95,
+    "pred_30d_close": 0.499,
+    "pred_low": 0.4979,
+    "pred_high": 0.528,
+    "pred_volatility": 1.17
+  },
+  "7165": {
+    "pred_change_pct": 26.64,
+    "pred_30d_close": 0.0443,
+    "pred_low": 0.0348,
+    "pred_high": 0.0445,
+    "pred_volatility": 7.99
+  },
+  "7191": {
+    "pred_change_pct": 15.94,
+    "pred_30d_close": 0.1507,
+    "pred_low": 0.1272,
+    "pred_high": 0.1526,
+    "pred_volatility": 5.21
+  },
+  "7192": {
+    "pred_change_pct": -77.95,
+    "pred_30d_close": 0.1058,
+    "pred_low": 0.1058,
+    "pred_high": 0.2422,
+    "pred_volatility": 5.61
+  },
+  "7195": {
+    "pred_change_pct": -0.42,
+    "pred_30d_close": 1.9518,
+    "pred_low": 1.8531,
+    "pred_high": 1.9705,
+    "pred_volatility": 1.6
+  },
+  "7212": {
+    "pred_change_pct": 3.25,
+    "pred_30d_close": 0.3149,
+    "pred_low": 0.2756,
+    "pred_high": 0.3242,
+    "pred_volatility": 4.55
+  },
+  "7226": {
+    "pred_change_pct": 2.9,
+    "pred_30d_close": 0.4167,
+    "pred_low": 0.3908,
+    "pred_high": 0.4167,
+    "pred_volatility": 1.41
+  },
+  "7243": {
+    "pred_change_pct": 3.22,
+    "pred_30d_close": 0.3045,
+    "pred_low": 0.2941,
+    "pred_high": 0.3089,
+    "pred_volatility": 1.23
+  },
+  "7722": {
+    "pred_change_pct": 3.25,
+    "pred_30d_close": 0.5008,
+    "pred_low": 0.4626,
+    "pred_high": 0.5211,
+    "pred_volatility": 2.25
+  },
+  "7757": {
+    "pred_change_pct": -4.85,
+    "pred_30d_close": 0.6518,
+    "pred_low": 0.6331,
+    "pred_high": 0.6668,
+    "pred_volatility": 1.28
+  },
+  "7943": {
+    "pred_change_pct": 0.23,
+    "pred_30d_close": 0.1904,
+    "pred_low": 0.1863,
+    "pred_high": 0.1953,
+    "pred_volatility": 1.01
+  },
+  "8044": {
+    "pred_change_pct": 0.85,
+    "pred_30d_close": 0.0706,
+    "pred_low": 0.0688,
+    "pred_high": 0.0753,
+    "pred_volatility": 2.29
+  },
+  "8079": {
+    "pred_change_pct": 8.17,
+    "pred_30d_close": 0.3245,
+    "pred_low": 0.2998,
+    "pred_high": 0.3331,
+    "pred_volatility": 3.01
+  },
+  "8206": {
+    "pred_change_pct": 2.32,
+    "pred_30d_close": 2.1693,
+    "pred_low": 2.0942,
+    "pred_high": 2.229,
+    "pred_volatility": 1.85
+  },
+  "8397": {
+    "pred_change_pct": 0.21,
+    "pred_30d_close": 0.7566,
+    "pred_low": 0.7489,
+    "pred_high": 0.7724,
+    "pred_volatility": 0.84
+  },
+  "8532": {
+    "pred_change_pct": 0.92,
+    "pred_30d_close": 0.0959,
+    "pred_low": 0.0959,
+    "pred_high": 0.0965,
+    "pred_volatility": 0.22
+  },
+  "8583": {
+    "pred_change_pct": -1.46,
+    "pred_30d_close": 0.9608,
+    "pred_low": 0.951,
+    "pred_high": 0.9855,
+    "pred_volatility": 0.94
+  },
+  "8621": {
+    "pred_change_pct": -4.46,
+    "pred_30d_close": 14.5034,
+    "pred_low": 14.4303,
+    "pred_high": 15.0884,
+    "pred_volatility": 1.13
+  },
+  "8702": {
+    "pred_change_pct": 5.74,
+    "pred_30d_close": 0.8142,
+    "pred_low": 0.77,
+    "pred_high": 0.8159,
+    "pred_volatility": 2.05
+  },
+  "8745": {
+    "pred_change_pct": 14.24,
+    "pred_30d_close": 0.0628,
+    "pred_low": 0.0548,
+    "pred_high": 0.064,
+    "pred_volatility": 5.25
+  },
+  "9075": {
+    "pred_change_pct": 18.94,
+    "pred_30d_close": 0.6423,
+    "pred_low": 0.548,
+    "pred_high": 0.6856,
+    "pred_volatility": 8.13
+  },
+  "9393": {
+    "pred_change_pct": 96.54,
+    "pred_30d_close": 0.0393,
+    "pred_low": 0.0183,
+    "pred_high": 0.0463,
+    "pred_volatility": 42.64
+  },
+  "9431": {
+    "pred_change_pct": -3.45,
+    "pred_30d_close": 0.5165,
+    "pred_low": 0.5034,
+    "pred_high": 0.5327,
+    "pred_volatility": 1.27
+  },
+  "9598": {
+    "pred_change_pct": 20.12,
+    "pred_30d_close": 1.5136,
+    "pred_low": 1.2755,
+    "pred_high": 1.5136,
+    "pred_volatility": 7.13
+  },
+  "9717": {
+    "pred_change_pct": 2.48,
+    "pred_30d_close": 0.1742,
+    "pred_low": 0.1686,
+    "pred_high": 0.1742,
+    "pred_volatility": 0.69
+  },
+  "INTA": {
+    "pred_change_pct": -3.67,
+    "pred_30d_close": 0.3805,
+    "pred_low": 0.3729,
+    "pred_high": 0.3925,
+    "pred_volatility": 1.38
   }
 }

@@ -371,5 +371,102 @@
       }
     },
     "errors": []
+  },
+  {
+    "date": "2026-06-18",
+    "timestamp": "2026-06-18T08:00:27+08:00",
+    "signals": {
+      "brent_crude": {
+        "label": "Brent Crude Oil",
+        "unit": "USD/bbl",
+        "value": 78.89,
+        "change_pct": -0.09,
+        "trend_5d_pct": -9.66,
+        "trend": "down",
+        "category": "commodity"
+      },
+      "cpo": {
+        "label": "CPO Price Proxy (KLK)",
+        "unit": "MYR/share",
+        "value": 20.76,
+        "change_pct": 0.58,
+        "trend_5d_pct": -0.86,
+        "trend": "flat",
+        "category": "commodity"
+      },
+      "usd_myr": {
+        "label": "USD/MYR",
+        "unit": "MYR per USD",
+        "value": 4.07,
+        "change_pct": 0.09,
+        "trend_5d_pct": 0.14,
+        "trend": "flat",
+        "category": "fx"
+      },
+      "fb_klci": {
+        "label": "FBM KLCI",
+        "unit": "index",
+        "value": 1709.99,
+        "change_pct": 1.1,
+        "trend_5d_pct": 1.81,
+        "trend": "up",
+        "category": "equity"
+      },
+      "sox_index": {
+        "label": "Philadelphia Semiconductor Index",
+        "unit": "index",
+        "value": 13477.0723,
+        "change_pct": 1.38,
+        "trend_5d_pct": 2.32,
+        "trend": "up",
+        "category": "equity"
+      },
+      "fbx_shipping": {
+        "label": "Freightos Baltic Index (NOT AVAILABLE)",
+        "unit": "",
+        "value": 20.76,
+        "change_pct": 0.58,
+        "trend_5d_pct": -0.86,
+        "trend": "flat",
+        "category": "shipping"
+      },
+      "snp500": {
+        "label": "S&P 500",
+        "unit": "index",
+        "value": 7420.1001,
+        "change_pct": -1.21,
+        "trend_5d_pct": 0.35,
+        "trend": "flat",
+        "category": "equity"
+      },
+      "china_pmi": {
+        "label": "FTSE China 50 (PMI proxy)",
+        "unit": "index",
+        "value": 33.65,
+        "change_pct": -2.63,
+        "trend_5d_pct": -2.89,
+        "trend": "down",
+        "category": "equity"
+      },
+      "steel_price": {
+        "label": "Steel ETF (price proxy)",
+        "unit": "USD",
+        "value": 107.63,
+        "change_pct": -2.54,
+        "trend_5d_pct": -1.29,
+        "trend": "down",
+        "category": "commodity"
+      },
+      "klci_regime": {
+        "label": "KLCI Market Regime",
+        "unit": "categorical",
+        "value": "bull",
+        "change_pct": 0,
+        "trend_5d_pct": 0,
+        "trend": "bull",
+        "category": "regime"
+      }
+    },
+    "errors": []
   }
 ]

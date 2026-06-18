@@ -1,13 +1,13 @@
 {
   "date": "2026-06-18",
-  "timestamp": "2026-06-18T05:41:58+08:00",
+  "timestamp": "2026-06-18T08:00:27+08:00",
   "signals": {
     "brent_crude": {
       "label": "Brent Crude Oil",
       "unit": "USD/bbl",
-      "value": 78.69,
-      "change_pct": -0.34,
-      "trend_5d_pct": -9.89,
+      "value": 78.89,
+      "change_pct": -0.09,
+      "trend_5d_pct": -9.66,
       "trend": "down",
       "category": "commodity"
     },
@@ -23,9 +23,9 @@
     "usd_myr": {
       "label": "USD/MYR",
       "unit": "MYR per USD",
-      "value": 4.065,
-      "change_pct": 0.43,
-      "trend_5d_pct": -0.04,
+      "value": 4.07,
+      "change_pct": 0.09,
+      "trend_5d_pct": 0.14,
       "trend": "flat",
       "category": "fx"
     },
