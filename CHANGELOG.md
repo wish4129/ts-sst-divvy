@@ -9,6 +9,7 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 ### 2026-06-18
 - **Feat: search trajectory analytics** — logs anonymized search queries from Universe page to new `search_logs` table (migration 0004); new API endpoints `POST /universe/search-log` and `GET /analytics/top-searches`; tracking hook `useSearchAnalytics` (committed in eaddfa25 — pending wire-up logSearch call, DB migration run, and SST deploy) [CANGJIE]
 - **Feat: dividend calendar** — scraper, Lambda endpoint, and frontend page for upcoming ex-dates and yield tiers (9610cee8) [CANGJIE]
+- **Docs: document stock_prices pre-filter design** — run_kronos_targeted.py skips stocks with < 200 price rows (`stock_prices` table) to avoid ~2s Kronos model load waste on data-sparse tickers. Currently blocks ALL 149 stocks because stock_prices has 0 rows across all stocks (Supabase table was never populated). Fix path: refill script needed (`t_3cf52cc9`). Pre-filter constant `MIN_PRICE_ROWS = 200` at line 52, dual-stage check (DB price count → yfinance fetch → final LOOKBACK=200 validation). [CANGJIE] [Internal]
 - **Chore: macro recalibration script** — weekly cron for >5% indicator moves, automates macro score refresh (26a36e09) [SAFE]
 - **Fix: db health audit — simplify top 10 scores output** — remove AI report column, cleaner output (cd338503) [PANGU]
 - **[MENSHEN] Remove static sitemap shadow, add blog routes to dynamic sitemap** — blog pages now indexed (b5301e75) [MENSHEN]
