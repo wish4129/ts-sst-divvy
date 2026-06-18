@@ -47,7 +47,7 @@ divvy/
 
 ## Key Features
 
-- **Bursa Universe** — Browse all ~1,000 listed companies with search and filter
+- **Bursa Universe** — Browse all ~1,000 listed companies with search, filter, and search trajectory analytics
 - **Watchlist** — Track active, revisit, pivot, and removed stocks with composite scores
 - **Stock Detail** — Deep analysis with financials, score breakdown, Kronos forecasts, and AI reports
 - **Stock Comparison** — Side-by-side metric comparison across stocks

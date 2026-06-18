@@ -7,6 +7,7 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 ## [Unreleased]
 
 ### 2026-06-18
+- **Feat: search trajectory analytics** — logs anonymized search queries from Universe page to new `search_logs` table (migration 0004); new API endpoints `POST /universe/search-log` and `GET /analytics/top-searches`; tracking hook `useSearchAnalytics` (uncommitted — pending wire-up and deploy) [CANGJIE]
 - **Feat: dividend calendar** — scraper, Lambda endpoint, and frontend page for upcoming ex-dates and yield tiers (9610cee8) [CANGJIE]
 - **Chore: macro recalibration script** — weekly cron for >5% indicator moves, automates macro score refresh (26a36e09) [SAFE]
 - **Fix: db health audit — simplify top 10 scores output** — remove AI report column, cleaner output (cd338503) [PANGU]
