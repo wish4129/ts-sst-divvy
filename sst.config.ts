@@ -23,11 +23,28 @@ export default $config({
     api.route("GET /universe", "src/functions/universe.handler");
     api.route("POST /universe/add", "src/functions/universe.handler");
     api.route("POST /universe/request-analysis", "src/functions/universe.handler");
+    api.route("POST /universe/search-log", "src/functions/universe.handler");
+    api.route("GET /analytics/top-searches", "src/functions/universe.handler");
     api.route("GET /notes/{code}", "src/functions/notes.handler");
     api.route("POST /notes/{code}", "src/functions/notes.handler");
     api.route("GET /screener", "src/functions/screener.handler");
     api.route("GET /dividends", "src/functions/dividends.handler");
     api.route("GET /sitemap.xml", "src/functions/sitemap.handler");
+
+    // CloudFront Function returning 410 Gone for the removed /battle route
+    // Prevents Google from indexing the SPA fallback (200) as a live page
+    const battleGoneFn = new aws.cloudfront.Function("BattleGoneFn", {
+      name: "divvy-battle-gone-v1",
+      runtime: "cloudfront-js-2.0",
+      code: `function handler(event) {
+  var request = event.request;
+  if (request.uri === '/battle' || request.uri.startsWith('/battle?')) {
+    return { statusCode: 410, statusDescription: 'Gone' };
+  }
+  return request;
+}`,
+      publish: true,
+    });
 
     new sst.aws.StaticSite("WebApp", {
       path: "web/",
@@ -37,8 +54,37 @@ export default $config({
       },
       environment: {
         VITE_SUPABASE_URL: "https://ceyqewaixcijbmdtbdlr.supabase.co",
-        VITE_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNleXFld2FpeGNpamJtZHRiZGxyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMTM4MDcsImV4cCI6MjA5NTg4OTgwN30.gW5MKzdMMUrzGq--NekVSsJT07KlQ_O0skrRjSHKcbg",
+        VITE_SUPABASE_ANON_KEY: "eyJhbG...Kcbg",
         VITE_API_URL: api.url,
+      },
+      transform: {
+        cdn: (args, opts) => {
+          // Add an edge function for /battle route to return 410 Gone
+          // before the SPA fallback serves a 200 response
+          args.orderedCacheBehaviors = [
+            {
+              pathPattern: "/battle*",
+              targetOriginId: args.origins[0].originId,
+              allowedMethods: ["GET", "HEAD", "OPTIONS"],
+              cachedMethods: ["GET", "HEAD"],
+              viewerProtocolPolicy: "redirect-to-https",
+              compress: true,
+              functionAssociations: [
+                {
+                  eventType: "viewer-request",
+                  functionArn: battleGoneFn.arn,
+                },
+              ],
+              forwardedValues: {
+                queryString: false,
+                cookies: { forward: "none" },
+              },
+              minTtl: 0,
+              defaultTtl: 0,
+              maxTtl: 0,
+            },
+          ];
+        },
       },
     });
   },
