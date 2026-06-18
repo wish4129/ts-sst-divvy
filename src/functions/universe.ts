@@ -31,6 +31,9 @@ export async function handler(
     if (method === "POST" && path === "/universe/search-log") {
       return await logSearch(event);
     }
+    if (method === "POST" && path === "/universe/click-log") {
+      return await logClick(event);
+    }
     if (method === "GET" && path === "/analytics/top-searches") {
       return await topSearches(event);
     }
@@ -248,4 +251,44 @@ async function topSearches(event: APIGatewayProxyEventV2) {
       }),
     };
   }
+}
+
+/**
+ * Log a click-through from search results to a stock detail page.
+ * POST /universe/click-log
+ * Body: { query: string, stockCode: string, position: number, sessionId?: string }
+ */
+async function logClick(event: APIGatewayProxyEventV2) {
+  const body = JSON.parse(event.body || "{}");
+  const { query, stockCode, position, sessionId } = body;
+
+  if (!query || typeof query !== "string" || !query.trim()) {
+    return {
+      statusCode: 400,
+      headers: { "content-type": "application/json", "access-control-allow-origin": "*" },
+      body: JSON.stringify({ error: "query is required" }),
+    };
+  }
+  if (!stockCode || typeof stockCode !== "string") {
+    return {
+      statusCode: 400,
+      headers: { "content-type": "application/json", "access-control-allow-origin": "*" },
+      body: JSON.stringify({ error: "stockCode is required" }),
+    };
+  }
+
+  try {
+    await sql`
+      INSERT INTO click_logs (query, stock_code, position, session_id)
+      VALUES (${query.trim().toLowerCase()}, ${stockCode}, ${position ?? 0}, ${sessionId || null})
+    `;
+  } catch (err) {
+    console.warn("Click log insert failed (table may not exist yet):", err);
+  }
+
+  return {
+    statusCode: 200,
+    headers: { "content-type": "application/json", "access-control-allow-origin": "*" },
+    body: JSON.stringify({ success: true }),
+  };
 }

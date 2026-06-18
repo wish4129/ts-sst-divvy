@@ -21,8 +21,21 @@ function getSessionId(): string | null {
   }
 }
 
+type SearchLogEvent = {
+  query: string
+  resultCount: number
+  sessionId: string | null
+}
+
+type ClickLogEvent = {
+  query: string
+  stockCode: string
+  position: number
+  sessionId: string | null
+}
+
 /**
- * Log search queries to the backend analytics endpoint.
+ * Log search queries and click-throughs to the backend analytics endpoint.
  * Fire-and-forget — never blocks search UX.
  */
 export function useSearchAnalytics() {
@@ -31,18 +44,39 @@ export function useSearchAnalytics() {
 
   const logSearch = useCallback((query: string, resultCount: number) => {
     if (!query.trim() || !API_URL) return
+    const payload: SearchLogEvent = {
+      query: query.trim(),
+      resultCount,
+      sessionId: sessionId.current,
+    }
     fetch(`${API_URL}/universe/search-log`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query: query.trim(),
-        resultCount,
-        sessionId: sessionId.current,
-      }),
+      body: JSON.stringify(payload),
     }).catch(() => {
       // Fire-and-forget
     })
   }, [API_URL])
 
-  return { logSearch }
+  /**
+   * Log a click-through from search results to a stock detail page.
+   */
+  const logClick = useCallback((query: string, stockCode: string, position: number) => {
+    if (!query.trim() || !stockCode || !API_URL) return
+    const payload: ClickLogEvent = {
+      query: query.trim(),
+      stockCode,
+      position,
+      sessionId: sessionId.current,
+    }
+    fetch(`${API_URL}/universe/click-log`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }).catch(() => {
+      // Fire-and-forget
+    })
+  }, [API_URL])
+
+  return { logSearch, logClick }
 }

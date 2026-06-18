@@ -16,6 +16,7 @@ const Universe = lazy(() => import('./pages/Universe'))
 const Compare = lazy(() => import('./pages/Compare'))
 const DividendCalendar = lazy(() => import('./pages/DividendCalendar'))
 const Screener = lazy(() => import('./pages/Screener'))
+const Analytics = lazy(() => import('./pages/Analytics'))
 const Blog = lazy(() => import('./pages/Blog'))
 const BlogPost = lazy(() => import('./pages/BlogPost'))
 const AuthCallback = lazy(() => import('./pages/AuthCallback'))
@@ -49,6 +50,7 @@ function AppShell() {
             <Route path="/compare" element={<Page><Compare /></Page>} />
             <Route path="/dividends" element={<Page><DividendCalendar /></Page>} />
             <Route path="/screener" element={<Page><Screener /></Page>} />
+            <Route path="/analytics" element={<Page><Analytics /></Page>} />
           </Routes>
         </LoginGate>
       </main>
@@ -85,6 +87,7 @@ export default function App() {
         <Route path="/compare" element={<AppShell />} />
         <Route path="/dividends" element={<AppShell />} />
         <Route path="/screener" element={<AppShell />} />
+        <Route path="/analytics" element={<AppShell />} />
 
         {/* 404 — no auth required */}
         <Route path="/battle" element={<Page><NotFound /></Page>} />

@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Search, Beaker, Loader2, CheckCircle2, Clock, Download } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { seo } from '../lib/seo'
 import { useApi } from '../hooks/useApi'
 import { downloadCsv, type CsvRow } from '../lib/export-csv'
@@ -32,6 +33,9 @@ export default function Universe() {
   const [queued, setQueued] = useState<Set<string>>(new Set())
   const [message, setMessage] = useState('')
 
+  const { logSearch, logClick } = useSearchAnalytics()
+  const navigate = useNavigate()
+
   const url = useMemo(() => {
     const params = new URLSearchParams({ page: String(page), limit: '50' })
     if (submittedSearch) params.set('search', submittedSearch)
@@ -47,6 +51,8 @@ export default function Universe() {
     e.preventDefault()
     setPage(1)
     setSubmittedSearch(search)
+    // Fire-and-forget search log for trajectory analytics
+    logSearch(search, stocks.length)
   }
 
   const requestAnalysis = async (stockCode: string) => {
@@ -170,8 +176,17 @@ export default function Universe() {
                     </tr>
                   </thead>
                   <tbody>
-                    {stocks.map(s => (
-                      <tr key={s.stock_code} className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-850">
+                    {stocks.map((s, idx) => (
+                      <tr
+                        key={s.stock_code}
+                        onClick={() => {
+                          navigate(`/stock/${s.stock_code}`)
+                          if (submittedSearch) {
+                            logClick(submittedSearch, s.stock_code, idx + 1)
+                          }
+                        }}
+                        className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-850 cursor-pointer"
+                      >
                         <td className="px-4 py-3 font-mono text-xs text-gray-600 dark:text-gray-400">{s.stock_code.replace('.KL', '')}</td>
                         <td className="px-4 py-3 text-gray-900 dark:text-gray-100 max-w-[200px] truncate">{s.name}</td>
                         <td className="px-4 py-3 text-gray-500 hidden sm:table-cell">{s.industry || '—'}</td>
