@@ -61,10 +61,10 @@ function AiReportSection({ report, model }: { report: Record<string, string>; mo
         {model && <span className="text-[10px] text-gray-400 dark:text-gray-500 ml-auto">via {model}</span>}
       </button>
       {open && (
-        <div className="px-5 pb-4 space-y-4">
+        <div className="px-5 pb-4 space-y-5">
           {sections.map(key => (
-            <div key={key}>
-              <h4 className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-1">{AI_REPORT_LABELS[key] || key}</h4>
+            <div key={key} className="border-l-2 border-emerald-200 dark:border-emerald-700/50 pl-3">
+              <h4 className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-1.5">{AI_REPORT_LABELS[key] || key}</h4>
               <div className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed space-y-1">
                 {normalized[key].split('\n').map((line: string, i: number) => (
                   <RenderLine key={i} line={line} />
@@ -82,8 +82,11 @@ function RenderLine({ line }: { line: string }) {
   if (!line.trim()) return <div className="h-2" />
   const trimmed = line.trimStart()
   const indent = line.length - trimmed.length
+  // Support bullets (-, *, •) AND numbered items (1., 2., etc.)
   const isBullet = /^[-•*]\s/.test(trimmed)
-  const content = isBullet ? trimmed.replace(/^[-•*]\s+/, '') : trimmed
+  const isNumbered = /^\d+\.\s/.test(trimmed)
+  const content = isBullet ? trimmed.replace(/^[-•*]\s+/, '') :
+                  isNumbered ? trimmed.replace(/^\d+\.\s+/, '') : trimmed
 
   const parts = content.split(/(\*\*[^*]+\*\*)/g)
   const rendered = parts.map((p, i) => {
@@ -94,9 +97,13 @@ function RenderLine({ line }: { line: string }) {
   })
 
   return (
-    <div style={{ paddingLeft: `${indent * 4 + (isBullet ? 16 : 0)}px` }}
-         className={isBullet ? 'flex items-start gap-2' : ''}>
-      {isBullet && <span className="text-emerald-400 flex-shrink-0 mt-1">•</span>}
+    <div style={{ paddingLeft: `${indent * 4 + ((isBullet || isNumbered) ? 20 : 0)}px` }}
+         className={(isBullet || isNumbered) ? 'flex items-start gap-2' : ''}>
+      {(isBullet || isNumbered) && (
+        <span className="text-emerald-400 flex-shrink-0 mt-1 text-xs font-mono min-w-[12px]">
+          {isNumbered ? trimmed.match(/^\d+/)?.[0] : '•'}
+        </span>
+      )}
       <span>{rendered}</span>
     </div>
   )
@@ -258,9 +265,9 @@ export default function StockDetail() {
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                   {Object.entries(api.data.score_breakdown).map(([factor, b]: [string, any]) => (
-                    <div key={factor} className="flex items-center justify-between text-xs bg-white/50 dark:bg-black/20 rounded px-3 py-2 min-h-[40px]">
-                      <span className="text-gray-500 capitalize truncate mr-2">{factor.replace(/_/g, ' ')}</span>
-                      <span className="font-mono text-gray-700 dark:text-gray-300 flex-shrink-0">{b.weighted?.toFixed(1) || '—'}</span>
+                    <div key={factor} className="flex items-center justify-between text-xs bg-white/70 dark:bg-gray-800/60 rounded px-3 py-2 min-h-[40px] border border-gray-100 dark:border-gray-700/50">
+                      <span className="text-gray-600 dark:text-gray-400 capitalize truncate mr-2">{factor.replace(/_/g, ' ')}</span>
+                      <span className="font-mono text-gray-800 dark:text-gray-200 flex-shrink-0 tabular-nums">{b.weighted?.toFixed(1) || '—'}</span>
                     </div>
                   ))}
                 </div>
@@ -282,7 +289,7 @@ export default function StockDetail() {
               <span className="text-xs text-gray-500">DY {displayStock.dividendYield}%</span>
             </div>
             <div className="w-full">
-              <SparklineChart data={displayStock.sparkline} width={600} height={80} />
+              <SparklineChart data={displayStock.sparkline} height={80} />
             </div>
           </div>
         </div>
@@ -391,19 +398,31 @@ function StockDetailSkeleton() {
             ))}
           </div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+        {/* 30-Day Price Trend skeleton */}
+        <div className="mb-6">
           <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800">
             <div className={`h-5 w-32 mb-3 ${shimmer}`} />
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="flex items-center gap-3 mb-2">
-                <div className={`h-4 w-16 ${shimmer}`} /><div className={`flex-1 h-2 ${shimmer}`} /><div className={`h-4 w-8 ${shimmer}`} />
-              </div>
-            ))}
+            <div className={`h-[80px] w-full ${shimmer}`} />
           </div>
-          <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800">
-            <div className={`h-5 w-40 mb-3 ${shimmer}`} />
-            <div className={`h-[60px] w-full ${shimmer}`} />
-          </div>
+        </div>
+
+        {/* Quarterly Financials skeleton */}
+        <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800 mb-6">
+          <div className={`h-5 w-36 mb-3 ${shimmer}`} />
+          <div className={`h-4 w-full mb-2 ${shimmer}`} />
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="flex gap-3 mb-2">
+              <div className={`h-4 w-24 ${shimmer}`} />
+              <div className={`h-4 w-16 ${shimmer}`} />
+              <div className={`h-4 w-16 ${shimmer}`} />
+            </div>
+          ))}
+        </div>
+
+        {/* Dividend History skeleton */}
+        <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800 mb-6">
+          <div className={`h-5 w-32 mb-3 ${shimmer}`} />
+          <div className={`h-[200px] w-full ${shimmer}`} />
         </div>
       </main>
     </div>

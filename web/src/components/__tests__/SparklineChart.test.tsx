@@ -1,6 +1,34 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeAll } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import SparklineChart from '../SparklineChart'
+
+// ResizeObserver polyfill for auto-size mode
+beforeAll(() => {
+  if (typeof globalThis.ResizeObserver === 'undefined') {
+    class ResizeObserverMock {
+      private callback: ResizeObserverCallback
+      constructor(callback: ResizeObserverCallback) {
+        this.callback = callback
+      }
+      observe(target: Element) {
+        // Immediately trigger measurement so auto-size mode resolves
+        Object.defineProperty(target, 'clientWidth', { value: 300, configurable: true })
+        this.callback([{ target } as unknown as ResizeObserverEntry], this)
+      }
+      unobserve() {}
+      disconnect() {}
+    }
+    globalThis.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver
+  }
+})
+
+function querySvg(container: HTMLElement): SVGElement | null {
+  // When no explicit width is given, SVG is inside a wrapper div
+  const svg = container.querySelector('svg')
+  if (svg && svg.closest('[class*="w-full"]')) return svg
+  // Fallback: direct SVG (explicit width path)
+  return container.querySelector('svg')
+}
 
 describe('SparklineChart', () => {
   it('renders an SVG with data points', () => {
@@ -30,14 +58,16 @@ describe('SparklineChart', () => {
     expect(polyline).toBeInTheDocument()
   })
 
-  it('uses default dimensions when not specified', () => {
+  it('renders a wrapper div when no explicit width given', () => {
     const { container } = render(<SparklineChart data={[10, 20, 30]} />)
-    const svg = container.querySelector('svg')
-    expect(svg).toHaveAttribute('width', '80')
-    expect(svg).toHaveAttribute('height', '30')
+    // Should be wrapped in a div since no explicit width
+    const wrapper = container.querySelector('div[class*="w-full"]')
+    expect(wrapper).toBeInTheDocument()
+    const svg = wrapper!.querySelector('svg')
+    expect(svg).toBeInTheDocument()
   })
 
-  it('uses custom width and height', () => {
+  it('uses custom width and height when explicitly provided', () => {
     const { container } = render(<SparklineChart data={[10, 20, 30]} width={120} height={50} />)
     const svg = container.querySelector('svg')
     expect(svg).toHaveAttribute('width', '120')
@@ -46,25 +76,27 @@ describe('SparklineChart', () => {
 
   it('renders green color for uptrend (last >= first)', () => {
     const { container } = render(<SparklineChart data={[10, 15, 20]} />)
-    const polyline = container.querySelector('polyline')
+    const svg = container.querySelector('svg')
+    const polyline = svg!.querySelector('polyline')
     expect(polyline).toHaveAttribute('stroke', '#059669') // green-600
   })
 
   it('renders red color for downtrend (last < first)', () => {
     const { container } = render(<SparklineChart data={[30, 20, 10]} />)
-    const polyline = container.querySelector('polyline')
+    const svg = container.querySelector('svg')
+    const polyline = svg!.querySelector('polyline')
     expect(polyline).toHaveAttribute('stroke', '#ef4444') // red-500
   })
 
   it('uses custom color and ignores trend-based coloring', () => {
     const { container } = render(<SparklineChart data={[10, 20, 30]} color="#3b82f6" />)
     // When last >= first but custom color set, polyline stroke uses custom color
-    // for uptrend; trend variable = "#3b82f6" since last >= first
-    const polyline = container.querySelector('polyline')
+    const svg = container.querySelector('svg')
+    const polyline = svg!.querySelector('polyline')
     expect(polyline).toHaveAttribute('stroke', '#3b82f6')
   })
 
-  it('renders correct viewBox attribute', () => {
+  it('renders correct viewBox attribute with explicit width', () => {
     const { container } = render(<SparklineChart data={[10, 20]} width={100} height={40} />)
     const svg = container.querySelector('svg')
     expect(svg).toHaveAttribute('viewBox', '0 0 100 40')
@@ -73,7 +105,8 @@ describe('SparklineChart', () => {
   it('generates correct number of polyline points matching data length', () => {
     const data = [10, 20, 15, 25, 30, 35, 28, 40]
     const { container } = render(<SparklineChart data={data} />)
-    const polyline = container.querySelector('polyline')
+    const svg = container.querySelector('svg')
+    const polyline = svg!.querySelector('polyline')
     const points = polyline!.getAttribute('points')!
     // Each point is "x,y" separated by space
     const pointCount = points.split(' ').length
@@ -85,7 +118,7 @@ describe('SparklineChart', () => {
     const svg = container.querySelector('svg')
     expect(svg).toBeInTheDocument()
     // range = 0 → clamps to 1, should render without NaN
-    const polyline = container.querySelector('polyline')
+    const polyline = svg!.querySelector('polyline')
     const points = polyline!.getAttribute('points')!
     expect(points).not.toContain('NaN')
     // Flat data means last >= first → green
