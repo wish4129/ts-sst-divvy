@@ -1,18 +1,24 @@
 #!/usr/bin/env python3
 """Batch Kronos forecast runner — runs for all active stocks in the DB.
-Used by: t_fd512729 — [PANGU] Refresh Kronos forecasts from DB for all 77 stocks
+
+Uses import-based call instead of subprocess per batch. This enables:
+- Shared DB connection pooling across stocks
+- Log aggregation (single output stream)
+- Structured error propagation
 
 Usage:
-  python3 scripts/run_kronos_batch.py              # Run all 77 stocks
+  python3 scripts/run_kronos_batch.py              # Run all active stocks
   python3 scripts/run_kronos_batch.py --skip        # Check only, no run
   python3 scripts/run_kronos_batch.py --force       # Run all stocks even those with < 200 price rows
 """
-import subprocess, sys, time, json
+import sys, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
+
 from db import get_db, dict_cursor
+from run_kronos_targeted import run_forecast, write_results
 
 
 def get_active_tickers():
@@ -50,30 +56,32 @@ def main():
         print("SKIP: dry-run mode, exiting.")
         return
 
+    force = "--force" in sys.argv
+
     # Run in batches of 10 to avoid memory issues
     batch_size = 10
+    all_results = {}
     total_run = 0
     start = time.time()
 
     for i in range(0, len(tickers), batch_size):
         batch = tickers[i:i + batch_size]
-        print(f"\n--- Batch {i // batch_size + 1}/{(len(tickers) + batch_size - 1) // batch_size} ({len(batch)} stocks) ---")
+        idx = i // batch_size + 1
+        total_batches = (len(tickers) + batch_size - 1) // batch_size
+        print(f"\n--- Batch {idx}/{total_batches} ({len(batch)} stocks) ---")
         t0 = time.time()
-        cmd = [sys.executable, str(ROOT / "scripts" / "run_kronos_targeted.py")]
-        if "--force" in sys.argv:
-            cmd.append("--force")
-        cmd += batch
-        result = subprocess.run(
-            cmd,
-            capture_output=True, text=True, timeout=600,
-            cwd=str(ROOT)
-        )
+
+        # Call the function directly instead of spawning a subprocess
+        batch_results = run_forecast(batch, force=force)
+        all_results.update(batch_results)
+
         elapsed = time.time() - t0
-        print(result.stdout[-500:] if result.stdout else "")
-        if result.returncode != 0:
-            print(f"  STDERR: {result.stderr[-200:]}")
         print(f"  Batch completed in {elapsed:.0f}s")
         total_run += len(batch)
+
+    # Write combined results
+    output_path = ROOT / 'data' / 'kronos_forecast.json'
+    write_results(all_results, output_path=output_path)
 
     # Final verification
     db = get_db()
@@ -86,6 +94,7 @@ def main():
     print(f"  Total time: {total_elapsed:.0f}s ({total_elapsed/60:.1f}m)")
     print(f"  Fresh forecasts before: {before}")
     print(f"  Fresh forecasts after:  {after}")
+    print(f"  Stocks with results:    {len(all_results)}")
 
 
 if __name__ == "__main__":
