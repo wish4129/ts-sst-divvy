@@ -33,13 +33,22 @@ describe('NotFound', () => {
     expect(link).toHaveAttribute('href', '/')
   })
 
-  it('back-link has correct styling classes', () => {
+  it('back-link has emerald button styling', () => {
     render(
       <MemoryRouter>
         <NotFound />
       </MemoryRouter>
     )
     const link = screen.getByRole('link', { name: /back to dashboard/i })
-    expect(link.className).toContain('text-emerald-600')
+    expect(link.className).toContain('bg-emerald-600')
+  })
+
+  it('has a secondary link to browse stocks', () => {
+    render(
+      <MemoryRouter>
+        <NotFound />
+      </MemoryRouter>
+    )
+    expect(screen.getByRole('link', { name: /browse stocks/i })).toBeInTheDocument()
   })
 })

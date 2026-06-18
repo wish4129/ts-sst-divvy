@@ -1,5 +1,6 @@
 import type { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
 import postgres from "postgres";
+import { randomUUID } from "crypto";
 
 const sql = postgres({
   host: "aws-1-ap-northeast-1.pooler.supabase.com",
@@ -26,6 +27,12 @@ export async function handler(
     }
     if (method === "POST" && path === "/universe/request-analysis") {
       return await requestAnalysis(event);
+    }
+    if (method === "POST" && path === "/universe/search-log") {
+      return await logSearch(event);
+    }
+    if (method === "GET" && path === "/analytics/top-searches") {
+      return await topSearches(event);
     }
     return { statusCode: 404, body: JSON.stringify({ error: "Not found" }) };
   } catch (err: any) {
@@ -147,4 +154,98 @@ async function requestAnalysis(event: APIGatewayProxyEventV2) {
     headers: { "content-type": "application/json", "access-control-allow-origin": "*" },
     body: JSON.stringify({ success: true, message: "Analysis queued", stockCode: ticker }),
   };
+}
+
+/**
+ * Log a search query (no PII) for trajectory analytics.
+ * POST /universe/search-log
+ * Body: { query: string, resultCount: number, sessionId?: string }
+ */
+async function logSearch(event: APIGatewayProxyEventV2) {
+  const body = JSON.parse(event.body || "{}");
+  const { query, resultCount, sessionId } = body;
+
+  if (!query || typeof query !== "string" || !query.trim()) {
+    return {
+      statusCode: 400,
+      headers: { "content-type": "application/json", "access-control-allow-origin": "*" },
+      body: JSON.stringify({ error: "query is required" }),
+    };
+  }
+
+  try {
+    // Fire-and-forget — analytics failure shouldn't block search
+    await sql`
+      INSERT INTO search_logs (query, result_count, session_id)
+      VALUES (${query.trim().toLowerCase()}, ${resultCount ?? 0}, ${sessionId || null})
+    `;
+  } catch (err) {
+    console.warn("Search log insert failed (table may not exist yet):", err);
+    // Silently fail — table might not be migrated yet
+  }
+
+  return {
+    statusCode: 200,
+    headers: { "content-type": "application/json", "access-control-allow-origin": "*" },
+    body: JSON.stringify({ success: true }),
+  };
+}
+
+/**
+ * Get top-10 most searched terms for admin dashboard.
+ * GET /analytics/top-searches?days=30&limit=10
+ */
+async function topSearches(event: APIGatewayProxyEventV2) {
+  const q = event.queryStringParameters || {};
+  const days = Math.min(90, Math.max(1, parseInt(q.days || "30")));
+  const limit = Math.min(50, Math.max(1, parseInt(q.limit || "10")));
+
+  try {
+    const rows = await sql`
+      SELECT
+        query,
+        COUNT(*)::int AS count,
+        ROUND(AVG(result_count)::numeric, 1)::numeric AS avg_result_count,
+        MAX(created_at)::text AS last_searched_at
+      FROM search_logs
+      WHERE created_at > NOW() - INTERVAL '${sql.raw(String(days))} days'
+      GROUP BY query
+      ORDER BY count DESC
+      LIMIT ${sql.raw(String(limit))}
+    `;
+
+    const totalResult = await sql`
+      SELECT COUNT(*)::int AS total FROM search_logs
+      WHERE created_at > NOW() - INTERVAL '${sql.raw(String(days))} days'
+    `;
+
+    const total = (totalResult as any[])[0]?.total || 0;
+
+    return {
+      statusCode: 200,
+      headers: { "content-type": "application/json", "access-control-allow-origin": "*" },
+      body: JSON.stringify({
+        periodDays: days,
+        totalSearches: total,
+        topTerms: rows.map((r: any) => ({
+          query: r.query,
+          count: r.count,
+          avgResultCount: Number(r.avg_result_count),
+          lastSearchedAt: r.last_searched_at,
+        })),
+      }),
+    };
+  } catch (err) {
+    console.warn("Top searches query failed (table may not exist yet):", err);
+    return {
+      statusCode: 200,
+      headers: { "content-type": "application/json", "access-control-allow-origin": "*" },
+      body: JSON.stringify({
+        periodDays: days,
+        totalSearches: 0,
+        topTerms: [],
+        note: "search_logs table may not be migrated yet. Run migration 0004_search_logs.sql in Supabase SQL editor.",
+      }),
+    };
+  }
 }

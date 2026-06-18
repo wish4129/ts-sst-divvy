@@ -97,7 +97,19 @@ uv run python3 -m pytest scripts/tests/
 - **AWS Region:** `ap-southeast-1` (Singapore)
 - **Domain:** CloudFront distribution backed by S3 + API Gateway
 - **Deploy:** `sst deploy --stage live` (IAM profile: `xion`)
-- **Sitemap:** Dynamic Lambda endpoint (`GET /sitemap.xml`) + optional static generator (`scripts/generate_sitemap.py`)
+
+### Sitemap Architecture
+
+The sitemap uses a **static pre-build generation** approach for reliability and to avoid CloudFront SPA intercept issues:
+
+1. **Static generator** (`scripts/generate_sitemap.py`) — runs at build time, queries the DB for all stock + static + bursa_universe pages (819+ URLs) and outputs `web/public/sitemap.xml`
+2. **Git-tracked** — `web/public/sitemap.xml` is intentionally committed to git. This is a deliberate design choice: the static file is the single source of truth for search engines, and deployments always ship a known-good sitemap
+3. **Dynamic Lambda sitemap endpoint is commented out** in `sst.config.ts` — replaced by the static approach to avoid the CloudFront SPA fallback intercepting `/sitemap.xml` requests
+4. **`/battle` route** — returns HTTP 410 (Gone) via a CloudFront Function (`web/cloudfront-function.js`), preventing Google from indexing the now-removed persona battle page. Previously returned 200 with full app shell (soft-404)
+5. **Coverage** — All stock detail pages, static pages (privacy, disclaimer, terms, about, blog), and bursa universe stock pages are included in the sitemap
+6. **`robots.txt`** — points search engines to `https://divvy.my/sitemap.xml`
+
+See `scripts/generate_sitemap.py` for the generator implementation.
 
 ## License
 

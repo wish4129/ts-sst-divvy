@@ -3,8 +3,9 @@
 Used by: t_fd512729 — [PANGU] Refresh Kronos forecasts from DB for all 77 stocks
 
 Usage:
-  python3 scripts/run_kronos_batch.py        # Run all 77 stocks
-  python3 scripts/run_kronos_batch.py --skip  # Check only, no run
+  python3 scripts/run_kronos_batch.py              # Run all 77 stocks
+  python3 scripts/run_kronos_batch.py --skip        # Check only, no run
+  python3 scripts/run_kronos_batch.py --force       # Run all stocks even those with < 200 price rows
 """
 import subprocess, sys, time, json
 from pathlib import Path
@@ -58,8 +59,12 @@ def main():
         batch = tickers[i:i + batch_size]
         print(f"\n--- Batch {i // batch_size + 1}/{(len(tickers) + batch_size - 1) // batch_size} ({len(batch)} stocks) ---")
         t0 = time.time()
+        cmd = [sys.executable, str(ROOT / "scripts" / "run_kronos_targeted.py")]
+        if "--force" in sys.argv:
+            cmd.append("--force")
+        cmd += batch
         result = subprocess.run(
-            [sys.executable, str(ROOT / "scripts" / "run_kronos_targeted.py")] + batch,
+            cmd,
             capture_output=True, text=True, timeout=600,
             cwd=str(ROOT)
         )

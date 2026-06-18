@@ -15,6 +15,9 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 - **Fix: sync_from_db — escape newlines in notes field** — prevents SQL/JSON corruption on multi-line notes (5be8f5d0) [Internal]
 - **Fix: TS types — make yield optional in DividendRecord** — add pivotTag, subject/paymentDate/announceDate fields for dividend calendar schema (5f26d232) [Internal]
 - **Fix: Extract TS types to separate types.ts** — sync script imports shared types instead of redefining (3cb47d64, 99f54b55) [Internal]
+- **[FUXI] Add CloudFront Function returning 410 for /battle route** — replaces React Router NotFound with edge-level 410 (Gone) response so search engines stop indexing the removed persona battle page (b8a2b70d) [FUXI]
+- **[FUXI] Deploy sitemap migration — static CloudFront sitemap** — static sitemap.xml now served directly by CloudFront (not proxied through Lambda SPA fallback); robots.txt sitemap URL corrected to CloudFront domain (d6651ad9) [FUXI]
+- **[MENSHEN] Add noindex meta tag to SPA 404 page** — prevents Google from indexing non-existent routes and soft-404 pages (66fe2b42) [MENSHEN]
 - **[FUXI] Add explicit /battle route returning NotFound** — /battle was returning HTTP 200 with full app shell (SPA fallback), creating SEO soft-404 hygiene issue; now renders NotFound component via React Router (49e7bd42) [FUXI]
 - **[MENSHEN] Add static sitemap generator** — scripts/generate_sitemap.py mirrors Lambda sitemap logic for stock + static + bursa_universe pages; outputs static sitemap.xml for CloudFront serving, fixing SPA intercept (bfb81604) [MENSHEN]
 

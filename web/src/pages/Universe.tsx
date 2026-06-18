@@ -4,6 +4,7 @@ import { Search, Beaker, Loader2, CheckCircle2, Clock, Download } from 'lucide-r
 import { seo } from '../lib/seo'
 import { useApi } from '../hooks/useApi'
 import { downloadCsv, type CsvRow } from '../lib/export-csv'
+import { useSearchAnalytics } from '../hooks/use-search-analytics'
 
 interface UniverseStock {
   stock_code: string

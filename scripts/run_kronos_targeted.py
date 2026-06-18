@@ -29,8 +29,67 @@ if not TICKERS:
 
 print(f"Targeting {len(TICKERS)} stocks: {', '.join(TICKERS)}", flush=True)
 
-# Load model
-print("Loading Kronos-small...", flush=True)
+# Pre-filter: check price history length in DB BEFORE loading model
+# This avoids ~2s model load waste for stocks with insufficient history
+MIN_PRICE_ROWS = 200
+FORCE = "--force" in sys.argv
+if FORCE:
+    sys.argv.remove("--force")
+    print("--force: skipping price-history pre-filter, running all stocks even with < 200 rows", flush=True)
+
+# Fetch stock details from DB (needed in both force and pre-filter mode)
+db = get_db()
+cur = dict_cursor(db)
+cur.execute(
+    "SELECT id, name FROM stocks WHERE id = ANY(%s) AND status NOT IN ('removed', 'data_missing')",
+    (TICKERS,)
+)
+all_stocks = [(r['name'], r['id']) for r in cur.fetchall()]
+cur.close()
+db.close()
+
+if FORCE:
+    stocks = all_stocks
+else:
+    # Query price history counts for all candidate stocks
+    stock_ids = [s[1] for s in all_stocks]
+    if stock_ids:
+        db2 = get_db()
+        cur2 = dict_cursor(db2)
+        cur2.execute(
+            "SELECT stock_id, COUNT(*)::int AS cnt FROM stock_prices "
+            "WHERE stock_id = ANY(%s) GROUP BY stock_id",
+            (stock_ids,)
+        )
+        price_counts = {r['stock_id']: r['cnt'] for r in cur2.fetchall()}
+        cur2.close()
+        db2.close()
+    else:
+        price_counts = {}
+
+    stocks = []
+    skipped = []
+    for name, sid in all_stocks:
+        cnt = price_counts.get(sid, 0)
+        if cnt >= MIN_PRICE_ROWS:
+            stocks.append((name, sid))
+        else:
+            skipped.append((name, sid, cnt))
+
+    if skipped:
+        print(f"PRE-FILTER: skipped {len(skipped)} stock(s) with < {MIN_PRICE_ROWS} price rows:", flush=True)
+        for name, sid, cnt in skipped:
+            print(f"  SKIP {name} ({sid}): only {cnt} rows in stock_prices", flush=True)
+
+    if not stocks:
+        print("No qualifying stocks with sufficient price history (>= 200 rows)", flush=True)
+        sys.exit(1)
+
+    # Re-parse TICKERS to only include qualifying stocks
+    qualifying_ids = {s[1] for s in stocks}
+    TICKERS = [t for t in TICKERS if t in qualifying_ids]
+
+print(f"Loading Kronos-small for {len(stocks)} qualifying stocks...", flush=True)
 t0 = time.time()
 signal.signal(signal.SIGALRM, _on_alarm)
 signal.alarm(30)
@@ -42,21 +101,6 @@ finally:
 print(f"  Model loaded in {time.time()-t0:.1f}s", flush=True)
 
 predictor = KronosPredictor(model, tokenizer, device="cpu", max_context=512)
-
-# Fetch stock names from DB
-db = get_db()
-cur = dict_cursor(db)
-cur.execute(
-    "SELECT id, name FROM stocks WHERE id = ANY(%s) AND status NOT IN ('removed', 'data_missing')",
-    (TICKERS,)
-)
-stocks = [(r['name'], r['id']) for r in cur.fetchall()]
-cur.close()
-db.close()
-
-if not stocks:
-    print("No matching stocks found in DB for the given tickers", flush=True)
-    sys.exit(1)
 
 print(f"Forecasting {len(stocks)} stocks", flush=True)
 

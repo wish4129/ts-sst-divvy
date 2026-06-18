@@ -54,11 +54,11 @@ function AiReportSection({ report, model }: { report: Record<string, string>; mo
   return (
     <div>
       <button onClick={() => setOpen(!open)} aria-expanded={open}
-        className="w-full flex items-center gap-2 px-5 py-3 text-left hover:bg-emerald-100/30 dark:hover:bg-emerald-900/20 transition-colors">
+        className="w-full flex items-center gap-2 px-4 sm:px-5 py-3 sm:py-3 text-left hover:bg-emerald-100/30 dark:hover:bg-emerald-900/20 transition-colors min-h-[44px]">
         {open ? <ChevronDown className="w-4 h-4 text-emerald-500" /> : <ChevronRight className="w-4 h-4 text-emerald-500" />}
         <Brain className="w-4 h-4 text-emerald-500" />
         <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide">AI Analysis Report</span>
-        {model && <span className="text-[10px] text-gray-400 ml-auto">via {model}</span>}
+        {model && <span className="text-[10px] text-gray-400 dark:text-gray-500 ml-auto">via {model}</span>}
       </button>
       {open && (
         <div className="px-5 pb-4 space-y-4">
@@ -142,7 +142,7 @@ export default function StockDetail() {
 
   const shortCode = code ? (TICKER_TO_SHORT[code] || code.toUpperCase()) : ''
   const indColor = INDUSTRY_COLORS[displayStock.industry] || 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
-  const changeColor = displayStock.priceChange >= 0 ? 'text-emerald-600' : 'text-red-500'
+  const changeColor = displayStock.priceChange >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500 dark:text-red-400'
   const changeIcon = displayStock.priceChange >= 0 ? '▲' : '▼'
   const divData = displayStock.dividends.map((d) => ({ date: d.exDate.slice(0, 7), amount: d.amount, yield: d.yield }))
 
@@ -198,11 +198,11 @@ export default function StockDetail() {
           <ArrowLeft className="w-4 h-4" /> Back to Dashboard
         </Link>
 
-        {/* Header */}
-        <div className="flex flex-wrap items-start justify-between gap-3 md:gap-4 mb-4 md:mb-6">
-          <div>
-            <div className="flex items-center gap-2 md:gap-3 mb-1">
-              <h1 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100">{displayStock.name}</h1>
+        {/* Header — mobile: stack vertically with proper touch padding */}
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 md:gap-4 mb-4 md:mb-6">
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-1.5 md:gap-3 mb-1">
+              <h1 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100 break-words">{displayStock.name}</h1>
               {displayStock.industry && (
                 <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${indColor}`}>{displayStock.industry}</span>
               )}
@@ -214,7 +214,7 @@ export default function StockDetail() {
             </div>
             <p className="text-xs md:text-sm text-gray-500">{displayStock.code} · MCap RM {displayStock.marketCap}B</p>
           </div>
-          <div className="flex items-center gap-3 md:gap-4">
+          <div className="flex items-center gap-3 md:gap-4 self-start">
             <div className="text-right">
               <span className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">RM {displayStock.lastPrice.toFixed(2)}</span>
               <span className={`ml-2 text-sm font-medium ${changeColor}`}>{changeIcon} {Math.abs(displayStock.priceChange).toFixed(2)}%</span>
@@ -228,13 +228,13 @@ export default function StockDetail() {
         {api.data && (
           <div className="mb-6 rounded-xl border-2 border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 dark:border-emerald-500/20 overflow-hidden">
             <div className="p-5 border-b border-emerald-200 dark:border-emerald-800">
-              <div className="flex items-center gap-2">
-                <Brain className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-                <h2 className="font-bold text-emerald-800 dark:text-emerald-300">Deep Analysis</h2>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300">
+              <div className="flex flex-wrap items-center gap-2">
+                <Brain className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
+                <h2 className="font-bold text-emerald-800 dark:text-emerald-300 text-sm sm:text-base">Deep Analysis</h2>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 whitespace-nowrap">
                   Score {api.data.score_composite}/100
                 </span>
-                <span className="text-xs text-gray-400 ml-auto">
+                <span className="text-[10px] sm:text-xs text-gray-400 sm:ml-auto w-full sm:w-auto mt-1 sm:mt-0">
                   {api.data.generated_at ? new Date(api.data.generated_at).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' }) : ''}
                 </span>
               </div>
@@ -246,7 +246,7 @@ export default function StockDetail() {
               </div>
             ) : (
               <div className="p-5 text-center">
-                <p className="text-sm text-gray-400">AI analysis report pending — scheduled at 7am daily</p>
+                <p className="text-sm text-gray-400 dark:text-gray-500">AI analysis report pending — scheduled at 7am daily</p>
               </div>
             )}
 
@@ -293,37 +293,40 @@ export default function StockDetail() {
           {displayStock.financials.length === 0 ? (
             <p className="text-xs text-gray-400 py-4">Financial data will appear after the next pipeline run.</p>
           ) : (
-            <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0" style={{ WebkitOverflowScrolling: 'touch' }}>
-              <table className="w-full text-xs">
+            <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0" style={{ WebkitOverflowScrolling: 'touch' }}>
+              <table className="w-full text-xs whitespace-nowrap sm:whitespace-normal">
                 <thead>
                   <tr className="text-gray-500 border-b border-gray-200 dark:border-gray-700">
-                    <th className="text-left py-2 pr-4">Quarter</th>
-                    <th className="text-right py-2 px-2">Revenue</th>
+                    <th className="text-left py-2 pr-4 sticky left-0 bg-white dark:bg-gray-950 z-10">Quarter</th>
+                    <th className="text-right py-2 px-2">Revenue <span className="hidden sm:inline">(RM)</span></th>
                     <th className="text-right py-2 px-2">Net Income</th>
-                    <th className="text-right py-2 px-2">FCF</th>
-                    <th className="text-right py-2 px-2">P/E</th>
-                    <th className="text-right py-2 px-2">ROE</th>
-                    <th className="text-right py-2 px-2">D/E</th>
+                    <th className="text-right py-2 px-2 hidden sm:table-cell">FCF</th>
+                    <th className="text-right py-2 px-2 hidden sm:table-cell">P/E</th>
+                    <th className="text-right py-2 px-2 hidden sm:table-cell">ROE</th>
+                    <th className="text-right py-2 px-2 hidden sm:table-cell">D/E</th>
                     <th className="text-right py-2 px-2">Rev Growth</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {displayStock.financials.map((f) => (
-                    <tr key={f.quarter} className="border-b border-gray-100 dark:border-gray-800">
-                      <td className="py-2 pr-4 font-medium text-gray-700 dark:text-gray-300">{f.quarter}</td>
-                      <td className="text-right py-2 px-2">{f.revenue.toLocaleString()}</td>
-                      <td className="text-right py-2 px-2">{f.netIncome.toLocaleString()}</td>
-                      <td className="text-right py-2 px-2">{f.freeCashFlow.toLocaleString()}</td>
-                      <td className="text-right py-2 px-2">{f.peRatio.toFixed(1)}</td>
-                      <td className="text-right py-2 px-2">{f.roe.toFixed(1)}%</td>
-                      <td className="text-right py-2 px-2">{f.debtToEquity.toFixed(1)}</td>
-                      <td className={`text-right py-2 px-2 ${f.revenueGrowthYoY >= 0 ? 'text-emerald-600' : 'text-red-500'}`}>
+                  {displayStock.financials.map((f, idx) => (
+                    <tr key={f.quarter} className={`border-b border-gray-100 dark:border-gray-800 ${idx % 2 === 0 ? 'bg-gray-50/50 dark:bg-gray-900/30' : ''}`}>
+                      <td className={`py-2 pr-4 font-medium text-gray-700 dark:text-gray-300 sticky left-0 z-10 ${idx % 2 === 0 ? 'bg-gray-50/50 dark:bg-gray-900/30' : 'bg-white dark:bg-gray-950'}`}>
+                        {f.quarter}
+                      </td>
+                      <td className="text-right py-2 px-2 font-mono">{f.revenue >= 1_000_000 ? `${(f.revenue / 1_000_000).toFixed(1)}M` : f.revenue >= 1_000 ? `${(f.revenue / 1_000).toFixed(1)}K` : f.revenue.toLocaleString()}</td>
+                      <td className="text-right py-2 px-2 font-mono">{f.netIncome >= 1_000_000 ? `${(f.netIncome / 1_000_000).toFixed(1)}M` : f.netIncome >= 1_000 ? `${(f.netIncome / 1_000).toFixed(1)}K` : f.netIncome.toLocaleString()}</td>
+                      <td className="text-right py-2 px-2 font-mono hidden sm:table-cell">{f.freeCashFlow >= 1_000_000 ? `${(f.freeCashFlow / 1_000_000).toFixed(1)}M` : f.freeCashFlow >= 1_000 ? `${(f.freeCashFlow / 1_000).toFixed(1)}K` : f.freeCashFlow.toLocaleString()}</td>
+                      <td className="text-right py-2 px-2 font-mono hidden sm:table-cell">{f.peRatio.toFixed(1)}</td>
+                      <td className="text-right py-2 px-2 font-mono hidden sm:table-cell">{f.roe.toFixed(1)}%</td>
+                      <td className="text-right py-2 px-2 font-mono hidden sm:table-cell">{f.debtToEquity.toFixed(1)}</td>
+                      <td className={`text-right py-2 px-2 font-mono ${f.revenueGrowthYoY >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500 dark:text-red-400'}`}>
                         {f.revenueGrowthYoY >= 0 ? '+' : ''}{f.revenueGrowthYoY.toFixed(1)}%
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+              <p className="text-[10px] text-gray-400 mt-2 sm:hidden">P/E, ROE, D/E, FCF columns hidden on mobile. Rotate to landscape or view on tablet+.</p>
             </div>
           )}
         </div>
@@ -332,17 +335,19 @@ export default function StockDetail() {
         <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800 mb-6">
           <h2 className="font-semibold text-sm text-gray-700 dark:text-gray-300 mb-3">Dividend History</h2>
           {divData.length === 0 ? (
-            <p className="text-xs text-gray-400 py-4">Dividend data will appear after the next pipeline run.</p>
+            <p className="text-xs text-gray-400 dark:text-gray-500 py-4">Dividend data will appear after the next pipeline run.</p>
           ) : (
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={divData}>
-                <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
-                <XAxis dataKey="date" tick={{ fontSize: 11 }} className="text-gray-500" />
-                <YAxis tick={{ fontSize: 11 }} className="text-gray-500" />
-                <Tooltip contentStyle={{ backgroundColor: 'var(--tooltip-bg, #fff)', border: '1px solid #e5e7eb', borderRadius: '8px', fontSize: '12px' }} />
-                <Bar dataKey="amount" fill="#059669" radius={[4, 4, 0, 0]} name="DPS (RM)" />
-              </BarChart>
-            </ResponsiveContainer>
+            <div className="w-full">
+              <ResponsiveContainer width="100%" height={200}>
+                <BarChart data={divData}>
+                  <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
+                  <XAxis dataKey="date" tick={{ fontSize: 11 }} className="text-gray-500" />
+                  <YAxis tick={{ fontSize: 11 }} className="text-gray-500" />
+                  <Tooltip contentStyle={{ backgroundColor: 'var(--tooltip-bg, #fff)', border: '1px solid var(--tooltip-border, #e5e7eb)', borderRadius: '8px', fontSize: '12px', color: 'var(--tooltip-color, inherit)' }} />
+                  <Bar dataKey="amount" fill="#059669" radius={[4, 4, 0, 0]} name="DPS (RM)" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           )}
         </div>
       </main>
@@ -356,15 +361,15 @@ function StockDetailSkeleton() {
     <div role="status" aria-live="polite" className="min-h-screen">
       <main className="max-w-4xl mx-auto px-4 py-6">
         <div className={`h-4 w-24 mb-4 ${shimmer}`} />
-        <div className="flex flex-wrap items-start justify-between gap-3 md:gap-4 mb-4 md:mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 md:gap-4 mb-4 md:mb-6">
           <div>
-            <div className="flex items-center gap-2 md:gap-3 mb-1">
+            <div className="flex flex-wrap items-center gap-1.5 md:gap-3 mb-1">
               <div className={`h-7 md:h-8 w-48 ${shimmer}`} />
               <div className={`h-5 w-20 rounded-full ${shimmer}`} />
             </div>
             <div className={`h-3 md:h-4 w-40 mt-1 ${shimmer}`} />
           </div>
-          <div className="flex items-center gap-3 md:gap-4">
+          <div className="flex items-center gap-3 md:gap-4 self-start">
             <div className="text-right">
               <div className={`h-8 md:h-9 w-28 mb-1 ${shimmer}`} />
               <div className={`h-4 w-16 ml-auto ${shimmer}`} />
