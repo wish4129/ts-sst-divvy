@@ -58,7 +58,7 @@ for stock_name, ticker in stocks:
     # Fetch data from yfinance directly
     import yfinance as yf
     t = yf.Ticker(ticker)
-    hist = t.history(period='1y')
+    hist = t.history(period='max')
     
     if len(hist) < LOOKBACK:
         print(f"  SKIP: only {len(hist)} rows")

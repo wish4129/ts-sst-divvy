@@ -124,7 +124,7 @@ def run_forecast(tickers, force=False):
     for stock_name, ticker in stocks:
         print(f"\n{stock_name} ({ticker})...", flush=True)
         t = yf.Ticker(ticker)
-        hist = t.history(period='1y')
+        hist = t.history(period='max')
 
         if len(hist) < LOOKBACK:
             print(f"  SKIP: only {len(hist)} rows", flush=True)
