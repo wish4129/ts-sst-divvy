@@ -6,6 +6,15 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 
 ## [Unreleased]
 
+### 2026-06-19
+- **Feat: kronos pre-check optimization + dark mode score tests + regenerate forecasts** — kronos now pre-checks stock price row count before loading the model, avoiding ~2s model-load waste on data-sparse tickers. Dark mode score tests added for visual consistency. All Kronos forecasts regenerated after the optimization. (edd7a950)
+- **Fix: LOOKBACK=200 filter — yfinance period from 1y → max** — for stock 0159.KL (and others with <1 year of history), yfinance's 1y period returned only 3 rows, causing the LOOKBACK=200 filter to reject valid trades. Changed yfinance period from `1y` to `max` so LOOKBACK evaluates the full available history (0159.KL: 3 → 3,716 rows). (21be6034) [ZHONGKUI] [Internal]
+- **Feat: search trajectory analytics wire-up** — search logs from Universe page now wired to `POST /universe/search-log` endpoint with click-through tracking. Migration 0004 applied. (0bbef2c4) [NEZHA]
+- **Fix: noindex for /cron/status** — CloudFront Function returns `noindex` header for /cron/status path, preventing Google from indexing the admin SPA fallback page (444cef73) [FUXI] [Internal]
+- **Chore: add temp DB files to gitignore, trim health audit output** — gitignore now covers temp DB files; health audit output trimmed for cleaner terminal reporting (fcc99ae3) [Internal]
+- **Fix: SparklineChart responsive sizing + AI report section styling** — SparklineChart now scales properly on mobile viewports; AI report section spacing and typography improved (c9a1cf56) [LUBAN]
+- **[MENSHEN] Deploy kronos import-based refactor** — `run_forecast()` extracted as importable function, batch runner refactored for parallel stock processing (84ed45b0) [MENSHEN] [Internal]
+
 ### 2026-06-18
 - **Feat: search trajectory analytics** — logs anonymized search queries from Universe page to new `search_logs` table (migration 0004); new API endpoints `POST /universe/search-log` and `GET /analytics/top-searches`; tracking hook `useSearchAnalytics` (committed in eaddfa25 — pending wire-up logSearch call, DB migration run, and SST deploy) [CANGJIE]
 - **Feat: dividend calendar** — scraper, Lambda endpoint, and frontend page for upcoming ex-dates and yield tiers (9610cee8) [CANGJIE]
