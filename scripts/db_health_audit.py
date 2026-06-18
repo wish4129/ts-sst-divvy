@@ -108,18 +108,6 @@ def baseline_audit(cur):
     )
     print(f"Industry tags: {cur.fetchall()}")
 
-    # Top 10 scored stocks
-    cur.execute(
-        "SELECT s.id, s.name, sa.score_composite FROM stocks s "
-        "JOIN stock_analyses sa ON s.id = sa.stock_id "
-        "WHERE sa.score_composite IS NOT NULL "
-        "ORDER BY sa.score_composite DESC LIMIT 10"
-    )
-    top10 = cur.fetchall()
-    print(f"\nTop 10 scores:")
-    for r in top10:
-        print(f"  {r[0]:12s} | {r[1][:50]:50s} | {float(r[2]):.1f}")
-
 
 def energy_scan(cur):
     """Energy/O&G/solar/renewable companies in bursa_universe."""

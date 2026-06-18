@@ -20,3 +20,6 @@ vitest.workspace.ts
 hermes/
 # Static sitemap shadow — Lambda generates dynamic sitemap
 web/public/sitemap.xml
+data/bursa.db
+data/stocks.db
+_tmp_*
