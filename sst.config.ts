@@ -24,6 +24,7 @@ export default $config({
     api.route("POST /universe/add", "src/functions/universe.handler");
     api.route("POST /universe/request-analysis", "src/functions/universe.handler");
     api.route("POST /universe/search-log", "src/functions/universe.handler");
+    api.route("POST /universe/click-log", "src/functions/universe.handler");
     api.route("GET /analytics/top-searches", "src/functions/universe.handler");
     api.route("GET /notes/{code}", "src/functions/notes.handler");
     api.route("POST /notes/{code}", "src/functions/notes.handler");
@@ -43,6 +44,23 @@ export default $config({
   var request = event.request;
   if (request.uri === '/battle' || request.uri.startsWith('/battle?')) {
     return { statusCode: 410, statusDescription: 'Gone' };
+  }
+  return request;
+}`,
+      publish: true,
+    });
+    
+    // CloudFront Function returning noindex for the /cron/status route
+    // Prevents Google from indexing the SPA fallback (index,follow) as a live page
+    const cronStatusNoindexFn = new aws.cloudfront.Function("CronStatusNoindexFn", {
+      name: "divvy-cron-status-noindex-v1",
+      runtime: "cloudfront-js-2.0",
+      code: `function handler(event) {
+  var request = event.request;
+  var response = { statusCode: 200, statusDescription: 'OK' };
+  if (request.uri.startsWith('/cron/status')) {
+    response.headers = { 'x-robots-tag': { value: 'noindex, follow' } };
+    return response;
   }
   return request;
 }`,
@@ -76,6 +94,27 @@ export default $config({
                 {
                   eventType: "viewer-request",
                   functionArn: battleGoneFn.arn,
+                },
+              ],
+              forwardedValues: {
+                queryString: false,
+                cookies: { forward: "none" },
+              },
+              minTtl: 0,
+              defaultTtl: 0,
+              maxTtl: 0,
+            },
+            {
+              pathPattern: "/cron/status*",
+              targetOriginId: args.origins[0].originId,
+              allowedMethods: ["GET", "HEAD", "OPTIONS"],
+              cachedMethods: ["GET", "HEAD"],
+              viewerProtocolPolicy: "redirect-to-https",
+              compress: true,
+              functionAssociations: [
+                {
+                  eventType: "viewer-request",
+                  functionArn: cronStatusNoindexFn.arn,
                 },
               ],
               forwardedValues: {
