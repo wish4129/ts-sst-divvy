@@ -14,6 +14,8 @@ All notable changes to the Divvy Bursa Malaysia investment platform.
 - **Fix: sync_from_db — escape newlines in notes field** — prevents SQL/JSON corruption on multi-line notes (5be8f5d0) [Internal]
 - **Fix: TS types — make yield optional in DividendRecord** — add pivotTag, subject/paymentDate/announceDate fields for dividend calendar schema (5f26d232) [Internal]
 - **Fix: Extract TS types to separate types.ts** — sync script imports shared types instead of redefining (3cb47d64, 99f54b55) [Internal]
+- **[FUXI] Add explicit /battle route returning NotFound** — /battle was returning HTTP 200 with full app shell (SPA fallback), creating SEO soft-404 hygiene issue; now renders NotFound component via React Router (49e7bd42) [FUXI]
+- **[MENSHEN] Add static sitemap generator** — scripts/generate_sitemap.py mirrors Lambda sitemap logic for stock + static + bursa_universe pages; outputs static sitemap.xml for CloudFront serving, fixing SPA intercept (bfb81604) [MENSHEN]
 
 ### 2026-06-16
 - **[SHENNONG] Fix safe_float to reject Infinity values** — prevents ACE Market financial fetch crashes from division-by-zero floats (d461ca7c) [SHENNONG]
