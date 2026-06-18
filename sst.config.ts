@@ -29,7 +29,10 @@ export default $config({
     api.route("POST /notes/{code}", "src/functions/notes.handler");
     api.route("GET /screener", "src/functions/screener.handler");
     api.route("GET /dividends", "src/functions/dividends.handler");
-    api.route("GET /sitemap.xml", "src/functions/sitemap.handler");
+    // Sitemap is now served as a static file via CloudFront (web/public/sitemap.xml)
+    // The pre-build script scripts/generate_sitemap.py runs before deployment.
+    // Keep the Lambda handler as fallback for backward compatibility during transition.
+    // api.route("GET /sitemap.xml", "src/functions/sitemap.handler");
 
     // CloudFront Function returning 410 Gone for the removed /battle route
     // Prevents Google from indexing the SPA fallback (200) as a live page
@@ -50,7 +53,7 @@ export default $config({
       path: "web/",
       build: {
         output: "dist",
-        command: "npm run build",
+        command: "cd .. && uv run python3 scripts/generate_sitemap.py && cd web && npm run build",
       },
       environment: {
         VITE_SUPABASE_URL: "https://ceyqewaixcijbmdtbdlr.supabase.co",

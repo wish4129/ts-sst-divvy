@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /auth/callback
 
-Sitemap: https://hmfm9givmb.execute-api.ap-southeast-1.amazonaws.com/sitemap.xml
+Sitemap: https://d2d7b6u77b6we4.cloudfront.net/sitemap.xml
