@@ -19,8 +19,36 @@
     {
       "idx": 2,
       "version": "7",
+      "when": 1781880698821,
+      "tag": "0001_rls_policies",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
       "when": 1780985015029,
       "tag": "0002_chemical_talisman",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1781880698821,
+      "tag": "0003_add_pivot_tag",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1781880698821,
+      "tag": "0004_search_logs",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1781880698821,
+      "tag": "0005_click_logs",
       "breakpoints": true
     }
   ]
