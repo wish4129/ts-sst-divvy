@@ -36,9 +36,18 @@ const AI_REPORT_LABELS: Record<string, string> = {
   target: 'Price Target & Cut Loss',
   price_target: 'Price Target',
   cut_loss: 'Cut Loss',
+  // 5-section format keys (preview sections)
+  overview: 'Overview',
+  risk_assessment: 'Risk Assessment',
+  financial_health: 'Financial Health',
+  growth_prospects: 'Growth Prospects',
 }
 
-function AiReportSection({ report, model }: { report: Record<string, string>; model: string | null }) {
+// Keys that are preview (shown open) vs gated (shown with lock)
+const PREVIEW_SECTION_KEYS = new Set(['overview', 'risk_assessment', 'financial_health', 'growth_prospects', 'introduction_history', 'trend_analysis', 'strengths', 'weaknesses', 'summary'])
+const GATED_SECTION_KEYS = new Set(['target', 'price_target', 'cut_loss'])
+
+function AiReportSection({ report, model, generatedAt }: { report: Record<string, string>; model: string | null; generatedAt?: string }) {
   const [open, setOpen] = useState(true)
 
   const normalized = { ...report }
@@ -48,8 +57,23 @@ function AiReportSection({ report, model }: { report: Record<string, string>; mo
     delete normalized.cut_loss
   }
 
-  const sectionOrder = ['introduction_history', 'trend_analysis', 'strengths', 'weaknesses', 'summary', 'target']
-  const sections = sectionOrder.filter(k => normalized[k])
+  const previewSections = Object.entries(normalized).filter(([k]) => PREVIEW_SECTION_KEYS.has(k))
+  const gatedSections = Object.entries(normalized).filter(([k]) => GATED_SECTION_KEYS.has(k))
+
+  const formattedDate = generatedAt
+    ? new Date(generatedAt).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' })
+    : null
+
+  const renderSection = ([key, content]: [string, string]) => (
+    <div key={key} className="border-l-2 border-emerald-200 dark:border-emerald-700/50 pl-3">
+      <h4 className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-1.5">{AI_REPORT_LABELS[key] || key}</h4>
+      <div className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed space-y-1">
+        {content.split('\n').map((line: string, i: number) => (
+          <RenderLine key={i} line={line} />
+        ))}
+      </div>
+    </div>
+  )
 
   return (
     <div>
@@ -62,16 +86,26 @@ function AiReportSection({ report, model }: { report: Record<string, string>; mo
       </button>
       {open && (
         <div className="px-5 pb-4 space-y-5">
-          {sections.map(key => (
-            <div key={key} className="border-l-2 border-emerald-200 dark:border-emerald-700/50 pl-3">
-              <h4 className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-1.5">{AI_REPORT_LABELS[key] || key}</h4>
-              <div className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed space-y-1">
-                {normalized[key].split('\n').map((line: string, i: number) => (
-                  <RenderLine key={i} line={line} />
-                ))}
-              </div>
+          {/* Preview sections — shown first */}
+          {previewSections.map(renderSection)}
+
+          {/* Meta line — between preview and gated */}
+          {formattedDate && gatedSections.length > 0 && (
+            <div className="text-xs text-gray-400 dark:text-gray-500 border-t border-emerald-200/50 dark:border-emerald-800/50 pt-4 mt-4">
+              Covered by analysis on {formattedDate}
             </div>
-          ))}
+          )}
+
+          {/* Gated sections — shown after meta with lock indicator */}
+          {gatedSections.length > 0 && (
+            <div className="space-y-5">
+              <div className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400 font-medium">
+                <span className="text-amber-500">🔒</span>
+                <span>Gated analysis — subscribe to unlock full details</span>
+              </div>
+              {gatedSections.map(renderSection)}
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -195,7 +229,7 @@ export default function StockDetail() {
       <Helmet {...seo({
         title: `${displayStock.name} (${displayStock.code}) — Stock Analysis | Divvy`,
         description: `Deep analysis of ${displayStock.name} (${displayStock.code}). ${displayStock.industry} stock with composite score ${displayStock.score.composite}/100, RM ${displayStock.lastPrice.toFixed(2)} last price, DY ${displayStock.dividendYield}%. Bursa Malaysia investment tracker.`,
-        canonical: `https://d2d7b6u77b6we4.cloudfront.net/stock/${code}`,
+        canonical: `https://d2d7b6u77b6we4.cloudfront.net/stock/${code}/`,
       })}>
         <script type="application/ld+json">{JSON.stringify(productSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
@@ -249,7 +283,7 @@ export default function StockDetail() {
 
             {api.data.ai_report && Object.keys(api.data.ai_report).length > 0 ? (
               <div className="divide-y divide-emerald-200/50 dark:divide-emerald-800/50">
-                <AiReportSection report={api.data.ai_report} model={api.data.ai_model} />
+                <AiReportSection report={api.data.ai_report} model={api.data.ai_model} generatedAt={api.data.generated_at} />
               </div>
             ) : (
               <div className="p-5 text-center">

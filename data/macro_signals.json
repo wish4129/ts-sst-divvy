@@ -1,13 +1,13 @@
 {
   "date": "2026-06-19",
-  "timestamp": "2026-06-19T08:00:10+08:00",
+  "timestamp": "2026-06-19T09:14:04+08:00",
   "signals": {
     "brent_crude": {
       "label": "Brent Crude Oil",
       "unit": "USD/bbl",
-      "value": 79.11,
-      "change_pct": -0.55,
-      "trend_5d_pct": -4.88,
+      "value": 78.92,
+      "change_pct": -0.79,
+      "trend_5d_pct": -5.11,
       "trend": "down",
       "category": "commodity"
     },
@@ -16,17 +16,17 @@
       "unit": "MYR/share",
       "value": 20.66,
       "change_pct": -0.48,
-      "trend_5d_pct": -0.48,
+      "trend_5d_pct": 0.1,
       "trend": "flat",
       "category": "commodity"
     },
     "usd_myr": {
       "label": "USD/MYR",
       "unit": "MYR per USD",
-      "value": 4.0775,
-      "change_pct": 0.27,
-      "trend_5d_pct": 0.78,
-      "trend": "flat",
+      "value": 4.113,
+      "change_pct": 0.87,
+      "trend_5d_pct": 1.66,
+      "trend": "up",
       "category": "fx"
     },
     "fb_klci": {
@@ -34,8 +34,8 @@
       "unit": "index",
       "value": 1709.99,
       "change_pct": 1.1,
-      "trend_5d_pct": 1.57,
-      "trend": "up",
+      "trend_5d_pct": 0,
+      "trend": "flat",
       "category": "equity"
     },
     "sox_index": {
@@ -52,7 +52,7 @@
       "unit": "",
       "value": 20.66,
       "change_pct": -0.48,
-      "trend_5d_pct": -0.48,
+      "trend_5d_pct": 0.1,
       "trend": "flat",
       "category": "shipping"
     },

@@ -53,7 +53,7 @@ def generate_stock_page(index_html, essential_tags, stock):
     description = f"View {stock['name']} ({stock['code']}) stock analysis on Divvy."
     if stock.get('industry'):
         description = f"View {stock['name']} ({stock['code']}) — {stock['industry']} stock analysis, composite score {stock.get('score_composite', 'N/A')}, and live KLSE price on Divvy."
-    canonical = f"{SITE_URL}/stock/{stock['code']}"
+    canonical = f"{SITE_URL}/stock/{stock['code']}/"
 
     score = stock.get('score_composite') or 0
     price = stock.get('last_price') or 0

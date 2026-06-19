@@ -78,10 +78,12 @@ def main():
 
     for stock in stocks:
         lastmod = stock["updated_at"].strftime("%Y-%m-%d") if stock.get("updated_at") else None
-        urls.append(make_url(f"/stock/{stock['id']}", "0.8", "daily", lastmod))
+        # Trailing slash so CloudFront+S3 directory index serves the static HTML
+        urls.append(make_url(f"/stock/{stock['id']}/", "0.8", "daily", lastmod))
 
     for s in universe:
-        urls.append(make_url(f"/stock/{s['stock_code']}", "0.6", "weekly"))
+        # Trailing slash so CloudFront+S3 directory index serves the static HTML
+        urls.append(make_url(f"/stock/{s['stock_code']}/", "0.6", "weekly"))
 
     sitemap_xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
     sitemap_xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
