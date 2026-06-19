@@ -204,23 +204,23 @@ async function topSearches(event: APIGatewayProxyEventV2) {
   const limit = Math.min(50, Math.max(1, parseInt(q.limit || "10")));
 
   try {
-    const rows = await sql`
+    const rows = await sql.unsafe(`
       SELECT
         query,
         COUNT(*)::int AS count,
         ROUND(AVG(result_count)::numeric, 1)::numeric AS avg_result_count,
         MAX(created_at)::text AS last_searched_at
       FROM search_logs
-      WHERE created_at > NOW() - INTERVAL '${sql.raw(String(days))} days'
+      WHERE created_at > NOW() - INTERVAL '${days} days'
       GROUP BY query
       ORDER BY count DESC
-      LIMIT ${sql.raw(String(limit))}
-    `;
+      LIMIT ${limit}
+    `);
 
-    const totalResult = await sql`
+    const totalResult = await sql.unsafe(`
       SELECT COUNT(*)::int AS total FROM search_logs
-      WHERE created_at > NOW() - INTERVAL '${sql.raw(String(days))} days'
-    `;
+      WHERE created_at > NOW() - INTERVAL '${days} days'
+    `);
 
     const total = (totalResult as any[])[0]?.total || 0;
 
