@@ -6,6 +6,7 @@ so CloudFront can serve it directly instead of returning SPA HTML.
 
 import sys
 import os
+import json
 import xml.etree.ElementTree as ET
 from xml.sax.saxutils import escape as xml_escape
 
@@ -30,9 +31,29 @@ STATIC_PAGES = [
     {"loc": "/privacy", "priority": "0.4", "changefreq": "monthly"},
     {"loc": "/terms", "priority": "0.4", "changefreq": "monthly"},
     {"loc": "/blog", "priority": "0.8", "changefreq": "weekly"},
-    {"loc": "/blog/coming-soon", "priority": "0.6", "changefreq": "monthly"},
-    {"loc": "/blog/how-to-invest-bursa-malaysia-beginners-guide", "priority": "0.8", "changefreq": "weekly"},
 ]
+
+# Blog post slugs — auto-discovered from web/src/content/blog/posts.json
+BLOG_POSTS_JSON = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "web", "src", "content", "blog", "posts.json",
+)
+
+def get_blog_urls() -> list[dict]:
+    """Read blog posts from posts.json and return sitemap entries."""
+    try:
+        with open(BLOG_POSTS_JSON) as f:
+            posts = json.load(f)
+        urls = []
+        for post in posts:
+            slug = post.get("slug", "")
+            priority = "0.6" if slug == "coming-soon" else "0.8"
+            changefreq = "monthly" if slug == "coming-soon" else "weekly"
+            urls.append({"loc": f"/blog/{slug}", "priority": priority, "changefreq": changefreq})
+        return urls
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"⚠️  Warning: could not read {BLOG_POSTS_JSON}: {e}")
+        return []
 
 
 def make_url(loc: str, priority: str, changefreq: str, lastmod: str | None = None) -> str:
@@ -75,6 +96,10 @@ def main():
 
     for page in STATIC_PAGES:
         urls.append(make_url(page["loc"], page["priority"], page["changefreq"]))
+
+    # Blog URLs — auto-discovered from posts.json
+    for blog_page in get_blog_urls():
+        urls.append(make_url(blog_page["loc"], blog_page["priority"], blog_page["changefreq"]))
 
     for stock in stocks:
         lastmod = stock["updated_at"].strftime("%Y-%m-%d") if stock.get("updated_at") else None

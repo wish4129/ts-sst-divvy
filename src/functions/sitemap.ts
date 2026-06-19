@@ -23,6 +23,9 @@ const STATIC_PAGES = [
   { loc: "/privacy", priority: "0.4", changefreq: "monthly" },
   { loc: "/terms", priority: "0.4", changefreq: "monthly" },
   { loc: "/blog", priority: "0.8", changefreq: "weekly" },
+  // KEEP IN SYNC WITH web/src/content/blog/posts.json
+  // Add new blog post slugs here when publishing new posts.
+  // Blog posts are auto-discovered in the static sitemap (scripts/generate_sitemap.py)
   { loc: "/blog/coming-soon", priority: "0.6", changefreq: "monthly" },
   { loc: "/blog/how-to-invest-bursa-malaysia-beginners-guide", priority: "0.8", changefreq: "weekly" },
 ];
