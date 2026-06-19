@@ -4,7 +4,7 @@ export default $config({
   app(input) {
     return {
       name: "divvy",
-      removal: input?.stage === "munkevin" ? "retain" : "remove",
+      removal: input?.stage === "live" ? "retain" : "remove",
       home: "aws",
       profile: "xion",
       region: "ap-southeast-1",
