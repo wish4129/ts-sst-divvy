@@ -102,7 +102,46 @@ function AiReportSection({ report, model, generatedAt }: { report: Record<string
     ? new Date(generatedAt).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' })
     : null
 
-  const renderSection = ([key, content]: [string, string]) => (
+  const renderSection = ([key, content]: [string, string]) => {
+    // Special visual treatment for recommendation (BUY/HOLD/SELL)
+    if (key === 'recommendation') {
+      const recColors: Record<string, string> = {
+        BUY: 'bg-green-100 text-green-800 border-green-200 dark:bg-green-900/40 dark:text-green-300 dark:border-green-700/50',
+        HOLD: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-900/40 dark:text-amber-300 dark:border-amber-700/50',
+        SELL: 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/40 dark:text-red-300 dark:border-red-700/50',
+      }
+      const val = content.trim().toUpperCase()
+      const colorClass = recColors[val] || recColors.HOLD
+      return (
+        <div key={key} className="border-l-2 border-emerald-200 dark:border-emerald-700/50 pl-3">
+          <h4 className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-1.5">{AI_REPORT_LABELS[key] || key}</h4>
+          <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border ${colorClass}`}>
+            {val}
+          </span>
+        </div>
+      )
+    }
+
+    // Special visual treatment for risk (high/medium/low)
+    if (key === 'risk') {
+      const riskColors: Record<string, string> = {
+        HIGH: 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/40 dark:text-red-300 dark:border-red-700/50',
+        MEDIUM: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-900/40 dark:text-amber-300 dark:border-amber-700/50',
+        LOW: 'bg-green-100 text-green-800 border-green-200 dark:bg-green-900/40 dark:text-green-300 dark:border-green-700/50',
+      }
+      const val = content.trim().toUpperCase()
+      const colorClass = riskColors[val] || riskColors.MEDIUM
+      return (
+        <div key={key} className="border-l-2 border-emerald-200 dark:border-emerald-700/50 pl-3">
+          <h4 className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-1.5">{AI_REPORT_LABELS[key] || key}</h4>
+          <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border ${colorClass}`}>
+            {val}
+          </span>
+        </div>
+      )
+    }
+
+    return (
     <div key={key} className="border-l-2 border-emerald-200 dark:border-emerald-700/50 pl-3">
       <h4 className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-1.5">{AI_REPORT_LABELS[key] || key}</h4>
       <div className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed space-y-1">
@@ -111,7 +150,8 @@ function AiReportSection({ report, model, generatedAt }: { report: Record<string
         ))}
       </div>
     </div>
-  )
+    )
+  }
 
   return (
     <div>
