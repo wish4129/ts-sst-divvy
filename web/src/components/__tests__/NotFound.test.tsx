@@ -43,6 +43,18 @@ describe('NotFound', () => {
     expect(link.className).toContain('bg-emerald-600')
   })
 
+  it('links have mobile touch targets (min-h-[44px])', () => {
+    render(
+      <MemoryRouter>
+        <NotFound />
+      </MemoryRouter>
+    )
+    const links = screen.getAllByRole('link')
+    links.forEach(link => {
+      expect(link.className).toContain('min-h-[44px]')
+    })
+  })
+
   it('has a secondary link to browse stocks', () => {
     render(
       <MemoryRouter>
