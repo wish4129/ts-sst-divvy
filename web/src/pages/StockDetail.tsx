@@ -41,23 +41,61 @@ const AI_REPORT_LABELS: Record<string, string> = {
   risk_assessment: 'Risk Assessment',
   financial_health: 'Financial Health',
   growth_prospects: 'Growth Prospects',
+  // Extended format keys
+  recommendation: 'Recommendation',
+  risk: 'Risk Level',
+  raw_report: 'Raw Report',
 }
 
 // Keys that are preview (shown open) vs gated (shown with lock)
-const PREVIEW_SECTION_KEYS = new Set(['overview', 'risk_assessment', 'financial_health', 'growth_prospects', 'introduction_history', 'trend_analysis', 'strengths', 'weaknesses', 'summary'])
+const PREVIEW_SECTION_KEYS = new Set(['overview', 'risk_assessment', 'financial_health', 'growth_prospects', 'introduction_history', 'trend_analysis', 'strengths', 'weaknesses', 'summary', 'recommendation', 'risk'])
 const GATED_SECTION_KEYS = new Set(['target', 'price_target', 'cut_loss'])
 
-function AiReportSection({ report, model, generatedAt }: { report: Record<string, string>; model: string | null; generatedAt?: string }) {
-  const [open, setOpen] = useState(true)
+// Metadata-only keys that describe the report rather than being sections
+const METADATA_KEYS = new Set(['generated_at'])
+
+/**
+ * Normalize an ai_report object into consistent section format.
+ * Handles:
+ * - 'raw' format: single key containing JSON-wrapped markdown
+ * - 'recommendation/risk/generated_at' format: metadata keys mixed with summary
+ * - Standard '5-section' and '7-section' formats
+ */
+function normalizeReport(report: Record<string, string>): Record<string, string> {
+  // Unwrap 'raw' format — the raw value is markdown-wrapped JSON
+  if ('raw' in report && Object.keys(report).length === 1) {
+    try {
+      const raw = report.raw
+      // Strip markdown code block markers if present
+      const jsonStr = raw.replace(/^```json\s*\n?/i, '').replace(/\n?```\s*$/, '').trim()
+      const parsed = JSON.parse(jsonStr)
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        return parsed
+      }
+    } catch {
+      // Fall through — treat raw as a single section
+      return { raw_report: report.raw }
+    }
+  }
 
   const normalized = { ...report }
+
+  // Merge price_target + cut_loss → target
   if (!normalized.target && (normalized.price_target || normalized.cut_loss)) {
     normalized.target = [normalized.price_target, normalized.cut_loss].filter(Boolean).join('\n')
     delete normalized.price_target
     delete normalized.cut_loss
   }
 
-  const previewSections = Object.entries(normalized).filter(([k]) => PREVIEW_SECTION_KEYS.has(k))
+  return normalized
+}
+
+function AiReportSection({ report, model, generatedAt }: { report: Record<string, string>; model: string | null; generatedAt?: string }) {
+  const [open, setOpen] = useState(true)
+
+  const normalized = normalizeReport(report)
+
+  const previewSections = Object.entries(normalized).filter(([k]) => PREVIEW_SECTION_KEYS.has(k) && !METADATA_KEYS.has(k))
   const gatedSections = Object.entries(normalized).filter(([k]) => GATED_SECTION_KEYS.has(k))
 
   const formattedDate = generatedAt
