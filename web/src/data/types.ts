@@ -7,6 +7,7 @@ export interface StockFinancials {
   pbRatio?: number
   roe: number
   debtToEquity: number
+  grossMargin?: number
   revenueGrowthYoY: number
 }
 
