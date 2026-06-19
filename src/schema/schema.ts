@@ -68,6 +68,7 @@ export const kronosForecasts = pgTable('kronos_forecasts', {
   predHigh: numeric('pred_high'),
   predVolatility: numeric('pred_volatility'),
 }, (table) => [
+  unique('uq_kronos_stock_gen').on(table.stockId, table.generatedAt),
   index('idx_kronos_stock').on(table.stockId, table.generatedAt),
 ]);
 
