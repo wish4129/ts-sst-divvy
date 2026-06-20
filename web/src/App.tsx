@@ -59,6 +59,7 @@ function AppShell() {
           <Link to="/disclaimer" className="hover:text-gray-600 dark:hover:text-gray-300">Disclaimer</Link>
           <Link to="/privacy" className="hover:text-gray-600 dark:hover:text-gray-300">Privacy</Link>
           <Link to="/terms" className="hover:text-gray-600 dark:hover:text-gray-300">Terms</Link>
+          <a href="https://jomyumcha.com" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-600 dark:hover:text-emerald-400 font-medium">Discover KL Cafes →</a>
         </div>
       </footer>
       <ToastContainer />
