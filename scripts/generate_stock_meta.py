@@ -111,8 +111,12 @@ def main():
     index_html = open(dist_index, "r", encoding="utf-8").read()
     essential_tags = extract_essential_tags(index_html)
 
-    conn = get_db()
-    cur = dict_cursor(conn)
+    try:
+        conn = get_db()
+        cur = dict_cursor(conn)
+    except Exception as e:
+        print(f"⚠️  DB unavailable ({e}) — skipping stock meta page generation")
+        return
 
     # Get top 50 analyzed stocks
     cur.execute("""

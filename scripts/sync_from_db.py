@@ -19,10 +19,14 @@ SHORT_TO_TICKER: dict[str, str] = {}
 MYT = timezone(timedelta(hours=8))
 NOW = datetime.now(MYT).strftime("%Y-%m-%d")
 
-# ── Fetch from DB ──
+# ── Fetch from DB (with fallback to file-based data) ──
 
-db = get_db()
-cur = db.cursor()
+try:
+    db = get_db()
+    cur = db.cursor()
+except Exception as e:
+    print(f"⚠️  DB unavailable ({e}) — using existing stocks.ts, skipping DB sync")
+    sys.exit(0)
 
 cur.execute("""
     SELECT id, name, industry, status, score_composite,
