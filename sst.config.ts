@@ -50,6 +50,24 @@ export default $config({
       publish: true,
     });
     
+    // CloudFront Function rewriting /stock/* to the SPA shell (index.html)
+    // Fixes HTTP 403 (S3 OAC) on stock detail pages: SST's built-in SPA fallback
+    // only rewrites extensionless paths — /stock/1155.KL looks like a file, so
+    // CloudFront hits S3 directly, which has no matching key -> 403 XML.
+    // Googlebot then cannot index any of the 800+ sitemap stock URLs.
+    const stockSpaFallbackFn = new aws.cloudfront.Function("StockSpaFallbackFn", {
+      name: "divvy-stock-spa-fallback-v1",
+      runtime: "cloudfront-js-2.0",
+      code: `function handler(event) {
+  var request = event.request;
+  if (request.uri.startsWith('/stock/')) {
+    request.uri = '/index.html';
+  }
+  return request;
+}`,
+      publish: true,
+    });
+
     // CloudFront Function returning noindex for the /cron/status route
     // Prevents Google from indexing the SPA fallback (index,follow) as a live page
     const cronStatusNoindexFn = new aws.cloudfront.Function("CronStatusNoindexFn", {
@@ -83,6 +101,29 @@ export default $config({
           // Add an edge function for /battle route to return 410 Gone
           // before the SPA fallback serves a 200 response
           args.orderedCacheBehaviors = [
+            {
+              // /stock/* -> SPA shell (index.html) via viewer-request rewrite.
+              // Prevents S3 OAC 403 on stock detail pages (see StockSpaFallbackFn).
+              pathPattern: "/stock*",
+              targetOriginId: args.origins[0].originId,
+              allowedMethods: ["GET", "HEAD", "OPTIONS"],
+              cachedMethods: ["GET", "HEAD"],
+              viewerProtocolPolicy: "redirect-to-https",
+              compress: true,
+              functionAssociations: [
+                {
+                  eventType: "viewer-request",
+                  functionArn: stockSpaFallbackFn.arn,
+                },
+              ],
+              forwardedValues: {
+                queryString: false,
+                cookies: { forward: "none" },
+              },
+              minTtl: 0,
+              defaultTtl: 0,
+              maxTtl: 0,
+            },
             {
               pathPattern: "/battle*",
               targetOriginId: args.origins[0].originId,
