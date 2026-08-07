@@ -2,4 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /auth/callback
 
-Sitemap: https://d2d7b6u77b6we4.cloudfront.net/sitemap.xml
+# Relative sitemap URL (RFC 9309) — resolves against whatever host serves the
+# site, so it survives domain changes (old CloudFront URL was deleted from AWS;
+# a recreated distribution gets a NEW random URL — see kanban t_22f077bc9ad2).
+Sitemap: /sitemap.xml

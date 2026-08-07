@@ -35,6 +35,9 @@ vi.mock('postgres', () => {
 })
 
 // Import handler after mocks
+// SITE_URL is env-driven (see sitemap.ts) — set a test value so URL assertions
+// are stable and independent of any real domain.
+process.env.SITE_URL = "https://divvy-test.example.com"
 const { handler } = await import('./sitemap')
 
 describe('Sitemap Lambda Handler', () => {
@@ -76,26 +79,26 @@ describe('Sitemap Lambda Handler', () => {
 
   it('includes static pages in sitemap', async () => {
     const result = await handler(mockEvent) as any
-    expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/</loc>')
-    expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/watchlist</loc>')
-    expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/universe</loc>')
-    expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/compare</loc>')
-    expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/dividends</loc>')
-    expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/screener</loc>')
+    expect(result.body).toContain('<loc>https://divvy-test.example.com/</loc>')
+    expect(result.body).toContain('<loc>https://divvy-test.example.com/watchlist</loc>')
+    expect(result.body).toContain('<loc>https://divvy-test.example.com/universe</loc>')
+    expect(result.body).toContain('<loc>https://divvy-test.example.com/compare</loc>')
+    expect(result.body).toContain('<loc>https://divvy-test.example.com/dividends</loc>')
+    expect(result.body).toContain('<loc>https://divvy-test.example.com/screener</loc>')
   })
 
   it('includes stock detail pages from DB', async () => {
     const result = await handler(mockEvent) as any
-    expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/stock/AAPL</loc>')
-    expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/stock/GOOGL</loc>')
-    expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/stock/MAYBANK</loc>')
+    expect(result.body).toContain('<loc>https://divvy-test.example.com/stock/AAPL</loc>')
+    expect(result.body).toContain('<loc>https://divvy-test.example.com/stock/GOOGL</loc>')
+    expect(result.body).toContain('<loc>https://divvy-test.example.com/stock/MAYBANK</loc>')
   })
 
   it('includes universe stock pages for discoverability', async () => {
     const result = await handler(mockEvent) as any
-    expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/stock/TENAGA</loc>')
-    expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/stock/PUBM</loc>')
-    expect(result.body).toContain('<loc>https://d2d7b6u77b6we4.cloudfront.net/stock/CIMB</loc>')
+    expect(result.body).toContain('<loc>https://divvy-test.example.com/stock/TENAGA</loc>')
+    expect(result.body).toContain('<loc>https://divvy-test.example.com/stock/PUBM</loc>')
+    expect(result.body).toContain('<loc>https://divvy-test.example.com/stock/CIMB</loc>')
   })
 
   it('escapes XML special characters in stock names', async () => {

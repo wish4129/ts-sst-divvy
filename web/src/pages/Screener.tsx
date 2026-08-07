@@ -134,7 +134,7 @@ export default function Screener() {
       <Helmet {...seo({
         title: 'Stock Screener — Divvy Bursa Tracker',
         description: `Bursa Malaysia stock screener. ${newCount} new candidates, ${inWatchlistCount} tracked. Screen for high-dividend, undervalued KLSE stocks with AI-powered scoring.`,
-        canonical: 'https://d2d7b6u77b6we4.cloudfront.net/screener',
+        canonical: '/screener',
       })} />
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>

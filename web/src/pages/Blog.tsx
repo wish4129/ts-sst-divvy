@@ -9,7 +9,7 @@ export default function Blog() {
       <Helmet {...seo({
         title: 'Blog — Bursa Market Analysis',
         description: 'Bursa Malaysia stock market analysis, KLSE investing guides, and portfolio strategy insights from the Divvy team.',
-        canonical: 'https://d2d7b6u77b6we4.cloudfront.net/blog',
+        canonical: '/blog',
       })} />
       <div className="max-w-7xl mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">

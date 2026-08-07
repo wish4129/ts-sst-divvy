@@ -13,9 +13,17 @@ import json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from db import get_db, dict_cursor
 
-SITE_URL = "https://d2d7b6u77b6we4.cloudfront.net"
+SITE_URL = os.environ.get("SITE_URL", "").rstrip("/")
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST_DIR = os.path.join(ROOT, "web", "dist")
+
+# Never default to a hardcoded domain — the old CloudFront URL was deleted from
+# AWS (see kanban t_22f077bc9ad2). If SITE_URL is unset, skip generation rather
+# than emit per-stock pages whose canonical/og:image point at a dead domain.
+if not SITE_URL:
+    print("⚠️  SITE_URL env var is not set — skipping per-stock meta page generation (canonicals would be dead-domain).")
+    print("ℹ️  Expected: SITE_URL=https://<new-distro>.cloudfront.net .venv/bin/python3 scripts/generate_stock_meta.py")
+    sys.exit(0)
 
 
 def extract_essential_tags(html):

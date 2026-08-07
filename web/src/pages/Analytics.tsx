@@ -45,7 +45,7 @@ export default function Analytics() {
       <Helmet {...seo({
         title: 'Search Analytics — Divvy Bursa Tracker',
         description: 'Search trajectory analytics for the Bursa Universe. Track what users search for.',
-        canonical: 'https://d2d7b6u77b6we4.cloudfront.net/analytics',
+        canonical: '/analytics',
         noindex: true,
       })} />
       <main className="max-w-4xl mx-auto px-4 py-6">

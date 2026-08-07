@@ -14,11 +14,25 @@ from xml.sax.saxutils import escape as xml_escape
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from db import get_db, dict_cursor
 
-SITE_URL = os.environ.get("SITE_URL", "https://d2d7b6u77b6we4.cloudfront.net")
 OUTPUT = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
     "web", "public", "sitemap.xml"
 )
+
+SITE_URL = os.environ.get("SITE_URL", "").rstrip("/")
+
+# Never default to a hardcoded domain — the old CloudFront URL was deleted from
+# AWS (see kanban t_22f077bc9ad2). If SITE_URL is unset, delete any stale
+# sitemap rather than ship dead-domain URLs (SEO reset to zero). Set SITE_URL
+# at deploy time: `SITE_URL=https://new-distro.cloudfront.net npx sst deploy`.
+if not SITE_URL:
+    print("⚠️  SITE_URL env var is not set — refusing to generate sitemap with dead/unknown domain.")
+    stale = OUTPUT
+    if os.path.exists(stale):
+        os.remove(stale)
+        print(f"⚠️  Removed stale {stale} to avoid serving dead-domain URLs. Set SITE_URL to regenerate.")
+    print("ℹ️  Expected: SITE_URL=https://<new-distro>.cloudfront.net uv run python3 scripts/generate_sitemap.py")
+    sys.exit(0)
 
 STATIC_PAGES = [
     {"loc": "/", "priority": "1.0", "changefreq": "daily"},

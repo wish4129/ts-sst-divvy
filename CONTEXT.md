@@ -25,4 +25,4 @@
 ## Project
 - Repo: ~/xiongit/divvy
 - Stack: SST v3 + React + Recharts + Supabase
-- Domain: d2d7b6u77b6we4.cloudfront.net
+- Domain: ⚠️ OLD CloudFront URL d2d7b6u77b6we4.cloudfront.net was DELETED from AWS (2026-08-07, kanban t_22f077bc9ad2). Site is NXDOMAIN ~49 days. SITE_URL is now env-driven — deploy with `SITE_URL=https://<new-distro> npx sst deploy --stage live`. See `~/.hermes/skills/software-development/fuxi-seo-audit/references/divvy-outage-state.md`.

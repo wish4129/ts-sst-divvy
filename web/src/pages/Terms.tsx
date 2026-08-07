@@ -9,7 +9,7 @@ const Terms: React.FC = () => {
       <Helmet {...seo({
         title: 'Terms of Service — Divvy',
         description: 'Terms of Service for Divvy. By using this platform, you agree to these terms covering usage, paid services, intellectual property, and liability limitations.',
-        canonical: 'https://d2d7b6u77b6we4.cloudfront.net/terms',
+        canonical: '/terms',
       })} />
       <div className="max-w-3xl mx-auto py-12 px-4">
         <h1 className="text-3xl font-bold mb-8">Terms of Service</h1>

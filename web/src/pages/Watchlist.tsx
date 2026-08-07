@@ -140,7 +140,7 @@ export default function Watchlist() {
       <Helmet {...seo({
         title: 'Watchlist — Divvy Bursa Tracker',
         description: `Bursa Malaysia watchlist. ${active.length} active stocks with AI composite scores, ${revisit.length} to revisit. Track KLSE stock performance with Divvy.`,
-        canonical: 'https://d2d7b6u77b6we4.cloudfront.net/watchlist',
+        canonical: '/watchlist',
       })} />
       <main className="max-w-3xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">

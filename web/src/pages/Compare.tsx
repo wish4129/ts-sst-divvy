@@ -171,7 +171,7 @@ export default function Compare() {
       <Helmet {...seo({
         title: 'Compare Stocks — Divvy Bursa Tracker',
         description: 'Side-by-side comparison of Bursa Malaysia stocks. Compare composite scores, financials, dividends, valuations, and AI analysis across 2-3 stocks at once.',
-        canonical: 'https://d2d7b6u77b6we4.cloudfront.net/compare',
+        canonical: '/compare',
       })} />
       <main className="max-w-5xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">

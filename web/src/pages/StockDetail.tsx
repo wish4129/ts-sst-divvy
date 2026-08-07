@@ -47,9 +47,9 @@ const AI_REPORT_LABELS: Record<string, string> = {
   raw_report: 'Raw Report',
 }
 
-// Keys that are preview (shown open) vs gated (shown with lock)
-const PREVIEW_SECTION_KEYS = new Set(['overview', 'risk_assessment', 'financial_health', 'growth_prospects', 'introduction_history', 'trend_analysis', 'strengths', 'weaknesses', 'summary', 'recommendation', 'risk'])
-const GATED_SECTION_KEYS = new Set(['target', 'price_target', 'cut_loss'])
+// Keys that are free preview (shown open) vs gated (blurred with upsell CTA)
+const FREE_PREVIEW_KEYS = new Set(['introduction_history', 'trend_analysis', 'strengths', 'recommendation', 'risk', 'overview', 'risk_assessment', 'financial_health', 'growth_prospects'])
+const GATED_PREVIEW_KEYS = new Set(['weaknesses', 'summary', 'target', 'price_target', 'cut_loss'])
 
 // Metadata-only keys that describe the report rather than being sections
 const METADATA_KEYS = new Set(['generated_at'])
@@ -92,15 +92,38 @@ function normalizeReport(report: Record<string, string>): Record<string, string>
 
 function AiReportSection({ report, model, generatedAt }: { report: Record<string, string>; model: string | null; generatedAt?: string }) {
   const [open, setOpen] = useState(true)
+  const [hasFullAccess, setHasFullAccess] = useState(() => {
+    // Check localStorage for purchased reports — ephemeral in MVP, real purchase check later
+    try { return localStorage.getItem('divvy_full_report_access') === 'true' } catch { return false }
+  })
 
   const normalized = normalizeReport(report)
 
-  const previewSections = Object.entries(normalized).filter(([k]) => PREVIEW_SECTION_KEYS.has(k) && !METADATA_KEYS.has(k))
-  const gatedSections = Object.entries(normalized).filter(([k]) => GATED_SECTION_KEYS.has(k))
+  const freePreviewEntries = Object.entries(normalized).filter(([k]) => FREE_PREVIEW_KEYS.has(k) && !METADATA_KEYS.has(k))
+  const gatedEntries = Object.entries(normalized).filter(([k]) => GATED_PREVIEW_KEYS.has(k))
 
   const formattedDate = generatedAt
     ? new Date(generatedAt).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' })
     : null
+
+  // Blur preview — show first 2 lines of text content
+  const blurPreview = (content: string) => {
+    const lines = content.split('\n').filter(l => l.trim())
+    const previewLines = lines.slice(0, 2)
+    return (
+      <div className="relative select-none">
+        <div className="text-sm text-gray-400 dark:text-gray-600 leading-relaxed space-y-1 blur-sm">
+          {previewLines.map((line, i) => <div key={i}>{line}</div>)}
+        </div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-lg px-4 py-3 text-center max-w-xs shadow-sm">
+            <span className="text-amber-500 text-lg">🔒</span>
+            <p className="text-xs font-medium text-gray-700 dark:text-gray-300 mt-1">Full analysis locked</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   const renderSection = ([key, content]: [string, string]) => {
     // Special visual treatment for recommendation (BUY/HOLD/SELL)
@@ -164,24 +187,55 @@ function AiReportSection({ report, model, generatedAt }: { report: Record<string
       </button>
       {open && (
         <div className="px-5 pb-4 space-y-5">
-          {/* Preview sections — shown first */}
-          {previewSections.map(renderSection)}
+          {/* Free preview sections — shown first with full content */}
+          {freePreviewEntries.map(renderSection)}
 
-          {/* Meta line — between preview and gated */}
-          {formattedDate && gatedSections.length > 0 && (
-            <div className="text-xs text-gray-400 dark:text-gray-500 border-t border-emerald-200/50 dark:border-emerald-800/50 pt-4 mt-4">
-              Covered by analysis on {formattedDate}
+          {/* Divider between free and gated sections */}
+          {gatedEntries.length > 0 && (
+            <div className="border-t border-emerald-200/50 dark:border-emerald-800/50 pt-4">
+              <div className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400 font-medium mb-3">
+                <span>🔒</span>
+                <span>Premium Analysis</span>
+              </div>
+              {gatedEntries.length > 0 && (
+                <div className="space-y-5">
+                  {hasFullAccess ? (
+                    gatedEntries.map(renderSection)
+                  ) : (
+                    <div className="space-y-5">
+                      {gatedEntries.map(([key, content]) => (
+                        <div key={key} className="border-l-2 border-amber-200 dark:border-amber-700/50 pl-3">
+                          <h4 className="text-xs font-semibold text-amber-600 dark:text-amber-400 mb-1.5">{AI_REPORT_LABELS[key] || key}</h4>
+                          {blurPreview(content)}
+                        </div>
+                      ))}
+                      <div className="text-center bg-amber-50/80 dark:bg-amber-950/30 rounded-lg p-4 border border-amber-200/50 dark:border-amber-800/50">
+                        <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-1">Unlock Full AI Report</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+                          See {gatedEntries.map(([k]) => AI_REPORT_LABELS[k] || k).join(', ')} — {formattedDate ? `analysis from ${formattedDate}` : 'in-depth analysis'}
+                        </p>
+                        <button
+                          onClick={() => {
+                            /* MVP: ephemeral unlock via localStorage; production would check purchased_reports table */
+                            try { localStorage.setItem('divvy_full_report_access', 'true'); setHasFullAccess(true) } catch {}
+                          }}
+                          className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold transition-colors"
+                        >
+                          Buy Full Report — RM5
+                        </button>
+                        <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-2">One-time purchase · Instant access</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           )}
 
-          {/* Gated sections — shown after meta with lock indicator */}
-          {gatedSections.length > 0 && (
-            <div className="space-y-5">
-              <div className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400 font-medium">
-                <span className="text-amber-500">🔒</span>
-                <span>Gated analysis — subscribe to unlock full details</span>
-              </div>
-              {gatedSections.map(renderSection)}
+          {/* Meta line */}
+          {formattedDate && (
+            <div className="text-xs text-gray-400 dark:text-gray-500 border-t border-emerald-200/50 dark:border-emerald-800/50 pt-4 mt-4">
+              Covered by analysis on {formattedDate}
             </div>
           )}
         </div>
@@ -307,7 +361,7 @@ export default function StockDetail() {
       <Helmet {...seo({
         title: `${displayStock.name} (${displayStock.code}) — Stock Analysis | Divvy`,
         description: `Deep analysis of ${displayStock.name} (${displayStock.code}). ${displayStock.industry} stock with composite score ${displayStock.score.composite}/100, RM ${displayStock.lastPrice.toFixed(2)} last price, DY ${displayStock.dividendYield}%. Bursa Malaysia investment tracker.`,
-        canonical: `https://d2d7b6u77b6we4.cloudfront.net/stock/${code}/`,
+        canonical: `/stock/${code}/`,
       })}>
         <script type="application/ld+json">{JSON.stringify(productSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>

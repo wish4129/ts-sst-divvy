@@ -136,9 +136,9 @@ Your first trade will feel nerve-wracking. That's normal. Everyone's first trade
 
 ## Essential Tools for Malaysian Investors
 
-- **[Divvy Screener](https://d2d7b6u77b6we4.cloudfront.net/screener)** — Filter Bursa stocks by P/E, dividend yield, market cap, and sector
-- **[Divvy Universe](https://d2d7b6u77b6we4.cloudfront.net/universe)** — Browse all Bursa Malaysia stocks with key metrics at a glance
-- **[Divvy Compare](https://d2d7b6u77b6we4.cloudfront.net/compare)** — Compare up to 5 Bursa stocks side by side
+- **[Divvy Screener](/screener)** — Filter Bursa stocks by P/E, dividend yield, market cap, and sector
+- **[Divvy Universe](/universe)** — Browse all Bursa Malaysia stocks with key metrics at a glance
+- **[Divvy Compare](/compare)** — Compare up to 5 Bursa stocks side by side
 - **[i3investor](https://klse.i3investor.com/)** — News, forum discussions, and company announcements
 - **[Bursa Malaysia](https://www.bursamalaysia.com/)** — Official market announcements, company filings
 
@@ -162,7 +162,7 @@ Start at whatever level you're comfortable with. The most important thing is to 
 
 **Investing is a long game.** The KLSE has returned an average of 5-8% annually over decades. You won't get rich overnight, but you can build serious wealth over 10, 20, or 30 years through consistent investing and dividend reinvestment.
 
-Start with [Divvy's stock screener](https://d2d7b6u77b6we4.cloudfront.net/screener) to discover Bursa stocks that match your goals. Filter by dividend yield to find income stocks, or filter by low P/E to hunt for value.
+Start with [Divvy's stock screener](/screener) to discover Bursa stocks that match your goals. Filter by dividend yield to find income stocks, or filter by low P/E to hunt for value.
 
 Your future self will thank you for starting today. 📈
 

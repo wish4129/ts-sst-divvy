@@ -9,7 +9,7 @@ const Disclaimer: React.FC = () => {
       <Helmet {...seo({
         title: 'Disclaimer — Divvy',
         description: 'Divvy provides stock analysis for informational purposes only. No financial advice. Read our full disclaimer including Malaysian CMSA compliance.',
-        canonical: 'https://d2d7b6u77b6we4.cloudfront.net/disclaimer',
+        canonical: '/disclaimer',
       })} />
       <div className="max-w-3xl mx-auto py-12 px-4">
         <h1 className="text-3xl font-bold mb-8">Disclaimer</h1>

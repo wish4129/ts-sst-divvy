@@ -1,9 +1,15 @@
 /**
  * SEO helper — generates Helmet props for each page.
  * All per-page SEO meta is defined here so the index.html fallback stays generic.
+ *
+ * BASE_URL is env-driven (VITE_SITE_URL, set from SITE_URL at deploy time).
+ * No hardcoded domain: the old CloudFront URL was deleted from AWS, and a
+ * recreated distribution gets a NEW random URL (see kanban t_22f077bc9ad2).
+ * Falls back to window.location.origin so canonicals always match whatever
+ * domain actually serves the app.
  */
 
-const BASE_URL = 'https://d2d7b6u77b6we4.cloudfront.net'
+const BASE_URL = (import.meta.env.VITE_SITE_URL as string | undefined)?.replace(/\/+$/, '') || (typeof window !== 'undefined' ? window.location.origin : '')
 const OG_IMAGE = `${BASE_URL}/og-image.png`
 const SITE_NAME = 'Divvy — Bursa Investment Tracker'
 
@@ -16,7 +22,11 @@ export interface SeoProps {
 }
 
 export function seo(props: SeoProps) {
-  const canonical = props.canonical || BASE_URL
+  // Relative canonicals ('/universe') are resolved against BASE_URL so pages
+  // never hardcode a domain. Absolute canonicals pass through untouched.
+  const canonical = props.canonical
+    ? (props.canonical.startsWith('http') ? props.canonical : `${BASE_URL}${props.canonical}`)
+    : BASE_URL
   const ogImage = props.ogImage || OG_IMAGE
 
   return {

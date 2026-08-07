@@ -93,7 +93,7 @@ export default function Universe() {
       <Helmet {...seo({
         title: 'Bursa Universe — Divvy Bursa Tracker',
         description: `Browse the full Bursa Malaysia universe. ${total} stocks with search, analysis status, and AI-powered scoring. Discover, analyze, and track KLSE stocks.`,
-        canonical: 'https://d2d7b6u77b6we4.cloudfront.net/universe',
+        canonical: '/universe',
       })} />
       <main className="max-w-5xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">

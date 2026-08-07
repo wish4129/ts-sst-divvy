@@ -11,7 +11,12 @@ const sql = postgres({
   max: 1,
 });
 
-const SITE_URL = "https://d2d7b6u77b6we4.cloudfront.net";
+// SITE_URL is env-driven — the old CloudFront URL was deleted from AWS
+// (see kanban t_22f077bc9ad2). No hardcoded default: a recreated distribution
+// gets a NEW random cloudfront.net URL, so a stale domain here would emit
+// dead sitemap URLs. This Lambda route is disabled (static sitemap serves
+// instead) but kept as fallback.
+const SITE_URL = process.env.SITE_URL || "";
 const STATIC_PAGES = [
   { loc: "/", priority: "1.0", changefreq: "daily" },
   { loc: "/watchlist", priority: "0.8", changefreq: "hourly" },

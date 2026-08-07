@@ -9,7 +9,7 @@ const Privacy: React.FC = () => {
       <Helmet {...seo({
         title: 'Privacy Policy — Divvy',
         description: 'How Divvy collects, uses, and protects your data. Covers authentication, analytics, third-party services, and your GDPR rights.',
-        canonical: 'https://d2d7b6u77b6we4.cloudfront.net/privacy',
+        canonical: '/privacy',
       })} />
       <div className="max-w-3xl mx-auto py-12 px-4">
         <h1 className="text-3xl font-bold mb-8">Privacy Policy</h1>

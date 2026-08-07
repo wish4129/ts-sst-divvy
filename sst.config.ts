@@ -95,6 +95,10 @@ export default $config({
         VITE_SUPABASE_URL: "https://ceyqewaixcijbmdtbdlr.supabase.co",
         VITE_SUPABASE_ANON_KEY: "eyJhbG...Kcbg",
         VITE_API_URL: api.url,
+        // SITE_URL is env-driven — the old CloudFront URL was deleted from AWS
+        // (kanban t_22f077bc9ad2). Deploy with: SITE_URL=https://<new-distro> npx sst deploy --stage live
+        // Injected into index.html (%VITE_SITE_URL%) and seo.ts (import.meta.env.VITE_SITE_URL).
+        VITE_SITE_URL: process.env.SITE_URL || "",
       },
       transform: {
         cdn: (args, opts) => {

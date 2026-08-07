@@ -113,7 +113,7 @@ export default function DividendCalendar() {
       <Helmet {...seo({
         title: 'Dividend Calendar — Divvy Bursa Tracker',
         description: 'Bursa Malaysia dividend calendar. Browse ex-dates, dividend yields, and payment schedules for KLSE stocks.',
-        canonical: 'https://d2d7b6u77b6we4.cloudfront.net/dividends',
+        canonical: '/dividends',
       })} />
       <main className="max-w-4xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">

@@ -73,7 +73,7 @@ export default function Home() {
       <Helmet {...seo({
         title: 'Divvy — Bursa Investment Tracker',
         description: `AI-powered Bursa Malaysia investment tracker. Browse ${allStocks.length} tracked stocks with composite scores, industry filters, and live KLSE prices.`,
-        canonical: 'https://d2d7b6u77b6we4.cloudfront.net/',
+        canonical: '/',
       })} />
       <main className="max-w-7xl mx-auto px-4 py-6">
         <div className="mb-6">
