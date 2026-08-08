@@ -52,7 +52,7 @@ export default function BlogPost() {
       <Helmet {...seo({
         title: post.title,
         description: post.excerpt,
-        canonical: `/blog/${post.slug}`,
+        canonical: `/blog/${post.slug}/`,
       })} />
       <div className="max-w-3xl mx-auto px-4 py-8">
         <Link to="/blog" className="text-sm text-emerald-600 dark:text-emerald-400 hover:underline mb-6 inline-flex items-center gap-1">

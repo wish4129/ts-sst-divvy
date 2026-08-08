@@ -63,7 +63,10 @@ def get_blog_urls() -> list[dict]:
             slug = post.get("slug", "")
             priority = "0.6" if slug == "coming-soon" else "0.8"
             changefreq = "monthly" if slug == "coming-soon" else "weekly"
-            urls.append({"loc": f"/blog/{slug}", "priority": priority, "changefreq": changefreq})
+            # Trailing slash required: generate_blog_meta.py emits
+            # dist/blog/<slug>/index.html — S3 directory index serves
+            # /blog/<slug>/ (mirrors the /stock/CODE/ pattern).
+            urls.append({"loc": f"/blog/{slug}/", "priority": priority, "changefreq": changefreq})
         return urls
     except (FileNotFoundError, json.JSONDecodeError) as e:
         print(f"⚠️  Warning: could not read {BLOG_POSTS_JSON}: {e}")
