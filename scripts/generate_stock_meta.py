@@ -110,6 +110,106 @@ def generate_stock_page(index_html, essential_tags, stock):
     return result
 
 
+def load_fallback_stocks() -> list[dict]:
+    """DB-independent stock data for per-stock meta pages (DEGRADED MODE).
+
+    Used ONLY when Supabase is unreachable at build time. Sources (repo-local,
+    committed): data/stock_scores.json (28 analyzed stocks with industry +
+    composite score) and data/divvy.db.bak.2026-06-19 (17 stocks with industry).
+    Deduplicated by code, stock_scores.json wins. Coverage is far below the
+    top-50 DB query — this exists so the deploy NEVER ships zero per-stock meta
+    pages (the silent no-op that shipped generic homepage meta for every stock
+    page — see kanban t_4cc2b0a1 follow-up).
+    """
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    by_code: dict[str, dict] = {}
+
+    # Source 1: stock_scores.json (code, name, industry, composite)
+    scores_path = os.path.join(root, "data", "stock_scores.json")
+    try:
+        with open(scores_path) as f:
+            payload = json.load(f)
+        for s in payload.get("scores", []):
+            code = s.get("code")
+            if not code:
+                continue
+            by_code[code] = {
+                "code": code,
+                "name": s.get("name", code),
+                "industry": s.get("industry") or "",
+                "score_composite": s.get("composite"),
+                "last_price": 0,
+                "dividend_yield": 0,
+                "market_cap": 0,
+            }
+        print(f"ℹ️  Fallback source 1: {len(by_code)} stocks from data/stock_scores.json")
+    except Exception as e:
+        print(f"⚠️  Fallback source 1 unavailable ({e})")
+
+    # Source 2: local sqlite backup (id, name, industry, status)
+    backup_path = os.path.join(root, "data", "divvy.db.bak.2026-06-19")
+    try:
+        import sqlite3
+        conn = sqlite3.connect(backup_path)
+        rows = conn.execute(
+            "SELECT id, name, industry, status FROM stocks"
+        ).fetchall()
+        conn.close()
+        added = 0
+        for row in rows:
+            code, name, industry, status = row
+            if status in ("removed", "data_missing") or code in by_code:
+                continue
+            by_code[code] = {
+                "code": code,
+                "name": name or code,
+                "industry": industry or "",
+                "score_composite": None,
+                "last_price": 0,
+                "dividend_yield": 0,
+                "market_cap": 0,
+            }
+            added += 1
+        print(f"ℹ️  Fallback source 2: +{added} stocks from data/divvy.db.bak.2026-06-19")
+    except Exception as e:
+        print(f"⚠️  Fallback source 2 unavailable ({e})")
+
+    # Source 3: last-good committed stocks.ts (git HEAD) — ~150 stocks with
+    # name/industry synced from the DB before it died. Working tree may be
+    # truncated (sync_from_db writes 1 stock when DB is down), so read HEAD.
+    try:
+        import subprocess
+        import re
+        ts = subprocess.run(
+            ["git", "show", "HEAD:web/src/data/stocks.ts"],
+            capture_output=True, text=True, cwd=root, timeout=15,
+        ).stdout
+        # ticker map: '0043': '0043.KL'
+        ticker_map = dict(re.findall(r"'([^']+)':\s*'([^']+\.KL)'", ts))
+        # stock objects: code: 'XXXX', name: '...', industry: '...' (or null/'' )
+        objs = re.findall(r"code:\s*'([^']+)'.*?name:\s*'([^']*)'.*?industry:\s*(?:'([^']*)'|null)", ts, re.S)
+        added = 0
+        for short, name, industry in objs:
+            code = ticker_map.get(short, f"{short}.KL")
+            if code in by_code:
+                continue
+            by_code[code] = {
+                "code": code,
+                "name": name or code,
+                "industry": industry or "",
+                "score_composite": None,
+                "last_price": 0,
+                "dividend_yield": 0,
+                "market_cap": 0,
+            }
+            added += 1
+        print(f"ℹ️  Fallback source 3: +{added} stocks from git HEAD web/src/data/stocks.ts")
+    except Exception as e:
+        print(f"⚠️  Fallback source 3 unavailable ({e})")
+
+    return list(by_code.values())
+
+
 def main():
     dist_index = os.path.join(DIST_DIR, "index.html")
     if not os.path.exists(dist_index):
@@ -119,31 +219,37 @@ def main():
     index_html = open(dist_index, "r", encoding="utf-8").read()
     essential_tags = extract_essential_tags(index_html)
 
+    degraded = False
     try:
         conn = get_db()
         cur = dict_cursor(conn)
     except Exception as e:
-        print(f"⚠️  DB unavailable ({e}) — skipping stock meta page generation")
-        return
+        degraded = True
+        print(f"🚨 DEGRADED MODE: DB unavailable ({e}) — using repo-local fallback stock data")
+        print(f"🚨 Per-stock meta coverage will be PARTIAL (~28-45 stocks, not top 50).")
 
-    # Get top 50 analyzed stocks
-    cur.execute("""
-        SELECT
-            s.id as code,
-            s.name,
-            s.industry,
-            s.score_composite,
-            s.last_price,
-            s.dividend_yield,
-            s.market_cap,
-            s.status
-        FROM stocks s
-        WHERE s.status NOT IN ('removed', 'data_missing')
-        ORDER BY s.score_composite DESC NULLS LAST
-        LIMIT 50
-    """)
-    stocks = cur.fetchall()
-    conn.close()
+    # Get top 50 analyzed stocks (DB mode)
+    stocks = []
+    if not degraded:
+        cur.execute("""
+            SELECT
+                s.id as code,
+                s.name,
+                s.industry,
+                s.score_composite,
+                s.last_price,
+                s.dividend_yield,
+                s.market_cap,
+                s.status
+            FROM stocks s
+            WHERE s.status NOT IN ('removed', 'data_missing')
+            ORDER BY s.score_composite DESC NULLS LAST
+            LIMIT 50
+        """)
+        stocks = cur.fetchall()
+        conn.close()
+    else:
+        stocks = load_fallback_stocks()
 
     print(f"📊 Generating static meta pages for {len(stocks)} stocks...")
 

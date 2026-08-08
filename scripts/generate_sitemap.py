@@ -92,7 +92,7 @@ def main():
         urls.append(make_url(blog_page["loc"], blog_page["priority"], blog_page["changefreq"]))
 
     # Try to fetch stock URLs from DB; fall back to a static list of known stocks
-    stock_urls: set[str] = set()
+    stock_lastmod: dict[str, str] = {}
     try:
         conn = get_db()
         cur = dict_cursor(conn)
@@ -117,19 +117,26 @@ def main():
         conn.close()
 
         for stock in stocks:
-            stock_urls.add(stock['id'])
+            lm = stock.get('updated_at')
+            if lm is not None:
+                # Normalize datetime/date → ISO date string (W3C datetime format)
+                lm = lm.isoformat()[:10] if hasattr(lm, 'isoformat') else str(lm)[:10]
+            stock_lastmod[stock['id']] = lm
 
         for s in universe:
-            stock_urls.add(s['stock_code'])
+            stock_lastmod[s['stock_code']] = None
 
         print(f"✅ DB connected: {len(stocks)} stocks, {len(universe)} universe entries")
     except Exception as e:
         print(f"⚠️  DB unavailable ({e}) — using static stock URL list")
         # FALLBACK (DEGRADED MODE): used ONLY when Supabase is unreachable at build.
         # WARNING: this covers 190 known codes vs ~805 in the DB — coverage is NOT
-        # complete and lastmod is omitted. Restore DB access (see kanban t_4beaedcb7bb9)
-        # to regenerate the full sitemap. List = 165 prior codes + 24 analyzed codes
-        # (stock_scores.json, Jun 4) + 0192.KL (INTA.KL migration target).
+        # complete. lastmod = build date (the served static HTML does change at each
+        # deploy). Restore DB access (see kanban t_4beaedcb7bb9) to regenerate the
+        # full sitemap with per-stock updated_at lastmod. List = 165 prior codes +
+        # 24 analyzed codes (stock_scores.json, Jun 4) + 0192.KL (INTA.KL migration target).
+        import datetime
+        fallback_lastmod = datetime.date.today().isoformat()
         fallback_codes = [
         "0052.KL","0099.KL","0104.KL","0138.KL","0166.KL","0192.KL","0206.KL",
         "0207.KL","0219.KL","0223.KL","0225.KL","0233.KL","0234.KL","0235.KL",
@@ -160,12 +167,13 @@ def main():
         "9796.KL","9844.KL","9859.KL","9887.KL","9938.KL","9939.KL","9946.KL",
         "9954.KL",
         ]
-        stock_urls.update(fallback_codes)
-        print(f"⚠️  Using {len(fallback_codes)} fallback stock codes for sitemap")
+        for code in fallback_codes:
+            stock_lastmod[code] = fallback_lastmod
+        print(f"⚠️  Using {len(fallback_codes)} fallback stock codes for sitemap (lastmod={fallback_lastmod})")
 
-    for code in sorted(stock_urls):
+    for code in sorted(stock_lastmod):
         # Trailing slash so CloudFront+S3 directory index serves the static HTML
-        urls.append(make_url(f"/stock/{code}/", "0.8" if True else "0.6", "daily"))
+        urls.append(make_url(f"/stock/{code}/", "0.8" if True else "0.6", "daily", lastmod=stock_lastmod.get(code)))
 
     sitemap_xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
     sitemap_xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
