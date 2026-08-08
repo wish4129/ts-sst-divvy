@@ -1,0 +1,5 @@
+# Divvy Python script dependencies (scripts/*.py)
+# Install: uv pip install -r requirements.txt
+# Required before npx sst deploy --stage live (2026-08-08: ModuleNotFoundError: psycopg2).
+psycopg2-binary>=2.9
+boto3>=1.34

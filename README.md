@@ -109,6 +109,9 @@ The build also runs `generate_stock_meta.py` as a postbuild step to prerender st
 Python scripts run on the host (no container). Dependencies via `uv`:
 
 ```bash
+# Install Python deps (psycopg2-binary, boto3 - see requirements.txt)
+uv pip install -r requirements.txt
+
 # Run a specific pipeline step
 uv run python3 scripts/financial_fetcher.py
 uv run python3 scripts/industry_scorer.py
